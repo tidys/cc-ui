@@ -1,4 +1,7 @@
 # cc-ui
+
+> 这个仓库暂时废弃了，组件代码暂时都写在了cc-plugin里面
+
 Cocos Creator插件，官方也提供了内置的UI空间，比如ui-button，ui-input等等。
 
 但是随着开发插件的深入，我发现默认的ui控件在所有的Creator版本上表现并不是太一致
