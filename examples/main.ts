@@ -1,11 +1,8 @@
-import Vue from 'vue';
+import {createApp} from 'vue';
 import App from './App.vue';
 import CCUI from '../packages';
 
-Vue.use(CCUI);
+const app = createApp(App);
+app.use(CCUI);
+app.mount('#app');
 
-Vue.config.productionTip = false;
-
-new Vue({
-    render: (h) => h(App),
-}).$mount('#app');

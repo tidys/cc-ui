@@ -1,16 +1,15 @@
 import CCButton from './cc-button/index';
+import {App, Plugin} from 'vue';
 
 const components = [CCButton];
-const install = (Vue: any) => {
-    components.forEach((component) => {
-        Vue.component(component.name, component);
+const install = (app: any) => {
+    components.forEach((component: any) => {
+        app.use(component);
     });
 };
 
-if (typeof window !== 'undefined' && window.Vue) {
-    install(window.Vue);
-}
 export default {
     install,
     CCButton,
 };
+export {CCButton};

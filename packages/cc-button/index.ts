@@ -1,6 +1,11 @@
 import CCButton from './index.vue';
+import {App} from 'vue';
 
-(CCButton as any).install = (Vue: any) => {
-    Vue.component(CCButton.name, CCButton);
+CCButton.install = (app: App) => {
+    app.component(CCButton.name, CCButton,
+        // {
+        //
+        // },
+    );
 };
 export default CCButton;

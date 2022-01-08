@@ -10,18 +10,23 @@
     "publish": "npm publish"
   },
   "dependencies": {
+    "chroma-js": "^2.1.2",
     "core-js": "^3.6.5",
-    "vue": "^2.6.11",
-    "vue-class-component": "^7.2.3",
-    "vue-property-decorator": "^9.1.2"
+    "less-loader": "^6.2.0",
+    "vue": "^3.0.0"
   },
   "devDependencies": {
-    "@vue/cli-plugin-babel": "^4.5.0",
+    "@types/chroma-js": "^2.1.3",
+    "@vue/cli-plugin-babel": "~4.5.0",
+    "@vue/cli-plugin-eslint": "~4.5.0",
     "@vue/cli-plugin-typescript": "^4.5.0",
-    "@vue/cli-service": "^4.5.0",
+    "@vue/cli-service": "~4.5.0",
+    "@vue/compiler-sfc": "^3.0.0",
+    "babel-eslint": "^10.1.0",
+    "eslint": "^6.8.0",
+    "eslint-plugin-vue": "^8.2.0",
     "lint-staged": "^9.5.0",
-    "typescript": "~4.1.5",
-    "vue-template-compiler": "^2.6.11"
+    "typescript": "~4.1.5"
   },
   "gitHooks": {
     "pre-commit": "lint-staged"
