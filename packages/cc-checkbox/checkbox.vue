@@ -10,7 +10,7 @@
 import { defineComponent, ref, watch } from 'vue'
 
 export default defineComponent({
-  name: 'cc-checkbox',
+  name: 'CCCheckbox',
   emits: ['update:value', 'change'],
   props: {
     value: {

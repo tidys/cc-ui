@@ -17,7 +17,7 @@ import { defineComponent, ref, reactive } from 'vue';
 import { Transition } from './transition';
 
 export default defineComponent({
-  name: 'cc-button',
+  name: 'CCButton',
   props: {
     transition: {
       type: String,

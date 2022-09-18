@@ -15,7 +15,7 @@
   <slot></slot>
 </template>
 <script lang="ts">
-import {defineComponent, ref, PropType, watch} from "vue";
+import { defineComponent, ref, PropType, watch } from "vue";
 
 interface Option {
   label: string,
@@ -23,7 +23,7 @@ interface Option {
 }
 
 export default defineComponent({
-  name: "cc-select",
+  name: "CCSelect",
   props: {
     data: {
       type: Array as PropType<Option[]>,

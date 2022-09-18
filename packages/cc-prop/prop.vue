@@ -25,7 +25,7 @@ import { createPopper } from '@popperjs/core'
 import { debounce, DebouncedFunc } from 'lodash'
 
 export default defineComponent({
-  name: 'cc-prop',
+  name: 'CCProp',
   props: {
     name: {
       type: String,

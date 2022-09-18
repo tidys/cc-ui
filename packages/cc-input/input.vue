@@ -18,7 +18,7 @@
 import { defineComponent, ref, toRefs, watch } from 'vue'
 
 export default defineComponent({
-  name: 'cc-input',
+  name: 'CCInput',
   props: {
     value: {
       type: String,

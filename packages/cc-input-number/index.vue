@@ -12,7 +12,7 @@
 import { defineComponent, onMounted, ref, watch } from 'vue';
 
 export default defineComponent({
-  name: "cc-input-number",
+  name: "CCInputNumber",
   emits: ['change', 'update:value'],
   props: {
     disabled: {

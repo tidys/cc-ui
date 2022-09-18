@@ -33,5 +33,14 @@
     "eslint-plugin-vue": "^8.2.0",
     "lint-staged": "^9.5.0",
     "typescript": "~4.1.5"
-  }
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/tidys/cc-ui.git"
+  },
+  "author": "xu_yanfeng",
+  "bugs": {
+    "url": "https://github.com/tidys/cc-ui/issues"
+  },
+  "homepage": "https://github.com/tidys/cc-ui#readme"
 }

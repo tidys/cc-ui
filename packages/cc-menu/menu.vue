@@ -14,7 +14,7 @@ import { Emitter } from '../index';
 
 
 export default defineComponent({
-  name: 's-menu',
+  name: 'CCMenu',
   components: { MenuItem },
 
 

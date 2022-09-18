@@ -26,7 +26,7 @@ import ColorCase from './color-case.vue';
 import { createPopper } from '@popperjs/core'
 
 export default defineComponent({
-  name: 't-color',
+  name: 'CCColor',
   emits: ['update:color', 'change'],
   components: { ColorCase, ColorSaturation, ColorInput, Hue, Alpha },
   props: {

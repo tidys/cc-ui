@@ -14,7 +14,7 @@
 import { defineComponent, ref } from 'vue'
 
 export default defineComponent({
-  name: 'cc-section',
+  name: 'CCSection',
   props: {
     name: {
       type: String

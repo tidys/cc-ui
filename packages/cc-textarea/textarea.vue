@@ -9,7 +9,7 @@
 import {defineComponent, ref} from "vue"
 
 export default defineComponent({
-  name: "cc-textarea",
+  name: "CCTextarea",
   emits: ['change', 'update:data'],
   props: {
     data: { type: String, default: '' }

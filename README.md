@@ -1,4 +1,6 @@
 # cc-ui
+参考：
+https://github.dev/IDuxFE/idux
 
 > 这个仓库暂时废弃了，组件代码暂时都写在了cc-plugin里面
 
