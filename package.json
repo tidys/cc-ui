@@ -13,7 +13,7 @@
     "chroma-js": "^2.1.2",
     "core-js": "^3.6.5",
     "less-loader": "^6.2.0",
-    "vue": "^3.0.0"
+    "vue": "3.2.26"
   },
   "devDependencies": {
     "@types/chroma-js": "^2.1.3",
