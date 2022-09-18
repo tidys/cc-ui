@@ -16,14 +16,14 @@
 </template>
 
 <script lang="ts">
-import {computed, defineComponent, onMounted, ref, watch} from 'vue';
+import { computed, defineComponent, onMounted, ref, watch } from 'vue';
 import Hue from './hue.vue';
 import ColorInput from './color-input.vue';
 import Alpha from './alpha.vue';
 import ColorSaturation from './saturation.vue';
-import {getColorHex, getColorHex8, getColorHue, transformColorByHue} from './util';
+import { getColorHex, getColorHex8, getColorHue, transformColorByHue } from './util';
 import ColorCase from './color-case.vue';
-import {createPopper} from '@popperjs/core'
+import { createPopper } from '@popperjs/core'
 
 export default defineComponent({
   name: 't-color',
@@ -72,7 +72,7 @@ export default defineComponent({
     const saturationComp = ref();
     const color = ref<HTMLElement>()
     const panel = ref<HTMLElement>()
-    let popperInstance = null;
+    let popperInstance: any = null;
     return {
       color, panel,
       saturationComp,
@@ -83,7 +83,7 @@ export default defineComponent({
       onShowPanel() {
         show.value = !show.value;
         popperInstance?.destroy();
-        if (show.value) {
+        if (show.value && color.value && panel.value) {
           popperInstance = createPopper(color.value, panel.value, { placement: 'bottom-end' })
           hueValue.value = getColorHue(hexColor.value);
           saturationComp.value.updateBaseColor(hexColor.value);

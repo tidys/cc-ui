@@ -1,11 +1,5 @@
-import CCButton from './index.vue';
-import {App} from 'vue';
+import { withInstall, WithInstallType } from '../utils/withInstall';
+import CCButton from './button.vue';
 
-CCButton.install = (app: App) => {
-    app.component(CCButton.name, CCButton,
-        // {
-        //
-        // },
-    );
-};
-export default CCButton;
+export const Button: WithInstallType<typeof CCButton> = withInstall(CCButton)
+export default Button;

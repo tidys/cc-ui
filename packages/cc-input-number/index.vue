@@ -56,6 +56,7 @@ export default defineComponent({
     return {
       val, input,
       onChange() {
+        // @ts-ignore
         if (val.value === '') {
           val.value = preVal;
         }

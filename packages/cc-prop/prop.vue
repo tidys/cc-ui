@@ -20,9 +20,9 @@
   </div>
 </template>
 <script lang="ts">
-import {defineComponent, onMounted, ref} from 'vue'
-import {createPopper} from '@popperjs/core'
-import {debounce, DebouncedFunc} from 'lodash'
+import { defineComponent, onMounted, ref } from 'vue'
+import { createPopper } from '@popperjs/core'
+import { debounce, DebouncedFunc } from 'lodash'
 
 export default defineComponent({
   name: 'cc-prop',
@@ -51,8 +51,8 @@ export default defineComponent({
     const isShowTips = ref(false)
     let popperInstance: any = null;
 
-    function showTipsFunc(target) {
-      if (props.tooltip) {
+    function showTipsFunc(target: any) {
+      if (props.tooltip && tips.value) {
         isShowTips.value = true;
         popperInstance = createPopper(target, tips.value, {
               placement: "top-start", modifiers: [
@@ -75,13 +75,13 @@ export default defineComponent({
       }
     }
 
-    let timer = null;
+    let timer: any = null;
     const text = ref<HTMLElement>();
     return {
       tips, isShowTips, arrow, text,
       name,
       isHove,
-      onHover(event) {
+      onHover(event: any) {
         if (props.tooltip) {
 
           clearTimeout(timer);
