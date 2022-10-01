@@ -12,6 +12,7 @@
   "dependencies": {
     "@popperjs/core": "^2.11.6",
     "@types/lodash": "^4.14.185",
+    "@typescript-eslint/parser": "^5.38.1",
     "chroma-js": "^2.1.2",
     "core-js": "^3.6.5",
     "less-loader": "^6.2.0",

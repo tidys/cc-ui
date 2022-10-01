@@ -5,9 +5,9 @@ module.exports = {
         es6: true,
     },
     'parserOptions': {
-        'ecmaVersion': 2020,
-        'sourceType': 'module',
-        parser:'babel-eslint',
+        ecmaVersion: 2020,
+        sourceType: 'module',
+        parser: '@typescript-eslint/parser',
         ecmaFeatures: {
             experimentalObjectRestSpread: true
         }
