@@ -4786,7 +4786,7 @@ module.exports = require("vue");
 /***/ "9224":
 /***/ (function(module) {
 
-module.exports = JSON.parse("{\"a\":\"0.2.0\"}");
+module.exports = JSON.parse("{\"a\":\"0.2.1\"}");
 
 /***/ }),
 
