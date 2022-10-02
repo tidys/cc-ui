@@ -1,12 +1,12 @@
-import menu from './menu.vue';
-import {Emitter} from '../index';
+import CCMenu from './menu.vue';
+import { Emitter } from '../index';
 
 export class IUiMenuItem {
     name = '';
     enabled? = true;
     callback: Function | null = null;
 
-    constructor(name: string, callback:Function|null = null, enabled = true) {
+    constructor(name: string, callback: Function | null = null, enabled = true) {
         this.name = name;
         this.callback = callback;
         this.enabled = enabled;
@@ -30,3 +30,4 @@ export function showMenuByMouseEvent(event: MouseEvent, newMenus: IUiMenuItem[])
     Emitter.emit(Msg.ShowMenu, options, newMenus || []);
 }
 
+export { CCMenu }

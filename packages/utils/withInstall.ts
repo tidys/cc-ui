@@ -1,5 +1,5 @@
 import { App, Plugin } from 'vue'
-
+// 支持单独安装
 export type WithInstallType<T> = T & Plugin;
 export const withInstall = <T>(comp: T, customName?: string): T & Plugin => {
     const c = comp as any;
