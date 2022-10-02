@@ -1,0 +1,15 @@
+<meta charset="utf-8">
+<title>ccui demo</title>
+<script src="https://cdn.jsdelivr.net/npm/vue@next"></script>
+<script src="./ccui.umd.js"></script>
+
+<link rel="stylesheet" href="./ccui.css">
+
+<div id="app"></div>
+<script>
+    console.log(ccui)
+    const app=Vue.createApp({
+        template:'<CCButton>test-button</CCButton>',
+    });
+    app.use(ccui.default).mount('#app');
+</script>
