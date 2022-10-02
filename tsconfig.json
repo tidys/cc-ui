@@ -12,6 +12,7 @@
     "allowSyntheticDefaultImports": true,
     "sourceMap": true,
     "declaration": true,
+    "resolveJsonModule": true,
     "baseUrl": ".",
     "types": [
       "webpack-env"
@@ -28,7 +29,8 @@
   "include": [
     "packages/**/*.ts",
     "packages/**/*.tsx",
-    "packages/**/*.vue"
+    "packages/**/*.vue",
+    "package.json"
   ],
   "exclude": [
     "node_modules"

@@ -1,6 +1,6 @@
 {
   "name": "@xuyanfeng/cc-ui",
-  "version": "0.1.2",
+  "version": "0.2.0",
   "main": "dist/ccui.umd.min.js",
   "scripts": {
     "serve": "vue-cli-service serve",

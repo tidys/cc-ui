@@ -5,7 +5,7 @@
 </template>
 
 <script lang="ts">
-import { defineComponent } from 'vue';
+import { defineComponent, PropType } from 'vue';
 import { IUiMenuItem } from './index';
 
 
@@ -13,10 +13,10 @@ export default defineComponent({
   name: 'menu-item',
   props: {
     data: {
-      type: IUiMenuItem,
+      type: Object as PropType<IUiMenuItem>,
       required: true,
       default: () => {
-        return new IUiMenuItem("");
+        return { name: '', enabled: true, callback: null };
       },
     },
   },
