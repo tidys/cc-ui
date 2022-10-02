@@ -1,3 +1,4 @@
+import CCMenu from './menu.vue';
 export declare class IUiMenuItem {
     name: string;
     enabled?: boolean | undefined;
@@ -12,3 +13,4 @@ export interface MenuOptions {
     y: number;
 }
 export declare function showMenuByMouseEvent(event: MouseEvent, newMenus: IUiMenuItem[]): void;
+export { CCMenu };
