@@ -16,7 +16,7 @@ export default defineComponent({
       type: IUiMenuItem,
       required: true,
       default: () => {
-        return new IUiMenuItem();
+        return new IUiMenuItem("");
       },
     },
   },

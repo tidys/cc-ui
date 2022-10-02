@@ -1,5 +1,6 @@
 const path = require('path')
 module.exports = {
+    parallel: false,
     pages: {
         index: {
             entry: path.resolve(__dirname, 'demo/main.ts'),

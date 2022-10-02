@@ -57,10 +57,14 @@
 </template>
 <script lang="ts">
 import {defineComponent, ref, onMounted} from 'vue'
+import CCButton from "../packages/cc-button-/index.vue";
+import CCColor from "../packages/cc-color/color.vue";
 
 export default defineComponent({
   name: 'app',
   components: {
+    CCColor,
+    CCButton
   },
   setup() {
     const value = ref('123')

@@ -10,4 +10,4 @@ const install = (app: App) => {
     })
 };
 export const Emitter = new TinyEmitter();
-export default { install }
+export default { install, version: "0.1.0" }
