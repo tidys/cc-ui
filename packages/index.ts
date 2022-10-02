@@ -2,7 +2,8 @@ import { App } from 'vue';
 import * as components from './components'
 import { TinyEmitter } from 'tiny-emitter';
 
-const install = (app: App) => {
+export const version = "0.0.1";
+export const install = (app: App) => {
     Object.keys(components).forEach(key => {
         // @ts-ignore
         const comp = components[key];
@@ -10,4 +11,3 @@ const install = (app: App) => {
     })
 };
 export const Emitter = new TinyEmitter();
-export default { install, version: "0.1.0" }
