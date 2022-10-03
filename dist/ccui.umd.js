@@ -4792,13 +4792,6 @@ module.exports = __WEBPACK_EXTERNAL_MODULE__8bbf__;
 
 /***/ }),
 
-/***/ "9224":
-/***/ (function(module) {
-
-module.exports = JSON.parse("{\"a\":\"0.2.1\"}");
-
-/***/ }),
-
 /***/ "a2f3":
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
@@ -4997,9 +4990,9 @@ module.exports.TinyEmitter = E;
 __webpack_require__.r(__webpack_exports__);
 
 // EXPORTS
-__webpack_require__.d(__webpack_exports__, "version", function() { return /* reexport */ package_0["a" /* version */]; });
 __webpack_require__.d(__webpack_exports__, "install", function() { return /* reexport */ install; });
 __webpack_require__.d(__webpack_exports__, "Emitter", function() { return /* reexport */ Emitter; });
+__webpack_require__.d(__webpack_exports__, "Methods", function() { return /* reexport */ Methods; });
 
 // NAMESPACE OBJECT: ./packages/components.ts
 var components_namespaceObject = {};
@@ -5011,9 +5004,7 @@ __webpack_require__.d(components_namespaceObject, "CCSection", function() { retu
 __webpack_require__.d(components_namespaceObject, "CCInput", function() { return cc_input_input; });
 __webpack_require__.d(components_namespaceObject, "CCInputNumber", function() { return input_number; });
 __webpack_require__.d(components_namespaceObject, "CCProp", function() { return prop; });
-__webpack_require__.d(components_namespaceObject, "IUiMenuItem", function() { return IUiMenuItem; });
 __webpack_require__.d(components_namespaceObject, "Msg", function() { return Msg; });
-__webpack_require__.d(components_namespaceObject, "showMenuByMouseEvent", function() { return showMenuByMouseEvent; });
 __webpack_require__.d(components_namespaceObject, "CCMenu", function() { return cc_menu_menu; });
 __webpack_require__.d(components_namespaceObject, "CCSelect", function() { return cc_select_select; });
 __webpack_require__.d(components_namespaceObject, "CCSlider", function() { return slider; });
@@ -8760,28 +8751,9 @@ menuvue_type_script_lang_ts.__scopeId = "data-v-8284c4c0"
 /* harmony default export */ var cc_menu_menu = (menuvue_type_script_lang_ts);
 // CONCATENATED MODULE: ./packages/cc-menu/index.ts
 
-
-class IUiMenuItem {
-  constructor(name, callback = null, enabled = true) {
-    this.name = '';
-    this.enabled = true;
-    this.callback = null;
-    this.name = name;
-    this.callback = callback;
-    this.enabled = enabled;
-  }
-
-}
 const Msg = {
   ShowMenu: 'show-menu'
 };
-function showMenuByMouseEvent(event, newMenus) {
-  const options = {
-    x: event.clientX + 2,
-    y: Math.abs(event.clientY)
-  };
-  Emitter.emit(Msg.ShowMenu, options, newMenus || []);
-}
 
 // CONCATENATED MODULE: ./node_modules/cache-loader/dist/cjs.js??ref--12-0!./node_modules/babel-loader/lib!./node_modules/vue-loader-v16/dist/templateLoader.js??ref--6!./node_modules/cache-loader/dist/cjs.js??ref--0-0!./node_modules/vue-loader-v16/dist??ref--0-1!./packages/cc-select/select.vue?vue&type=template&id=3523436f&scoped=true
 
@@ -8966,9 +8938,16 @@ textareavue_type_script_lang_ts.__scopeId = "data-v-0578efac"
 // EXTERNAL MODULE: ./node_modules/tiny-emitter/index.js
 var tiny_emitter = __webpack_require__("c0e2");
 
-// EXTERNAL MODULE: ./package.json
-var package_0 = __webpack_require__("9224");
+// CONCATENATED MODULE: ./packages/cc-menu/method.ts
 
+
+function showMenuByMouseEvent(event, newMenus) {
+  const options = {
+    x: event.clientX + 2,
+    y: Math.abs(event.clientY)
+  };
+  Emitter.emit(Msg.ShowMenu, options, newMenus || []);
+}
 // CONCATENATED MODULE: ./packages/index.ts
 
 
@@ -8982,7 +8961,13 @@ const install = app => {
     app.component((_a = comp.displayName) !== null && _a !== void 0 ? _a : comp.name, comp);
   });
 };
-const Emitter = new tiny_emitter["TinyEmitter"]();
+const Emitter = new tiny_emitter["TinyEmitter"](); // 对外提供的全局方法
+
+const Methods = {
+  CCMenu: {
+    showMenuByMouseEvent: showMenuByMouseEvent
+  }
+};
 // CONCATENATED MODULE: ./node_modules/@vue/cli-service/lib/commands/build/entry-lib-no-default.js
 
 

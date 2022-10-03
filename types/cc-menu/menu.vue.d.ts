@@ -1,7 +1,7 @@
 declare const _default: import("vue").DefineComponent<{}, {
     menus: import("vue").Ref<{
         name: string;
-        enabled?: boolean | undefined;
+        enabled?: true | undefined;
         callback: Function | null;
     }[]>;
     menuPositionX: import("vue").Ref<number>;

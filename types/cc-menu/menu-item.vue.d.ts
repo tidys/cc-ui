@@ -1,9 +1,14 @@
+import { PropType } from 'vue';
 import { IUiMenuItem } from './index';
 declare const _default: import("vue").DefineComponent<{
     data: {
-        type: typeof IUiMenuItem;
+        type: PropType<IUiMenuItem>;
         required: true;
-        default: () => IUiMenuItem;
+        default: () => {
+            name: string;
+            enabled: boolean;
+            callback: null;
+        };
     };
 }, {
     onClick(): void;

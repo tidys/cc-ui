@@ -1,8 +1,7 @@
 import { App } from 'vue';
 import * as components from './components'
 import { TinyEmitter } from 'tiny-emitter';
-
-export { version } from '../package.json';
+import { showMenuByMouseEvent } from "./cc-menu/method";
 
 export const install = (app: App) => {
     Object.keys(components).forEach(key => {
@@ -12,3 +11,9 @@ export const install = (app: App) => {
     })
 };
 export const Emitter = new TinyEmitter();
+// 对外提供的全局方法
+export const Methods = {
+    CCMenu: {
+        showMenuByMouseEvent,
+    }
+}

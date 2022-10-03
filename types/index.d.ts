@@ -1,5 +1,10 @@
 import { App } from 'vue';
 import { TinyEmitter } from 'tiny-emitter';
-export declare const version = "0.0.1";
+import { showMenuByMouseEvent } from "./cc-menu/method";
 export declare const install: (app: App) => void;
 export declare const Emitter: TinyEmitter;
+export declare const Methods: {
+    CCMenu: {
+        showMenuByMouseEvent: typeof showMenuByMouseEvent;
+    };
+};

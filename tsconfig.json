@@ -29,8 +29,7 @@
   "include": [
     "packages/**/*.ts",
     "packages/**/*.tsx",
-    "packages/**/*.vue",
-    "package.json"
+    "packages/**/*.vue"
   ],
   "exclude": [
     "node_modules"
