@@ -8,3 +8,13 @@ export declare const Methods: {
         showMenuByMouseEvent: typeof showMenuByMouseEvent;
     };
 };
+declare const _default: {
+    install: (app: App<any>) => void;
+    Methods: {
+        CCMenu: {
+            showMenuByMouseEvent: typeof showMenuByMouseEvent;
+        };
+    };
+    Emitter: TinyEmitter;
+};
+export default _default;
