@@ -1,7 +1,6 @@
 {
   "compilerOptions": {
-    "target": "esnext",
-    "module": "esnext",
+    "target": "ES5",
     "strict": true,
     "jsx": "preserve",
     "importHelpers": true,
@@ -14,24 +13,10 @@
     "declaration": true,
     "resolveJsonModule": true,
     "baseUrl": ".",
-    "types": [
-      "webpack-env"
-    ],
-    "paths": {
-    },
-    "lib": [
-      "esnext",
-      "dom",
-      "dom.iterable",
-      "scripthost"
-    ]
+    "types": ["webpack-env"],
+    "paths": {},
+    "lib": ["dom", "es5", "ES2015.Promise", "ES2015", "es2017"],
   },
-  "include": [
-    "packages/**/*.ts",
-    "packages/**/*.tsx",
-    "packages/**/*.vue"
-  ],
-  "exclude": [
-    "node_modules"
-  ]
+  "include": ["packages/**/*.ts", "packages/**/*.tsx", "packages/**/*.vue"],
+  "exclude": ["node_modules"]
 }

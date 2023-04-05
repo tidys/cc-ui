@@ -2,11 +2,7 @@
   <div class="cc-select">
     <label>
       <select @change="onSelectChange" v-model="curValue">
-        <option
-            v-for="(item, index) in data"
-            :key="index"
-            :value="item.value"
-        >
+        <option v-for="(item, index) in data" :key="index" :value="item.value">
           {{ item.label }}
         </option>
       </select>
@@ -16,11 +12,7 @@
 </template>
 <script lang="ts">
 import { defineComponent, ref, PropType, watch } from "vue";
-
-interface Option {
-  label: string,
-  value: string | number,
-}
+import { Option } from "./data"
 
 export default defineComponent({
   name: "CCSelect",

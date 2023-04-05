@@ -2,12 +2,14 @@
   "name": "@xuyanfeng/cc-ui",
   "version": "0.2.3",
   "main": "dist/ccui.umd.min.js",
+  "typings": "types/index.d.ts",
   "scripts": {
     "serve": "vue-cli-service serve",
     "build": "vue-cli-service build",
     "lint": "vue-cli-service lint",
     "lib": "vue-cli-service build --target lib --name ccui --dest dist --entry packages/index.ts",
-    "types": "vue-tsc -p tsconfig.declaration.json"
+    "types": "vue-tsc -p tsconfig.declaration.json",
+    "local-push": "npm run lib && npm run types && yalc publish"
   },
   "files": [
     "dist",

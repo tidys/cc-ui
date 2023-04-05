@@ -17,4 +17,4 @@ export const Methods = {
         showMenuByMouseEvent,
     }
 }
-export default { install, Methods, Emitter }
+export default { install, Methods, Emitter, ...components }

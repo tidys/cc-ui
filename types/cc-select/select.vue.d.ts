@@ -1,8 +1,5 @@
 import { PropType } from "vue";
-interface Option {
-    label: string;
-    value: string | number;
-}
+import { Option } from "./data";
 declare const _default: import("vue").DefineComponent<{
     data: {
         type: PropType<Option[]>;
