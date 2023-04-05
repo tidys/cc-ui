@@ -1,18 +1,11 @@
 <template>
   <div class="cc-input">
     <label style="display: flex;flex: 1;">
-      <input @focusout="onFocusout"
-             :class="{'readonly':readonly,'disabled':disabled}"
-             @focusin="onFocusin"
-             @blur="onBlur"
-             :readonly="readonly"
-             :disabled="disabled"
-             v-model="text"
-             type="text"/>
+      <input @focusout="onFocusout" :class="{ 'readonly': readonly, 'disabled': disabled }" @focusin="onFocusin" @blur="onBlur"
+        :readonly="readonly" :maxlength="maxlength" :disabled="disabled" v-model="text" type="text" />
     </label>
     <slot></slot>
   </div>
-
 </template>
 <script lang="ts">
 import { defineComponent, ref, toRefs, watch } from 'vue'
@@ -27,6 +20,10 @@ export default defineComponent({
     readonly: {
       type: Boolean,
       default: false,
+    },
+    maxlength: {
+      type: Number,
+      default: -1,
     },
     disabled: {
       type: Boolean,
