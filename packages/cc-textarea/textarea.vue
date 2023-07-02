@@ -6,7 +6,7 @@
   </div>
 </template>
 <script lang="ts">
-import {defineComponent, ref} from "vue"
+import { defineComponent, ref, watch } from "vue"
 
 export default defineComponent({
   name: "CCTextarea",
@@ -16,6 +16,9 @@ export default defineComponent({
   },
   setup(props, { emit }) {
     const text = ref(props.data)
+    watch(() => props.data, () => {
+      text.value = props.data;
+    });
     return {
       text,
       onChange() {

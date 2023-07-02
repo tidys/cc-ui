@@ -1,9 +1,7 @@
 <template>
   <div class="cc-input-number">
     <label>
-      <input ref="input" v-model="val" type="number"
-             @change="onChange"
-      />
+      <input ref="input" v-model="val" type="number" @change="onChange" />
     </label>
   </div>
 </template>
@@ -62,7 +60,7 @@ export default defineComponent({
         }
         preVal = val.value;
         emit('update:value', val.value);
-        emit('change');
+        emit('change', val.value);
       }
     };
   }
