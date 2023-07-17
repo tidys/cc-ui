@@ -1,3 +1,7 @@
+# env
+- nodejs:
+
+
 # cc-ui
 使用Vue3开发的组件库，方便在使用 [cc-plugin](https://github.com/tidys/cc-plugin) 编写Cocos Creator插件的时候，快速编写UI面板，保证在各个Cocos Creator版本，UI表现统一。
 
