@@ -1,5 +1,5 @@
 # env
-- nodejs:
+- nodejs: v16.4.2
 
 
 # cc-ui
