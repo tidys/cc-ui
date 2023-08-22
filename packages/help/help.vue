@@ -3,9 +3,9 @@
     <div class="title">帮助</div>
     <div v-show="showDetails" class="content">
       <Table :items="items">
-        <div>QQ群</div>
+        <div :index="items[0]">QQ群</div>
         <div :index="items[1]" class="QQ">QQ联系我</div>
-        <div>WeChat</div>
+        <div :index="items[2]">WeChat</div>
       </Table>
 
     </div>

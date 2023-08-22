@@ -28,17 +28,18 @@ export default defineComponent({
 
     })
     return {
+      // 可以考虑使用inject，provide实现
       onClickTab(item: string, index: number) {
         console.log(item, index);
         if (slots.default) {
-          const s = slots.default();
-          for (let i = 0; i < s.length; i++) {
-            const item = s[i];
-            if (item.props?.index !== 'QQ') {
-              if (item.el) {
-
-                item.el.style.display = 'none';
-                console.log(item.el.style)
+          const slotsDefault = slots.default();
+          for (let i = 0; i < slotsDefault.length; i++) {
+            const slot = slotsDefault[i];
+            if (slot.el) {
+              if (slot.props?.index === item) {
+                slot.el.style.display = 'block';
+              } else {
+                slot.el.style.display = 'none';
               }
             }
           }
