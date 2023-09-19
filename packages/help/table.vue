@@ -29,7 +29,8 @@ export default defineComponent({
     })
     return {
       // 可以考虑使用inject，provide实现
-      onClickTab(item: string, index: number) {
+      onClickTab(item: string, index: any) {
+        index=parseInt(index);
         console.log(item, index);
         if (slots.default) {
           const slotsDefault = slots.default();
