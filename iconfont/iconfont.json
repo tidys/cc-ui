@@ -2,7 +2,7 @@
   "id": "3119913",
   "name": "cc-plugin",
   "font_family": "iconfont",
-  "css_prefix_text": "icon-",
+  "css_prefix_text": "icon_",
   "description": "",
   "glyphs": [
     {
