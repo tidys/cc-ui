@@ -7,11 +7,11 @@
 </template>
 
 <script lang="ts">
-import { defineComponent, onMounted, ref, watch } from 'vue';
+import { defineComponent, onMounted, ref, watch } from "vue";
 
 export default defineComponent({
   name: "CCInputNumber",
-  emits: ['change', 'update:value'],
+  emits: ["change", "update:value"],
   props: {
     disabled: {
       type: Boolean,
@@ -30,41 +30,46 @@ export default defineComponent({
     },
     step: {
       type: Number,
+      default: 1,
     },
   },
   setup(props, { emit }) {
     const input = ref();
     const val = ref(parseFloat(props.value.toFixed(2).toString()));
-    watch(() => props.value, () => {
-      val.value = parseFloat(props.value.toFixed(2).toString());
-    })
+    watch(
+      () => props.value,
+      () => {
+        val.value = parseFloat(props.value.toFixed(2).toString());
+      }
+    );
     onMounted(() => {
       if (props.min !== undefined) {
-        (input.value as Element).setAttribute('min', props.min.toString());
+        (input.value as Element).setAttribute("min", props.min.toString());
       }
       if (props.max !== undefined) {
-        (input.value as Element).setAttribute('max', props.max.toString());
+        (input.value as Element).setAttribute("max", props.max.toString());
       }
 
       if (props.step !== undefined) {
-        (input.value as Element).setAttribute('step', props.step.toString());
+        (input.value as Element).setAttribute("step", props.step.toString());
       }
-    })
+    });
     let preVal = props.value;
     return {
-      val, input,
+      val,
+      input,
       onChange() {
         // @ts-ignore
-        if (val.value === '') {
+        if (val.value === "") {
           val.value = preVal;
         }
         preVal = val.value;
-        emit('update:value', val.value);
-        emit('change', val.value);
-      }
+        emit("update:value", val.value);
+        emit("change", val.value);
+      },
     };
-  }
-})
+  },
+});
 </script>
 
 <style scoped lang="less">
@@ -85,7 +90,7 @@ export default defineComponent({
       margin: 0;
       box-sizing: border-box;
       border-radius: 3px;
-      padding: .17em .5em;
+      padding: 0.17em 0.5em;
       display: inline-block;
       background: #262626;
       font-size: 12px;
@@ -99,13 +104,16 @@ export default defineComponent({
         border-color: #fd942b;
       }
 
-      &::-webkit-inner-spin-button,
-      &::-webkit-outer-spin-button {
-        //-webkit-appearance: none; // 好像只能修改这个样式
+      &::-webkit-inner-spin-button {
+          // -webkit-appearance: none;
+        // opacity: 1;
+        // margin: 0;
+        // padding: 0;
+        // width: 12px;
+        // height: 18px;
+        // background-color: green;
       }
     }
   }
-
-
 }
 </style>

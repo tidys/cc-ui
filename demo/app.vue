@@ -1,6 +1,8 @@
 <template>
-  <CCButton>btn</CCButton>
-  <Help></Help>
+  <CCButton @click="onShowDialog">btn</CCButton>
+  <CCDialog></CCDialog>
+  <!-- <CCInputNumber></CCInputNumber> -->
+  <!-- <Help></Help> -->
   <!--  <div style="display: flex;flex-direction: column;">-->
   <!--    <CCSection name="TEST">-->
   <!--      <template v-slot:header>-->
@@ -57,29 +59,37 @@
   <!--  </div>-->
 </template>
 <script lang="ts">
-import { defineComponent, ref, onMounted } from 'vue'
-import { CCButton } from "../packages/cc-button/index";
-import { CCColor } from "../packages/cc-color/index";
-import { Help } from "../packages/help/index"
+import { defineComponent, ref, onMounted } from 'vue';
+import { CCButton } from '../packages/cc-button/index';
+import { CCColor } from '../packages/cc-color/index';
+import { CCInputNumber } from '../packages/cc-input-number/index';
+import { CCDialog, DialogOptions } from '../packages/cc-dialog/index';
+import { Help } from '../packages/help/index';
+import {showDialog} from '../packages/cc-dialog/const';
+ 
 export default defineComponent({
   name: 'app',
-  components: { CCColor, CCButton, Help, },
+  components: { CCColor, CCButton, Help, CCInputNumber, CCDialog },
   setup() {
-    const value = ref('123')
+    const value = ref('123');
     const selectData = ref([
       { label: '1', value: 1 },
       { label: '2', value: 2 },
-      { label: '3', value: 3 },
+      { label: '3', value: 3 }
     ]);
     const selectValue = ref('1');
     onMounted(() => {
       setTimeout(() => {
-        value.value = '456'
-        selectValue.value = '3'
-        selectData.value.push({ label: '4', value: 4 })
-      }, 1000)
-    })
+        value.value = '456';
+        selectValue.value = '3';
+        selectData.value.push({ label: '4', value: 4 });
+      }, 1000);
+    });
     return {
+      onShowDialog() {
+        const opts: DialogOptions = {};
+         showDialog(opts);
+      },
       selectData,
       selectValue,
       value,
@@ -92,11 +102,11 @@ export default defineComponent({
       onChangeTextarea(v) {
         console.log(v);
       }
-    }
+    };
   }
-})
-
+});
 </script>
 <style>
-body {}
+body {
+}
 </style>

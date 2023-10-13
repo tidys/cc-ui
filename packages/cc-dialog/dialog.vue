@@ -1,0 +1,129 @@
+<template>
+  <div class="ui-dialog" v-if="show" @click.self="onMaskClick">
+    <SWindow class="container" v-for="(win, index) in dialogWindows" :key="index" :data="getWindowOption(win)" @close="onWinClose(win)">
+      <component class="comp" :is="getWindowRenderComponent(win)" :data="getWindowRenderComponentData(win)"> </component>
+    </SWindow>
+  </div>
+</template>
+
+<script lang="ts">
+import { defineComponent, markRaw, onMounted, onUnmounted, ref } from 'vue';
+import { DialogOptions, DialogMsg } from './const';
+import { UiWindowOptions } from '../cc-window/index';
+import SWindow from '../cc-window/window.vue';
+import { Emitter } from '../index';
+import Mousetrap, { MousetrapInstance } from 'mousetrap';
+import { generate } from 'shortid';
+
+export default defineComponent({
+  name: 'cc-dialog',
+  components: { SWindow },
+  setup() {
+    const dialogWindows = ref<DialogOptions[]>([]);
+    const show = ref(false);
+
+    function onWinClose(opt: DialogOptions) {
+      const idx = dialogWindows.value.findIndex(el => el.id === opt.id);
+      if (idx !== -1) {
+        dialogWindows.value.splice(idx, 1);
+        show.value = !!dialogWindows.value.length;
+      }
+    }
+
+    function onShowDialog(options: DialogOptions) {
+      options.comp = markRaw(options.comp);
+      const opt: DialogOptions = Object.assign(new DialogOptions(), options);
+      dialogWindows.value.push(opt);
+      show.value = true;
+    }
+
+    let ins: MousetrapInstance | null = null;
+    onMounted(() => {
+      Emitter.on(DialogMsg.ShowDialog, onShowDialog);
+      ins = new Mousetrap(document.body);
+      ins.bind(['esc'], onClick, 'keydown');
+    });
+    onUnmounted(() => {
+      Emitter.off(DialogMsg.ShowDialog, onShowDialog);
+      if (ins) {
+        ins.unbind(['esc'], 'keydown');
+      }
+    });
+
+    function getLastDialog() {
+      const len = dialogWindows.value.length;
+      if (len) {
+        return dialogWindows.value[len - 1];
+      }
+      return null;
+    }
+
+    function onMaskClick() {
+      const opt = getLastDialog();
+      if (opt) {
+        const { clickOutsideClose } = opt as DialogOptions;
+        if (clickOutsideClose === undefined || clickOutsideClose) {
+          onClick();
+        }
+      }
+    }
+
+    function onClick() {
+      const opt = getLastDialog();
+      if (opt) {
+        const { closeCB } = opt as UiWindowOptions;
+        if (closeCB) {
+          closeCB();
+        }
+        onWinClose(opt);
+      }
+    }
+
+    return {
+      dialogWindows,
+      getWindowOption(opt: DialogOptions): UiWindowOptions {
+        return {
+          id: opt.id || generate(),
+          width: opt.width,
+          height: opt.height,
+          title: opt.title,
+          closeCB: opt.closeCB,
+          responseCB: opt.responseCB
+        };
+      },
+      getWindowRenderComponent(opt: DialogOptions) {
+        return markRaw(opt.comp);
+      },
+      getWindowRenderComponentData(opt: DialogOptions) {
+        return opt.data;
+      },
+      show,
+      onWinClose,
+      onMaskClick
+    };
+  }
+});
+</script>
+
+<style scoped lang="less">
+.ui-dialog {
+  width: 100%;
+  height: 100%;
+  background-color: rgba(103, 102, 103, 0.6);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+
+  .container {
+    position: absolute;
+    outline: none;
+
+    .comp {
+      width: 100%;
+      height: 100%;
+      box-sizing: border-box;
+    }
+  }
+}
+</style>
