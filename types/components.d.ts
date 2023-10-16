@@ -9,3 +9,5 @@ export * from './cc-menu';
 export * from './cc-select';
 export * from './cc-slider';
 export * from './cc-textarea';
+export * from './cc-window';
+export * from './cc-dialog';

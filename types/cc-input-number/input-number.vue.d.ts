@@ -16,6 +16,7 @@ declare const _default: import("vue").DefineComponent<{
     };
     step: {
         type: NumberConstructor;
+        default: number;
     };
 }, {
     val: import("vue").Ref<number>;
@@ -30,15 +31,16 @@ declare const _default: import("vue").DefineComponent<{
 } & {
     value: number;
     disabled: boolean;
+    step: number;
 } & {
     min?: number | undefined;
     max?: number | undefined;
-    step?: number | undefined;
 }> & {
     onChange?: ((...args: any[]) => any) | undefined;
     "onUpdate:value"?: ((...args: any[]) => any) | undefined;
 }, {
     value: number;
     disabled: boolean;
+    step: number;
 }>;
 export default _default;

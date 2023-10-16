@@ -1,11 +1,15 @@
 import { App } from 'vue';
+import * as components from './components';
 import { TinyEmitter } from 'tiny-emitter';
-import { showMenuByMouseEvent } from "./cc-menu/method";
+import { showMenuByMouseEvent } from './cc-menu/method';
 export declare const install: (app: App) => void;
 export declare const Emitter: TinyEmitter;
 export declare const Methods: {
     CCMenu: {
         showMenuByMouseEvent: typeof showMenuByMouseEvent;
+    };
+    CCDialog: {
+        showDialog: typeof components.showDialog;
     };
 };
 declare const _default: {
@@ -188,6 +192,7 @@ declare const _default: {
         };
         step: {
             type: NumberConstructor;
+            default: number;
         };
     }, {
         val: import("vue").Ref<number>;
@@ -202,16 +207,17 @@ declare const _default: {
     } & {
         value: number;
         disabled: boolean;
+        step: number;
     } & {
         min?: number | undefined;
         max?: number | undefined;
-        step?: number | undefined;
     }> & {
         onChange?: ((...args: any[]) => any) | undefined;
         "onUpdate:value"?: ((...args: any[]) => any) | undefined;
     }, {
         value: number;
         disabled: boolean;
+        step: number;
     }>;
     CCProp: import("vue").DefineComponent<{
         name: {
@@ -302,10 +308,59 @@ declare const _default: {
     }, {
         data: string;
     }>;
+    UiWindowOptions: typeof components.UiWindowOptions;
+    ProvideKey: {
+        CloseWindow: string;
+        ResponseCB: string;
+    };
+    CCWindow: import("vue").DefineComponent<{
+        data: {
+            type: import("vue").PropType<components.UiWindowOptions>;
+        };
+    }, {
+        windowEl: import("vue").Ref<any>;
+        onWinClose: () => void;
+        onMousedown: (event: MouseEvent) => void;
+    }, unknown, {}, {}, import("vue").ComponentOptionsMixin, import("vue").ComponentOptionsMixin, "close"[], "close", import("vue").VNodeProps & import("vue").AllowedComponentProps & import("vue").ComponentCustomProps, Readonly<{
+        data?: unknown;
+    } & {} & {
+        data?: components.UiWindowOptions | undefined;
+    }> & {
+        onClose?: ((...args: any[]) => any) | undefined;
+    }, {}>;
+    CCDialog: import("vue").DefineComponent<{}, {
+        dialogWindows: import("vue").Ref<{
+            comp?: any;
+            data?: any;
+            clickOutsideClose?: boolean | undefined;
+            id?: string | undefined;
+            width?: number | undefined;
+            height?: number | undefined;
+            resize?: boolean | undefined;
+            title?: string | undefined;
+            closeCB?: Function | null | undefined;
+            responseCB?: Function | null | undefined;
+        }[]>;
+        getWindowOption(opt: components.DialogOptions): components.UiWindowOptions;
+        getWindowRenderComponent(opt: components.DialogOptions): any;
+        getWindowRenderComponentData(opt: components.DialogOptions): any;
+        show: import("vue").Ref<boolean>;
+        onWinClose: (opt: components.DialogOptions) => void;
+        onMaskClick: () => void;
+    }, {}, {}, {}, import("vue").ComponentOptionsMixin, import("vue").ComponentOptionsMixin, import("vue").EmitsOptions, string, import("vue").VNodeProps & import("vue").AllowedComponentProps & import("vue").ComponentCustomProps, Readonly<{} & {} & {}>, {}>;
+    DialogMsg: {
+        ShowDialog: string;
+    };
+    DialogOptions: typeof components.DialogOptions;
+    DialogUrlData: typeof components.DialogUrlData;
+    showDialog: typeof components.showDialog;
     install: (app: App<any>) => void;
     Methods: {
         CCMenu: {
             showMenuByMouseEvent: typeof showMenuByMouseEvent;
+        };
+        CCDialog: {
+            showDialog: typeof components.showDialog;
         };
     };
     Emitter: TinyEmitter;
