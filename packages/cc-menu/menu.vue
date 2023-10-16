@@ -1,32 +1,32 @@
 <template>
-  <div class="ui-menu" v-show="menus.length>0" :style="{left:menuPositionX+'px', top:menuPositionY+'px'}">
-    <MenuItem v-for="(menu, index) in menus" :key="index"
-              :data="menu">
-    </MenuItem>
+  <div class="ui-menu" v-show="menus.length > 0" :style="{ left: menuPositionX + 'px', top: menuPositionY + 'px' }">
+    <MenuItem v-for="(menu, index) in menus" :key="index" :data="menu"> </MenuItem>
   </div>
 </template>
 
 <script lang="ts">
 import { defineComponent, onMounted, ref } from 'vue';
-import { IUiMenuItem, MenuOptions, Msg } from './index';
+import { IUiMenuItem, MenuOptions, Msg } from './const';
 import MenuItem from './menu-item.vue';
-import { Emitter } from '../index';
-
+import ccui from '../index';
 
 export default defineComponent({
   name: 'CCMenu',
   components: { MenuItem },
 
-
   setup(props) {
     const menus = ref<IUiMenuItem[]>([]);
-    document.addEventListener('mousedown', () => {
-      menus.value = [];
-    }, { capture: true });
+    document.addEventListener(
+      'mousedown',
+      () => {
+        menus.value = [];
+      },
+      { capture: true }
+    );
     const menuPositionX = ref(0);
     const menuPositionY = ref(0);
     onMounted(() => {
-      Emitter.on(Msg.ShowMenu, (options: MenuOptions, newMenus: IUiMenuItem[]) => {
+      ccui.Emitter.on(Msg.ShowMenu, (options: MenuOptions, newMenus: IUiMenuItem[]) => {
         menuPositionX.value = Math.abs(options.x);
         menuPositionY.value = Math.abs(options.y);
         menus.value = newMenus;
@@ -35,10 +35,9 @@ export default defineComponent({
     return {
       menus,
       menuPositionX,
-      menuPositionY,
+      menuPositionY
     };
-  },
-
+  }
 });
 </script>
 

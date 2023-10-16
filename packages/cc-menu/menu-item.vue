@@ -6,8 +6,7 @@
 
 <script lang="ts">
 import { defineComponent, PropType } from 'vue';
-import { IUiMenuItem } from './index';
-
+import { IUiMenuItem } from './const';
 
 export default defineComponent({
   name: 'menu-item',

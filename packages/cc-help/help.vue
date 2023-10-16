@@ -16,7 +16,7 @@
 import { defineComponent, ref } from 'vue'
 import Table from './table.vue'
 export default defineComponent({
-  name: 'help',
+  name: 'cc-help',
   components: { Table },
   props: {
     docUrl: {

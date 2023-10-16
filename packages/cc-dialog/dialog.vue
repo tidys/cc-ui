@@ -13,7 +13,7 @@ import { defineComponent, markRaw, onMounted, onUnmounted, ref, Teleport } from 
 import { DialogOptions, DialogMsg, DialogUrlData } from './const';
 import { UiWindowOptions } from '../cc-window/index';
 import CCWindow from '../cc-window/window.vue';
-import { Emitter } from '../index';
+import ccui from '../index';
 import Mousetrap, { MousetrapInstance } from 'mousetrap';
 import { generate } from 'shortid';
 import Empty from '../cc-window/empty.vue';
@@ -46,12 +46,12 @@ export default defineComponent({
 
     let ins: MousetrapInstance | null = null;
     onMounted(() => {
-      Emitter.on(DialogMsg.ShowDialog, onShowDialog);
+      ccui.Emitter.on(DialogMsg.ShowDialog, onShowDialog);
       ins = new Mousetrap(document.body);
       ins.bind(['esc'], onClick, 'keydown');
     });
     onUnmounted(() => {
-      Emitter.off(DialogMsg.ShowDialog, onShowDialog);
+      ccui.Emitter.off(DialogMsg.ShowDialog, onShowDialog);
       if (ins) {
         ins.unbind(['esc'], 'keydown');
       }

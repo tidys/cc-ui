@@ -1,22 +1,16 @@
 import { PropType } from 'vue';
-import { IUiMenuItem } from './const';
 declare const _default: import("vue").DefineComponent<{
-    data: {
-        type: PropType<IUiMenuItem>;
-        required: true;
-        default: () => {
-            name: string;
-            enabled: boolean;
-            callback: null;
-        };
+    items: {
+        type: PropType<string[]>;
+        default: () => never[];
     };
 }, {
-    onClick(): void;
+    onClickTab(item: string, index: any): void;
 }, unknown, {}, {}, import("vue").ComponentOptionsMixin, import("vue").ComponentOptionsMixin, Record<string, any>, string, import("vue").VNodeProps & import("vue").AllowedComponentProps & import("vue").ComponentCustomProps, Readonly<{
-    data?: unknown;
+    items?: unknown;
 } & {
-    data: IUiMenuItem;
+    items: string[];
 } & {}>, {
-    data: IUiMenuItem;
+    items: string[];
 }>;
 export default _default;

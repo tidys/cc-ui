@@ -1,4 +1,4 @@
-import { Emitter } from '../index';
+import ccui from '../index';
 import { UiWindowOptions } from '../cc-window/index';
 
 export const DialogMsg = {
@@ -35,6 +35,6 @@ class DialogOptions extends UiWindowOptions {
  *  这种辅助类的函数一般放在const里面
  */
 function showDialog(opts: DialogOptions) {
-  Emitter.emit(DialogMsg.ShowDialog, opts);
+  ccui.Emitter.emit(DialogMsg.ShowDialog, opts);
 }
 export { DialogOptions, DialogUrlData, showDialog };

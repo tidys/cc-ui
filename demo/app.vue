@@ -60,13 +60,9 @@
 </template>
 <script lang="ts">
 import { defineComponent, ref, onMounted } from 'vue';
-import { CCButton } from '../packages/cc-button/index';
-import { CCColor } from '../packages/cc-color/index';
-import { CCInputNumber } from '../packages/cc-input-number/index';
-import { CCDialog, DialogOptions } from '../packages/cc-dialog/index';
-import { Help } from '../packages/help/index';
-import { DialogUrlData, showDialog } from '../packages/cc-dialog/const';
-
+import ccui from '../packages/index';
+import { DialogUrlData, DialogOptions } from '../packages/cc-dialog/const';
+const { CCColor, CCButton, Help, CCInputNumber, CCDialog }=ccui.components;
 export default defineComponent({
   name: 'app',
   components: { CCColor, CCButton, Help, CCInputNumber, CCDialog },
@@ -90,10 +86,8 @@ export default defineComponent({
         const data: DialogUrlData = new DialogUrlData();
         data.url = 'http://www.cocos.com';
         data.label = '访问{cocos}官网';
-        const opts: DialogOptions = {
-          data
-        };
-        showDialog(opts);
+        const opts: DialogOptions = { data };
+        ccui.dialog.showDialog(opts);
       },
       selectData,
       selectValue,

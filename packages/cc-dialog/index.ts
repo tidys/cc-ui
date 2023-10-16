@@ -1,3 +1,3 @@
 import CCDialog from './dialog.vue';
-export * from './const';
-export { CCDialog };
+import * as dialog from './const';
+export { CCDialog, dialog };
