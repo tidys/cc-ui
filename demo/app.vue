@@ -65,7 +65,7 @@ import { CCColor } from '../packages/cc-color/index';
 import { CCInputNumber } from '../packages/cc-input-number/index';
 import { CCDialog, DialogOptions } from '../packages/cc-dialog/index';
 import { Help } from '../packages/help/index';
-import { showDialog } from '../packages/cc-dialog/const';
+import { DialogUrlData, showDialog } from '../packages/cc-dialog/const';
 
 export default defineComponent({
   name: 'app',
@@ -87,8 +87,11 @@ export default defineComponent({
     });
     return {
       onShowDialog() {
+        const data: DialogUrlData = new DialogUrlData();
+        data.url = 'http://www.cocos.com';
+        data.label = '访问{cocos}官网';
         const opts: DialogOptions = {
-          data: 1
+          data
         };
         showDialog(opts);
       },

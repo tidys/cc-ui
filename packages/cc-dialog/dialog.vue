@@ -10,13 +10,14 @@
 
 <script lang="ts">
 import { defineComponent, markRaw, onMounted, onUnmounted, ref, Teleport } from 'vue';
-import { DialogOptions, DialogMsg } from './const';
+import { DialogOptions, DialogMsg, DialogUrlData } from './const';
 import { UiWindowOptions } from '../cc-window/index';
 import SWindow from '../cc-window/window.vue';
 import { Emitter } from '../index';
 import Mousetrap, { MousetrapInstance } from 'mousetrap';
 import { generate } from 'shortid';
 import Empty from '../cc-window/empty.vue';
+import UrlTip from './url.vue';
 export default defineComponent({
   name: 'cc-dialog',
   components: { SWindow },
@@ -33,7 +34,11 @@ export default defineComponent({
     }
 
     function onShowDialog(options: DialogOptions) {
-      options.comp = markRaw(options.comp || Empty);
+      if (options.data && options.data instanceof DialogUrlData) {
+        options.comp = markRaw(UrlTip);
+      } else {
+        options.comp = markRaw(options.comp || Empty);
+      }
       const opt: DialogOptions = Object.assign(new DialogOptions(), options);
       dialogWindows.value.push(opt);
       show.value = true;
