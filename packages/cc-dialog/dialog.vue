@@ -1,9 +1,9 @@
 <template>
   <Teleport to="body">
     <div class="ui-dialog" v-if="show" @click.self="onMaskClick">
-      <SWindow class="container" v-for="(win, index) in dialogWindows" :key="index" :data="getWindowOption(win)" @close="onWinClose(win)">
+      <CCWindow class="container" v-for="(win, index) in dialogWindows" :key="index" :data="getWindowOption(win)" @close="onWinClose(win)">
         <component class="comp" :is="getWindowRenderComponent(win)" :data="getWindowRenderComponentData(win)"> </component>
-      </SWindow>
+      </CCWindow>
     </div>
   </Teleport>
 </template>
@@ -12,7 +12,7 @@
 import { defineComponent, markRaw, onMounted, onUnmounted, ref, Teleport } from 'vue';
 import { DialogOptions, DialogMsg, DialogUrlData } from './const';
 import { UiWindowOptions } from '../cc-window/index';
-import SWindow from '../cc-window/window.vue';
+import CCWindow from '../cc-window/window.vue';
 import { Emitter } from '../index';
 import Mousetrap, { MousetrapInstance } from 'mousetrap';
 import { generate } from 'shortid';
@@ -20,7 +20,7 @@ import Empty from '../cc-window/empty.vue';
 import UrlTip from './url.vue';
 export default defineComponent({
   name: 'cc-dialog',
-  components: { SWindow },
+  components: { CCWindow },
   setup() {
     const dialogWindows = ref<DialogOptions[]>([]);
     const show = ref(false);
