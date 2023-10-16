@@ -17,4 +17,3 @@ export const Methods = {
   CCDialog: { showDialog }
 };
 export default { install, Methods, Emitter, ...components };
- 

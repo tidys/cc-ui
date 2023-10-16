@@ -6,16 +6,19 @@ export const DialogMsg = {
 };
 
 export class DialogOptions extends UiWindowOptions {
-  /**
-   * DefineComponent | null,// 组件实例
-   */
-  comp?: any;
-  /**
-   * 传递给组件的数据
-   */
-  data?: any;
-  clickOutsideClose?: boolean;
-}
+         /**
+          * DefineComponent | null,// 组件实例
+          */
+         comp?: any;
+         /**
+          * 传递给组件的数据
+          */
+         data?: any;
+         /**
+          * 点击dialog外部是否关闭，默认关闭
+          */
+         clickOutsideClose?: boolean;
+       }
 /**
  *  这种辅助类的函数一般放在const里面
  */

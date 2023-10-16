@@ -3,8 +3,15 @@
   "name": "cc-plugin",
   "font_family": "iconfont",
   "css_prefix_text": "icon_",
-  "description": "",
+  "description": "cc-ui组件库在使用",
   "glyphs": [
+    {
+      "icon_id": "670735",
+      "name": "close",
+      "font_class": "close",
+      "unicode": "e617",
+      "unicode_decimal": 58903
+    },
     {
       "icon_id": "1262302",
       "name": "trash",

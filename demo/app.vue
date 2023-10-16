@@ -65,8 +65,8 @@ import { CCColor } from '../packages/cc-color/index';
 import { CCInputNumber } from '../packages/cc-input-number/index';
 import { CCDialog, DialogOptions } from '../packages/cc-dialog/index';
 import { Help } from '../packages/help/index';
-import {showDialog} from '../packages/cc-dialog/const';
- 
+import { showDialog } from '../packages/cc-dialog/const';
+
 export default defineComponent({
   name: 'app',
   components: { CCColor, CCButton, Help, CCInputNumber, CCDialog },
@@ -87,8 +87,10 @@ export default defineComponent({
     });
     return {
       onShowDialog() {
-        const opts: DialogOptions = {};
-         showDialog(opts);
+        const opts: DialogOptions = {
+          data: 1
+        };
+        showDialog(opts);
       },
       selectData,
       selectValue,
@@ -108,5 +110,6 @@ export default defineComponent({
 </script>
 <style>
 body {
+  overflow: hidden;
 }
 </style>
