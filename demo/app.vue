@@ -1,8 +1,9 @@
 <template>
   <CCButton @click="onShowDialog">btn</CCButton>
   <CCDialog></CCDialog>
-  <CCColor></CCColor>
-  <div style="background-color: rgb(148, 127, 127);position: absolute; width:100px;height: 100px; ">111</div>
+  <div style="margin-left: 100px;display: flex;flex-direction: column;">
+    <CCColor></CCColor>
+  </div>
   <!-- <CCInputNumber></CCInputNumber> -->
   <!-- <Help></Help> -->
   <!--  <div style="display: flex;flex-direction: column;">-->
