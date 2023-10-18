@@ -13,7 +13,7 @@
 </template>
 
 <script lang="ts">
-import { computed, defineComponent, onMounted, ref, watch } from 'vue';
+import { computed, defineComponent, onMounted, ref, watch,onUnmounted } from 'vue';
 import Hue from './hue.vue';
 import ColorInput from './color-input.vue';
 import Alpha from './alpha.vue';
@@ -21,7 +21,7 @@ import ColorSaturation from './saturation.vue';
 import { getColorHex, getColorHex8, getColorHue, transformColorByHue } from './util';
 import ColorCase from './color-case.vue';
 import { createPopper } from '@popperjs/core';
-
+import { emitter,HideOthers } from './event-bus';
 export default defineComponent({
   name: 'CCColor',
   emits: ['update:color', 'change'],
@@ -39,7 +39,7 @@ export default defineComponent({
         backgroundColor: `${getColorHex(props.color)}`
       };
     });
-    onMounted(() => {});
+  
     watch(
       () => props.color,
       (val: string) => {
@@ -66,6 +66,12 @@ export default defineComponent({
       document.removeEventListener('click', clickAnyWhereToClose);
       show.value = false;
     };
+    onMounted(() => {
+      emitter.on(HideOthers,clickAnyWhereToClose);
+    });
+    onUnmounted(() => {
+      emitter.off(HideOthers,clickAnyWhereToClose);
+    });
     return {
       color,
       panel,
@@ -81,6 +87,7 @@ export default defineComponent({
           popperInstance?.destroy();
           document.removeEventListener('click', clickAnyWhereToClose);
         } else {
+          emitter.emit(HideOthers);
           show.value = true;
           if (color.value && panel.value) {
             popperInstance = createPopper(color.value, panel.value, { placement: 'bottom-end' });
