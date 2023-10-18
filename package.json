@@ -6,7 +6,7 @@
   "scripts": {
     "yarnInstallForce": "yarn install --force",
     "serve": "vue-cli-service serve",
-    "build": "vue-cli-service build",
+    "build-demo": "vue-cli-service build --mode development",
     "lint": "vue-cli-service lint",
     "types": "vue-tsc -p tsconfig.declaration.json",
     "lib-dev": "vue-cli-service build --mode development --target lib --name ccui --dest dist --entry packages/index.ts",

@@ -1,6 +1,8 @@
 <template>
   <CCButton @click="onShowDialog">btn</CCButton>
   <CCDialog></CCDialog>
+  <CCColor></CCColor>
+  <div style="background-color: rgb(148, 127, 127);position: absolute; width:100px;height: 100px; ">111</div>
   <!-- <CCInputNumber></CCInputNumber> -->
   <!-- <Help></Help> -->
   <!--  <div style="display: flex;flex-direction: column;">-->
@@ -62,10 +64,10 @@
 import { defineComponent, ref, onMounted } from 'vue';
 import ccui from '../packages/index';
 import { DialogUrlData, DialogOptions } from '../packages/cc-dialog/const';
-const { CCColor, CCButton, Help, CCInputNumber, CCDialog }=ccui.components;
+const { CCColor, CCButton, CCHelp, CCInputNumber, CCDialog } = ccui.components;
 export default defineComponent({
   name: 'app',
-  components: { CCColor, CCButton, Help, CCInputNumber, CCDialog },
+  components: { CCColor, CCButton, CCHelp, CCInputNumber, CCDialog },
   setup() {
     const value = ref('123');
     const selectData = ref([
