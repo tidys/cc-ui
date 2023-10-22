@@ -1,6 +1,7 @@
 <template>
   <CCButton @click="onShowDialog">btn</CCButton>
   <CCDialog></CCDialog>
+  <CCFootBar version="1.0"></CCFootBar>
   <div style="margin-left: 100px;display: flex;flex-direction: column;">
     <CCColor></CCColor>
   </div>
@@ -65,10 +66,10 @@
 import { defineComponent, ref, onMounted } from 'vue';
 import ccui from '../packages/index';
 import { DialogUrlData, DialogOptions } from '../packages/cc-dialog/const';
-const { CCColor, CCButton, CCHelp, CCInputNumber, CCDialog } = ccui.components;
+const { CCColor, CCFootBar, CCButton, CCHelp, CCInputNumber, CCDialog } = ccui.components;
 export default defineComponent({
   name: 'app',
-  components: { CCColor, CCButton, CCHelp, CCInputNumber, CCDialog },
+  components: { CCFootBar, CCColor, CCButton, CCHelp, CCInputNumber, CCDialog },
   setup() {
     const value = ref('123');
     const selectData = ref([
@@ -86,6 +87,8 @@ export default defineComponent({
     });
     return {
       onShowDialog() {
+        ccui.footbar.ShowTips('11');
+        return;
         const data: DialogUrlData = new DialogUrlData();
         data.url = 'http://www.cocos.com';
         data.label = '访问{cocos}官网';
