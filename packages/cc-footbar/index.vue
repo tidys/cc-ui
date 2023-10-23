@@ -18,7 +18,7 @@ export default defineComponent({
   },
   setup(props, ctx) {
     const verString = ref(props.version || '');
-    const tips = ref('000000000000000000000000000000000000000000');
+    const tips = ref('');
     let timer: number | null = null;
     const doTips = (msg: string) => {
       if (timer !== null) {
@@ -28,7 +28,7 @@ export default defineComponent({
       tips.value = msg;
       timer = setTimeout(() => {
         timer = null;
-        // tips.value = '';
+        tips.value = '';
       }, 2 * 1000);
     };
     onMounted(() => {

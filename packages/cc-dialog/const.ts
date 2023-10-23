@@ -15,6 +15,10 @@ export const DialogMsg = {
 class DialogUrlData {
   url: string = '';
   label: string = '';
+  /**
+   * 自动跳转到url，0为不跳转，单位s
+   */
+  jump: number = 0;
 }
 
 class DialogOptions extends UiWindowOptions {

@@ -1,5 +1,6 @@
 <template>
-  <CCButton @click="onShowDialog">btn</CCButton>
+  <CCButton @click="onShowDialog">dialog</CCButton>
+  <CCButton @click="onFootBar">footbar</CCButton>
   <CCDialog></CCDialog>
   <CCFootBar version="1.0"></CCFootBar>
   <div style="margin-left: 100px;display: flex;flex-direction: column;">
@@ -86,12 +87,14 @@ export default defineComponent({
       }, 1000);
     });
     return {
-      onShowDialog() {
+      onFootBar() {
         ccui.footbar.ShowTips('11');
-        return;
+      },
+      onShowDialog() {
         const data: DialogUrlData = new DialogUrlData();
         data.url = 'http://www.cocos.com';
         data.label = '访问{cocos}官网';
+        data.jump = 4;
         const opts: DialogOptions = { data };
         ccui.dialog.showDialog(opts);
       },
