@@ -2,13 +2,30 @@ import { App } from 'vue';
 import { TinyEmitter } from 'tiny-emitter';
 import { menu } from './cc-menu/index';
 import { dialog } from './cc-dialog/index';
+import { footbar } from './cc-footbar/index';
 export declare const install: (app: App) => void;
 declare const _default: {
     menu: typeof menu;
     dialog: typeof dialog;
+    footbar: typeof footbar;
     install: (app: App<any>) => void;
     Emitter: TinyEmitter;
     components: {
+        CCFootBar: import("vue").DefineComponent<{
+            version: {
+                type: StringConstructor;
+                default: string;
+            };
+        }, {
+            verString: import("vue").Ref<string>;
+            tips: import("vue").Ref<string>;
+        }, unknown, {}, {}, import("vue").ComponentOptionsMixin, import("vue").ComponentOptionsMixin, Record<string, any>, string, import("vue").VNodeProps & import("vue").AllowedComponentProps & import("vue").ComponentCustomProps, Readonly<{
+            version?: unknown;
+        } & {
+            version: string;
+        } & {}>, {
+            version: string;
+        }>;
         CCButton: import("vue").DefineComponent<{
             transition: {
                 type: StringConstructor;

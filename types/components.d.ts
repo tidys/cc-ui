@@ -1,4 +1,19 @@
 export declare const components: {
+    CCFootBar: import("vue").DefineComponent<{
+        version: {
+            type: StringConstructor;
+            default: string;
+        };
+    }, {
+        verString: import("vue").Ref<string>;
+        tips: import("vue").Ref<string>;
+    }, unknown, {}, {}, import("vue").ComponentOptionsMixin, import("vue").ComponentOptionsMixin, Record<string, any>, string, import("vue").VNodeProps & import("vue").AllowedComponentProps & import("vue").ComponentCustomProps, Readonly<{
+        version?: unknown;
+    } & {
+        version: string;
+    } & {}>, {
+        version: string;
+    }>;
     CCButton: import("vue").DefineComponent<{
         transition: {
             type: StringConstructor;

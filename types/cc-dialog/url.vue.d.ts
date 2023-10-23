@@ -11,6 +11,8 @@ declare const _default: import("vue").DefineComponent<{
     head2: import("vue").Ref<string>;
     aLink: import("vue").Ref<string>;
     href: import("vue").Ref<string>;
+    aElement: import("vue").Ref<HTMLAnchorElement | undefined>;
+    timerString: import("vue").Ref<string>;
 }, unknown, {}, {}, import("vue").ComponentOptionsMixin, import("vue").ComponentOptionsMixin, Record<string, any>, string, import("vue").VNodeProps & import("vue").AllowedComponentProps & import("vue").ComponentCustomProps, Readonly<{
     data?: unknown;
 } & {
