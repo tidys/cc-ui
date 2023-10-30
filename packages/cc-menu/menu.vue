@@ -44,7 +44,6 @@ export default defineComponent({
             const menuWidth = menuEl.value?.clientWidth;
             const menuHeight = menuEl.value?.clientHeight;
             const board = 3;
-            console.log(height, menuHeight);
             if (menuHeight >= height) {
               menuEl.value.style.overflowX = 'hidden';
               menuEl.value.style.overflowY = 'scroll';
