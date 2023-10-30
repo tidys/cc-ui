@@ -1,11 +1,18 @@
 <template>
-  <CCButton @click="onShowDialog">dialog</CCButton>
-  <CCButton @click="onFootBar">footbar</CCButton>
-  <CCDialog></CCDialog>
-  <CCFootBar version="1.0"></CCFootBar>
-  <div style="margin-left: 100px;display: flex;flex-direction: column;">
-    <CCColor></CCColor>
+  <CCButton @click="onOrder">order</CCButton>
+  <div v-if="true">
+    <CCButton @click="onShowDialog">dialog</CCButton>
+    <CCButton @click="onFootBar">footbar</CCButton>
+    <CCButton @click="onMenu">menu</CCButton>
+    <CCDialog></CCDialog>
+
+    <CCMenu></CCMenu>
+    <CCFootBar version="1.0"></CCFootBar>
+    <div style="margin-left: 100px;display: flex;flex-direction: column;">
+      <CCColor></CCColor>
+    </div>
   </div>
+
   <!-- <CCInputNumber></CCInputNumber> -->
   <!-- <Help></Help> -->
   <!--  <div style="display: flex;flex-direction: column;">-->
@@ -59,18 +66,21 @@
 
   <!--    </div>-->
   <!--    <CCProp name="textarea" align="flex-start;">-->
-  <!--      <CCTextarea data="111" @change="onChangeTextarea"></CCTextarea>-->
+  <!--      <CCTextar
+ea data="111" @change="onChangeTextarea"></CCTextarea>-->
   <!--    </CCProp>-->
   <!--  </div>-->
 </template>
 <script lang="ts">
 import { defineComponent, ref, onMounted } from 'vue';
 import ccui from '../packages/index';
+import { orderTest } from './order';
 import { DialogUrlData, DialogOptions } from '../packages/cc-dialog/const';
-const { CCColor, CCFootBar, CCButton, CCHelp, CCInputNumber, CCDialog } = ccui.components;
+import { IUiMenuItem } from '../packages/cc-menu/const';
+const { CCColor, CCFootBar, CCButton, CCHelp, CCInputNumber, CCDialog, CCMenu } = ccui.components;
 export default defineComponent({
   name: 'app',
-  components: { CCFootBar, CCColor, CCButton, CCHelp, CCInputNumber, CCDialog },
+  components: { CCFootBar, CCColor, CCButton, CCHelp, CCInputNumber, CCDialog, CCMenu },
   setup() {
     const value = ref('123');
     const selectData = ref([
@@ -87,8 +97,23 @@ export default defineComponent({
       }, 1000);
     });
     return {
+      onOrder() {
+        orderTest();
+      },
       onFootBar() {
         ccui.footbar.ShowTips('11');
+      },
+      onMenu(event: MouseEvent) {
+        const menus: IUiMenuItem[] = [];
+        for (let i = 0; i < 20; i++) {
+          menus.push({
+            name: i.toString(),
+            callback: () => {
+              console.log('hello');
+            }
+          });
+        }
+        ccui.menu.showMenuByMouseEvent(event, menus);
       },
       onShowDialog() {
         const data: DialogUrlData = new DialogUrlData();
@@ -107,7 +132,7 @@ export default defineComponent({
       onChangeSelect() {
         console.log(selectValue.value);
       },
-      onChangeTextarea(v) {
+      onChangeTextarea(v: string) {
         console.log(v);
       }
     };
