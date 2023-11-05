@@ -24,19 +24,27 @@ export default defineComponent({
     },
   },
   setup(props, ctx) {
-    const show = ref(false);
-    const commands = ref<CmdData[]>([]);
-    for (let i = 0; i < props.items.length; i++) {
-      const item = props.items[i];
-      commands.value.push(item);
+    function filterCommands(cmdArray: CmdData[]) {
+      const ret: CmdData[] = [];
+
+      for (let i = 0; i < cmdArray.length; i++) {
+        const item = cmdArray[i];
+        if (!(item.visible === false)) {
+          ret.push(item);
+        }
+      }
+      return ret;
     }
+    const show = ref(false);
+    const commands = ref<CmdData[]>(filterCommands(props.items));
+
     function closeCmd() {
       commands.value = [];
       show.value = false;
     }
     function doCmd(cmdArray: CmdData[]) {
       show.value = true;
-      commands.value = cmdArray;
+      commands.value = filterCommands(cmdArray);
     }
 
     document.addEventListener('mouseup', () => {

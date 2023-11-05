@@ -10,7 +10,14 @@ export function ShowTips(text: string) {
 }
 
 export interface FootCmd {
-  label: string,
+  /**
+   * 显示的文本，label和icon至少得有一个
+   */
+  label?: string,
+  /**
+ * 显示的icon，label和icon至少得有一个
+ */
+  icon?: "cmder" | string,
   cmds: Array<CmdData>;
 }
 export function registerCmd(footCmd: FootCmd) {

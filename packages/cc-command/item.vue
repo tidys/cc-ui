@@ -1,5 +1,6 @@
 <template>
-  <div class="item" @mouseenter.prevent.stop="onMouseEnter" @mouseleave.prevent.stop="onMouseLeave" @click.prevent.stop="onClick">
+  <div class="item" @mouseenter.prevent.stop="onMouseEnter" @mouseleave.prevent.stop="onMouseLeave"
+    @click.prevent.stop="onClick">
     {{ data.label }}
   </div>
 </template>
@@ -17,12 +18,16 @@ export default defineComponent({
   },
   setup(props, ctx) {
     return {
-      onMouseEnter() {},
-      onMouseLeave() {},
+      onMouseEnter() { },
+      onMouseLeave() { },
       onClick() {
-        const { cb } = props.data;
-        if (cb) {
-          cb();
+        const { cb, url } = props.data;
+        if (url) {
+          window.open(url);
+        } else {
+          if (cb) {
+            cb();
+          }
         }
         closeCommand();
       },

@@ -40,8 +40,9 @@
     </CCSection>
     <CCSection :expand="false" name="测试折叠"> 默认不展开 </CCSection>
     <CCProp name="iconfont">
-      <i class="iconfont icon-refresh"></i>
-      <div class="iconfont icon-doc"></div>
+      <i class="iconfont icon_refresh"></i>
+      <i class="iconfont icon_cmder"></i>
+      <div class="iconfont icon_doc"></div>
     </CCProp>
     <CCProp name="color1">
       <CCColor></CCColor>
@@ -85,10 +86,21 @@ export default defineComponent({
       }, 1000);
       ccui.footbar.registerCmd({
         label: 'cmd1',
+        icon: 'cmder',
         cmds: [
           {
-            label: '1', cb: () => {
+            label: '1',
+            icon: 'cmder',
+            cb: () => {
               console.log(1);
+            }
+          },
+          {
+            label: '2',
+            icon: 'cmder',
+            visible: false,
+            cb: () => {
+              console.log(2);
             }
           }
         ]
