@@ -101,9 +101,9 @@ export default defineComponent({
 .ui-window {
   display: flex;
   flex-direction: column;
-  border: 1px solid black;
+  border: 1px solid rgb(111, 111, 111);
   border-radius: 4px;
-  background-color: white;
+  background-color: rgb(165, 165, 165);
 
   .content {
     flex: 1;
@@ -112,7 +112,7 @@ export default defineComponent({
   }
 
   .header {
-    background-color: #2980cc;
+    background-color: #2c2c2c;
     display: flex;
     flex-direction: row;
 
@@ -133,6 +133,7 @@ export default defineComponent({
     }
 
     .close {
+      color: rgb(196, 196, 196);
       user-select: none;
       display: flex;
       align-items: center;
