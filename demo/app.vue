@@ -1,18 +1,20 @@
 <template>
-  <CCButton @click="onShowDialog">dialog</CCButton>
-  <CCButton @click="onFootBar">footbar</CCButton>
-  <CCDialog></CCDialog>
-  <CCFootBar version="1.0"></CCFootBar>
-  <div style="margin-left: 100px;display: flex;flex-direction: column;">
+  <div>
+    <CCButton @click="onShowDialog">dialog</CCButton>
+    <CCButton @click="onFootBar">footbar</CCButton>
+    <CCDialog></CCDialog>
+    <CCButton @click="onCommand">command</CCButton>
+  </div>
+  <div style="margin-left: 100px; display: flex; flex-direction: column">
     <CCColor></CCColor>
   </div>
   <div>
     <CCInputNumber :min="1" :value="-11"></CCInputNumber>
   </div>
-  <div style="display: flex;flex-direction: column;">
+  <div style="display: flex; flex-direction: column">
     <CCSection name="TEST">
       <template v-slot:header>
-        <div style="display: flex;flex:1;flex-direction: row;justify-content: flex-end;">
+        <div style="display: flex; flex: 1; flex-direction: row; justify-content: flex-end">
           <CCButton>a</CCButton>
           <CCButton>b</CCButton>
         </div>
@@ -27,19 +29,15 @@
         <CCProp name="readonly" tooltip="1111111 1111111111111111111111111111111111">
           <CCInput :readonly="true" value="readonly"></CCInput>
         </CCProp>
-        <CCProp name="readonly && disabled"
-          tooltip="test tooltip 1111111111111111111111144444444444444444444444444444444441111444444444444444444444444444444444444444444444444411111111111">
+        <CCProp name="readonly && disabled" tooltip="test tooltip 1111111111111111111111144444444444444444444444444444444441111444444444444444444444444444444444444444444444444411111111111">
           <CCInput :disabled="true" :readonly="true" value="readonly"></CCInput>
         </CCProp>
         <CCProp name="test2">
-          <CCSelect @change="onChangeSelect" :data="selectData" v-model:value="selectValue">
-          </CCSelect>
+          <CCSelect @change="onChangeSelect" :data="selectData" v-model:value="selectValue"> </CCSelect>
         </CCProp>
       </div>
     </CCSection>
-    <CCSection :expand="false" name="测试折叠">
-      默认不展开
-    </CCSection>
+    <CCSection :expand="false" name="测试折叠"> 默认不展开 </CCSection>
     <CCProp name="iconfont">
       <i class="iconfont icon-refresh"></i>
       <div class="iconfont icon-doc"></div>
@@ -53,28 +51,29 @@
     <CCProp name="input number">
       <CCInputNumber :value="1" :min="0"></CCInputNumber>
     </CCProp>
-    <div style="height: 100px;">
-
-    </div>
+    <div style="height: 100px"></div>
     <CCProp name="textarea" align="flex-start;">
       <CCTextarea data="111" @change="onChangeTextarea"></CCTextarea>
     </CCProp>
   </div>
+  <div style="flex: 1"></div>
+  <CCCommand></CCCommand>
+  <CCFootBar version="1.0"></CCFootBar>
 </template>
 <script lang="ts">
 import { defineComponent, ref, onMounted } from 'vue';
 import ccui from '../packages/index';
 import { DialogUrlData, DialogOptions } from '../packages/cc-dialog/const';
-const { CCColor, CCFootBar, CCButton, CCHelp, CCInputNumber, CCDialog, CCSection, CCSelect, CCProp, CCTextarea,CCInput, } = ccui.components;
+const { CCCommand, CCColor, CCFootBar, CCButton, CCHelp, CCInputNumber, CCDialog, CCSection, CCSelect, CCProp, CCTextarea, CCInput } = ccui.components;
 export default defineComponent({
   name: 'app',
-  components: { CCFootBar, CCColor, CCButton, CCHelp, CCInputNumber, CCDialog, CCSection, CCSelect, CCProp, CCTextarea,CCInput, },
+  components: { CCCommand, CCFootBar, CCColor, CCButton, CCHelp, CCInputNumber, CCDialog, CCSection, CCSelect, CCProp, CCTextarea, CCInput },
   setup() {
     const value = ref('123');
     const selectData = ref([
       { label: '1', value: 1 },
       { label: '2', value: 2 },
-      { label: '3', value: 3 }
+      { label: '3', value: 3 },
     ]);
     const selectValue = ref('1');
     onMounted(() => {
@@ -105,14 +104,35 @@ export default defineComponent({
       onChangeSelect() {
         console.log(selectValue.value);
       },
-      onChangeTextarea(v) {
+      onChangeTextarea(v: string) {
         console.log(v);
-      }
+      },
+      onCommand() {
+        ccui.command.showCommand([
+          {
+            label: '1',
+            cb: () => {
+              console.log('1');
+            },
+          },
+          {
+            label: '2',
+            cb: () => {
+              console.log('2');
+            },
+          },
+        ]);
+      },
     };
-  }
+  },
 });
 </script>
 <style>
+#app {
+  display: flex;
+  flex-direction: column;
+}
+
 body {
   overflow: hidden;
 }
