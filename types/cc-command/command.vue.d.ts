@@ -1,23 +1,21 @@
+import { PropType } from 'vue';
+import { CmdData } from './const';
 declare const _default: import("vue").DefineComponent<{
-    version: {
-        type: StringConstructor;
-        default: string;
+    items: {
+        type: PropType<CmdData[]>;
+        default: () => never[];
     };
 }, {
-    verString: import("vue").Ref<string>;
-    tips: import("vue").Ref<string>;
+    show: import("vue").Ref<boolean>;
     commands: import("vue").Ref<{
         label: string;
-        cmds: {
-            label: string;
-            cb: (() => void) | null;
-        }[];
+        cb: (() => void) | null;
     }[]>;
 }, unknown, {}, {}, import("vue").ComponentOptionsMixin, import("vue").ComponentOptionsMixin, Record<string, any>, string, import("vue").VNodeProps & import("vue").AllowedComponentProps & import("vue").ComponentCustomProps, Readonly<{
-    version?: unknown;
+    items?: unknown;
 } & {
-    version: string;
+    items: CmdData[];
 } & {}>, {
-    version: string;
+    items: CmdData[];
 }>;
 export default _default;

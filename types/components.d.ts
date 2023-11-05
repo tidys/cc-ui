@@ -1,4 +1,22 @@
 export declare const components: {
+    CCCommand: import("vue").DefineComponent<{
+        items: {
+            type: import("vue").PropType<import("./cc-command/const").CmdData[]>;
+            default: () => never[];
+        };
+    }, {
+        show: import("vue").Ref<boolean>;
+        commands: import("vue").Ref<{
+            label: string;
+            cb: (() => void) | null;
+        }[]>;
+    }, unknown, {}, {}, import("vue").ComponentOptionsMixin, import("vue").ComponentOptionsMixin, Record<string, any>, string, import("vue").VNodeProps & import("vue").AllowedComponentProps & import("vue").ComponentCustomProps, Readonly<{
+        items?: unknown;
+    } & {
+        items: import("./cc-command/const").CmdData[];
+    } & {}>, {
+        items: import("./cc-command/const").CmdData[];
+    }>;
     CCFootBar: import("vue").DefineComponent<{
         version: {
             type: StringConstructor;
@@ -7,6 +25,13 @@ export declare const components: {
     }, {
         verString: import("vue").Ref<string>;
         tips: import("vue").Ref<string>;
+        commands: import("vue").Ref<{
+            label: string;
+            cmds: {
+                label: string;
+                cb: (() => void) | null;
+            }[];
+        }[]>;
     }, unknown, {}, {}, import("vue").ComponentOptionsMixin, import("vue").ComponentOptionsMixin, Record<string, any>, string, import("vue").VNodeProps & import("vue").AllowedComponentProps & import("vue").ComponentCustomProps, Readonly<{
         version?: unknown;
     } & {

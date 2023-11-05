@@ -3,14 +3,34 @@ import { TinyEmitter } from 'tiny-emitter';
 import { menu } from './cc-menu/index';
 import { dialog } from './cc-dialog/index';
 import { footbar } from './cc-footbar/index';
+import { command } from './cc-command/index';
 export declare const install: (app: App) => void;
 declare const _default: {
     menu: typeof menu;
     dialog: typeof dialog;
     footbar: typeof footbar;
+    command: typeof command;
     install: (app: App<any>) => void;
     Emitter: TinyEmitter;
     components: {
+        CCCommand: import("vue").DefineComponent<{
+            items: {
+                type: import("vue").PropType<command.CmdData[]>;
+                default: () => never[];
+            };
+        }, {
+            show: import("vue").Ref<boolean>;
+            commands: import("vue").Ref<{
+                label: string;
+                cb: (() => void) | null;
+            }[]>;
+        }, unknown, {}, {}, import("vue").ComponentOptionsMixin, import("vue").ComponentOptionsMixin, Record<string, any>, string, import("vue").VNodeProps & import("vue").AllowedComponentProps & import("vue").ComponentCustomProps, Readonly<{
+            items?: unknown;
+        } & {
+            items: command.CmdData[];
+        } & {}>, {
+            items: command.CmdData[];
+        }>;
         CCFootBar: import("vue").DefineComponent<{
             version: {
                 type: StringConstructor;
@@ -19,6 +39,13 @@ declare const _default: {
         }, {
             verString: import("vue").Ref<string>;
             tips: import("vue").Ref<string>;
+            commands: import("vue").Ref<{
+                label: string;
+                cmds: {
+                    label: string;
+                    cb: (() => void) | null;
+                }[];
+            }[]>;
         }, unknown, {}, {}, import("vue").ComponentOptionsMixin, import("vue").ComponentOptionsMixin, Record<string, any>, string, import("vue").VNodeProps & import("vue").AllowedComponentProps & import("vue").ComponentCustomProps, Readonly<{
             version?: unknown;
         } & {
