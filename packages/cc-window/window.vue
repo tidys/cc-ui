@@ -133,6 +133,7 @@ export default defineComponent({
     }
 
     .close {
+      user-select: none;
       display: flex;
       align-items: center;
       margin: 0 5px;
