@@ -29,7 +29,8 @@
         <CCProp name="readonly" tooltip="1111111 1111111111111111111111111111111111">
           <CCInput :readonly="true" value="readonly"></CCInput>
         </CCProp>
-        <CCProp name="readonly && disabled" tooltip="test tooltip 1111111111111111111111144444444444444444444444444444444441111444444444444444444444444444444444444444444444444411111111111">
+        <CCProp name="readonly && disabled"
+          tooltip="test tooltip 1111111111111111111111144444444444444444444444444444444441111444444444444444444444444444444444444444444444444411111111111">
           <CCInput :disabled="true" :readonly="true" value="readonly"></CCInput>
         </CCProp>
         <CCProp name="test2">
@@ -82,6 +83,16 @@ export default defineComponent({
         selectValue.value = '3';
         selectData.value.push({ label: '4', value: 4 });
       }, 1000);
+      ccui.footbar.registerCmd({
+        label: 'cmd1',
+        cmds: [
+          {
+            label: '1', cb: () => {
+              console.log(1);
+            }
+          }
+        ]
+      })
     });
     return {
       onFootBar() {
