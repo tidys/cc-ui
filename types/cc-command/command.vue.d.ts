@@ -9,6 +9,9 @@ declare const _default: import("vue").DefineComponent<{
     show: import("vue").Ref<boolean>;
     commands: import("vue").Ref<{
         label: string;
+        icon?: string | undefined;
+        url?: string | undefined;
+        visible?: boolean | undefined;
         cb: (() => void) | null;
     }[]>;
 }, unknown, {}, {}, import("vue").ComponentOptionsMixin, import("vue").ComponentOptionsMixin, Record<string, any>, string, import("vue").VNodeProps & import("vue").AllowedComponentProps & import("vue").ComponentCustomProps, Readonly<{

@@ -7,9 +7,13 @@ declare const _default: import("vue").DefineComponent<{
     verString: import("vue").Ref<string>;
     tips: import("vue").Ref<string>;
     commands: import("vue").Ref<{
-        label: string;
+        label?: string | undefined;
+        icon?: string | undefined;
         cmds: {
             label: string;
+            icon?: string | undefined;
+            url?: string | undefined;
+            visible?: boolean | undefined;
             cb: (() => void) | null;
         }[];
     }[]>;
