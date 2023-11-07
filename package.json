@@ -34,8 +34,10 @@
     "tiny-emitter": "^2.1.0",
     "tinycolor2": "^1.4.2",
     "ts-loader": "^9.3.1",
+    "ts-node": "^10.9.1",
     "vue": "3.2.26",
-    "vue-tsc": "^0.40.13"
+    "vue-tsc": "^0.40.13",
+    "xmlhttprequest": "^1.8.0"
   },
   "devDependencies": {
     "@types/chroma-js": "^2.1.3",
