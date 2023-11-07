@@ -1,20 +1,23 @@
 <template>
   <div class="version">
+    <CMD v-for="(item, index) in commands" :data="item"></CMD>
     <div class="placeHolder">{{ tips }}</div>
     <div class="value" v-if="verString.length">version: {{ verString }}</div>
   </div>
 </template>
 <script lang="ts">
 import { defineComponent, onMounted, onUnmounted, ref, watch } from 'vue';
-import { FootBarMsg } from './const';
+import { FootBarMsg, FootCmd } from './const';
+import CMD from './cmd.vue'
 import ccui from '../index';
 export default defineComponent({
   name: 'cc-footbar',
+  components: { CMD },
   props: {
     version: {
       type: String,
-      default: ''
-    }
+      default: '',
+    },
   },
   setup(props, ctx) {
     const verString = ref(props.version || '');
@@ -31,20 +34,26 @@ export default defineComponent({
         tips.value = '';
       }, 2 * 1000);
     };
+    const commands = ref<FootCmd[]>([]);
+    function regCmd(footCmd: FootCmd) {
+      commands.value.push(footCmd);
+    }
     onMounted(() => {
       ccui.Emitter.on(FootBarMsg.Tips, doTips);
+      ccui.Emitter.on(FootBarMsg.RegCmd, regCmd);
     });
     onUnmounted(() => {
       ccui.Emitter.off(FootBarMsg.Tips, doTips);
+      ccui.Emitter.off(FootBarMsg.RegCmd, regCmd);
     });
     watch(
       () => props.version,
-      v => {
+      (v) => {
         verString.value = v;
       }
     );
-    return { verString, tips };
-  }
+    return { verString, tips, commands, };
+  },
 });
 </script>
 <style lang="less" scoped>
@@ -66,6 +75,7 @@ export default defineComponent({
     color: rgb(218, 218, 218);
     font-size: 14px;
   }
+
   .value {
     margin-right: 10px;
     color: rgb(255, 255, 143);

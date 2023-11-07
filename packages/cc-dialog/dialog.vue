@@ -1,8 +1,10 @@
 <template>
   <Teleport to="body">
     <div class="ui-dialog" v-if="show" @click.self="onMaskClick">
-      <CCWindow class="container" v-for="(win, index) in dialogWindows" :key="index" :data="getWindowOption(win)" @close="onWinClose(win)">
-        <component class="comp" :is="getWindowRenderComponent(win)" :data="getWindowRenderComponentData(win)"> </component>
+      <CCWindow class="container" v-for="(win, index) in dialogWindows" :key="index" :data="getWindowOption(win)"
+        @close="onWinClose(win)">
+        <component class="comp" :is="getWindowRenderComponent(win)" :data="getWindowRenderComponentData(win)">
+        </component>
       </CCWindow>
     </div>
   </Teleport>

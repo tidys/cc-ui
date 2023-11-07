@@ -35,11 +35,26 @@ export default defineComponent({
   },
   setup(props, { emit }) {
     const input = ref();
-    const val = ref(parseFloat(props.value.toFixed(2).toString()));
+    let preVal = props.value;
+
+    function checkVal(v: string | number): number {
+      let result = v;
+      if (typeof (result) === 'string') {
+        result = preVal;
+      }
+      if (typeof result === 'number' && props.min !== undefined) {
+        result = Math.max(props.min, result);
+      }
+      if (typeof result === 'number' && props.max !== undefined) {
+        result = Math.min(props.max, result);
+      }
+      return result;
+    }
+    const val = ref(checkVal(parseFloat(props.value.toFixed(2).toString())));
     watch(
       () => props.value,
       () => {
-        val.value = parseFloat(props.value.toFixed(2).toString());
+        val.value = checkVal(parseFloat(props.value.toFixed(2).toString()));
       }
     );
     onMounted(() => {
@@ -54,18 +69,15 @@ export default defineComponent({
         (input.value as Element).setAttribute("step", props.step.toString());
       }
     });
-    let preVal = props.value;
     return {
       val,
       input,
       onChange() {
-        // @ts-ignore
-        if (val.value === "") {
-          val.value = preVal;
-        }
-        preVal = val.value;
-        emit("update:value", val.value);
-        emit("change", val.value);
+        const result = checkVal(val.value);
+        preVal = result;
+        val.value = result;
+        emit("update:value", result);
+        emit("change", result);
       },
     };
   },
@@ -105,7 +117,7 @@ export default defineComponent({
       }
 
       &::-webkit-inner-spin-button {
-          // -webkit-appearance: none;
+        // -webkit-appearance: none;
         // opacity: 1;
         // margin: 0;
         // padding: 0;
