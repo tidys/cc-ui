@@ -20,8 +20,8 @@ export default defineComponent({
       type: Array as PropType<CmdData[]>,
       default: () => {
         return [];
-      },
-    },
+      }
+    }
   },
   setup(props, ctx) {
     function filterCommands(cmdArray: CmdData[]) {
@@ -61,9 +61,9 @@ export default defineComponent({
     });
     return {
       show,
-      commands,
+      commands
     };
-  },
+  }
 });
 </script>
 <style scoped lang="less">
@@ -86,6 +86,9 @@ export default defineComponent({
     // max-height: 30%;
     height: 100px;
     overflow-y: scroll;
+    box-shadow: 0px 2px 19px 4px rgb(0 0 0);
+    border-bottom-left-radius: 6px;
+    border-bottom-right-radius: 6px;
   }
 
   .items::-webkit-scrollbar {

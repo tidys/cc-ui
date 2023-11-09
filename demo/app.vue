@@ -67,6 +67,7 @@ import { defineComponent, ref, onMounted } from 'vue';
 import ccui from '../packages/index';
 import { orderTest } from './order';
 import { DialogUrlData, DialogOptions } from '../packages/cc-dialog/const';
+import { IUiMenuItem } from '../packages/cc-menu/const';
 const { CCCommand, CCColor, CCFootBar, CCButton, CCHelp, CCInputNumber, CCDialog, CCSection, CCSelect, CCProp, CCTextarea, CCInput } = ccui.components;
 export default defineComponent({
   name: 'app',
@@ -90,20 +91,27 @@ export default defineComponent({
         icon: 'cmder',
         cmds: [
           {
-            label: '1',
+            label: '1111111111111111 111111111111111',
             icon: 'cmder',
             cb: () => {
               console.log(1);
             }
           },
           {
-            label: '2',
+            label: '2222222222222',
             icon: 'cmder',
             visible: false,
             cb: () => {
               console.log(2);
             }
-          }
+          },
+          {
+            label: '333 333 333 333 333 333 333 333 333 333 333',
+            icon: 'cmder',
+            cb: () => {
+              console.log(1);
+            }
+          },
         ]
       })
     });

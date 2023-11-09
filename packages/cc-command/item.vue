@@ -1,6 +1,5 @@
 <template>
-  <div class="item" @mouseenter.prevent.stop="onMouseEnter" @mouseleave.prevent.stop="onMouseLeave"
-    @click.prevent.stop="onClick">
+  <div class="item" @mouseenter.prevent.stop="onMouseEnter" @mouseleave.prevent.stop="onMouseLeave" @click.prevent.stop="onClick">
     {{ data.label }}
   </div>
 </template>
@@ -13,13 +12,13 @@ export default defineComponent({
   props: {
     data: {
       type: Object as PropType<CmdData>,
-      required: true,
-    },
+      required: true
+    }
   },
   setup(props, ctx) {
     return {
-      onMouseEnter() { },
-      onMouseLeave() { },
+      onMouseEnter() {},
+      onMouseLeave() {},
       onClick() {
         const { cb, url } = props.data;
         if (url) {
@@ -30,9 +29,9 @@ export default defineComponent({
           }
         }
         closeCommand();
-      },
+      }
     };
-  },
+  }
 });
 </script>
 
@@ -45,7 +44,15 @@ export default defineComponent({
   display: flex;
   flex-direction: row;
   align-items: center;
-
+  overflow-x: scroll;
+  overflow-y: hidden;
+  word-break: break-all;
+  white-space: nowrap;
+  text-overflow: ellipsis;
+  &::-webkit-scrollbar {
+    width: 0;
+    height: 0;
+  }
   &:hover {
     background-color: #333;
   }
