@@ -6,6 +6,20 @@
   "description": "cc-ui组件库在使用",
   "glyphs": [
     {
+      "icon_id": "4936984",
+      "name": "QQ",
+      "font_class": "qq",
+      "unicode": "e882",
+      "unicode_decimal": 59522
+    },
+    {
+      "icon_id": "7735898",
+      "name": "book",
+      "font_class": "book",
+      "unicode": "e8d1",
+      "unicode_decimal": 59601
+    },
+    {
       "icon_id": "13592648",
       "name": "cmder",
       "font_class": "cmder",
