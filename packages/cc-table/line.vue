@@ -1,5 +1,5 @@
 <template>
-  <th v-for="(cell, index) in data" :key="index" style="padding: 1px;">
+  <th v-for="(cell, index) in data" :key="index" style="padding: 0px;">
     <CCTableCell :data="cell"></CCTableCell>
   </th>
 </template>

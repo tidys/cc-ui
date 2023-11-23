@@ -1,6 +1,6 @@
 <template>
   <div
-    class="cell-column cell-row"
+    class="cell cell-column cell-row"
     :class="{
       'cell-row-last': data.rowIndexCurrent + 1 >= data.rowIndexTotal,
       'cell-column-last': data.columnIndexCurrent + 1 >= data.columnIndexTotal,
@@ -28,6 +28,9 @@ export default defineComponent({
 });
 </script>
 <style lang="less" scoped>
+.cell {
+  height: 25px;
+}
 .cell-column {
   border-right: 1px solid black;
 }

@@ -5,7 +5,7 @@
         <col v-for="(item, index) in widthInfo" :key="index" :width="item" />
       </colgroup>
       <thead>
-        <tr v-for="(item, index) in data" :key="index"  >
+        <tr v-for="(item, index) in data" :key="index">
           <CCTableLine :data="item.data"></CCTableLine>
         </tr>
       </thead>
@@ -14,7 +14,7 @@
 </template>
 
 <script lang="ts">
-import { defineComponent, PropType, ref, toRaw } from 'vue';
+import { defineComponent, PropType, ref, toRaw, watch } from 'vue';
 import { LineData, TableData, TableColumn } from './const';
 import CCTableLine from './line.vue';
 export default defineComponent({
@@ -23,6 +23,10 @@ export default defineComponent({
     CCTableLine
   },
   props: {
+    widthInfo: {
+      type: Array as PropType<number[]>,
+      default: () => []
+    },
     columns: {
       type: Array as PropType<TableColumn[]>,
       default: () => []
@@ -33,17 +37,25 @@ export default defineComponent({
     }
   },
   setup(props, ctx) {
+    watch(
+      () => props.widthInfo,
+      v => {
+        console.log(v);
+      }
+    );
     let widthArray: number[] = [];
-    toRaw(props.columns).map(item => {
-      widthArray.push(item.width || 100);
+    const columnsData = toRaw(props.columns);
+    columnsData.map(item => {
+      if (item.width) {
+        widthArray.push(item.width);
+      }
     });
     const widthInfo = ref<number[]>(widthArray);
-    return { widthInfo };
+    return {};
   }
 });
 </script>
 <style lang="less" scoped>
 .table-body {
- 
 }
 </style>
