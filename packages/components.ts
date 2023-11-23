@@ -14,4 +14,5 @@ import { CCDialog } from './cc-dialog';
 import { CCHelp } from './cc-help';
 import { CCFootBar } from './cc-footbar'
 import { CCCommand } from './cc-command';
-export const components = { CCCommand, CCFootBar, CCButton, CCCheckBox, CCColor, CCSection, CCHelp, CCSelect, CCInput, CCInputNumber, CCProp, CCMenu, CCSlider, CCTextarea, CCWindow, CCDialog };
+import { CCTable } from './cc-table';
+export const components = { CCTable, CCCommand, CCFootBar, CCButton, CCCheckBox, CCColor, CCSection, CCHelp, CCSelect, CCInput, CCInputNumber, CCProp, CCMenu, CCSlider, CCTextarea, CCWindow, CCDialog };
