@@ -10,7 +10,7 @@ export interface CmdData {
     /**
      * 显示的icon
      */
-    icon?: "cmder" | string;
+    icon?: 'cmder' | 'qq' | 'book' | string;
     /**
      * 如果设置了url，将自动跳转到url，不会触发cb
      */

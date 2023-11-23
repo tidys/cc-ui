@@ -227,13 +227,6 @@ module.exports = randomByte;
 
 /***/ }),
 
-/***/ "0e39":
-/***/ (function(module, exports, __webpack_require__) {
-
-// extracted by mini-css-extract-plugin
-
-/***/ }),
-
 /***/ "16f9":
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
@@ -253,13 +246,6 @@ module.exports = randomByte;
 /***/ }),
 
 /***/ "2e55":
-/***/ (function(module, exports, __webpack_require__) {
-
-// extracted by mini-css-extract-plugin
-
-/***/ }),
-
-/***/ "3767":
 /***/ (function(module, exports, __webpack_require__) {
 
 // extracted by mini-css-extract-plugin
@@ -323,6 +309,17 @@ function build(clusterWorkerId) {
 }
 
 module.exports = build;
+
+
+/***/ }),
+
+/***/ "3f54":
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+/* harmony import */ var _node_modules_mini_css_extract_plugin_dist_loader_js_ref_10_oneOf_1_0_node_modules_css_loader_dist_cjs_js_ref_10_oneOf_1_1_node_modules_vue_loader_v16_dist_stylePostLoader_js_node_modules_postcss_loader_src_index_js_ref_10_oneOf_1_2_node_modules_less_loader_dist_cjs_js_ref_10_oneOf_1_3_node_modules_cache_loader_dist_cjs_js_ref_0_0_node_modules_vue_loader_v16_dist_index_js_ref_0_1_item_vue_vue_type_style_index_0_id_6733e46c_scoped_true_lang_less__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__("6772");
+/* harmony import */ var _node_modules_mini_css_extract_plugin_dist_loader_js_ref_10_oneOf_1_0_node_modules_css_loader_dist_cjs_js_ref_10_oneOf_1_1_node_modules_vue_loader_v16_dist_stylePostLoader_js_node_modules_postcss_loader_src_index_js_ref_10_oneOf_1_2_node_modules_less_loader_dist_cjs_js_ref_10_oneOf_1_3_node_modules_cache_loader_dist_cjs_js_ref_0_0_node_modules_vue_loader_v16_dist_index_js_ref_0_1_item_vue_vue_type_style_index_0_id_6733e46c_scoped_true_lang_less__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(_node_modules_mini_css_extract_plugin_dist_loader_js_ref_10_oneOf_1_0_node_modules_css_loader_dist_cjs_js_ref_10_oneOf_1_1_node_modules_vue_loader_v16_dist_stylePostLoader_js_node_modules_postcss_loader_src_index_js_ref_10_oneOf_1_2_node_modules_less_loader_dist_cjs_js_ref_10_oneOf_1_3_node_modules_cache_loader_dist_cjs_js_ref_0_0_node_modules_vue_loader_v16_dist_index_js_ref_0_1_item_vue_vue_type_style_index_0_id_6733e46c_scoped_true_lang_less__WEBPACK_IMPORTED_MODULE_0__);
+/* unused harmony reexport * */
 
 
 /***/ }),
@@ -446,6 +443,13 @@ module.exports = {
 /* harmony import */ var _node_modules_mini_css_extract_plugin_dist_loader_js_ref_10_oneOf_1_0_node_modules_css_loader_dist_cjs_js_ref_10_oneOf_1_1_node_modules_vue_loader_v16_dist_stylePostLoader_js_node_modules_postcss_loader_src_index_js_ref_10_oneOf_1_2_node_modules_less_loader_dist_cjs_js_ref_10_oneOf_1_3_node_modules_cache_loader_dist_cjs_js_ref_0_0_node_modules_vue_loader_v16_dist_index_js_ref_0_1_alpha_vue_vue_type_style_index_0_id_2821b475_scoped_true_lang_less__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(_node_modules_mini_css_extract_plugin_dist_loader_js_ref_10_oneOf_1_0_node_modules_css_loader_dist_cjs_js_ref_10_oneOf_1_1_node_modules_vue_loader_v16_dist_stylePostLoader_js_node_modules_postcss_loader_src_index_js_ref_10_oneOf_1_2_node_modules_less_loader_dist_cjs_js_ref_10_oneOf_1_3_node_modules_cache_loader_dist_cjs_js_ref_0_0_node_modules_vue_loader_v16_dist_index_js_ref_0_1_alpha_vue_vue_type_style_index_0_id_2821b475_scoped_true_lang_less__WEBPACK_IMPORTED_MODULE_0__);
 /* unused harmony reexport * */
 
+
+/***/ }),
+
+/***/ "439e":
+/***/ (function(module, exports, __webpack_require__) {
+
+// extracted by mini-css-extract-plugin
 
 /***/ }),
 
@@ -4942,21 +4946,17 @@ else {}
 
 /***/ }),
 
-/***/ "6c2f":
+/***/ "6772":
 /***/ (function(module, exports, __webpack_require__) {
 
 // extracted by mini-css-extract-plugin
 
 /***/ }),
 
-/***/ "6cf5":
-/***/ (function(module, __webpack_exports__, __webpack_require__) {
+/***/ "6c2f":
+/***/ (function(module, exports, __webpack_require__) {
 
-"use strict";
-/* harmony import */ var _node_modules_mini_css_extract_plugin_dist_loader_js_ref_10_oneOf_1_0_node_modules_css_loader_dist_cjs_js_ref_10_oneOf_1_1_node_modules_vue_loader_v16_dist_stylePostLoader_js_node_modules_postcss_loader_src_index_js_ref_10_oneOf_1_2_node_modules_less_loader_dist_cjs_js_ref_10_oneOf_1_3_node_modules_cache_loader_dist_cjs_js_ref_0_0_node_modules_vue_loader_v16_dist_index_js_ref_0_1_menu_vue_vue_type_style_index_0_id_5c2c04d6_scoped_true_lang_less__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__("3767");
-/* harmony import */ var _node_modules_mini_css_extract_plugin_dist_loader_js_ref_10_oneOf_1_0_node_modules_css_loader_dist_cjs_js_ref_10_oneOf_1_1_node_modules_vue_loader_v16_dist_stylePostLoader_js_node_modules_postcss_loader_src_index_js_ref_10_oneOf_1_2_node_modules_less_loader_dist_cjs_js_ref_10_oneOf_1_3_node_modules_cache_loader_dist_cjs_js_ref_0_0_node_modules_vue_loader_v16_dist_index_js_ref_0_1_menu_vue_vue_type_style_index_0_id_5c2c04d6_scoped_true_lang_less__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(_node_modules_mini_css_extract_plugin_dist_loader_js_ref_10_oneOf_1_0_node_modules_css_loader_dist_cjs_js_ref_10_oneOf_1_1_node_modules_vue_loader_v16_dist_stylePostLoader_js_node_modules_postcss_loader_src_index_js_ref_10_oneOf_1_2_node_modules_less_loader_dist_cjs_js_ref_10_oneOf_1_3_node_modules_cache_loader_dist_cjs_js_ref_0_0_node_modules_vue_loader_v16_dist_index_js_ref_0_1_menu_vue_vue_type_style_index_0_id_5c2c04d6_scoped_true_lang_less__WEBPACK_IMPORTED_MODULE_0__);
-/* unused harmony reexport * */
-
+// extracted by mini-css-extract-plugin
 
 /***/ }),
 
@@ -4993,17 +4993,6 @@ else {}
 /***/ (function(module, exports, __webpack_require__) {
 
 // extracted by mini-css-extract-plugin
-
-/***/ }),
-
-/***/ "7d0f":
-/***/ (function(module, __webpack_exports__, __webpack_require__) {
-
-"use strict";
-/* harmony import */ var _node_modules_mini_css_extract_plugin_dist_loader_js_ref_10_oneOf_1_0_node_modules_css_loader_dist_cjs_js_ref_10_oneOf_1_1_node_modules_vue_loader_v16_dist_stylePostLoader_js_node_modules_postcss_loader_src_index_js_ref_10_oneOf_1_2_node_modules_less_loader_dist_cjs_js_ref_10_oneOf_1_3_node_modules_cache_loader_dist_cjs_js_ref_0_0_node_modules_vue_loader_v16_dist_index_js_ref_0_1_item_vue_vue_type_style_index_0_id_651a826a_scoped_true_lang_less__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__("d493");
-/* harmony import */ var _node_modules_mini_css_extract_plugin_dist_loader_js_ref_10_oneOf_1_0_node_modules_css_loader_dist_cjs_js_ref_10_oneOf_1_1_node_modules_vue_loader_v16_dist_stylePostLoader_js_node_modules_postcss_loader_src_index_js_ref_10_oneOf_1_2_node_modules_less_loader_dist_cjs_js_ref_10_oneOf_1_3_node_modules_cache_loader_dist_cjs_js_ref_0_0_node_modules_vue_loader_v16_dist_index_js_ref_0_1_item_vue_vue_type_style_index_0_id_651a826a_scoped_true_lang_less__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(_node_modules_mini_css_extract_plugin_dist_loader_js_ref_10_oneOf_1_0_node_modules_css_loader_dist_cjs_js_ref_10_oneOf_1_1_node_modules_vue_loader_v16_dist_stylePostLoader_js_node_modules_postcss_loader_src_index_js_ref_10_oneOf_1_2_node_modules_less_loader_dist_cjs_js_ref_10_oneOf_1_3_node_modules_cache_loader_dist_cjs_js_ref_0_0_node_modules_vue_loader_v16_dist_index_js_ref_0_1_item_vue_vue_type_style_index_0_id_651a826a_scoped_true_lang_less__WEBPACK_IMPORTED_MODULE_0__);
-/* unused harmony reexport * */
-
 
 /***/ }),
 
@@ -6251,6 +6240,17 @@ module.exports = __webpack_require__("069b");
 
 /***/ }),
 
+/***/ "9077":
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+/* harmony import */ var _node_modules_mini_css_extract_plugin_dist_loader_js_ref_10_oneOf_1_0_node_modules_css_loader_dist_cjs_js_ref_10_oneOf_1_1_node_modules_vue_loader_v16_dist_stylePostLoader_js_node_modules_postcss_loader_src_index_js_ref_10_oneOf_1_2_node_modules_less_loader_dist_cjs_js_ref_10_oneOf_1_3_node_modules_cache_loader_dist_cjs_js_ref_0_0_node_modules_vue_loader_v16_dist_index_js_ref_0_1_command_vue_vue_type_style_index_0_id_480fe661_scoped_true_lang_less__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__("986c");
+/* harmony import */ var _node_modules_mini_css_extract_plugin_dist_loader_js_ref_10_oneOf_1_0_node_modules_css_loader_dist_cjs_js_ref_10_oneOf_1_1_node_modules_vue_loader_v16_dist_stylePostLoader_js_node_modules_postcss_loader_src_index_js_ref_10_oneOf_1_2_node_modules_less_loader_dist_cjs_js_ref_10_oneOf_1_3_node_modules_cache_loader_dist_cjs_js_ref_0_0_node_modules_vue_loader_v16_dist_index_js_ref_0_1_command_vue_vue_type_style_index_0_id_480fe661_scoped_true_lang_less__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(_node_modules_mini_css_extract_plugin_dist_loader_js_ref_10_oneOf_1_0_node_modules_css_loader_dist_cjs_js_ref_10_oneOf_1_1_node_modules_vue_loader_v16_dist_stylePostLoader_js_node_modules_postcss_loader_src_index_js_ref_10_oneOf_1_2_node_modules_less_loader_dist_cjs_js_ref_10_oneOf_1_3_node_modules_cache_loader_dist_cjs_js_ref_0_0_node_modules_vue_loader_v16_dist_index_js_ref_0_1_command_vue_vue_type_style_index_0_id_480fe661_scoped_true_lang_less__WEBPACK_IMPORTED_MODULE_0__);
+/* unused harmony reexport * */
+
+
+/***/ }),
+
 /***/ "9601":
 /***/ (function(module, exports, __webpack_require__) {
 
@@ -6259,6 +6259,20 @@ module.exports = __webpack_require__("069b");
 /***/ }),
 
 /***/ "9602":
+/***/ (function(module, exports, __webpack_require__) {
+
+// extracted by mini-css-extract-plugin
+
+/***/ }),
+
+/***/ "986c":
+/***/ (function(module, exports, __webpack_require__) {
+
+// extracted by mini-css-extract-plugin
+
+/***/ }),
+
+/***/ "9abf":
 /***/ (function(module, exports, __webpack_require__) {
 
 // extracted by mini-css-extract-plugin
@@ -6309,6 +6323,1754 @@ module.exports = 0;
 
 /***/ }),
 
+/***/ "a677":
+/***/ (function(module, exports, __webpack_require__) {
+
+/******/ (() => { // webpackBootstrap
+/******/ 	var __webpack_modules__ = ({
+
+/***/ 87:
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+var __WEBPACK_AMD_DEFINE_FACTORY__, __WEBPACK_AMD_DEFINE_RESULT__;
+
+/**
+ * Copyright Marc J. Schmidt. See the LICENSE file at the top-level
+ * directory of this distribution and at
+ * https://github.com/marcj/css-element-queries/blob/master/LICENSE.
+ */
+(function (root, factory) {
+    if (true) {
+        !(__WEBPACK_AMD_DEFINE_FACTORY__ = (factory),
+		__WEBPACK_AMD_DEFINE_RESULT__ = (typeof __WEBPACK_AMD_DEFINE_FACTORY__ === 'function' ?
+		(__WEBPACK_AMD_DEFINE_FACTORY__.call(exports, __webpack_require__, exports, module)) :
+		__WEBPACK_AMD_DEFINE_FACTORY__),
+		__WEBPACK_AMD_DEFINE_RESULT__ !== undefined && (module.exports = __WEBPACK_AMD_DEFINE_RESULT__));
+    } else {}
+}(typeof window !== 'undefined' ? window : this, function () {
+
+    // Make sure it does not throw in a SSR (Server Side Rendering) situation
+    if (typeof window === "undefined") {
+        return null;
+    }
+    // https://github.com/Semantic-Org/Semantic-UI/issues/3855
+    // https://github.com/marcj/css-element-queries/issues/257
+    var globalWindow = typeof window != 'undefined' && window.Math == Math
+        ? window
+        : typeof self != 'undefined' && self.Math == Math
+            ? self
+            : Function('return this')();
+    // Only used for the dirty checking, so the event callback count is limited to max 1 call per fps per sensor.
+    // In combination with the event based resize sensor this saves cpu time, because the sensor is too fast and
+    // would generate too many unnecessary events.
+    var requestAnimationFrame = globalWindow.requestAnimationFrame ||
+        globalWindow.mozRequestAnimationFrame ||
+        globalWindow.webkitRequestAnimationFrame ||
+        function (fn) {
+            return globalWindow.setTimeout(fn, 20);
+        };
+
+    var cancelAnimationFrame = globalWindow.cancelAnimationFrame ||
+        globalWindow.mozCancelAnimationFrame ||
+        globalWindow.webkitCancelAnimationFrame ||
+        function (timer) {
+            globalWindow.clearTimeout(timer);
+        };
+
+    /**
+     * Iterate over each of the provided element(s).
+     *
+     * @param {HTMLElement|HTMLElement[]} elements
+     * @param {Function}                  callback
+     */
+    function forEachElement(elements, callback){
+        var elementsType = Object.prototype.toString.call(elements);
+        var isCollectionTyped = ('[object Array]' === elementsType
+            || ('[object NodeList]' === elementsType)
+            || ('[object HTMLCollection]' === elementsType)
+            || ('[object Object]' === elementsType)
+            || ('undefined' !== typeof jQuery && elements instanceof jQuery) //jquery
+            || ('undefined' !== typeof Elements && elements instanceof Elements) //mootools
+        );
+        var i = 0, j = elements.length;
+        if (isCollectionTyped) {
+            for (; i < j; i++) {
+                callback(elements[i]);
+            }
+        } else {
+            callback(elements);
+        }
+    }
+
+    /**
+    * Get element size
+    * @param {HTMLElement} element
+    * @returns {Object} {width, height}
+    */
+    function getElementSize(element) {
+        if (!element.getBoundingClientRect) {
+            return {
+                width: element.offsetWidth,
+                height: element.offsetHeight
+            }
+        }
+
+        var rect = element.getBoundingClientRect();
+        return {
+            width: Math.round(rect.width),
+            height: Math.round(rect.height)
+        }
+    }
+
+    /**
+     * Apply CSS styles to element.
+     *
+     * @param {HTMLElement} element
+     * @param {Object} style
+     */
+    function setStyle(element, style) {
+        Object.keys(style).forEach(function(key) {
+            element.style[key] = style[key];
+        });
+    }
+
+    /**
+     * Class for dimension change detection.
+     *
+     * @param {Element|Element[]|Elements|jQuery} element
+     * @param {Function} callback
+     *
+     * @constructor
+     */
+    var ResizeSensor = function(element, callback) {
+        //Is used when checking in reset() only for invisible elements
+        var lastAnimationFrameForInvisibleCheck = 0;
+
+        /**
+         *
+         * @constructor
+         */
+        function EventQueue() {
+            var q = [];
+            this.add = function(ev) {
+                q.push(ev);
+            };
+
+            var i, j;
+            this.call = function(sizeInfo) {
+                for (i = 0, j = q.length; i < j; i++) {
+                    q[i].call(this, sizeInfo);
+                }
+            };
+
+            this.remove = function(ev) {
+                var newQueue = [];
+                for(i = 0, j = q.length; i < j; i++) {
+                    if(q[i] !== ev) newQueue.push(q[i]);
+                }
+                q = newQueue;
+            };
+
+            this.length = function() {
+                return q.length;
+            }
+        }
+
+        /**
+         *
+         * @param {HTMLElement} element
+         * @param {Function}    resized
+         */
+        function attachResizeEvent(element, resized) {
+            if (!element) return;
+            if (element.resizedAttached) {
+                element.resizedAttached.add(resized);
+                return;
+            }
+
+            element.resizedAttached = new EventQueue();
+            element.resizedAttached.add(resized);
+
+            element.resizeSensor = document.createElement('div');
+            element.resizeSensor.dir = 'ltr';
+            element.resizeSensor.className = 'resize-sensor';
+
+            var style = {
+                pointerEvents: 'none',
+                position: 'absolute',
+                left: '0px',
+                top: '0px',
+                right: '0px',
+                bottom: '0px',
+                overflow: 'hidden',
+                zIndex: '-1',
+                visibility: 'hidden',
+                maxWidth: '100%'
+            };
+            var styleChild = {
+                position: 'absolute',
+                left: '0px',
+                top: '0px',
+                transition: '0s',
+            };
+
+            setStyle(element.resizeSensor, style);
+
+            var expand = document.createElement('div');
+            expand.className = 'resize-sensor-expand';
+            setStyle(expand, style);
+
+            var expandChild = document.createElement('div');
+            setStyle(expandChild, styleChild);
+            expand.appendChild(expandChild);
+
+            var shrink = document.createElement('div');
+            shrink.className = 'resize-sensor-shrink';
+            setStyle(shrink, style);
+
+            var shrinkChild = document.createElement('div');
+            setStyle(shrinkChild, styleChild);
+            setStyle(shrinkChild, { width: '200%', height: '200%' });
+            shrink.appendChild(shrinkChild);
+
+            element.resizeSensor.appendChild(expand);
+            element.resizeSensor.appendChild(shrink);
+            element.appendChild(element.resizeSensor);
+
+            var computedStyle = window.getComputedStyle(element);
+            var position = computedStyle ? computedStyle.getPropertyValue('position') : null;
+            if ('absolute' !== position && 'relative' !== position && 'fixed' !== position && 'sticky' !== position) {
+                element.style.position = 'relative';
+            }
+
+            var dirty = false;
+
+            //last request animation frame id used in onscroll event
+            var rafId = 0;
+            var size = getElementSize(element);
+            var lastWidth = 0;
+            var lastHeight = 0;
+            var initialHiddenCheck = true;
+            lastAnimationFrameForInvisibleCheck = 0;
+
+            var resetExpandShrink = function () {
+                var width = element.offsetWidth;
+                var height = element.offsetHeight;
+
+                expandChild.style.width = (width + 10) + 'px';
+                expandChild.style.height = (height + 10) + 'px';
+
+                expand.scrollLeft = width + 10;
+                expand.scrollTop = height + 10;
+
+                shrink.scrollLeft = width + 10;
+                shrink.scrollTop = height + 10;
+            };
+
+            var reset = function() {
+                // Check if element is hidden
+                if (initialHiddenCheck) {
+                    var invisible = element.offsetWidth === 0 && element.offsetHeight === 0;
+                    if (invisible) {
+                        // Check in next frame
+                        if (!lastAnimationFrameForInvisibleCheck){
+                            lastAnimationFrameForInvisibleCheck = requestAnimationFrame(function(){
+                                lastAnimationFrameForInvisibleCheck = 0;
+                                reset();
+                            });
+                        }
+
+                        return;
+                    } else {
+                        // Stop checking
+                        initialHiddenCheck = false;
+                    }
+                }
+
+                resetExpandShrink();
+            };
+            element.resizeSensor.resetSensor = reset;
+
+            var onResized = function() {
+                rafId = 0;
+
+                if (!dirty) return;
+
+                lastWidth = size.width;
+                lastHeight = size.height;
+
+                if (element.resizedAttached) {
+                    element.resizedAttached.call(size);
+                }
+            };
+
+            var onScroll = function() {
+                size = getElementSize(element);
+                dirty = size.width !== lastWidth || size.height !== lastHeight;
+
+                if (dirty && !rafId) {
+                    rafId = requestAnimationFrame(onResized);
+                }
+
+                reset();
+            };
+
+            var addEvent = function(el, name, cb) {
+                if (el.attachEvent) {
+                    el.attachEvent('on' + name, cb);
+                } else {
+                    el.addEventListener(name, cb);
+                }
+            };
+
+            addEvent(expand, 'scroll', onScroll);
+            addEvent(shrink, 'scroll', onScroll);
+
+            // Fix for custom Elements and invisible elements
+            lastAnimationFrameForInvisibleCheck = requestAnimationFrame(function(){
+                lastAnimationFrameForInvisibleCheck = 0;
+                reset();
+            });
+        }
+
+        forEachElement(element, function(elem){
+            attachResizeEvent(elem, callback);
+        });
+
+        this.detach = function(ev) {
+            // clean up the unfinished animation frame to prevent a potential endless requestAnimationFrame of reset
+            if (!lastAnimationFrameForInvisibleCheck) {
+                cancelAnimationFrame(lastAnimationFrameForInvisibleCheck);
+                lastAnimationFrameForInvisibleCheck = 0;
+            }
+            ResizeSensor.detach(element, ev);
+        };
+
+        this.reset = function() {
+            element.resizeSensor.resetSensor();
+        };
+    };
+
+    ResizeSensor.reset = function(element) {
+        forEachElement(element, function(elem){
+            elem.resizeSensor.resetSensor();
+        });
+    };
+
+    ResizeSensor.detach = function(element, ev) {
+        forEachElement(element, function(elem){
+            if (!elem) return;
+            if(elem.resizedAttached && typeof ev === "function"){
+                elem.resizedAttached.remove(ev);
+                if(elem.resizedAttached.length()) return;
+            }
+            if (elem.resizeSensor) {
+                if (elem.contains(elem.resizeSensor)) {
+                    elem.removeChild(elem.resizeSensor);
+                }
+                delete elem.resizeSensor;
+                delete elem.resizedAttached;
+            }
+        });
+    };
+
+    if (typeof MutationObserver !== "undefined") {
+        var observer = new MutationObserver(function (mutations) {
+            for (var i in mutations) {
+                if (mutations.hasOwnProperty(i)) {
+                    var items = mutations[i].addedNodes;
+                    for (var j = 0; j < items.length; j++) {
+                        if (items[j].resizeSensor) {
+                            ResizeSensor.reset(items[j]);
+                        }
+                    }
+                }
+            }
+        });
+
+        document.addEventListener("DOMContentLoaded", function (event) {
+            observer.observe(document.body, {
+                childList: true,
+                subtree: true,
+            });
+        });
+    }
+
+    return ResizeSensor;
+
+}));
+
+
+/***/ }),
+
+/***/ 337:
+/***/ (() => {
+
+/**
+ * Copyright 2016 Google Inc. All Rights Reserved.
+ *
+ * Licensed under the W3C SOFTWARE AND DOCUMENT NOTICE AND LICENSE.
+ *
+ *  https://www.w3.org/Consortium/Legal/2015/copyright-software-and-document
+ *
+ */
+
+(function(window, document) {
+'use strict';
+
+
+// Exits early if all IntersectionObserver and IntersectionObserverEntry
+// features are natively supported.
+if ('IntersectionObserver' in window &&
+    'IntersectionObserverEntry' in window &&
+    'intersectionRatio' in window.IntersectionObserverEntry.prototype) {
+
+  // Minimal polyfill for Edge 15's lack of `isIntersecting`
+  // See: https://github.com/w3c/IntersectionObserver/issues/211
+  if (!('isIntersecting' in window.IntersectionObserverEntry.prototype)) {
+    Object.defineProperty(window.IntersectionObserverEntry.prototype,
+      'isIntersecting', {
+      get: function () {
+        return this.intersectionRatio > 0;
+      }
+    });
+  }
+  return;
+}
+
+
+/**
+ * An IntersectionObserver registry. This registry exists to hold a strong
+ * reference to IntersectionObserver instances currently observing a target
+ * element. Without this registry, instances without another reference may be
+ * garbage collected.
+ */
+var registry = [];
+
+
+/**
+ * Creates the global IntersectionObserverEntry constructor.
+ * https://w3c.github.io/IntersectionObserver/#intersection-observer-entry
+ * @param {Object} entry A dictionary of instance properties.
+ * @constructor
+ */
+function IntersectionObserverEntry(entry) {
+  this.time = entry.time;
+  this.target = entry.target;
+  this.rootBounds = entry.rootBounds;
+  this.boundingClientRect = entry.boundingClientRect;
+  this.intersectionRect = entry.intersectionRect || getEmptyRect();
+  this.isIntersecting = !!entry.intersectionRect;
+
+  // Calculates the intersection ratio.
+  var targetRect = this.boundingClientRect;
+  var targetArea = targetRect.width * targetRect.height;
+  var intersectionRect = this.intersectionRect;
+  var intersectionArea = intersectionRect.width * intersectionRect.height;
+
+  // Sets intersection ratio.
+  if (targetArea) {
+    // Round the intersection ratio to avoid floating point math issues:
+    // https://github.com/w3c/IntersectionObserver/issues/324
+    this.intersectionRatio = Number((intersectionArea / targetArea).toFixed(4));
+  } else {
+    // If area is zero and is intersecting, sets to 1, otherwise to 0
+    this.intersectionRatio = this.isIntersecting ? 1 : 0;
+  }
+}
+
+
+/**
+ * Creates the global IntersectionObserver constructor.
+ * https://w3c.github.io/IntersectionObserver/#intersection-observer-interface
+ * @param {Function} callback The function to be invoked after intersection
+ *     changes have queued. The function is not invoked if the queue has
+ *     been emptied by calling the `takeRecords` method.
+ * @param {Object=} opt_options Optional configuration options.
+ * @constructor
+ */
+function IntersectionObserver(callback, opt_options) {
+
+  var options = opt_options || {};
+
+  if (typeof callback != 'function') {
+    throw new Error('callback must be a function');
+  }
+
+  if (options.root && options.root.nodeType != 1) {
+    throw new Error('root must be an Element');
+  }
+
+  // Binds and throttles `this._checkForIntersections`.
+  this._checkForIntersections = throttle(
+      this._checkForIntersections.bind(this), this.THROTTLE_TIMEOUT);
+
+  // Private properties.
+  this._callback = callback;
+  this._observationTargets = [];
+  this._queuedEntries = [];
+  this._rootMarginValues = this._parseRootMargin(options.rootMargin);
+
+  // Public properties.
+  this.thresholds = this._initThresholds(options.threshold);
+  this.root = options.root || null;
+  this.rootMargin = this._rootMarginValues.map(function(margin) {
+    return margin.value + margin.unit;
+  }).join(' ');
+}
+
+
+/**
+ * The minimum interval within which the document will be checked for
+ * intersection changes.
+ */
+IntersectionObserver.prototype.THROTTLE_TIMEOUT = 100;
+
+
+/**
+ * The frequency in which the polyfill polls for intersection changes.
+ * this can be updated on a per instance basis and must be set prior to
+ * calling `observe` on the first target.
+ */
+IntersectionObserver.prototype.POLL_INTERVAL = null;
+
+/**
+ * Use a mutation observer on the root element
+ * to detect intersection changes.
+ */
+IntersectionObserver.prototype.USE_MUTATION_OBSERVER = true;
+
+
+/**
+ * Starts observing a target element for intersection changes based on
+ * the thresholds values.
+ * @param {Element} target The DOM element to observe.
+ */
+IntersectionObserver.prototype.observe = function(target) {
+  var isTargetAlreadyObserved = this._observationTargets.some(function(item) {
+    return item.element == target;
+  });
+
+  if (isTargetAlreadyObserved) {
+    return;
+  }
+
+  if (!(target && target.nodeType == 1)) {
+    throw new Error('target must be an Element');
+  }
+
+  this._registerInstance();
+  this._observationTargets.push({element: target, entry: null});
+  this._monitorIntersections();
+  this._checkForIntersections();
+};
+
+
+/**
+ * Stops observing a target element for intersection changes.
+ * @param {Element} target The DOM element to observe.
+ */
+IntersectionObserver.prototype.unobserve = function(target) {
+  this._observationTargets =
+      this._observationTargets.filter(function(item) {
+
+    return item.element != target;
+  });
+  if (!this._observationTargets.length) {
+    this._unmonitorIntersections();
+    this._unregisterInstance();
+  }
+};
+
+
+/**
+ * Stops observing all target elements for intersection changes.
+ */
+IntersectionObserver.prototype.disconnect = function() {
+  this._observationTargets = [];
+  this._unmonitorIntersections();
+  this._unregisterInstance();
+};
+
+
+/**
+ * Returns any queue entries that have not yet been reported to the
+ * callback and clears the queue. This can be used in conjunction with the
+ * callback to obtain the absolute most up-to-date intersection information.
+ * @return {Array} The currently queued entries.
+ */
+IntersectionObserver.prototype.takeRecords = function() {
+  var records = this._queuedEntries.slice();
+  this._queuedEntries = [];
+  return records;
+};
+
+
+/**
+ * Accepts the threshold value from the user configuration object and
+ * returns a sorted array of unique threshold values. If a value is not
+ * between 0 and 1 and error is thrown.
+ * @private
+ * @param {Array|number=} opt_threshold An optional threshold value or
+ *     a list of threshold values, defaulting to [0].
+ * @return {Array} A sorted list of unique and valid threshold values.
+ */
+IntersectionObserver.prototype._initThresholds = function(opt_threshold) {
+  var threshold = opt_threshold || [0];
+  if (!Array.isArray(threshold)) threshold = [threshold];
+
+  return threshold.sort().filter(function(t, i, a) {
+    if (typeof t != 'number' || isNaN(t) || t < 0 || t > 1) {
+      throw new Error('threshold must be a number between 0 and 1 inclusively');
+    }
+    return t !== a[i - 1];
+  });
+};
+
+
+/**
+ * Accepts the rootMargin value from the user configuration object
+ * and returns an array of the four margin values as an object containing
+ * the value and unit properties. If any of the values are not properly
+ * formatted or use a unit other than px or %, and error is thrown.
+ * @private
+ * @param {string=} opt_rootMargin An optional rootMargin value,
+ *     defaulting to '0px'.
+ * @return {Array<Object>} An array of margin objects with the keys
+ *     value and unit.
+ */
+IntersectionObserver.prototype._parseRootMargin = function(opt_rootMargin) {
+  var marginString = opt_rootMargin || '0px';
+  var margins = marginString.split(/\s+/).map(function(margin) {
+    var parts = /^(-?\d*\.?\d+)(px|%)$/.exec(margin);
+    if (!parts) {
+      throw new Error('rootMargin must be specified in pixels or percent');
+    }
+    return {value: parseFloat(parts[1]), unit: parts[2]};
+  });
+
+  // Handles shorthand.
+  margins[1] = margins[1] || margins[0];
+  margins[2] = margins[2] || margins[0];
+  margins[3] = margins[3] || margins[1];
+
+  return margins;
+};
+
+
+/**
+ * Starts polling for intersection changes if the polling is not already
+ * happening, and if the page's visibility state is visible.
+ * @private
+ */
+IntersectionObserver.prototype._monitorIntersections = function() {
+  if (!this._monitoringIntersections) {
+    this._monitoringIntersections = true;
+
+    // If a poll interval is set, use polling instead of listening to
+    // resize and scroll events or DOM mutations.
+    if (this.POLL_INTERVAL) {
+      this._monitoringInterval = setInterval(
+          this._checkForIntersections, this.POLL_INTERVAL);
+    }
+    else {
+      addEvent(window, 'resize', this._checkForIntersections, true);
+      addEvent(document, 'scroll', this._checkForIntersections, true);
+
+      if (this.USE_MUTATION_OBSERVER && 'MutationObserver' in window) {
+        this._domObserver = new MutationObserver(this._checkForIntersections);
+        this._domObserver.observe(document, {
+          attributes: true,
+          childList: true,
+          characterData: true,
+          subtree: true
+        });
+      }
+    }
+  }
+};
+
+
+/**
+ * Stops polling for intersection changes.
+ * @private
+ */
+IntersectionObserver.prototype._unmonitorIntersections = function() {
+  if (this._monitoringIntersections) {
+    this._monitoringIntersections = false;
+
+    clearInterval(this._monitoringInterval);
+    this._monitoringInterval = null;
+
+    removeEvent(window, 'resize', this._checkForIntersections, true);
+    removeEvent(document, 'scroll', this._checkForIntersections, true);
+
+    if (this._domObserver) {
+      this._domObserver.disconnect();
+      this._domObserver = null;
+    }
+  }
+};
+
+
+/**
+ * Scans each observation target for intersection changes and adds them
+ * to the internal entries queue. If new entries are found, it
+ * schedules the callback to be invoked.
+ * @private
+ */
+IntersectionObserver.prototype._checkForIntersections = function() {
+  var rootIsInDom = this._rootIsInDom();
+  var rootRect = rootIsInDom ? this._getRootRect() : getEmptyRect();
+
+  this._observationTargets.forEach(function(item) {
+    var target = item.element;
+    var targetRect = getBoundingClientRect(target);
+    var rootContainsTarget = this._rootContainsTarget(target);
+    var oldEntry = item.entry;
+    var intersectionRect = rootIsInDom && rootContainsTarget &&
+        this._computeTargetAndRootIntersection(target, rootRect);
+
+    var newEntry = item.entry = new IntersectionObserverEntry({
+      time: now(),
+      target: target,
+      boundingClientRect: targetRect,
+      rootBounds: rootRect,
+      intersectionRect: intersectionRect
+    });
+
+    if (!oldEntry) {
+      this._queuedEntries.push(newEntry);
+    } else if (rootIsInDom && rootContainsTarget) {
+      // If the new entry intersection ratio has crossed any of the
+      // thresholds, add a new entry.
+      if (this._hasCrossedThreshold(oldEntry, newEntry)) {
+        this._queuedEntries.push(newEntry);
+      }
+    } else {
+      // If the root is not in the DOM or target is not contained within
+      // root but the previous entry for this target had an intersection,
+      // add a new record indicating removal.
+      if (oldEntry && oldEntry.isIntersecting) {
+        this._queuedEntries.push(newEntry);
+      }
+    }
+  }, this);
+
+  if (this._queuedEntries.length) {
+    this._callback(this.takeRecords(), this);
+  }
+};
+
+
+/**
+ * Accepts a target and root rect computes the intersection between then
+ * following the algorithm in the spec.
+ * TODO(philipwalton): at this time clip-path is not considered.
+ * https://w3c.github.io/IntersectionObserver/#calculate-intersection-rect-algo
+ * @param {Element} target The target DOM element
+ * @param {Object} rootRect The bounding rect of the root after being
+ *     expanded by the rootMargin value.
+ * @return {?Object} The final intersection rect object or undefined if no
+ *     intersection is found.
+ * @private
+ */
+IntersectionObserver.prototype._computeTargetAndRootIntersection =
+    function(target, rootRect) {
+
+  // If the element isn't displayed, an intersection can't happen.
+  if (window.getComputedStyle(target).display == 'none') return;
+
+  var targetRect = getBoundingClientRect(target);
+  var intersectionRect = targetRect;
+  var parent = getParentNode(target);
+  var atRoot = false;
+
+  while (!atRoot) {
+    var parentRect = null;
+    var parentComputedStyle = parent.nodeType == 1 ?
+        window.getComputedStyle(parent) : {};
+
+    // If the parent isn't displayed, an intersection can't happen.
+    if (parentComputedStyle.display == 'none') return;
+
+    if (parent == this.root || parent == document) {
+      atRoot = true;
+      parentRect = rootRect;
+    } else {
+      // If the element has a non-visible overflow, and it's not the <body>
+      // or <html> element, update the intersection rect.
+      // Note: <body> and <html> cannot be clipped to a rect that's not also
+      // the document rect, so no need to compute a new intersection.
+      if (parent != document.body &&
+          parent != document.documentElement &&
+          parentComputedStyle.overflow != 'visible') {
+        parentRect = getBoundingClientRect(parent);
+      }
+    }
+
+    // If either of the above conditionals set a new parentRect,
+    // calculate new intersection data.
+    if (parentRect) {
+      intersectionRect = computeRectIntersection(parentRect, intersectionRect);
+
+      if (!intersectionRect) break;
+    }
+    parent = getParentNode(parent);
+  }
+  return intersectionRect;
+};
+
+
+/**
+ * Returns the root rect after being expanded by the rootMargin value.
+ * @return {Object} The expanded root rect.
+ * @private
+ */
+IntersectionObserver.prototype._getRootRect = function() {
+  var rootRect;
+  if (this.root) {
+    rootRect = getBoundingClientRect(this.root);
+  } else {
+    // Use <html>/<body> instead of window since scroll bars affect size.
+    var html = document.documentElement;
+    var body = document.body;
+    rootRect = {
+      top: 0,
+      left: 0,
+      right: html.clientWidth || body.clientWidth,
+      width: html.clientWidth || body.clientWidth,
+      bottom: html.clientHeight || body.clientHeight,
+      height: html.clientHeight || body.clientHeight
+    };
+  }
+  return this._expandRectByRootMargin(rootRect);
+};
+
+
+/**
+ * Accepts a rect and expands it by the rootMargin value.
+ * @param {Object} rect The rect object to expand.
+ * @return {Object} The expanded rect.
+ * @private
+ */
+IntersectionObserver.prototype._expandRectByRootMargin = function(rect) {
+  var margins = this._rootMarginValues.map(function(margin, i) {
+    return margin.unit == 'px' ? margin.value :
+        margin.value * (i % 2 ? rect.width : rect.height) / 100;
+  });
+  var newRect = {
+    top: rect.top - margins[0],
+    right: rect.right + margins[1],
+    bottom: rect.bottom + margins[2],
+    left: rect.left - margins[3]
+  };
+  newRect.width = newRect.right - newRect.left;
+  newRect.height = newRect.bottom - newRect.top;
+
+  return newRect;
+};
+
+
+/**
+ * Accepts an old and new entry and returns true if at least one of the
+ * threshold values has been crossed.
+ * @param {?IntersectionObserverEntry} oldEntry The previous entry for a
+ *    particular target element or null if no previous entry exists.
+ * @param {IntersectionObserverEntry} newEntry The current entry for a
+ *    particular target element.
+ * @return {boolean} Returns true if a any threshold has been crossed.
+ * @private
+ */
+IntersectionObserver.prototype._hasCrossedThreshold =
+    function(oldEntry, newEntry) {
+
+  // To make comparing easier, an entry that has a ratio of 0
+  // but does not actually intersect is given a value of -1
+  var oldRatio = oldEntry && oldEntry.isIntersecting ?
+      oldEntry.intersectionRatio || 0 : -1;
+  var newRatio = newEntry.isIntersecting ?
+      newEntry.intersectionRatio || 0 : -1;
+
+  // Ignore unchanged ratios
+  if (oldRatio === newRatio) return;
+
+  for (var i = 0; i < this.thresholds.length; i++) {
+    var threshold = this.thresholds[i];
+
+    // Return true if an entry matches a threshold or if the new ratio
+    // and the old ratio are on the opposite sides of a threshold.
+    if (threshold == oldRatio || threshold == newRatio ||
+        threshold < oldRatio !== threshold < newRatio) {
+      return true;
+    }
+  }
+};
+
+
+/**
+ * Returns whether or not the root element is an element and is in the DOM.
+ * @return {boolean} True if the root element is an element and is in the DOM.
+ * @private
+ */
+IntersectionObserver.prototype._rootIsInDom = function() {
+  return !this.root || containsDeep(document, this.root);
+};
+
+
+/**
+ * Returns whether or not the target element is a child of root.
+ * @param {Element} target The target element to check.
+ * @return {boolean} True if the target element is a child of root.
+ * @private
+ */
+IntersectionObserver.prototype._rootContainsTarget = function(target) {
+  return containsDeep(this.root || document, target);
+};
+
+
+/**
+ * Adds the instance to the global IntersectionObserver registry if it isn't
+ * already present.
+ * @private
+ */
+IntersectionObserver.prototype._registerInstance = function() {
+  if (registry.indexOf(this) < 0) {
+    registry.push(this);
+  }
+};
+
+
+/**
+ * Removes the instance from the global IntersectionObserver registry.
+ * @private
+ */
+IntersectionObserver.prototype._unregisterInstance = function() {
+  var index = registry.indexOf(this);
+  if (index != -1) registry.splice(index, 1);
+};
+
+
+/**
+ * Returns the result of the performance.now() method or null in browsers
+ * that don't support the API.
+ * @return {number} The elapsed time since the page was requested.
+ */
+function now() {
+  return window.performance && performance.now && performance.now();
+}
+
+
+/**
+ * Throttles a function and delays its execution, so it's only called at most
+ * once within a given time period.
+ * @param {Function} fn The function to throttle.
+ * @param {number} timeout The amount of time that must pass before the
+ *     function can be called again.
+ * @return {Function} The throttled function.
+ */
+function throttle(fn, timeout) {
+  var timer = null;
+  return function () {
+    if (!timer) {
+      timer = setTimeout(function() {
+        fn();
+        timer = null;
+      }, timeout);
+    }
+  };
+}
+
+
+/**
+ * Adds an event handler to a DOM node ensuring cross-browser compatibility.
+ * @param {Node} node The DOM node to add the event handler to.
+ * @param {string} event The event name.
+ * @param {Function} fn The event handler to add.
+ * @param {boolean} opt_useCapture Optionally adds the even to the capture
+ *     phase. Note: this only works in modern browsers.
+ */
+function addEvent(node, event, fn, opt_useCapture) {
+  if (typeof node.addEventListener == 'function') {
+    node.addEventListener(event, fn, opt_useCapture || false);
+  }
+  else if (typeof node.attachEvent == 'function') {
+    node.attachEvent('on' + event, fn);
+  }
+}
+
+
+/**
+ * Removes a previously added event handler from a DOM node.
+ * @param {Node} node The DOM node to remove the event handler from.
+ * @param {string} event The event name.
+ * @param {Function} fn The event handler to remove.
+ * @param {boolean} opt_useCapture If the event handler was added with this
+ *     flag set to true, it should be set to true here in order to remove it.
+ */
+function removeEvent(node, event, fn, opt_useCapture) {
+  if (typeof node.removeEventListener == 'function') {
+    node.removeEventListener(event, fn, opt_useCapture || false);
+  }
+  else if (typeof node.detatchEvent == 'function') {
+    node.detatchEvent('on' + event, fn);
+  }
+}
+
+
+/**
+ * Returns the intersection between two rect objects.
+ * @param {Object} rect1 The first rect.
+ * @param {Object} rect2 The second rect.
+ * @return {?Object} The intersection rect or undefined if no intersection
+ *     is found.
+ */
+function computeRectIntersection(rect1, rect2) {
+  var top = Math.max(rect1.top, rect2.top);
+  var bottom = Math.min(rect1.bottom, rect2.bottom);
+  var left = Math.max(rect1.left, rect2.left);
+  var right = Math.min(rect1.right, rect2.right);
+  var width = right - left;
+  var height = bottom - top;
+
+  return (width >= 0 && height >= 0) && {
+    top: top,
+    bottom: bottom,
+    left: left,
+    right: right,
+    width: width,
+    height: height
+  };
+}
+
+
+/**
+ * Shims the native getBoundingClientRect for compatibility with older IE.
+ * @param {Element} el The element whose bounding rect to get.
+ * @return {Object} The (possibly shimmed) rect of the element.
+ */
+function getBoundingClientRect(el) {
+  var rect;
+
+  try {
+    rect = el.getBoundingClientRect();
+  } catch (err) {
+    // Ignore Windows 7 IE11 "Unspecified error"
+    // https://github.com/w3c/IntersectionObserver/pull/205
+  }
+
+  if (!rect) return getEmptyRect();
+
+  // Older IE
+  if (!(rect.width && rect.height)) {
+    rect = {
+      top: rect.top,
+      right: rect.right,
+      bottom: rect.bottom,
+      left: rect.left,
+      width: rect.right - rect.left,
+      height: rect.bottom - rect.top
+    };
+  }
+  return rect;
+}
+
+
+/**
+ * Returns an empty rect object. An empty rect is returned when an element
+ * is not in the DOM.
+ * @return {Object} The empty rect.
+ */
+function getEmptyRect() {
+  return {
+    top: 0,
+    bottom: 0,
+    left: 0,
+    right: 0,
+    width: 0,
+    height: 0
+  };
+}
+
+/**
+ * Checks to see if a parent element contains a child element (including inside
+ * shadow DOM).
+ * @param {Node} parent The parent element.
+ * @param {Node} child The child element.
+ * @return {boolean} True if the parent node contains the child node.
+ */
+function containsDeep(parent, child) {
+  var node = child;
+  while (node) {
+    if (node == parent) return true;
+
+    node = getParentNode(node);
+  }
+  return false;
+}
+
+
+/**
+ * Gets the parent node of an element or its host element if the parent node
+ * is a shadow root.
+ * @param {Node} node The node whose parent to get.
+ * @return {Node|null} The parent node or null if no parent exists.
+ */
+function getParentNode(node) {
+  var parent = node.parentNode;
+
+  if (parent && parent.nodeType == 11 && parent.host) {
+    // If the parent is a shadow root, return the host element.
+    return parent.host;
+  }
+  return parent;
+}
+
+
+// Exposes the constructors globally.
+window.IntersectionObserver = IntersectionObserver;
+window.IntersectionObserverEntry = IntersectionObserverEntry;
+
+}(window, document));
+
+
+/***/ }),
+
+/***/ 296:
+/***/ ((module, __unused_webpack_exports, __webpack_require__) => {
+
+/**
+ * lodash (Custom Build) <https://lodash.com/>
+ * Build: `lodash modularize exports="npm" -o ./`
+ * Copyright jQuery Foundation and other contributors <https://jquery.org/>
+ * Released under MIT license <https://lodash.com/license>
+ * Based on Underscore.js 1.8.3 <http://underscorejs.org/LICENSE>
+ * Copyright Jeremy Ashkenas, DocumentCloud and Investigative Reporters & Editors
+ */
+
+/** Used as the `TypeError` message for "Functions" methods. */
+var FUNC_ERROR_TEXT = 'Expected a function';
+
+/** Used as references for various `Number` constants. */
+var NAN = 0 / 0;
+
+/** `Object#toString` result references. */
+var symbolTag = '[object Symbol]';
+
+/** Used to match leading and trailing whitespace. */
+var reTrim = /^\s+|\s+$/g;
+
+/** Used to detect bad signed hexadecimal string values. */
+var reIsBadHex = /^[-+]0x[0-9a-f]+$/i;
+
+/** Used to detect binary string values. */
+var reIsBinary = /^0b[01]+$/i;
+
+/** Used to detect octal string values. */
+var reIsOctal = /^0o[0-7]+$/i;
+
+/** Built-in method references without a dependency on `root`. */
+var freeParseInt = parseInt;
+
+/** Detect free variable `global` from Node.js. */
+var freeGlobal = typeof __webpack_require__.g == 'object' && __webpack_require__.g && __webpack_require__.g.Object === Object && __webpack_require__.g;
+
+/** Detect free variable `self`. */
+var freeSelf = typeof self == 'object' && self && self.Object === Object && self;
+
+/** Used as a reference to the global object. */
+var root = freeGlobal || freeSelf || Function('return this')();
+
+/** Used for built-in method references. */
+var objectProto = Object.prototype;
+
+/**
+ * Used to resolve the
+ * [`toStringTag`](http://ecma-international.org/ecma-262/7.0/#sec-object.prototype.tostring)
+ * of values.
+ */
+var objectToString = objectProto.toString;
+
+/* Built-in method references for those with the same name as other `lodash` methods. */
+var nativeMax = Math.max,
+    nativeMin = Math.min;
+
+/**
+ * Gets the timestamp of the number of milliseconds that have elapsed since
+ * the Unix epoch (1 January 1970 00:00:00 UTC).
+ *
+ * @static
+ * @memberOf _
+ * @since 2.4.0
+ * @category Date
+ * @returns {number} Returns the timestamp.
+ * @example
+ *
+ * _.defer(function(stamp) {
+ *   console.log(_.now() - stamp);
+ * }, _.now());
+ * // => Logs the number of milliseconds it took for the deferred invocation.
+ */
+var now = function() {
+  return root.Date.now();
+};
+
+/**
+ * Creates a debounced function that delays invoking `func` until after `wait`
+ * milliseconds have elapsed since the last time the debounced function was
+ * invoked. The debounced function comes with a `cancel` method to cancel
+ * delayed `func` invocations and a `flush` method to immediately invoke them.
+ * Provide `options` to indicate whether `func` should be invoked on the
+ * leading and/or trailing edge of the `wait` timeout. The `func` is invoked
+ * with the last arguments provided to the debounced function. Subsequent
+ * calls to the debounced function return the result of the last `func`
+ * invocation.
+ *
+ * **Note:** If `leading` and `trailing` options are `true`, `func` is
+ * invoked on the trailing edge of the timeout only if the debounced function
+ * is invoked more than once during the `wait` timeout.
+ *
+ * If `wait` is `0` and `leading` is `false`, `func` invocation is deferred
+ * until to the next tick, similar to `setTimeout` with a timeout of `0`.
+ *
+ * See [David Corbacho's article](https://css-tricks.com/debouncing-throttling-explained-examples/)
+ * for details over the differences between `_.debounce` and `_.throttle`.
+ *
+ * @static
+ * @memberOf _
+ * @since 0.1.0
+ * @category Function
+ * @param {Function} func The function to debounce.
+ * @param {number} [wait=0] The number of milliseconds to delay.
+ * @param {Object} [options={}] The options object.
+ * @param {boolean} [options.leading=false]
+ *  Specify invoking on the leading edge of the timeout.
+ * @param {number} [options.maxWait]
+ *  The maximum time `func` is allowed to be delayed before it's invoked.
+ * @param {boolean} [options.trailing=true]
+ *  Specify invoking on the trailing edge of the timeout.
+ * @returns {Function} Returns the new debounced function.
+ * @example
+ *
+ * // Avoid costly calculations while the window size is in flux.
+ * jQuery(window).on('resize', _.debounce(calculateLayout, 150));
+ *
+ * // Invoke `sendMail` when clicked, debouncing subsequent calls.
+ * jQuery(element).on('click', _.debounce(sendMail, 300, {
+ *   'leading': true,
+ *   'trailing': false
+ * }));
+ *
+ * // Ensure `batchLog` is invoked once after 1 second of debounced calls.
+ * var debounced = _.debounce(batchLog, 250, { 'maxWait': 1000 });
+ * var source = new EventSource('/stream');
+ * jQuery(source).on('message', debounced);
+ *
+ * // Cancel the trailing debounced invocation.
+ * jQuery(window).on('popstate', debounced.cancel);
+ */
+function debounce(func, wait, options) {
+  var lastArgs,
+      lastThis,
+      maxWait,
+      result,
+      timerId,
+      lastCallTime,
+      lastInvokeTime = 0,
+      leading = false,
+      maxing = false,
+      trailing = true;
+
+  if (typeof func != 'function') {
+    throw new TypeError(FUNC_ERROR_TEXT);
+  }
+  wait = toNumber(wait) || 0;
+  if (isObject(options)) {
+    leading = !!options.leading;
+    maxing = 'maxWait' in options;
+    maxWait = maxing ? nativeMax(toNumber(options.maxWait) || 0, wait) : maxWait;
+    trailing = 'trailing' in options ? !!options.trailing : trailing;
+  }
+
+  function invokeFunc(time) {
+    var args = lastArgs,
+        thisArg = lastThis;
+
+    lastArgs = lastThis = undefined;
+    lastInvokeTime = time;
+    result = func.apply(thisArg, args);
+    return result;
+  }
+
+  function leadingEdge(time) {
+    // Reset any `maxWait` timer.
+    lastInvokeTime = time;
+    // Start the timer for the trailing edge.
+    timerId = setTimeout(timerExpired, wait);
+    // Invoke the leading edge.
+    return leading ? invokeFunc(time) : result;
+  }
+
+  function remainingWait(time) {
+    var timeSinceLastCall = time - lastCallTime,
+        timeSinceLastInvoke = time - lastInvokeTime,
+        result = wait - timeSinceLastCall;
+
+    return maxing ? nativeMin(result, maxWait - timeSinceLastInvoke) : result;
+  }
+
+  function shouldInvoke(time) {
+    var timeSinceLastCall = time - lastCallTime,
+        timeSinceLastInvoke = time - lastInvokeTime;
+
+    // Either this is the first call, activity has stopped and we're at the
+    // trailing edge, the system time has gone backwards and we're treating
+    // it as the trailing edge, or we've hit the `maxWait` limit.
+    return (lastCallTime === undefined || (timeSinceLastCall >= wait) ||
+      (timeSinceLastCall < 0) || (maxing && timeSinceLastInvoke >= maxWait));
+  }
+
+  function timerExpired() {
+    var time = now();
+    if (shouldInvoke(time)) {
+      return trailingEdge(time);
+    }
+    // Restart the timer.
+    timerId = setTimeout(timerExpired, remainingWait(time));
+  }
+
+  function trailingEdge(time) {
+    timerId = undefined;
+
+    // Only invoke if we have `lastArgs` which means `func` has been
+    // debounced at least once.
+    if (trailing && lastArgs) {
+      return invokeFunc(time);
+    }
+    lastArgs = lastThis = undefined;
+    return result;
+  }
+
+  function cancel() {
+    if (timerId !== undefined) {
+      clearTimeout(timerId);
+    }
+    lastInvokeTime = 0;
+    lastArgs = lastCallTime = lastThis = timerId = undefined;
+  }
+
+  function flush() {
+    return timerId === undefined ? result : trailingEdge(now());
+  }
+
+  function debounced() {
+    var time = now(),
+        isInvoking = shouldInvoke(time);
+
+    lastArgs = arguments;
+    lastThis = this;
+    lastCallTime = time;
+
+    if (isInvoking) {
+      if (timerId === undefined) {
+        return leadingEdge(lastCallTime);
+      }
+      if (maxing) {
+        // Handle invocations in a tight loop.
+        timerId = setTimeout(timerExpired, wait);
+        return invokeFunc(lastCallTime);
+      }
+    }
+    if (timerId === undefined) {
+      timerId = setTimeout(timerExpired, wait);
+    }
+    return result;
+  }
+  debounced.cancel = cancel;
+  debounced.flush = flush;
+  return debounced;
+}
+
+/**
+ * Checks if `value` is the
+ * [language type](http://www.ecma-international.org/ecma-262/7.0/#sec-ecmascript-language-types)
+ * of `Object`. (e.g. arrays, functions, objects, regexes, `new Number(0)`, and `new String('')`)
+ *
+ * @static
+ * @memberOf _
+ * @since 0.1.0
+ * @category Lang
+ * @param {*} value The value to check.
+ * @returns {boolean} Returns `true` if `value` is an object, else `false`.
+ * @example
+ *
+ * _.isObject({});
+ * // => true
+ *
+ * _.isObject([1, 2, 3]);
+ * // => true
+ *
+ * _.isObject(_.noop);
+ * // => true
+ *
+ * _.isObject(null);
+ * // => false
+ */
+function isObject(value) {
+  var type = typeof value;
+  return !!value && (type == 'object' || type == 'function');
+}
+
+/**
+ * Checks if `value` is object-like. A value is object-like if it's not `null`
+ * and has a `typeof` result of "object".
+ *
+ * @static
+ * @memberOf _
+ * @since 4.0.0
+ * @category Lang
+ * @param {*} value The value to check.
+ * @returns {boolean} Returns `true` if `value` is object-like, else `false`.
+ * @example
+ *
+ * _.isObjectLike({});
+ * // => true
+ *
+ * _.isObjectLike([1, 2, 3]);
+ * // => true
+ *
+ * _.isObjectLike(_.noop);
+ * // => false
+ *
+ * _.isObjectLike(null);
+ * // => false
+ */
+function isObjectLike(value) {
+  return !!value && typeof value == 'object';
+}
+
+/**
+ * Checks if `value` is classified as a `Symbol` primitive or object.
+ *
+ * @static
+ * @memberOf _
+ * @since 4.0.0
+ * @category Lang
+ * @param {*} value The value to check.
+ * @returns {boolean} Returns `true` if `value` is a symbol, else `false`.
+ * @example
+ *
+ * _.isSymbol(Symbol.iterator);
+ * // => true
+ *
+ * _.isSymbol('abc');
+ * // => false
+ */
+function isSymbol(value) {
+  return typeof value == 'symbol' ||
+    (isObjectLike(value) && objectToString.call(value) == symbolTag);
+}
+
+/**
+ * Converts `value` to a number.
+ *
+ * @static
+ * @memberOf _
+ * @since 4.0.0
+ * @category Lang
+ * @param {*} value The value to process.
+ * @returns {number} Returns the number.
+ * @example
+ *
+ * _.toNumber(3.2);
+ * // => 3.2
+ *
+ * _.toNumber(Number.MIN_VALUE);
+ * // => 5e-324
+ *
+ * _.toNumber(Infinity);
+ * // => Infinity
+ *
+ * _.toNumber('3.2');
+ * // => 3.2
+ */
+function toNumber(value) {
+  if (typeof value == 'number') {
+    return value;
+  }
+  if (isSymbol(value)) {
+    return NAN;
+  }
+  if (isObject(value)) {
+    var other = typeof value.valueOf == 'function' ? value.valueOf() : value;
+    value = isObject(other) ? (other + '') : other;
+  }
+  if (typeof value != 'string') {
+    return value === 0 ? value : +value;
+  }
+  value = value.replace(reTrim, '');
+  var isBinary = reIsBinary.test(value);
+  return (isBinary || reIsOctal.test(value))
+    ? freeParseInt(value.slice(2), isBinary ? 2 : 8)
+    : (reIsBadHex.test(value) ? NAN : +value);
+}
+
+module.exports = debounce;
+
+
+/***/ })
+
+/******/ 	});
+/************************************************************************/
+/******/ 	// The module cache
+/******/ 	var __webpack_module_cache__ = {};
+/******/ 	
+/******/ 	// The require function
+/******/ 	function __webpack_require__(moduleId) {
+/******/ 		// Check if module is in cache
+/******/ 		var cachedModule = __webpack_module_cache__[moduleId];
+/******/ 		if (cachedModule !== undefined) {
+/******/ 			return cachedModule.exports;
+/******/ 		}
+/******/ 		// Create a new module (and put it into the cache)
+/******/ 		var module = __webpack_module_cache__[moduleId] = {
+/******/ 			// no module.id needed
+/******/ 			// no module.loaded needed
+/******/ 			exports: {}
+/******/ 		};
+/******/ 	
+/******/ 		// Execute the module function
+/******/ 		__webpack_modules__[moduleId].call(module.exports, module, module.exports, __webpack_require__);
+/******/ 	
+/******/ 		// Return the exports of the module
+/******/ 		return module.exports;
+/******/ 	}
+/******/ 	
+/************************************************************************/
+/******/ 	/* webpack/runtime/compat get default export */
+/******/ 	(() => {
+/******/ 		// getDefaultExport function for compatibility with non-harmony modules
+/******/ 		__webpack_require__.n = (module) => {
+/******/ 			var getter = module && module.__esModule ?
+/******/ 				() => (module['default']) :
+/******/ 				() => (module);
+/******/ 			__webpack_require__.d(getter, { a: getter });
+/******/ 			return getter;
+/******/ 		};
+/******/ 	})();
+/******/ 	
+/******/ 	/* webpack/runtime/define property getters */
+/******/ 	(() => {
+/******/ 		// define getter functions for harmony exports
+/******/ 		__webpack_require__.d = (exports, definition) => {
+/******/ 			for(var key in definition) {
+/******/ 				if(__webpack_require__.o(definition, key) && !__webpack_require__.o(exports, key)) {
+/******/ 					Object.defineProperty(exports, key, { enumerable: true, get: definition[key] });
+/******/ 				}
+/******/ 			}
+/******/ 		};
+/******/ 	})();
+/******/ 	
+/******/ 	/* webpack/runtime/global */
+/******/ 	(() => {
+/******/ 		__webpack_require__.g = (function() {
+/******/ 			if (typeof globalThis === 'object') return globalThis;
+/******/ 			try {
+/******/ 				return this || new Function('return this')();
+/******/ 			} catch (e) {
+/******/ 				if (typeof window === 'object') return window;
+/******/ 			}
+/******/ 		})();
+/******/ 	})();
+/******/ 	
+/******/ 	/* webpack/runtime/hasOwnProperty shorthand */
+/******/ 	(() => {
+/******/ 		__webpack_require__.o = (obj, prop) => (Object.prototype.hasOwnProperty.call(obj, prop))
+/******/ 	})();
+/******/ 	
+/******/ 	/* webpack/runtime/make namespace object */
+/******/ 	(() => {
+/******/ 		// define __esModule on exports
+/******/ 		__webpack_require__.r = (exports) => {
+/******/ 			if(typeof Symbol !== 'undefined' && Symbol.toStringTag) {
+/******/ 				Object.defineProperty(exports, Symbol.toStringTag, { value: 'Module' });
+/******/ 			}
+/******/ 			Object.defineProperty(exports, '__esModule', { value: true });
+/******/ 		};
+/******/ 	})();
+/******/ 	
+/******/ 	/* webpack/runtime/publicPath */
+/******/ 	(() => {
+/******/ 		__webpack_require__.p = "";
+/******/ 	})();
+/******/ 	
+/************************************************************************/
+var __webpack_exports__ = {};
+// This entry need to be wrapped in an IIFE because it need to be in strict mode.
+(() => {
+"use strict";
+// ESM COMPAT FLAG
+__webpack_require__.r(__webpack_exports__);
+
+// EXPORTS
+__webpack_require__.d(__webpack_exports__, {
+  "default": () => (/* binding */ entry_lib)
+});
+
+;// CONCATENATED MODULE: ./node_modules/@vue/cli-service/lib/commands/build/setPublicPath.js
+/* eslint-disable no-var */
+// This file is imported into lib/wc client bundles.
+
+if (typeof window !== 'undefined') {
+  var currentScript = window.document.currentScript
+  if (false) { var getCurrentScript; }
+
+  var src = currentScript && currentScript.src.match(/(.+\/)[^/]+\.js(\?.*)?$/)
+  if (src) {
+    __webpack_require__.p = src[1] // eslint-disable-line
+  }
+}
+
+// Indicate to webpack that this file can be concatenated
+/* harmony default export */ const setPublicPath = (null);
+
+// EXTERNAL MODULE: ./node_modules/css-element-queries/src/ResizeSensor.js
+var ResizeSensor = __webpack_require__(87);
+var ResizeSensor_default = /*#__PURE__*/__webpack_require__.n(ResizeSensor);
+// EXTERNAL MODULE: ./node_modules/lodash.debounce/index.js
+var lodash_debounce = __webpack_require__(296);
+var lodash_debounce_default = /*#__PURE__*/__webpack_require__.n(lodash_debounce);
+;// CONCATENATED MODULE: ./src/Vueresize.js
+
+
+__webpack_require__(337);
+const {
+  debounce = (lodash_debounce_default())
+} = (lodash_debounce_default());
+const defaultDelay = 150;
+function getOptions(modifiers) {
+  if (!modifiers) {
+    return {
+      delay: defaultDelay,
+      initial: false
+    };
+  }
+  const {
+    initial = false
+  } = modifiers;
+  let delay = Object.keys(modifiers).map(k => parseInt(k)).find(v => !isNaN(v));
+  delay = delay || defaultDelay;
+  return {
+    delay,
+    initial
+  };
+}
+function listenToVisible(element, callback) {
+  const options = {
+    root: document.documentElement
+  };
+  const observer = new IntersectionObserver((entries, observer) => {
+    entries.forEach(entry => {
+      if (entry.isIntersecting) {
+        callback();
+        observer.disconnect();
+      }
+    });
+  }, options);
+  observer.observe(element);
+  return observer;
+}
+function createResizeSensor(el, {
+  value,
+  arg,
+  options
+}) {
+  let callBack = () => value(el);
+  switch (arg) {
+    case 'debounce':
+      callBack = debounce(() => value(el), options.delay);
+      break;
+    case 'throttle':
+      callBack = debounce(() => value(el), options.delay, {
+        leading: true,
+        trailing: true,
+        maxWait: options.delay
+      });
+      break;
+  }
+  const res = new (ResizeSensor_default())(el, callBack);
+  if (options.initial) {
+    value(el);
+  }
+  return res;
+}
+function mounted(el, {
+  value,
+  arg,
+  modifiers,
+  instance
+}) {
+  if (!value || typeof value !== 'function') {
+    console.warn('v-resize should received a function as value');
+    return;
+  }
+  const options = getOptions(modifiers);
+  if (el.offsetParent) {
+    createResizeSensor(el, {
+      value,
+      arg,
+      options
+    });
+    return;
+  }
+  options.initial = true;
+  el.__visibility__listener__ = listenToVisible(el, () => createResizeSensor(el, {
+    value,
+    arg,
+    options
+  }));
+}
+;
+function unmounted(el) {
+  if (el.__visibility__listener__) {
+    el.__visibility__listener__.disconnect();
+  }
+  if (!el.resizeSensor) {
+    return;
+  }
+  ResizeSensor_default().detach(el);
+}
+;
+/* harmony default export */ const Vueresize = ({
+  mounted,
+  unmounted
+});
+;// CONCATENATED MODULE: ./src/main.js
+
+/* harmony default export */ const main = (Vueresize);
+;// CONCATENATED MODULE: ./node_modules/@vue/cli-service/lib/commands/build/entry-lib.js
+
+
+/* harmony default export */ const entry_lib = (main);
+
+
+})();
+
+module.exports = __webpack_exports__;
+/******/ })()
+;
+//# sourceMappingURL=Vueresize.common.js.map
+
+/***/ }),
+
+/***/ "ab0f":
+/***/ (function(module, exports, __webpack_require__) {
+
+// extracted by mini-css-extract-plugin
+
+/***/ }),
+
 /***/ "ab7e":
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
@@ -6331,7 +8093,25 @@ module.exports = 0;
 
 /***/ }),
 
+/***/ "afd5":
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+/* harmony import */ var _node_modules_mini_css_extract_plugin_dist_loader_js_ref_10_oneOf_1_0_node_modules_css_loader_dist_cjs_js_ref_10_oneOf_1_1_node_modules_vue_loader_v16_dist_stylePostLoader_js_node_modules_postcss_loader_src_index_js_ref_10_oneOf_1_2_node_modules_less_loader_dist_cjs_js_ref_10_oneOf_1_3_node_modules_cache_loader_dist_cjs_js_ref_0_0_node_modules_vue_loader_v16_dist_index_js_ref_0_1_menu_vue_vue_type_style_index_0_id_2bdb336e_scoped_true_lang_less__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__("ab0f");
+/* harmony import */ var _node_modules_mini_css_extract_plugin_dist_loader_js_ref_10_oneOf_1_0_node_modules_css_loader_dist_cjs_js_ref_10_oneOf_1_1_node_modules_vue_loader_v16_dist_stylePostLoader_js_node_modules_postcss_loader_src_index_js_ref_10_oneOf_1_2_node_modules_less_loader_dist_cjs_js_ref_10_oneOf_1_3_node_modules_cache_loader_dist_cjs_js_ref_0_0_node_modules_vue_loader_v16_dist_index_js_ref_0_1_menu_vue_vue_type_style_index_0_id_2bdb336e_scoped_true_lang_less__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(_node_modules_mini_css_extract_plugin_dist_loader_js_ref_10_oneOf_1_0_node_modules_css_loader_dist_cjs_js_ref_10_oneOf_1_1_node_modules_vue_loader_v16_dist_stylePostLoader_js_node_modules_postcss_loader_src_index_js_ref_10_oneOf_1_2_node_modules_less_loader_dist_cjs_js_ref_10_oneOf_1_3_node_modules_cache_loader_dist_cjs_js_ref_0_0_node_modules_vue_loader_v16_dist_index_js_ref_0_1_menu_vue_vue_type_style_index_0_id_2bdb336e_scoped_true_lang_less__WEBPACK_IMPORTED_MODULE_0__);
+/* unused harmony reexport * */
+
+
+/***/ }),
+
 /***/ "b8eb":
+/***/ (function(module, exports, __webpack_require__) {
+
+// extracted by mini-css-extract-plugin
+
+/***/ }),
+
+/***/ "b9e3":
 /***/ (function(module, exports, __webpack_require__) {
 
 // extracted by mini-css-extract-plugin
@@ -6452,12 +8232,12 @@ module.exports.TinyEmitter = E;
 
 /***/ }),
 
-/***/ "c89b":
+/***/ "c50f":
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
-/* harmony import */ var _node_modules_mini_css_extract_plugin_dist_loader_js_ref_10_oneOf_1_0_node_modules_css_loader_dist_cjs_js_ref_10_oneOf_1_1_node_modules_vue_loader_v16_dist_stylePostLoader_js_node_modules_postcss_loader_src_index_js_ref_10_oneOf_1_2_node_modules_less_loader_dist_cjs_js_ref_10_oneOf_1_3_node_modules_cache_loader_dist_cjs_js_ref_0_0_node_modules_vue_loader_v16_dist_index_js_ref_0_1_command_vue_vue_type_style_index_0_id_0def5242_scoped_true_lang_less__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__("0e39");
-/* harmony import */ var _node_modules_mini_css_extract_plugin_dist_loader_js_ref_10_oneOf_1_0_node_modules_css_loader_dist_cjs_js_ref_10_oneOf_1_1_node_modules_vue_loader_v16_dist_stylePostLoader_js_node_modules_postcss_loader_src_index_js_ref_10_oneOf_1_2_node_modules_less_loader_dist_cjs_js_ref_10_oneOf_1_3_node_modules_cache_loader_dist_cjs_js_ref_0_0_node_modules_vue_loader_v16_dist_index_js_ref_0_1_command_vue_vue_type_style_index_0_id_0def5242_scoped_true_lang_less__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(_node_modules_mini_css_extract_plugin_dist_loader_js_ref_10_oneOf_1_0_node_modules_css_loader_dist_cjs_js_ref_10_oneOf_1_1_node_modules_vue_loader_v16_dist_stylePostLoader_js_node_modules_postcss_loader_src_index_js_ref_10_oneOf_1_2_node_modules_less_loader_dist_cjs_js_ref_10_oneOf_1_3_node_modules_cache_loader_dist_cjs_js_ref_0_0_node_modules_vue_loader_v16_dist_index_js_ref_0_1_command_vue_vue_type_style_index_0_id_0def5242_scoped_true_lang_less__WEBPACK_IMPORTED_MODULE_0__);
+/* harmony import */ var _node_modules_mini_css_extract_plugin_dist_loader_js_ref_10_oneOf_1_0_node_modules_css_loader_dist_cjs_js_ref_10_oneOf_1_1_node_modules_vue_loader_v16_dist_stylePostLoader_js_node_modules_postcss_loader_src_index_js_ref_10_oneOf_1_2_node_modules_less_loader_dist_cjs_js_ref_10_oneOf_1_3_node_modules_cache_loader_dist_cjs_js_ref_0_0_node_modules_vue_loader_v16_dist_index_js_ref_0_1_cell_vue_vue_type_style_index_0_id_6bf4c1dc_lang_less_scoped_true__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__("b9e3");
+/* harmony import */ var _node_modules_mini_css_extract_plugin_dist_loader_js_ref_10_oneOf_1_0_node_modules_css_loader_dist_cjs_js_ref_10_oneOf_1_1_node_modules_vue_loader_v16_dist_stylePostLoader_js_node_modules_postcss_loader_src_index_js_ref_10_oneOf_1_2_node_modules_less_loader_dist_cjs_js_ref_10_oneOf_1_3_node_modules_cache_loader_dist_cjs_js_ref_0_0_node_modules_vue_loader_v16_dist_index_js_ref_0_1_cell_vue_vue_type_style_index_0_id_6bf4c1dc_lang_less_scoped_true__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(_node_modules_mini_css_extract_plugin_dist_loader_js_ref_10_oneOf_1_0_node_modules_css_loader_dist_cjs_js_ref_10_oneOf_1_1_node_modules_vue_loader_v16_dist_stylePostLoader_js_node_modules_postcss_loader_src_index_js_ref_10_oneOf_1_2_node_modules_less_loader_dist_cjs_js_ref_10_oneOf_1_3_node_modules_cache_loader_dist_cjs_js_ref_0_0_node_modules_vue_loader_v16_dist_index_js_ref_0_1_cell_vue_vue_type_style_index_0_id_6bf4c1dc_lang_less_scoped_true__WEBPACK_IMPORTED_MODULE_0__);
 /* unused harmony reexport * */
 
 
@@ -6481,19 +8261,23 @@ module.exports.TinyEmitter = E;
 
 /***/ }),
 
-/***/ "d493":
-/***/ (function(module, exports, __webpack_require__) {
-
-// extracted by mini-css-extract-plugin
-
-/***/ }),
-
 /***/ "d7fe":
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
 /* harmony import */ var _node_modules_mini_css_extract_plugin_dist_loader_js_ref_10_oneOf_1_0_node_modules_css_loader_dist_cjs_js_ref_10_oneOf_1_1_node_modules_vue_loader_v16_dist_stylePostLoader_js_node_modules_postcss_loader_src_index_js_ref_10_oneOf_1_2_node_modules_less_loader_dist_cjs_js_ref_10_oneOf_1_3_node_modules_cache_loader_dist_cjs_js_ref_0_0_node_modules_vue_loader_v16_dist_index_js_ref_0_1_input_vue_vue_type_style_index_0_id_27dabc1e_scoped_true_lang_less__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__("0462");
 /* harmony import */ var _node_modules_mini_css_extract_plugin_dist_loader_js_ref_10_oneOf_1_0_node_modules_css_loader_dist_cjs_js_ref_10_oneOf_1_1_node_modules_vue_loader_v16_dist_stylePostLoader_js_node_modules_postcss_loader_src_index_js_ref_10_oneOf_1_2_node_modules_less_loader_dist_cjs_js_ref_10_oneOf_1_3_node_modules_cache_loader_dist_cjs_js_ref_0_0_node_modules_vue_loader_v16_dist_index_js_ref_0_1_input_vue_vue_type_style_index_0_id_27dabc1e_scoped_true_lang_less__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(_node_modules_mini_css_extract_plugin_dist_loader_js_ref_10_oneOf_1_0_node_modules_css_loader_dist_cjs_js_ref_10_oneOf_1_1_node_modules_vue_loader_v16_dist_stylePostLoader_js_node_modules_postcss_loader_src_index_js_ref_10_oneOf_1_2_node_modules_less_loader_dist_cjs_js_ref_10_oneOf_1_3_node_modules_cache_loader_dist_cjs_js_ref_0_0_node_modules_vue_loader_v16_dist_index_js_ref_0_1_input_vue_vue_type_style_index_0_id_27dabc1e_scoped_true_lang_less__WEBPACK_IMPORTED_MODULE_0__);
+/* unused harmony reexport * */
+
+
+/***/ }),
+
+/***/ "da05":
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+/* harmony import */ var _node_modules_mini_css_extract_plugin_dist_loader_js_ref_10_oneOf_1_0_node_modules_css_loader_dist_cjs_js_ref_10_oneOf_1_1_node_modules_vue_loader_v16_dist_stylePostLoader_js_node_modules_postcss_loader_src_index_js_ref_10_oneOf_1_2_node_modules_less_loader_dist_cjs_js_ref_10_oneOf_1_3_node_modules_cache_loader_dist_cjs_js_ref_0_0_node_modules_vue_loader_v16_dist_index_js_ref_0_1_table_body_vue_vue_type_style_index_0_id_47bd8cd3_lang_less_scoped_true__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__("9abf");
+/* harmony import */ var _node_modules_mini_css_extract_plugin_dist_loader_js_ref_10_oneOf_1_0_node_modules_css_loader_dist_cjs_js_ref_10_oneOf_1_1_node_modules_vue_loader_v16_dist_stylePostLoader_js_node_modules_postcss_loader_src_index_js_ref_10_oneOf_1_2_node_modules_less_loader_dist_cjs_js_ref_10_oneOf_1_3_node_modules_cache_loader_dist_cjs_js_ref_0_0_node_modules_vue_loader_v16_dist_index_js_ref_0_1_table_body_vue_vue_type_style_index_0_id_47bd8cd3_lang_less_scoped_true__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(_node_modules_mini_css_extract_plugin_dist_loader_js_ref_10_oneOf_1_0_node_modules_css_loader_dist_cjs_js_ref_10_oneOf_1_1_node_modules_vue_loader_v16_dist_stylePostLoader_js_node_modules_postcss_loader_src_index_js_ref_10_oneOf_1_2_node_modules_less_loader_dist_cjs_js_ref_10_oneOf_1_3_node_modules_cache_loader_dist_cjs_js_ref_0_0_node_modules_vue_loader_v16_dist_index_js_ref_0_1_table_body_vue_vue_type_style_index_0_id_47bd8cd3_lang_less_scoped_true__WEBPACK_IMPORTED_MODULE_0__);
 /* unused harmony reexport * */
 
 
@@ -6590,6 +8374,17 @@ module.exports = function (random, alphabet, size) {
     }
   }
 }
+
+
+/***/ }),
+
+/***/ "e5fd":
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+/* harmony import */ var _node_modules_mini_css_extract_plugin_dist_loader_js_ref_10_oneOf_1_0_node_modules_css_loader_dist_cjs_js_ref_10_oneOf_1_1_node_modules_vue_loader_v16_dist_stylePostLoader_js_node_modules_postcss_loader_src_index_js_ref_10_oneOf_1_2_node_modules_less_loader_dist_cjs_js_ref_10_oneOf_1_3_node_modules_cache_loader_dist_cjs_js_ref_0_0_node_modules_vue_loader_v16_dist_index_js_ref_0_1_table_vue_vue_type_style_index_0_id_5ef49ff6_lang_less__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__("439e");
+/* harmony import */ var _node_modules_mini_css_extract_plugin_dist_loader_js_ref_10_oneOf_1_0_node_modules_css_loader_dist_cjs_js_ref_10_oneOf_1_1_node_modules_vue_loader_v16_dist_stylePostLoader_js_node_modules_postcss_loader_src_index_js_ref_10_oneOf_1_2_node_modules_less_loader_dist_cjs_js_ref_10_oneOf_1_3_node_modules_cache_loader_dist_cjs_js_ref_0_0_node_modules_vue_loader_v16_dist_index_js_ref_0_1_table_vue_vue_type_style_index_0_id_5ef49ff6_lang_less__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(_node_modules_mini_css_extract_plugin_dist_loader_js_ref_10_oneOf_1_0_node_modules_css_loader_dist_cjs_js_ref_10_oneOf_1_1_node_modules_vue_loader_v16_dist_stylePostLoader_js_node_modules_postcss_loader_src_index_js_ref_10_oneOf_1_2_node_modules_less_loader_dist_cjs_js_ref_10_oneOf_1_3_node_modules_cache_loader_dist_cjs_js_ref_0_0_node_modules_vue_loader_v16_dist_index_js_ref_0_1_table_vue_vue_type_style_index_0_id_5ef49ff6_lang_less__WEBPACK_IMPORTED_MODULE_0__);
+/* unused harmony reexport * */
 
 
 /***/ }),
@@ -10320,13 +12115,16 @@ propvue_type_script_lang_ts.__scopeId = "data-v-728f040b"
 // CONCATENATED MODULE: ./packages/cc-prop/index.ts
 
 
-// CONCATENATED MODULE: ./node_modules/cache-loader/dist/cjs.js??ref--12-0!./node_modules/babel-loader/lib!./node_modules/vue-loader-v16/dist/templateLoader.js??ref--6!./node_modules/cache-loader/dist/cjs.js??ref--0-0!./node_modules/vue-loader-v16/dist??ref--0-1!./packages/cc-menu/menu.vue?vue&type=template&id=5c2c04d6&scoped=true
+// CONCATENATED MODULE: ./node_modules/cache-loader/dist/cjs.js??ref--12-0!./node_modules/babel-loader/lib!./node_modules/vue-loader-v16/dist/templateLoader.js??ref--6!./node_modules/cache-loader/dist/cjs.js??ref--0-0!./node_modules/vue-loader-v16/dist??ref--0-1!./packages/cc-menu/menu.vue?vue&type=template&id=2bdb336e&scoped=true
 
-function menuvue_type_template_id_5c2c04d6_scoped_true_render(_ctx, _cache, $props, $setup, $data, $options) {
+function menuvue_type_template_id_2bdb336e_scoped_true_render(_ctx, _cache, $props, $setup, $data, $options) {
   const _component_MenuItem = Object(external_commonjs_vue_commonjs2_vue_root_Vue_["resolveComponent"])("MenuItem");
 
-  return Object(external_commonjs_vue_commonjs2_vue_root_Vue_["withDirectives"])((Object(external_commonjs_vue_commonjs2_vue_root_Vue_["openBlock"])(), Object(external_commonjs_vue_commonjs2_vue_root_Vue_["createElementBlock"])("div", {
+  return Object(external_commonjs_vue_commonjs2_vue_root_Vue_["openBlock"])(), Object(external_commonjs_vue_commonjs2_vue_root_Vue_["createBlock"])(external_commonjs_vue_commonjs2_vue_root_Vue_["Teleport"], {
+    to: "body"
+  }, [Object(external_commonjs_vue_commonjs2_vue_root_Vue_["withDirectives"])(Object(external_commonjs_vue_commonjs2_vue_root_Vue_["createElementVNode"])("div", {
     class: "ui-menu",
+    ref: "menuEl",
     style: Object(external_commonjs_vue_commonjs2_vue_root_Vue_["normalizeStyle"])({
       left: _ctx.menuPositionX + 'px',
       top: _ctx.menuPositionY + 'px'
@@ -10336,9 +12134,9 @@ function menuvue_type_template_id_5c2c04d6_scoped_true_render(_ctx, _cache, $pro
       key: index,
       data: menu
     }, null, 8, ["data"]);
-  }), 128))], 4)), [[external_commonjs_vue_commonjs2_vue_root_Vue_["vShow"], _ctx.menus.length > 0]]);
+  }), 128))], 4), [[external_commonjs_vue_commonjs2_vue_root_Vue_["vShow"], _ctx.menus.length > 0]])]);
 }
-// CONCATENATED MODULE: ./packages/cc-menu/menu.vue?vue&type=template&id=5c2c04d6&scoped=true
+// CONCATENATED MODULE: ./packages/cc-menu/menu.vue?vue&type=template&id=2bdb336e&scoped=true
 
 // CONCATENATED MODULE: ./packages/cc-menu/const.ts
 
@@ -10421,22 +12219,56 @@ menu_itemvue_type_script_lang_ts.__scopeId = "data-v-b300046a"
   },
 
   setup(props) {
+    const menuEl = Object(external_commonjs_vue_commonjs2_vue_root_Vue_["ref"])();
+    const menuPositionX = Object(external_commonjs_vue_commonjs2_vue_root_Vue_["ref"])(0);
+    const menuPositionY = Object(external_commonjs_vue_commonjs2_vue_root_Vue_["ref"])(0);
     const menus = Object(external_commonjs_vue_commonjs2_vue_root_Vue_["ref"])([]);
     document.addEventListener('mousedown', () => {
       menus.value = [];
+
+      if (menuEl.value) {
+        menuEl.value.style.overflow = 'none';
+        menuEl.value.style.height = `auto`;
+      }
     }, {
       capture: true
     });
-    const menuPositionX = Object(external_commonjs_vue_commonjs2_vue_root_Vue_["ref"])(0);
-    const menuPositionY = Object(external_commonjs_vue_commonjs2_vue_root_Vue_["ref"])(0);
     Object(external_commonjs_vue_commonjs2_vue_root_Vue_["onMounted"])(() => {
       packages_0.Emitter.on(Msg.ShowMenu, (options, newMenus) => {
-        menuPositionX.value = Math.abs(options.x);
-        menuPositionY.value = Math.abs(options.y);
         menus.value = newMenus;
+        Object(external_commonjs_vue_commonjs2_vue_root_Vue_["nextTick"])(() => {
+          var _a, _b;
+
+          if (menuEl.value) {
+            let x = Math.abs(options.x);
+            let y = Math.abs(options.y);
+            const width = document.body.clientWidth;
+            const height = document.body.clientHeight;
+            const menuWidth = (_a = menuEl.value) === null || _a === void 0 ? void 0 : _a.clientWidth;
+            const menuHeight = (_b = menuEl.value) === null || _b === void 0 ? void 0 : _b.clientHeight;
+            const board = 3;
+
+            if (menuHeight >= height) {
+              menuEl.value.style.overflowX = 'hidden';
+              menuEl.value.style.overflowY = 'scroll';
+              menuEl.value.style.height = `${height - board * 2}px`;
+              x = Math.min(x, width - menuWidth - board);
+              menuPositionX.value = x;
+              menuPositionY.value = board;
+            } else {
+              x = Math.min(x, width - menuWidth - board);
+              y = Math.min(y, height - menuHeight - board);
+              menuEl.value.style.overflow = 'none';
+              menuEl.value.style.height = `auto`;
+              menuPositionX.value = x;
+              menuPositionY.value = y;
+            }
+          }
+        });
       });
     });
     return {
+      menuEl,
       menus,
       menuPositionX,
       menuPositionY
@@ -10446,8 +12278,8 @@ menu_itemvue_type_script_lang_ts.__scopeId = "data-v-b300046a"
 }));
 // CONCATENATED MODULE: ./packages/cc-menu/menu.vue?vue&type=script&lang=ts
  
-// EXTERNAL MODULE: ./packages/cc-menu/menu.vue?vue&type=style&index=0&id=5c2c04d6&scoped=true&lang=less
-var menuvue_type_style_index_0_id_5c2c04d6_scoped_true_lang_less = __webpack_require__("6cf5");
+// EXTERNAL MODULE: ./packages/cc-menu/menu.vue?vue&type=style&index=0&id=2bdb336e&scoped=true&lang=less
+var menuvue_type_style_index_0_id_2bdb336e_scoped_true_lang_less = __webpack_require__("afd5");
 
 // CONCATENATED MODULE: ./packages/cc-menu/menu.vue
 
@@ -10455,8 +12287,8 @@ var menuvue_type_style_index_0_id_5c2c04d6_scoped_true_lang_less = __webpack_req
 
 
 
-menuvue_type_script_lang_ts.render = menuvue_type_template_id_5c2c04d6_scoped_true_render
-menuvue_type_script_lang_ts.__scopeId = "data-v-5c2c04d6"
+menuvue_type_script_lang_ts.render = menuvue_type_template_id_2bdb336e_scoped_true_render
+menuvue_type_script_lang_ts.__scopeId = "data-v-2bdb336e"
 
 /* harmony default export */ var cc_menu_menu = (menuvue_type_script_lang_ts);
 // CONCATENATED MODULE: ./packages/cc-menu/index.ts
@@ -11309,14 +13141,14 @@ var tablevue_type_style_index_0_id_6b568a9c_scoped_true_lang_less = __webpack_re
 tablevue_type_script_lang_ts.render = tablevue_type_template_id_6b568a9c_scoped_true_render
 tablevue_type_script_lang_ts.__scopeId = "data-v-6b568a9c"
 
-/* harmony default export */ var table = (tablevue_type_script_lang_ts);
+/* harmony default export */ var cc_help_table = (tablevue_type_script_lang_ts);
 // CONCATENATED MODULE: ./node_modules/cache-loader/dist/cjs.js??ref--14-0!./node_modules/babel-loader/lib!./node_modules/@vue/cli-plugin-typescript/node_modules/ts-loader??ref--14-2!./node_modules/cache-loader/dist/cjs.js??ref--0-0!./node_modules/vue-loader-v16/dist??ref--0-1!./packages/cc-help/help.vue?vue&type=script&lang=ts
 
 
 /* harmony default export */ var helpvue_type_script_lang_ts = (Object(external_commonjs_vue_commonjs2_vue_root_Vue_["defineComponent"])({
   name: 'cc-help',
   components: {
-    Table: table
+    Table: cc_help_table
   },
   props: {
     docUrl: {
@@ -11423,7 +13255,6 @@ const CmdMsg = {
   ShowCmd: 'ShowCmd',
   CloseCmd: 'CloseCmd'
 };
-;
 function showCommand(cmdArray) {
   packages_0.Emitter.emit(CmdMsg.ShowCmd, cmdArray);
 }
@@ -11555,21 +13386,21 @@ cc_footbarvue_type_script_lang_ts.__scopeId = "data-v-60e8931e"
 
 
 
-// CONCATENATED MODULE: ./node_modules/cache-loader/dist/cjs.js??ref--12-0!./node_modules/babel-loader/lib!./node_modules/vue-loader-v16/dist/templateLoader.js??ref--6!./node_modules/cache-loader/dist/cjs.js??ref--0-0!./node_modules/vue-loader-v16/dist??ref--0-1!./packages/cc-command/command.vue?vue&type=template&id=0def5242&scoped=true
+// CONCATENATED MODULE: ./node_modules/cache-loader/dist/cjs.js??ref--12-0!./node_modules/babel-loader/lib!./node_modules/vue-loader-v16/dist/templateLoader.js??ref--6!./node_modules/cache-loader/dist/cjs.js??ref--0-0!./node_modules/vue-loader-v16/dist??ref--0-1!./packages/cc-command/command.vue?vue&type=template&id=480fe661&scoped=true
 
 
-const commandvue_type_template_id_0def5242_scoped_true_withScopeId = n => (Object(external_commonjs_vue_commonjs2_vue_root_Vue_["pushScopeId"])("data-v-0def5242"), n = n(), Object(external_commonjs_vue_commonjs2_vue_root_Vue_["popScopeId"])(), n);
+const commandvue_type_template_id_480fe661_scoped_true_withScopeId = n => (Object(external_commonjs_vue_commonjs2_vue_root_Vue_["pushScopeId"])("data-v-480fe661"), n = n(), Object(external_commonjs_vue_commonjs2_vue_root_Vue_["popScopeId"])(), n);
 
-const commandvue_type_template_id_0def5242_scoped_true_hoisted_1 = {
+const commandvue_type_template_id_480fe661_scoped_true_hoisted_1 = {
   key: 0,
   class: "command"
 };
-function commandvue_type_template_id_0def5242_scoped_true_render(_ctx, _cache, $props, $setup, $data, $options) {
+function commandvue_type_template_id_480fe661_scoped_true_render(_ctx, _cache, $props, $setup, $data, $options) {
   const _component_Item = Object(external_commonjs_vue_commonjs2_vue_root_Vue_["resolveComponent"])("Item");
 
   return Object(external_commonjs_vue_commonjs2_vue_root_Vue_["openBlock"])(), Object(external_commonjs_vue_commonjs2_vue_root_Vue_["createBlock"])(external_commonjs_vue_commonjs2_vue_root_Vue_["Teleport"], {
     to: "body"
-  }, [_ctx.show ? (Object(external_commonjs_vue_commonjs2_vue_root_Vue_["openBlock"])(), Object(external_commonjs_vue_commonjs2_vue_root_Vue_["createElementBlock"])("div", commandvue_type_template_id_0def5242_scoped_true_hoisted_1, [Object(external_commonjs_vue_commonjs2_vue_root_Vue_["createElementVNode"])("div", {
+  }, [_ctx.show ? (Object(external_commonjs_vue_commonjs2_vue_root_Vue_["openBlock"])(), Object(external_commonjs_vue_commonjs2_vue_root_Vue_["createElementBlock"])("div", commandvue_type_template_id_480fe661_scoped_true_hoisted_1, [Object(external_commonjs_vue_commonjs2_vue_root_Vue_["createElementVNode"])("div", {
     class: "items",
     onMouseup: _cache[0] || (_cache[0] = Object(external_commonjs_vue_commonjs2_vue_root_Vue_["withModifiers"])(() => {}, ["prevent", "stop"]))
   }, [(Object(external_commonjs_vue_commonjs2_vue_root_Vue_["openBlock"])(true), Object(external_commonjs_vue_commonjs2_vue_root_Vue_["createElementBlock"])(external_commonjs_vue_commonjs2_vue_root_Vue_["Fragment"], null, Object(external_commonjs_vue_commonjs2_vue_root_Vue_["renderList"])(_ctx.commands, (item, index) => {
@@ -11579,11 +13410,11 @@ function commandvue_type_template_id_0def5242_scoped_true_render(_ctx, _cache, $
     }, null, 8, ["data"]);
   }), 128))], 32)])) : Object(external_commonjs_vue_commonjs2_vue_root_Vue_["createCommentVNode"])("", true)]);
 }
-// CONCATENATED MODULE: ./packages/cc-command/command.vue?vue&type=template&id=0def5242&scoped=true
+// CONCATENATED MODULE: ./packages/cc-command/command.vue?vue&type=template&id=480fe661&scoped=true
 
-// CONCATENATED MODULE: ./node_modules/cache-loader/dist/cjs.js??ref--12-0!./node_modules/babel-loader/lib!./node_modules/vue-loader-v16/dist/templateLoader.js??ref--6!./node_modules/cache-loader/dist/cjs.js??ref--0-0!./node_modules/vue-loader-v16/dist??ref--0-1!./packages/cc-command/item.vue?vue&type=template&id=651a826a&scoped=true
+// CONCATENATED MODULE: ./node_modules/cache-loader/dist/cjs.js??ref--12-0!./node_modules/babel-loader/lib!./node_modules/vue-loader-v16/dist/templateLoader.js??ref--6!./node_modules/cache-loader/dist/cjs.js??ref--0-0!./node_modules/vue-loader-v16/dist??ref--0-1!./packages/cc-command/item.vue?vue&type=template&id=6733e46c&scoped=true
 
-function itemvue_type_template_id_651a826a_scoped_true_render(_ctx, _cache, $props, $setup, $data, $options) {
+function itemvue_type_template_id_6733e46c_scoped_true_render(_ctx, _cache, $props, $setup, $data, $options) {
   return Object(external_commonjs_vue_commonjs2_vue_root_Vue_["openBlock"])(), Object(external_commonjs_vue_commonjs2_vue_root_Vue_["createElementBlock"])("div", {
     class: "item",
     onMouseenter: _cache[0] || (_cache[0] = Object(external_commonjs_vue_commonjs2_vue_root_Vue_["withModifiers"])((...args) => _ctx.onMouseEnter && _ctx.onMouseEnter(...args), ["prevent", "stop"])),
@@ -11591,7 +13422,7 @@ function itemvue_type_template_id_651a826a_scoped_true_render(_ctx, _cache, $pro
     onClick: _cache[2] || (_cache[2] = Object(external_commonjs_vue_commonjs2_vue_root_Vue_["withModifiers"])((...args) => _ctx.onClick && _ctx.onClick(...args), ["prevent", "stop"]))
   }, Object(external_commonjs_vue_commonjs2_vue_root_Vue_["toDisplayString"])(_ctx.data.label), 33);
 }
-// CONCATENATED MODULE: ./packages/cc-command/item.vue?vue&type=template&id=651a826a&scoped=true
+// CONCATENATED MODULE: ./packages/cc-command/item.vue?vue&type=template&id=6733e46c&scoped=true
 
 // CONCATENATED MODULE: ./node_modules/cache-loader/dist/cjs.js??ref--14-0!./node_modules/babel-loader/lib!./node_modules/@vue/cli-plugin-typescript/node_modules/ts-loader??ref--14-2!./node_modules/cache-loader/dist/cjs.js??ref--0-0!./node_modules/vue-loader-v16/dist??ref--0-1!./packages/cc-command/item.vue?vue&type=script&lang=ts
 
@@ -11634,8 +13465,8 @@ function itemvue_type_template_id_651a826a_scoped_true_render(_ctx, _cache, $pro
 }));
 // CONCATENATED MODULE: ./packages/cc-command/item.vue?vue&type=script&lang=ts
  
-// EXTERNAL MODULE: ./packages/cc-command/item.vue?vue&type=style&index=0&id=651a826a&scoped=true&lang=less
-var itemvue_type_style_index_0_id_651a826a_scoped_true_lang_less = __webpack_require__("7d0f");
+// EXTERNAL MODULE: ./packages/cc-command/item.vue?vue&type=style&index=0&id=6733e46c&scoped=true&lang=less
+var itemvue_type_style_index_0_id_6733e46c_scoped_true_lang_less = __webpack_require__("3f54");
 
 // CONCATENATED MODULE: ./packages/cc-command/item.vue
 
@@ -11643,8 +13474,8 @@ var itemvue_type_style_index_0_id_651a826a_scoped_true_lang_less = __webpack_req
 
 
 
-itemvue_type_script_lang_ts.render = itemvue_type_template_id_651a826a_scoped_true_render
-itemvue_type_script_lang_ts.__scopeId = "data-v-651a826a"
+itemvue_type_script_lang_ts.render = itemvue_type_template_id_6733e46c_scoped_true_render
+itemvue_type_script_lang_ts.__scopeId = "data-v-6733e46c"
 
 /* harmony default export */ var cc_command_item = (itemvue_type_script_lang_ts);
 // CONCATENATED MODULE: ./node_modules/cache-loader/dist/cjs.js??ref--14-0!./node_modules/babel-loader/lib!./node_modules/@vue/cli-plugin-typescript/node_modules/ts-loader??ref--14-2!./node_modules/cache-loader/dist/cjs.js??ref--0-0!./node_modules/vue-loader-v16/dist??ref--0-1!./packages/cc-command/command.vue?vue&type=script&lang=ts
@@ -11714,8 +13545,8 @@ itemvue_type_script_lang_ts.__scopeId = "data-v-651a826a"
 }));
 // CONCATENATED MODULE: ./packages/cc-command/command.vue?vue&type=script&lang=ts
  
-// EXTERNAL MODULE: ./packages/cc-command/command.vue?vue&type=style&index=0&id=0def5242&scoped=true&lang=less
-var commandvue_type_style_index_0_id_0def5242_scoped_true_lang_less = __webpack_require__("c89b");
+// EXTERNAL MODULE: ./packages/cc-command/command.vue?vue&type=style&index=0&id=480fe661&scoped=true&lang=less
+var commandvue_type_style_index_0_id_480fe661_scoped_true_lang_less = __webpack_require__("9077");
 
 // CONCATENATED MODULE: ./packages/cc-command/command.vue
 
@@ -11723,11 +13554,360 @@ var commandvue_type_style_index_0_id_0def5242_scoped_true_lang_less = __webpack_
 
 
 
-commandvue_type_script_lang_ts.render = commandvue_type_template_id_0def5242_scoped_true_render
-commandvue_type_script_lang_ts.__scopeId = "data-v-0def5242"
+commandvue_type_script_lang_ts.render = commandvue_type_template_id_480fe661_scoped_true_render
+commandvue_type_script_lang_ts.__scopeId = "data-v-480fe661"
 
 /* harmony default export */ var command = (commandvue_type_script_lang_ts);
 // CONCATENATED MODULE: ./packages/cc-command/index.ts
+
+
+
+// CONCATENATED MODULE: ./node_modules/cache-loader/dist/cjs.js??ref--12-0!./node_modules/babel-loader/lib!./node_modules/vue-loader-v16/dist/templateLoader.js??ref--6!./node_modules/cache-loader/dist/cjs.js??ref--0-0!./node_modules/vue-loader-v16/dist??ref--0-1!./packages/cc-table/table.vue?vue&type=template&id=5ef49ff6
+
+const tablevue_type_template_id_5ef49ff6_hoisted_1 = {
+  class: "cc-table",
+  ref: "table"
+};
+function tablevue_type_template_id_5ef49ff6_render(_ctx, _cache, $props, $setup, $data, $options) {
+  const _component_CCTableBody = Object(external_commonjs_vue_commonjs2_vue_root_Vue_["resolveComponent"])("CCTableBody");
+
+  const _directive_resize = Object(external_commonjs_vue_commonjs2_vue_root_Vue_["resolveDirective"])("resize");
+
+  return Object(external_commonjs_vue_commonjs2_vue_root_Vue_["withDirectives"])((Object(external_commonjs_vue_commonjs2_vue_root_Vue_["openBlock"])(), Object(external_commonjs_vue_commonjs2_vue_root_Vue_["createElementBlock"])("div", tablevue_type_template_id_5ef49ff6_hoisted_1, [Object(external_commonjs_vue_commonjs2_vue_root_Vue_["createVNode"])(_component_CCTableBody, {
+    data: _ctx.headLineData,
+    columns: _ctx.columns,
+    widthInfo: _ctx.columnsWidth
+  }, null, 8, ["data", "columns", "widthInfo"]), Object(external_commonjs_vue_commonjs2_vue_root_Vue_["createVNode"])(_component_CCTableBody, {
+    data: _ctx.bodyLineData,
+    columns: _ctx.columns,
+    widthInfo: _ctx.columnsWidth
+  }, null, 8, ["data", "columns", "widthInfo"])])), [[_directive_resize, _ctx.onResize, "throttle"]]);
+}
+// CONCATENATED MODULE: ./packages/cc-table/table.vue?vue&type=template&id=5ef49ff6
+
+// EXTERNAL MODULE: ./node_modules/vue3-resize-directive/dist/Vueresize.common.js
+var Vueresize_common = __webpack_require__("a677");
+var Vueresize_common_default = /*#__PURE__*/__webpack_require__.n(Vueresize_common);
+
+// CONCATENATED MODULE: ./node_modules/cache-loader/dist/cjs.js??ref--12-0!./node_modules/babel-loader/lib!./node_modules/vue-loader-v16/dist/templateLoader.js??ref--6!./node_modules/cache-loader/dist/cjs.js??ref--0-0!./node_modules/vue-loader-v16/dist??ref--0-1!./packages/cc-table/table-body.vue?vue&type=template&id=47bd8cd3&scoped=true
+
+
+const table_bodyvue_type_template_id_47bd8cd3_scoped_true_withScopeId = n => (Object(external_commonjs_vue_commonjs2_vue_root_Vue_["pushScopeId"])("data-v-47bd8cd3"), n = n(), Object(external_commonjs_vue_commonjs2_vue_root_Vue_["popScopeId"])(), n);
+
+const table_bodyvue_type_template_id_47bd8cd3_scoped_true_hoisted_1 = {
+  class: "table-body"
+};
+const table_bodyvue_type_template_id_47bd8cd3_scoped_true_hoisted_2 = {
+  style: {
+    "border-spacing": "0"
+  }
+};
+const table_bodyvue_type_template_id_47bd8cd3_scoped_true_hoisted_3 = ["width"];
+function table_bodyvue_type_template_id_47bd8cd3_scoped_true_render(_ctx, _cache, $props, $setup, $data, $options) {
+  const _component_CCTableLine = Object(external_commonjs_vue_commonjs2_vue_root_Vue_["resolveComponent"])("CCTableLine");
+
+  return Object(external_commonjs_vue_commonjs2_vue_root_Vue_["openBlock"])(), Object(external_commonjs_vue_commonjs2_vue_root_Vue_["createElementBlock"])("div", table_bodyvue_type_template_id_47bd8cd3_scoped_true_hoisted_1, [Object(external_commonjs_vue_commonjs2_vue_root_Vue_["createElementVNode"])("table", table_bodyvue_type_template_id_47bd8cd3_scoped_true_hoisted_2, [Object(external_commonjs_vue_commonjs2_vue_root_Vue_["createElementVNode"])("colgroup", null, [(Object(external_commonjs_vue_commonjs2_vue_root_Vue_["openBlock"])(true), Object(external_commonjs_vue_commonjs2_vue_root_Vue_["createElementBlock"])(external_commonjs_vue_commonjs2_vue_root_Vue_["Fragment"], null, Object(external_commonjs_vue_commonjs2_vue_root_Vue_["renderList"])(_ctx.widthInfo, (item, index) => {
+    return Object(external_commonjs_vue_commonjs2_vue_root_Vue_["openBlock"])(), Object(external_commonjs_vue_commonjs2_vue_root_Vue_["createElementBlock"])("col", {
+      key: index,
+      width: item
+    }, null, 8, table_bodyvue_type_template_id_47bd8cd3_scoped_true_hoisted_3);
+  }), 128))]), Object(external_commonjs_vue_commonjs2_vue_root_Vue_["createElementVNode"])("thead", null, [(Object(external_commonjs_vue_commonjs2_vue_root_Vue_["openBlock"])(true), Object(external_commonjs_vue_commonjs2_vue_root_Vue_["createElementBlock"])(external_commonjs_vue_commonjs2_vue_root_Vue_["Fragment"], null, Object(external_commonjs_vue_commonjs2_vue_root_Vue_["renderList"])(_ctx.data, (item, index) => {
+    return Object(external_commonjs_vue_commonjs2_vue_root_Vue_["openBlock"])(), Object(external_commonjs_vue_commonjs2_vue_root_Vue_["createElementBlock"])("tr", {
+      key: index
+    }, [Object(external_commonjs_vue_commonjs2_vue_root_Vue_["createVNode"])(_component_CCTableLine, {
+      data: item.data
+    }, null, 8, ["data"])]);
+  }), 128))])])]);
+}
+// CONCATENATED MODULE: ./packages/cc-table/table-body.vue?vue&type=template&id=47bd8cd3&scoped=true
+
+// CONCATENATED MODULE: ./node_modules/cache-loader/dist/cjs.js??ref--12-0!./node_modules/babel-loader/lib!./node_modules/vue-loader-v16/dist/templateLoader.js??ref--6!./node_modules/cache-loader/dist/cjs.js??ref--0-0!./node_modules/vue-loader-v16/dist??ref--0-1!./packages/cc-table/line.vue?vue&type=template&id=6600fbb6
+
+function linevue_type_template_id_6600fbb6_render(_ctx, _cache, $props, $setup, $data, $options) {
+  const _component_CCTableCell = Object(external_commonjs_vue_commonjs2_vue_root_Vue_["resolveComponent"])("CCTableCell");
+
+  return Object(external_commonjs_vue_commonjs2_vue_root_Vue_["openBlock"])(true), Object(external_commonjs_vue_commonjs2_vue_root_Vue_["createElementBlock"])(external_commonjs_vue_commonjs2_vue_root_Vue_["Fragment"], null, Object(external_commonjs_vue_commonjs2_vue_root_Vue_["renderList"])(_ctx.data, (cell, index) => {
+    return Object(external_commonjs_vue_commonjs2_vue_root_Vue_["openBlock"])(), Object(external_commonjs_vue_commonjs2_vue_root_Vue_["createElementBlock"])("th", {
+      key: index,
+      style: {
+        "padding": "0px"
+      }
+    }, [Object(external_commonjs_vue_commonjs2_vue_root_Vue_["createVNode"])(_component_CCTableCell, {
+      data: cell
+    }, null, 8, ["data"])]);
+  }), 128);
+}
+// CONCATENATED MODULE: ./packages/cc-table/line.vue?vue&type=template&id=6600fbb6
+
+// CONCATENATED MODULE: ./node_modules/cache-loader/dist/cjs.js??ref--12-0!./node_modules/babel-loader/lib!./node_modules/vue-loader-v16/dist/templateLoader.js??ref--6!./node_modules/cache-loader/dist/cjs.js??ref--0-0!./node_modules/vue-loader-v16/dist??ref--0-1!./packages/cc-table/cell.vue?vue&type=template&id=6bf4c1dc&scoped=true
+
+function cellvue_type_template_id_6bf4c1dc_scoped_true_render(_ctx, _cache, $props, $setup, $data, $options) {
+  return Object(external_commonjs_vue_commonjs2_vue_root_Vue_["openBlock"])(), Object(external_commonjs_vue_commonjs2_vue_root_Vue_["createElementBlock"])("div", {
+    class: Object(external_commonjs_vue_commonjs2_vue_root_Vue_["normalizeClass"])(["cell cell-column cell-row", {
+      'cell-row-last': _ctx.data.rowIndexCurrent + 1 >= _ctx.data.rowIndexTotal,
+      'cell-column-last': _ctx.data.columnIndexCurrent + 1 >= _ctx.data.columnIndexTotal,
+      'cell-column-first': _ctx.data.columnIndexCurrent === 0
+    }])
+  }, Object(external_commonjs_vue_commonjs2_vue_root_Vue_["toDisplayString"])(_ctx.data.value), 3);
+}
+// CONCATENATED MODULE: ./packages/cc-table/cell.vue?vue&type=template&id=6bf4c1dc&scoped=true
+
+// CONCATENATED MODULE: ./node_modules/cache-loader/dist/cjs.js??ref--14-0!./node_modules/babel-loader/lib!./node_modules/@vue/cli-plugin-typescript/node_modules/ts-loader??ref--14-2!./node_modules/cache-loader/dist/cjs.js??ref--0-0!./node_modules/vue-loader-v16/dist??ref--0-1!./packages/cc-table/cell.vue?vue&type=script&lang=ts
+
+/* harmony default export */ var cellvue_type_script_lang_ts = (Object(external_commonjs_vue_commonjs2_vue_root_Vue_["defineComponent"])({
+  name: 'cc-table-cell',
+  props: {
+    data: {
+      type: Object,
+      default: () => {}
+    }
+  },
+
+  setup(props, ctx) {
+    return {};
+  }
+
+}));
+// CONCATENATED MODULE: ./packages/cc-table/cell.vue?vue&type=script&lang=ts
+ 
+// EXTERNAL MODULE: ./packages/cc-table/cell.vue?vue&type=style&index=0&id=6bf4c1dc&lang=less&scoped=true
+var cellvue_type_style_index_0_id_6bf4c1dc_lang_less_scoped_true = __webpack_require__("c50f");
+
+// CONCATENATED MODULE: ./packages/cc-table/cell.vue
+
+
+
+
+
+cellvue_type_script_lang_ts.render = cellvue_type_template_id_6bf4c1dc_scoped_true_render
+cellvue_type_script_lang_ts.__scopeId = "data-v-6bf4c1dc"
+
+/* harmony default export */ var cc_table_cell = (cellvue_type_script_lang_ts);
+// CONCATENATED MODULE: ./node_modules/cache-loader/dist/cjs.js??ref--14-0!./node_modules/babel-loader/lib!./node_modules/@vue/cli-plugin-typescript/node_modules/ts-loader??ref--14-2!./node_modules/cache-loader/dist/cjs.js??ref--0-0!./node_modules/vue-loader-v16/dist??ref--0-1!./packages/cc-table/line.vue?vue&type=script&lang=ts
+
+
+/* harmony default export */ var linevue_type_script_lang_ts = (Object(external_commonjs_vue_commonjs2_vue_root_Vue_["defineComponent"])({
+  name: 'CCTableLine',
+  components: {
+    CCTableCell: cc_table_cell
+  },
+  props: {
+    data: {
+      type: Array
+    }
+  },
+
+  setup(props, ctx) {
+    return {};
+  }
+
+}));
+// CONCATENATED MODULE: ./packages/cc-table/line.vue?vue&type=script&lang=ts
+ 
+// CONCATENATED MODULE: ./packages/cc-table/line.vue
+
+
+
+linevue_type_script_lang_ts.render = linevue_type_template_id_6600fbb6_render
+
+/* harmony default export */ var cc_table_line = (linevue_type_script_lang_ts);
+// CONCATENATED MODULE: ./node_modules/cache-loader/dist/cjs.js??ref--14-0!./node_modules/babel-loader/lib!./node_modules/@vue/cli-plugin-typescript/node_modules/ts-loader??ref--14-2!./node_modules/cache-loader/dist/cjs.js??ref--0-0!./node_modules/vue-loader-v16/dist??ref--0-1!./packages/cc-table/table-body.vue?vue&type=script&lang=ts
+
+
+/* harmony default export */ var table_bodyvue_type_script_lang_ts = (Object(external_commonjs_vue_commonjs2_vue_root_Vue_["defineComponent"])({
+  name: 'cc-table-body',
+  components: {
+    CCTableLine: cc_table_line
+  },
+  props: {
+    widthInfo: {
+      type: Array,
+      default: () => []
+    },
+    columns: {
+      type: Array,
+      default: () => []
+    },
+    data: {
+      type: Array,
+      default: () => []
+    }
+  },
+
+  setup(props, ctx) {
+    Object(external_commonjs_vue_commonjs2_vue_root_Vue_["watch"])(() => props.widthInfo, v => {
+      console.log(v);
+    });
+    let widthArray = [];
+    const columnsData = Object(external_commonjs_vue_commonjs2_vue_root_Vue_["toRaw"])(props.columns);
+    columnsData.map(item => {
+      if (item.width) {
+        widthArray.push(item.width);
+      }
+    });
+    const widthInfo = Object(external_commonjs_vue_commonjs2_vue_root_Vue_["ref"])(widthArray);
+    return {};
+  }
+
+}));
+// CONCATENATED MODULE: ./packages/cc-table/table-body.vue?vue&type=script&lang=ts
+ 
+// EXTERNAL MODULE: ./packages/cc-table/table-body.vue?vue&type=style&index=0&id=47bd8cd3&lang=less&scoped=true
+var table_bodyvue_type_style_index_0_id_47bd8cd3_lang_less_scoped_true = __webpack_require__("da05");
+
+// CONCATENATED MODULE: ./packages/cc-table/table-body.vue
+
+
+
+
+
+table_bodyvue_type_script_lang_ts.render = table_bodyvue_type_template_id_47bd8cd3_scoped_true_render
+table_bodyvue_type_script_lang_ts.__scopeId = "data-v-47bd8cd3"
+
+/* harmony default export */ var table_body = (table_bodyvue_type_script_lang_ts);
+// CONCATENATED MODULE: ./node_modules/cache-loader/dist/cjs.js??ref--14-0!./node_modules/babel-loader/lib!./node_modules/@vue/cli-plugin-typescript/node_modules/ts-loader??ref--14-2!./node_modules/cache-loader/dist/cjs.js??ref--0-0!./node_modules/vue-loader-v16/dist??ref--0-1!./packages/cc-table/table.vue?vue&type=script&lang=ts
+ // @ts-ignore
+
+
+
+/* harmony default export */ var cc_table_tablevue_type_script_lang_ts = (Object(external_commonjs_vue_commonjs2_vue_root_Vue_["defineComponent"])({
+  name: 'CCTable',
+  directives: {
+    resize: Vueresize_common_default.a
+  },
+  components: {
+    CCTableBody: table_body
+  },
+  props: {
+    columns: {
+      type: Array,
+      default: () => []
+    },
+    data: {
+      type: Array,
+      default: () => []
+    }
+  },
+
+  setup(props, ctx) {
+    const {
+      data,
+      columns
+    } = props;
+    const columnsData = Object(external_commonjs_vue_commonjs2_vue_root_Vue_["toRaw"])(columns); // columns Data
+
+    const columnsWidth = Object(external_commonjs_vue_commonjs2_vue_root_Vue_["ref"])([]);
+    const table = Object(external_commonjs_vue_commonjs2_vue_root_Vue_["ref"])();
+
+    function updateColumnsWidth() {
+      if (table.value) {
+        const el = table.value;
+        let leftWidth = el.clientWidth;
+        columnsWidth.value.length = 0;
+
+        for (let i = 0; i < columnsData.length; i++) {
+          const item = columnsData[i];
+
+          if (i + 1 >= columnsData.length) {
+            // 最后一个
+            columnsWidth.value.push(leftWidth);
+          } else {
+            const width = item.width || 100;
+            leftWidth -= width;
+            columnsWidth.value.push(width);
+          }
+        }
+      }
+    }
+
+    Object(external_commonjs_vue_commonjs2_vue_root_Vue_["onMounted"])(() => {
+      updateColumnsWidth();
+    });
+    let rowCurrent = 0;
+    let rowTotal = Object(external_commonjs_vue_commonjs2_vue_root_Vue_["toRaw"])(data).length + 1; // head 数据
+
+    let headLineData = [];
+    const line = {
+      index: 1,
+      data: []
+    };
+    headLineData.push(line);
+
+    for (let i = 0; i < columnsData.length; i++) {
+      const item = columnsData[i];
+      line.data.push({
+        columnIndexCurrent: i,
+        columnIndexTotal: columnsData.length,
+        rowIndexCurrent: rowCurrent,
+        rowIndexTotal: rowTotal,
+        key: item.title,
+        value: item.key
+      });
+    } // 收集body的行数据
+
+
+    let bodyLineData = [];
+    let index = 0;
+    Object(external_commonjs_vue_commonjs2_vue_root_Vue_["toRaw"])(data).map(item => {
+      rowCurrent++;
+      const keys = Object.keys(item);
+      const line = {
+        index: ++index,
+        data: []
+      };
+      bodyLineData.push(line); // 需要安装column的顺序放到数组里面
+
+      for (let i = 0; i < columnsData.length; i++) {
+        const {
+          title,
+          key
+        } = columnsData[i];
+
+        if (!item.hasOwnProperty(key)) {
+          console.warn(item);
+          console.warn(`invalid column data, not exist key: ${key}`);
+        }
+
+        line.data.push({
+          columnIndexCurrent: i,
+          columnIndexTotal: columnsData.length,
+          rowIndexCurrent: rowCurrent,
+          rowIndexTotal: rowTotal,
+          key: key,
+          value: item[key]
+        });
+      }
+    });
+    return {
+      onResize() {
+        updateColumnsWidth();
+      },
+
+      table,
+      columnsWidth,
+      bodyLineData,
+      headLineData
+    };
+  }
+
+}));
+// CONCATENATED MODULE: ./packages/cc-table/table.vue?vue&type=script&lang=ts
+ 
+// EXTERNAL MODULE: ./packages/cc-table/table.vue?vue&type=style&index=0&id=5ef49ff6&lang=less
+var tablevue_type_style_index_0_id_5ef49ff6_lang_less = __webpack_require__("e5fd");
+
+// CONCATENATED MODULE: ./packages/cc-table/table.vue
+
+
+
+
+
+cc_table_tablevue_type_script_lang_ts.render = tablevue_type_template_id_5ef49ff6_render
+
+/* harmony default export */ var cc_table_table = (cc_table_tablevue_type_script_lang_ts);
+// CONCATENATED MODULE: ./packages/cc-table/const.ts
+
+// CONCATENATED MODULE: ./packages/cc-table/index.ts
 
 
 
@@ -11748,7 +13928,9 @@ commandvue_type_script_lang_ts.__scopeId = "data-v-0def5242"
 
 
 
+
 const components = {
+  CCTable: cc_table_table,
   CCCommand: command,
   CCFootBar: cc_footbar,
   CCButton: cc_button_button,

@@ -1,4 +1,5 @@
 declare const _default: import("vue").DefineComponent<{}, {
+    menuEl: import("vue").Ref<HTMLDivElement | undefined>;
     menus: import("vue").Ref<{
         name: string;
         enabled?: true | undefined;

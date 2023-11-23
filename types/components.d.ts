@@ -1,4 +1,29 @@
 export declare const components: {
+    CCTable: import("vue").DefineComponent<{
+        columns: {
+            type: import("vue").PropType<import("./cc-table/const").TableColumn[]>;
+            default: () => never[];
+        };
+        data: {
+            type: import("vue").PropType<import("./cc-table/const").TableData[]>;
+            default: () => never[];
+        };
+    }, {
+        onResize(): void;
+        table: import("vue").Ref<any>;
+        columnsWidth: import("vue").Ref<number[]>;
+        bodyLineData: import("./cc-table/const").LineData[];
+        headLineData: import("./cc-table/const").LineData[];
+    }, unknown, {}, {}, import("vue").ComponentOptionsMixin, import("vue").ComponentOptionsMixin, Record<string, any>, string, import("vue").VNodeProps & import("vue").AllowedComponentProps & import("vue").ComponentCustomProps, Readonly<{
+        columns?: unknown;
+        data?: unknown;
+    } & {
+        data: import("./cc-table/const").TableData[];
+        columns: import("./cc-table/const").TableColumn[];
+    } & {}>, {
+        data: import("./cc-table/const").TableData[];
+        columns: import("./cc-table/const").TableColumn[];
+    }>;
     CCCommand: import("vue").DefineComponent<{
         items: {
             type: import("vue").PropType<import("./cc-command/const").CmdData[]>;
@@ -328,6 +353,7 @@ export declare const components: {
         align: string;
     }>;
     CCMenu: import("vue").DefineComponent<{}, {
+        menuEl: import("vue").Ref<HTMLDivElement | undefined>;
         menus: import("vue").Ref<{
             name: string;
             enabled?: true | undefined;
