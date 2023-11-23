@@ -243,6 +243,17 @@ module.exports = randomByte;
 
 /***/ }),
 
+/***/ "33c4":
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+/* harmony import */ var _node_modules_mini_css_extract_plugin_dist_loader_js_ref_10_oneOf_1_0_node_modules_css_loader_dist_cjs_js_ref_10_oneOf_1_1_node_modules_vue_loader_v16_dist_stylePostLoader_js_node_modules_postcss_loader_src_index_js_ref_10_oneOf_1_2_node_modules_less_loader_dist_cjs_js_ref_10_oneOf_1_3_node_modules_cache_loader_dist_cjs_js_ref_0_0_node_modules_vue_loader_v16_dist_index_js_ref_0_1_table_vue_vue_type_style_index_0_id_3d7397b6_lang_less__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__("c501");
+/* harmony import */ var _node_modules_mini_css_extract_plugin_dist_loader_js_ref_10_oneOf_1_0_node_modules_css_loader_dist_cjs_js_ref_10_oneOf_1_1_node_modules_vue_loader_v16_dist_stylePostLoader_js_node_modules_postcss_loader_src_index_js_ref_10_oneOf_1_2_node_modules_less_loader_dist_cjs_js_ref_10_oneOf_1_3_node_modules_cache_loader_dist_cjs_js_ref_0_0_node_modules_vue_loader_v16_dist_index_js_ref_0_1_table_vue_vue_type_style_index_0_id_3d7397b6_lang_less__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(_node_modules_mini_css_extract_plugin_dist_loader_js_ref_10_oneOf_1_0_node_modules_css_loader_dist_cjs_js_ref_10_oneOf_1_1_node_modules_vue_loader_v16_dist_stylePostLoader_js_node_modules_postcss_loader_src_index_js_ref_10_oneOf_1_2_node_modules_less_loader_dist_cjs_js_ref_10_oneOf_1_3_node_modules_cache_loader_dist_cjs_js_ref_0_0_node_modules_vue_loader_v16_dist_index_js_ref_0_1_table_vue_vue_type_style_index_0_id_3d7397b6_lang_less__WEBPACK_IMPORTED_MODULE_0__);
+/* unused harmony reexport * */
+
+
+/***/ }),
+
 /***/ "3cc2":
 /***/ (function(module, exports, __webpack_require__) {
 
@@ -434,13 +445,6 @@ module.exports = {
 /* harmony import */ var _node_modules_mini_css_extract_plugin_dist_loader_js_ref_10_oneOf_1_0_node_modules_css_loader_dist_cjs_js_ref_10_oneOf_1_1_node_modules_vue_loader_v16_dist_stylePostLoader_js_node_modules_postcss_loader_src_index_js_ref_10_oneOf_1_2_node_modules_less_loader_dist_cjs_js_ref_10_oneOf_1_3_node_modules_cache_loader_dist_cjs_js_ref_0_0_node_modules_vue_loader_v16_dist_index_js_ref_0_1_alpha_vue_vue_type_style_index_0_id_2821b475_scoped_true_lang_less__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(_node_modules_mini_css_extract_plugin_dist_loader_js_ref_10_oneOf_1_0_node_modules_css_loader_dist_cjs_js_ref_10_oneOf_1_1_node_modules_vue_loader_v16_dist_stylePostLoader_js_node_modules_postcss_loader_src_index_js_ref_10_oneOf_1_2_node_modules_less_loader_dist_cjs_js_ref_10_oneOf_1_3_node_modules_cache_loader_dist_cjs_js_ref_0_0_node_modules_vue_loader_v16_dist_index_js_ref_0_1_alpha_vue_vue_type_style_index_0_id_2821b475_scoped_true_lang_less__WEBPACK_IMPORTED_MODULE_0__);
 /* unused harmony reexport * */
 
-
-/***/ }),
-
-/***/ "439e":
-/***/ (function(module, exports, __webpack_require__) {
-
-// extracted by mini-css-extract-plugin
 
 /***/ }),
 
@@ -8223,6 +8227,13 @@ module.exports.TinyEmitter = E;
 
 /***/ }),
 
+/***/ "c501":
+/***/ (function(module, exports, __webpack_require__) {
+
+// extracted by mini-css-extract-plugin
+
+/***/ }),
+
 /***/ "c50f":
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
@@ -8369,17 +8380,6 @@ module.exports = function (random, alphabet, size) {
 
 /***/ }),
 
-/***/ "e5fd":
-/***/ (function(module, __webpack_exports__, __webpack_require__) {
-
-"use strict";
-/* harmony import */ var _node_modules_mini_css_extract_plugin_dist_loader_js_ref_10_oneOf_1_0_node_modules_css_loader_dist_cjs_js_ref_10_oneOf_1_1_node_modules_vue_loader_v16_dist_stylePostLoader_js_node_modules_postcss_loader_src_index_js_ref_10_oneOf_1_2_node_modules_less_loader_dist_cjs_js_ref_10_oneOf_1_3_node_modules_cache_loader_dist_cjs_js_ref_0_0_node_modules_vue_loader_v16_dist_index_js_ref_0_1_table_vue_vue_type_style_index_0_id_5ef49ff6_lang_less__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__("439e");
-/* harmony import */ var _node_modules_mini_css_extract_plugin_dist_loader_js_ref_10_oneOf_1_0_node_modules_css_loader_dist_cjs_js_ref_10_oneOf_1_1_node_modules_vue_loader_v16_dist_stylePostLoader_js_node_modules_postcss_loader_src_index_js_ref_10_oneOf_1_2_node_modules_less_loader_dist_cjs_js_ref_10_oneOf_1_3_node_modules_cache_loader_dist_cjs_js_ref_0_0_node_modules_vue_loader_v16_dist_index_js_ref_0_1_table_vue_vue_type_style_index_0_id_5ef49ff6_lang_less__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(_node_modules_mini_css_extract_plugin_dist_loader_js_ref_10_oneOf_1_0_node_modules_css_loader_dist_cjs_js_ref_10_oneOf_1_1_node_modules_vue_loader_v16_dist_stylePostLoader_js_node_modules_postcss_loader_src_index_js_ref_10_oneOf_1_2_node_modules_less_loader_dist_cjs_js_ref_10_oneOf_1_3_node_modules_cache_loader_dist_cjs_js_ref_0_0_node_modules_vue_loader_v16_dist_index_js_ref_0_1_table_vue_vue_type_style_index_0_id_5ef49ff6_lang_less__WEBPACK_IMPORTED_MODULE_0__);
-/* unused harmony reexport * */
-
-
-/***/ }),
-
 /***/ "e755":
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
@@ -8450,6 +8450,10 @@ __webpack_require__.r(cc_command_const_namespaceObject);
 __webpack_require__.d(cc_command_const_namespaceObject, "CmdMsg", function() { return CmdMsg; });
 __webpack_require__.d(cc_command_const_namespaceObject, "showCommand", function() { return showCommand; });
 __webpack_require__.d(cc_command_const_namespaceObject, "closeCommand", function() { return closeCommand; });
+
+// NAMESPACE OBJECT: ./packages/cc-table/const.ts
+var cc_table_const_namespaceObject = {};
+__webpack_require__.r(cc_table_const_namespaceObject);
 
 // CONCATENATED MODULE: ./node_modules/@vue/cli-service/lib/commands/build/setPublicPath.js
 // This file is imported into lib/wc client bundles.
@@ -13553,18 +13557,18 @@ commandvue_type_script_lang_ts.__scopeId = "data-v-480fe661"
 
 
 
-// CONCATENATED MODULE: ./node_modules/cache-loader/dist/cjs.js??ref--12-0!./node_modules/babel-loader/lib!./node_modules/vue-loader-v16/dist/templateLoader.js??ref--6!./node_modules/cache-loader/dist/cjs.js??ref--0-0!./node_modules/vue-loader-v16/dist??ref--0-1!./packages/cc-table/table.vue?vue&type=template&id=5ef49ff6
+// CONCATENATED MODULE: ./node_modules/cache-loader/dist/cjs.js??ref--12-0!./node_modules/babel-loader/lib!./node_modules/vue-loader-v16/dist/templateLoader.js??ref--6!./node_modules/cache-loader/dist/cjs.js??ref--0-0!./node_modules/vue-loader-v16/dist??ref--0-1!./packages/cc-table/table.vue?vue&type=template&id=3d7397b6
 
-const tablevue_type_template_id_5ef49ff6_hoisted_1 = {
+const tablevue_type_template_id_3d7397b6_hoisted_1 = {
   class: "cc-table",
   ref: "table"
 };
-function tablevue_type_template_id_5ef49ff6_render(_ctx, _cache, $props, $setup, $data, $options) {
+function tablevue_type_template_id_3d7397b6_render(_ctx, _cache, $props, $setup, $data, $options) {
   const _component_CCTableBody = Object(external_commonjs_vue_commonjs2_vue_root_Vue_["resolveComponent"])("CCTableBody");
 
   const _directive_resize = Object(external_commonjs_vue_commonjs2_vue_root_Vue_["resolveDirective"])("resize");
 
-  return Object(external_commonjs_vue_commonjs2_vue_root_Vue_["withDirectives"])((Object(external_commonjs_vue_commonjs2_vue_root_Vue_["openBlock"])(), Object(external_commonjs_vue_commonjs2_vue_root_Vue_["createElementBlock"])("div", tablevue_type_template_id_5ef49ff6_hoisted_1, [Object(external_commonjs_vue_commonjs2_vue_root_Vue_["createVNode"])(_component_CCTableBody, {
+  return Object(external_commonjs_vue_commonjs2_vue_root_Vue_["withDirectives"])((Object(external_commonjs_vue_commonjs2_vue_root_Vue_["openBlock"])(), Object(external_commonjs_vue_commonjs2_vue_root_Vue_["createElementBlock"])("div", tablevue_type_template_id_3d7397b6_hoisted_1, [Object(external_commonjs_vue_commonjs2_vue_root_Vue_["createVNode"])(_component_CCTableBody, {
     data: _ctx.headLineData,
     columns: _ctx.columns,
     widthInfo: _ctx.columnsWidth
@@ -13574,7 +13578,7 @@ function tablevue_type_template_id_5ef49ff6_render(_ctx, _cache, $props, $setup,
     widthInfo: _ctx.columnsWidth
   }, null, 8, ["data", "columns", "widthInfo"])])), [[_directive_resize, _ctx.onResize, "throttle"]]);
 }
-// CONCATENATED MODULE: ./packages/cc-table/table.vue?vue&type=template&id=5ef49ff6
+// CONCATENATED MODULE: ./packages/cc-table/table.vue?vue&type=template&id=3d7397b6
 
 // EXTERNAL MODULE: ./node_modules/vue3-resize-directive/dist/Vueresize.common.js
 var Vueresize_common = __webpack_require__("a677");
@@ -13701,14 +13705,14 @@ cellvue_type_script_lang_ts.__scopeId = "data-v-6bf4c1dc"
 
 linevue_type_script_lang_ts.render = linevue_type_template_id_6600fbb6_render
 
-/* harmony default export */ var cc_table_line = (linevue_type_script_lang_ts);
+/* harmony default export */ var line = (linevue_type_script_lang_ts);
 // CONCATENATED MODULE: ./node_modules/cache-loader/dist/cjs.js??ref--14-0!./node_modules/babel-loader/lib!./node_modules/@vue/cli-plugin-typescript/node_modules/ts-loader??ref--14-2!./node_modules/cache-loader/dist/cjs.js??ref--0-0!./node_modules/vue-loader-v16/dist??ref--0-1!./packages/cc-table/table-body.vue?vue&type=script&lang=ts
 
 
 /* harmony default export */ var table_bodyvue_type_script_lang_ts = (Object(external_commonjs_vue_commonjs2_vue_root_Vue_["defineComponent"])({
   name: 'cc-table-body',
   components: {
-    CCTableLine: cc_table_line
+    CCTableLine: line
   },
   props: {
     widthInfo: {
@@ -13777,6 +13781,10 @@ table_bodyvue_type_script_lang_ts.__scopeId = "data-v-47bd8cd3"
     data: {
       type: Array,
       default: () => []
+    },
+    color: {
+      type: String,
+      default: ''
     }
   },
 
@@ -13789,6 +13797,10 @@ table_bodyvue_type_script_lang_ts.__scopeId = "data-v-47bd8cd3"
 
     const columnsWidth = Object(external_commonjs_vue_commonjs2_vue_root_Vue_["ref"])([]);
     const table = Object(external_commonjs_vue_commonjs2_vue_root_Vue_["ref"])();
+    Object(external_commonjs_vue_commonjs2_vue_root_Vue_["watch"])(() => props.data.length, v => {
+      updateTableData(Object(external_commonjs_vue_commonjs2_vue_root_Vue_["toRaw"])(props.data));
+    });
+    Object(external_commonjs_vue_commonjs2_vue_root_Vue_["watch"])(() => props.color, v => {});
 
     function updateColumnsWidth() {
       if (table.value) {
@@ -13814,61 +13826,68 @@ table_bodyvue_type_script_lang_ts.__scopeId = "data-v-47bd8cd3"
     Object(external_commonjs_vue_commonjs2_vue_root_Vue_["onMounted"])(() => {
       updateColumnsWidth();
     });
-    let rowCurrent = 0;
-    let rowTotal = Object(external_commonjs_vue_commonjs2_vue_root_Vue_["toRaw"])(data).length + 1; // head 数据
+    let headLineData = Object(external_commonjs_vue_commonjs2_vue_root_Vue_["ref"])([]);
+    let bodyLineData = Object(external_commonjs_vue_commonjs2_vue_root_Vue_["ref"])([]);
 
-    let headLineData = [];
-    const line = {
-      index: 1,
-      data: []
-    };
-    headLineData.push(line);
+    function updateTableData(tableData) {
+      headLineData.value.length = 0;
+      bodyLineData.value.length = 0;
+      let rowCurrent = 0;
+      let rowTotal = tableData.length + 1; // head 数据
 
-    for (let i = 0; i < columnsData.length; i++) {
-      const item = columnsData[i];
-      line.data.push({
-        columnIndexCurrent: i,
-        columnIndexTotal: columnsData.length,
-        rowIndexCurrent: rowCurrent,
-        rowIndexTotal: rowTotal,
-        key: item.title,
-        value: item.key
-      });
-    } // 收集body的行数据
-
-
-    let bodyLineData = [];
-    let index = 0;
-    Object(external_commonjs_vue_commonjs2_vue_root_Vue_["toRaw"])(data).map(item => {
-      rowCurrent++;
-      const keys = Object.keys(item);
       const line = {
-        index: ++index,
+        index: 1,
         data: []
       };
-      bodyLineData.push(line); // 需要安装column的顺序放到数组里面
+      headLineData.value.push(line);
 
       for (let i = 0; i < columnsData.length; i++) {
-        const {
-          title,
-          key
-        } = columnsData[i];
-
-        if (!item.hasOwnProperty(key)) {
-          console.warn(item);
-          console.warn(`invalid column data, not exist key: ${key}`);
-        }
-
+        const item = columnsData[i];
         line.data.push({
           columnIndexCurrent: i,
           columnIndexTotal: columnsData.length,
           rowIndexCurrent: rowCurrent,
           rowIndexTotal: rowTotal,
-          key: key,
-          value: item[key]
+          key: item.title,
+          value: item.key
         });
-      }
-    });
+      } // 收集body的行数据
+
+
+      let index = 0;
+      tableData.map(item => {
+        rowCurrent++;
+        const keys = Object.keys(item);
+        const line = {
+          index: ++index,
+          data: []
+        };
+        bodyLineData.value.push(line); // 需要安装column的顺序放到数组里面
+
+        for (let i = 0; i < columnsData.length; i++) {
+          const {
+            title,
+            key
+          } = columnsData[i];
+
+          if (!item.hasOwnProperty(key)) {
+            console.warn(item);
+            console.warn(`invalid column data, not exist key: ${key}`);
+          }
+
+          line.data.push({
+            columnIndexCurrent: i,
+            columnIndexTotal: columnsData.length,
+            rowIndexCurrent: rowCurrent,
+            rowIndexTotal: rowTotal,
+            key: key,
+            value: item[key]
+          });
+        }
+      });
+    }
+
+    updateTableData(Object(external_commonjs_vue_commonjs2_vue_root_Vue_["toRaw"])(data));
     return {
       onResize() {
         updateColumnsWidth();
@@ -13884,8 +13903,8 @@ table_bodyvue_type_script_lang_ts.__scopeId = "data-v-47bd8cd3"
 }));
 // CONCATENATED MODULE: ./packages/cc-table/table.vue?vue&type=script&lang=ts
  
-// EXTERNAL MODULE: ./packages/cc-table/table.vue?vue&type=style&index=0&id=5ef49ff6&lang=less
-var tablevue_type_style_index_0_id_5ef49ff6_lang_less = __webpack_require__("e5fd");
+// EXTERNAL MODULE: ./packages/cc-table/table.vue?vue&type=style&index=0&id=3d7397b6&lang=less
+var tablevue_type_style_index_0_id_3d7397b6_lang_less = __webpack_require__("33c4");
 
 // CONCATENATED MODULE: ./packages/cc-table/table.vue
 
@@ -13893,7 +13912,7 @@ var tablevue_type_style_index_0_id_5ef49ff6_lang_less = __webpack_require__("e5f
 
 
 
-cc_table_tablevue_type_script_lang_ts.render = tablevue_type_template_id_5ef49ff6_render
+cc_table_tablevue_type_script_lang_ts.render = tablevue_type_template_id_3d7397b6_render
 
 /* harmony default export */ var cc_table_table = (cc_table_tablevue_type_script_lang_ts);
 // CONCATENATED MODULE: ./packages/cc-table/const.ts
@@ -13946,6 +13965,7 @@ const components = {
 
 
 
+
 const install = app => {
   Object.keys(components).forEach(key => {
     var _a; // @ts-ignore
@@ -13961,7 +13981,8 @@ const Methods = {
   menu: const_namespaceObject,
   dialog: cc_dialog_const_namespaceObject,
   footbar: cc_footbar_const_namespaceObject,
-  command: cc_command_const_namespaceObject
+  command: cc_command_const_namespaceObject,
+  table: cc_table_const_namespaceObject
 };
 /* harmony default export */ var packages_0 = (Object.assign({
   install,

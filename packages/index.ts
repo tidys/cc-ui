@@ -5,6 +5,7 @@ import { menu } from './cc-menu/index';
 import { dialog } from './cc-dialog/index';
 import { footbar } from './cc-footbar/index'
 import { command } from './cc-command/index';
+import { table } from './cc-table/index';
 export const install = (app: App) => {
   Object.keys(components).forEach(key => {
     // @ts-ignore
@@ -14,5 +15,5 @@ export const install = (app: App) => {
 };
 const Emitter = new TinyEmitter();
 // 对外提供的全局方法
-const Methods = { menu, dialog, footbar, command };
+const Methods = { menu, dialog, footbar, command, table };
 export default { install, Emitter, components, ...Methods };

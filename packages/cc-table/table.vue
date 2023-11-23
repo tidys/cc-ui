@@ -5,7 +5,7 @@
   </div>
 </template>
 <script lang="ts">
-import { defineComponent, PropType, toRaw, ref, onMounted } from 'vue';
+import { defineComponent, PropType, toRaw, ref, onMounted, watch, watchEffect } from 'vue';
 import { LineData, TableColumn, TableData } from './const';
 // @ts-ignore
 import resize from 'vue3-resize-directive';
@@ -26,6 +26,10 @@ export default defineComponent({
     data: {
       type: Array as PropType<TableData[]>,
       default: () => []
+    },
+    color: {
+      type: String,
+      default: ''
     }
   },
   setup(props, ctx) {
@@ -34,7 +38,16 @@ export default defineComponent({
     // columns Data
     const columnsWidth = ref<number[]>([]);
     const table = ref();
-
+    watch(
+      () => props.data.length,
+      (v) => {
+        updateTableData(toRaw(props.data));
+      }
+    );
+    watch(
+      () => props.color,
+      v => {}
+    );
     function updateColumnsWidth() {
       if (table.value) {
         const el = table.value as HTMLDivElement;
@@ -57,49 +70,55 @@ export default defineComponent({
       updateColumnsWidth();
     });
 
-    let rowCurrent = 0;
-    let rowTotal = toRaw(data).length + 1;
-    // head 数据
-    let headLineData: LineData[] = [];
-    const line: LineData = { index: 1, data: [] };
-    headLineData.push(line);
-    for (let i = 0; i < columnsData.length; i++) {
-      const item = columnsData[i];
-      line.data.push({
-        columnIndexCurrent: i,
-        columnIndexTotal: columnsData.length,
-        rowIndexCurrent: rowCurrent,
-        rowIndexTotal: rowTotal,
-        key: item.title,
-        value: item.key
-      });
-    }
+    let headLineData = ref<LineData[]>([]);
+    let bodyLineData = ref<LineData[]>([]);
+    function updateTableData(tableData: TableData[]) {
+      headLineData.value.length = 0;
+      bodyLineData.value.length = 0;
 
-    // 收集body的行数据
-    let bodyLineData: LineData[] = [];
-    let index = 0;
-    toRaw(data).map(item => {
-      rowCurrent++;
-      const keys = Object.keys(item);
-      const line: LineData = { index: ++index, data: [] };
-      bodyLineData.push(line);
-      // 需要安装column的顺序放到数组里面
+      let rowCurrent = 0;
+      let rowTotal = tableData.length + 1;
+      // head 数据
+      const line: LineData = { index: 1, data: [] };
+      headLineData.value.push(line);
       for (let i = 0; i < columnsData.length; i++) {
-        const { title, key } = columnsData[i];
-        if (!item.hasOwnProperty(key)) {
-          console.warn(item);
-          console.warn(`invalid column data, not exist key: ${key}`);
-        }
+        const item = columnsData[i];
         line.data.push({
           columnIndexCurrent: i,
           columnIndexTotal: columnsData.length,
           rowIndexCurrent: rowCurrent,
           rowIndexTotal: rowTotal,
-          key: key,
-          value: item[key]
+          key: item.title,
+          value: item.key
         });
       }
-    });
+
+      // 收集body的行数据
+      let index = 0;
+      tableData.map(item => {
+        rowCurrent++;
+        const keys = Object.keys(item);
+        const line: LineData = { index: ++index, data: [] };
+        bodyLineData.value.push(line);
+        // 需要安装column的顺序放到数组里面
+        for (let i = 0; i < columnsData.length; i++) {
+          const { title, key } = columnsData[i];
+          if (!item.hasOwnProperty(key)) {
+            console.warn(item);
+            console.warn(`invalid column data, not exist key: ${key}`);
+          }
+          line.data.push({
+            columnIndexCurrent: i,
+            columnIndexTotal: columnsData.length,
+            rowIndexCurrent: rowCurrent,
+            rowIndexTotal: rowTotal,
+            key: key,
+            value: item[key]
+          });
+        }
+      });
+    }
+    updateTableData(toRaw(data));
     return {
       onResize() {
         updateColumnsWidth();
