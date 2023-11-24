@@ -1,7 +1,9 @@
 <template>
   <div class="cc-table" ref="table" v-resize:throttle="onResize">
-    <CCTableBody :data="headLineData" :columns="columns" :widthInfo="columnsWidth"></CCTableBody>
-    <CCTableBody :data="bodyLineData" :columns="columns" :widthInfo="columnsWidth"></CCTableBody>
+    <CCTableBody :data="headLineData" :columns="columns" :isHeader="true"></CCTableBody>
+    <div class="body">
+      <CCTableBody :data="bodyLineData" :columns="columns" :isHeader="false"></CCTableBody>
+    </div>
   </div>
 </template>
 <script lang="ts">
@@ -40,7 +42,7 @@ export default defineComponent({
     const table = ref();
     watch(
       () => props.data.length,
-      (v) => {
+      v => {
         updateTableData(toRaw(props.data));
       }
     );
@@ -84,6 +86,7 @@ export default defineComponent({
       for (let i = 0; i < columnsData.length; i++) {
         const item = columnsData[i];
         line.data.push({
+          width: item.width,
           columnIndexCurrent: i,
           columnIndexTotal: columnsData.length,
           rowIndexCurrent: rowCurrent,
@@ -102,12 +105,13 @@ export default defineComponent({
         bodyLineData.value.push(line);
         // 需要安装column的顺序放到数组里面
         for (let i = 0; i < columnsData.length; i++) {
-          const { title, key } = columnsData[i];
+          const { title, key, width } = columnsData[i];
           if (!item.hasOwnProperty(key)) {
             console.warn(item);
             console.warn(`invalid column data, not exist key: ${key}`);
           }
           line.data.push({
+            width: width,
             columnIndexCurrent: i,
             columnIndexTotal: columnsData.length,
             rowIndexCurrent: rowCurrent,
@@ -133,8 +137,36 @@ export default defineComponent({
 </script>
 <style lang="less">
 .cc-table {
+  overflow: hidden;
   margin: 3px;
   border: 1px solid black;
   border-radius: 3px;
+  display: flex;
+  flex-direction: column;
+  .body {
+    display: flex;
+    overflow-x: hidden;
+    overflow-y: auto;
+    width: 100%;
+  }
+
+  .body::-webkit-scrollbar {
+    width: 5px;
+    height: 1px;
+  }
+
+  .body::-webkit-scrollbar-thumb {
+    /*滚动条里面小方块*/
+    border-radius: 10px;
+    box-shadow: inset 0 0 5px rgba(0, 0, 0, 0.2);
+    background: #d3d3d3;
+  }
+
+  .body::-webkit-scrollbar-track {
+    /*滚动条里面轨道*/
+    box-shadow: inset 0 0 5px rgba(0, 0, 0, 0.2);
+    border-radius: 10px;
+    background: #5e5e5e;
+  }
 }
 </style>

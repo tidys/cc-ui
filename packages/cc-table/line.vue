@@ -1,7 +1,7 @@
 <template>
-  <th v-for="(cell, index) in data" :key="index" style="padding: 0px;">
-    <CCTableCell :data="cell"></CCTableCell>
-  </th>
+  <div class="line">
+    <CCTableCell v-for="(cell, index) in data" :key="index" :data="cell"></CCTableCell>
+  </div>
 </template>
 
 <script lang="ts">
@@ -23,4 +23,9 @@ export default defineComponent({
   }
 });
 </script>
-<style lang="less" scoped></style>
+<style lang="less" scoped>
+.line {
+  display: flex;
+  flex-direction: row;
+}
+</style>

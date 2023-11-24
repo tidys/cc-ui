@@ -1,5 +1,5 @@
 <template>
-  <CCTable :columns="tableColumns" :data="tableData" :color=tableColor></CCTable>
+  <CCTable :columns="tableColumns" :data="tableData" :color="tableColor"></CCTable>
   <div v-if="false">
     <div>
       <CCButton @click="onShowDialog">dialog</CCButton>
@@ -85,34 +85,36 @@ export default defineComponent({
     const tableColumns = ref<TableColumn[]>([
       {
         title: 'name',
-        key: 'name'
+        key: 'name',
+        width: 100
       },
       {
         title: 'age',
-        key: 'age'
+        key: 'age',
+        width: 50
       },
       {
         title: 'address',
         key: 'address'
       }
     ]);
-    const tableData = ref<TableData[]>([
-      {
-        name: 'a',
-        address: '1',
-        age: 18
-      },
-      {
-        name: 'b',
-        address: '1',
-        age: 22
-      },
-      {
-        name: 'c',
-        address: '1',
-        age: 33
-      }
-    ]);
+    const _tableData: TableData[] = [];
+    for (let i = 0; i < 10; i++) {
+      _tableData.push({
+        name: `${i}`,
+        address: `${i}`,
+        age: i
+      });
+    }
+    const tableData = ref<TableData[]>(
+      _tableData.concat([
+        {
+          name: 'aaa aaaaaaaa sssssssssssssssssssssssssssss',
+          address: '1dddddddddd ddddddddddddd ffffffffffffffff 666666666',
+          age: 18
+        }
+      ])
+    );
     const selectValue = ref('1');
     const tableColor = ref('1');
     onMounted(() => {

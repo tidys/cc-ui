@@ -1,15 +1,6 @@
 <template>
-  <div class="table-body">
-    <table style="border-spacing: 0;">
-      <colgroup>
-        <col v-for="(item, index) in widthInfo" :key="index" :width="item" />
-      </colgroup>
-      <thead>
-        <tr v-for="(item, index) in data" :key="index">
-          <CCTableLine :data="item.data"></CCTableLine>
-        </tr>
-      </thead>
-    </table>
+  <div class="table-body" :class="{ header: isHeader }">
+    <CCTableLine v-for="(item, index) in data" :key="index" :data="item.data"></CCTableLine>
   </div>
 </template>
 
@@ -23,9 +14,9 @@ export default defineComponent({
     CCTableLine
   },
   props: {
-    widthInfo: {
-      type: Array as PropType<number[]>,
-      default: () => []
+    isHeader: {
+      type: Boolean,
+      default: false
     },
     columns: {
       type: Array as PropType<TableColumn[]>,
@@ -37,12 +28,6 @@ export default defineComponent({
     }
   },
   setup(props, ctx) {
-    watch(
-      () => props.widthInfo,
-      v => {
-        console.log(v);
-      }
-    );
     let widthArray: number[] = [];
     const columnsData = toRaw(props.columns);
     columnsData.map(item => {
@@ -50,12 +35,17 @@ export default defineComponent({
         widthArray.push(item.width);
       }
     });
-    const widthInfo = ref<number[]>(widthArray);
     return {};
   }
 });
 </script>
 <style lang="less" scoped>
+.header {
+  background-color: rgb(97, 97, 97);
+}
 .table-body {
+  display: flex;
+  width: 100%;
+  flex-direction: column;
 }
 </style>

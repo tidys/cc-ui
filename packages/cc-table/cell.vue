@@ -4,8 +4,10 @@
     :class="{
       'cell-row-last': data.rowIndexCurrent + 1 >= data.rowIndexTotal,
       'cell-column-last': data.columnIndexCurrent + 1 >= data.columnIndexTotal,
+      'cell-fixed': !!data.width,
       'cell-column-first': data.columnIndexCurrent === 0
     }"
+    :style="calcStyle()"
   >
     {{ data.value }}
   </div>
@@ -23,16 +25,29 @@ export default defineComponent({
     }
   },
   setup(props, ctx) {
-    return {};
+    const { data } = props;
+    return {
+      calcStyle() {
+        if (data.width) {
+          return `width:${data.width}px;min-width:${data.width}px;`;
+        } else {
+          return '';
+        }
+      }
+    };
   }
 });
 </script>
 <style lang="less" scoped>
 .cell {
   min-height: 25px;
-  width:100%;
+  width: 100%;
   font-weight: normal;
   overflow: hidden;
+}
+.cell-fixed {
+  overflow: hidden;
+  text-overflow: ellipsis;
 }
 .cell-column {
   border-right: 1px solid black;
