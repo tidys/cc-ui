@@ -29,7 +29,10 @@ export default defineComponent({
 </script>
 <style lang="less" scoped>
 .cell {
-  height: 25px;
+  min-height: 25px;
+  width:100%;
+  font-weight: normal;
+  overflow: hidden;
 }
 .cell-column {
   border-right: 1px solid black;

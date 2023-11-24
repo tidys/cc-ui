@@ -1,6 +1,6 @@
 {
   "name": "@xuyanfeng/cc-ui",
-  "version": "0.2.8",
+  "version": "0.2.9",
   "main": "dist/ccui.umd.js",
   "typings": "types/index.d.ts",
   "scripts": {
