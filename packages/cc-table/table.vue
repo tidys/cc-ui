@@ -1,6 +1,8 @@
 <template>
   <div class="cc-table" ref="table" v-resize:throttle="onResize">
-    <CCTableBody :data="headLineData" :columns="columns" :isHeader="true"></CCTableBody>
+    <div :style="{ backgroundColor: `${headColor}` }" class="head">
+      <CCTableBody :data="headLineData" :columns="columns" :isHeader="true"></CCTableBody>
+    </div>
     <div class="body">
       <CCTableBody :data="bodyLineData" :columns="columns" :isHeader="false"></CCTableBody>
     </div>
@@ -29,9 +31,9 @@ export default defineComponent({
       type: Array as PropType<TableData[]>,
       default: () => []
     },
-    color: {
+    headColor: {
       type: String,
-      default: ''
+      default: '#666'
     }
   },
   setup(props, ctx) {
@@ -47,7 +49,7 @@ export default defineComponent({
       }
     );
     watch(
-      () => props.color,
+      () => props.headColor,
       v => {}
     );
     function updateColumnsWidth() {
@@ -137,12 +139,17 @@ export default defineComponent({
 </script>
 <style lang="less">
 .cc-table {
+  box-sizing: border-box;
   overflow: hidden;
-  margin: 3px;
+  margin: 0;
   border: 1px solid black;
   border-radius: 3px;
   display: flex;
   flex-direction: column;
+  .head {
+    display: flex;
+    width: 100%;
+  }
   .body {
     display: flex;
     overflow-x: hidden;

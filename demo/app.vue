@@ -1,5 +1,5 @@
 <template>
-  <CCTable :columns="tableColumns" :data="tableData" :color="tableColor"></CCTable>
+  <CCTable :columns="tableColumns" :data="tableData" :color="tableColor" headColor="#ff0000"></CCTable>
   <div v-if="false">
     <div>
       <CCButton @click="onShowDialog">dialog</CCButton>

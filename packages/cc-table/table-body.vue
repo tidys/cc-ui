@@ -1,5 +1,5 @@
 <template>
-  <div class="table-body" :class="{ header: isHeader }">
+  <div class="table-body">
     <CCTableLine v-for="(item, index) in data" :key="index" :data="item.data"></CCTableLine>
   </div>
 </template>
@@ -40,9 +40,6 @@ export default defineComponent({
 });
 </script>
 <style lang="less" scoped>
-.header {
-  background-color: rgb(97, 97, 97);
-}
 .table-body {
   display: flex;
   width: 100%;

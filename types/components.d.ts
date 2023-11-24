@@ -8,7 +8,7 @@ export declare const components: {
             type: import("vue").PropType<import("./cc-table/const").TableData[]>;
             default: () => never[];
         };
-        color: {
+        headColor: {
             type: StringConstructor;
             default: string;
         };
@@ -43,15 +43,15 @@ export declare const components: {
     }, unknown, {}, {}, import("vue").ComponentOptionsMixin, import("vue").ComponentOptionsMixin, Record<string, any>, string, import("vue").VNodeProps & import("vue").AllowedComponentProps & import("vue").ComponentCustomProps, Readonly<{
         columns?: unknown;
         data?: unknown;
-        color?: unknown;
+        headColor?: unknown;
     } & {
-        color: string;
         data: import("./cc-table/const").TableData[];
         columns: import("./cc-table/const").TableColumn[];
+        headColor: string;
     } & {}>, {
-        color: string;
         data: import("./cc-table/const").TableData[];
         columns: import("./cc-table/const").TableColumn[];
+        headColor: string;
     }>;
     CCCommand: import("vue").DefineComponent<{
         items: {

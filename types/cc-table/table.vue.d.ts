@@ -9,7 +9,7 @@ declare const _default: import("vue").DefineComponent<{
         type: PropType<TableData[]>;
         default: () => never[];
     };
-    color: {
+    headColor: {
         type: StringConstructor;
         default: string;
     };
@@ -44,14 +44,14 @@ declare const _default: import("vue").DefineComponent<{
 }, unknown, {}, {}, import("vue").ComponentOptionsMixin, import("vue").ComponentOptionsMixin, Record<string, any>, string, import("vue").VNodeProps & import("vue").AllowedComponentProps & import("vue").ComponentCustomProps, Readonly<{
     columns?: unknown;
     data?: unknown;
-    color?: unknown;
+    headColor?: unknown;
 } & {
-    color: string;
     data: TableData[];
     columns: TableColumn[];
+    headColor: string;
 } & {}>, {
-    color: string;
     data: TableData[];
     columns: TableColumn[];
+    headColor: string;
 }>;
 export default _default;
