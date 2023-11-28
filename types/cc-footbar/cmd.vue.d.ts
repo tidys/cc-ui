@@ -1,5 +1,5 @@
 import { FootCmd } from './const';
-import { PropType } from "vue";
+import { PropType } from 'vue';
 declare const _default: import("vue").DefineComponent<{
     data: {
         type: PropType<FootCmd>;

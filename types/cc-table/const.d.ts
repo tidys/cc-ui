@@ -29,7 +29,9 @@ export interface CellData {
      * 总行数
      */
     rowIndexTotal: number;
-    /**对应的column key值 */
+    /**
+     * 对应的column key值
+     */
     key: string;
     /**当前的cell值 */
     value: any;

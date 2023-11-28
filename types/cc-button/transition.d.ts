@@ -1,11 +1,11 @@
-interface styleOptions {
+interface StyleOptions {
     background: string;
 }
 declare abstract class CocosUiElement {
-    onMouseup(styles: styleOptions): void;
-    onMousedown(styles: styleOptions): void;
-    onMouseenter(styles: styleOptions): void;
-    onMouseleave(styles: styleOptions): void;
+    onMouseup(styles: StyleOptions): void;
+    onMousedown(styles: StyleOptions): void;
+    onMouseenter(styles: StyleOptions): void;
+    onMouseleave(styles: StyleOptions): void;
 }
 export declare class Transition implements CocosUiElement {
     private instance;

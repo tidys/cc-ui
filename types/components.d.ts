@@ -386,7 +386,7 @@ export declare const components: {
         menus: import("vue").Ref<{
             name: string;
             enabled?: true | undefined;
-            callback: Function | null;
+            callback: () => void | null;
         }[]>;
         menuPositionX: import("vue").Ref<number>;
         menuPositionY: import("vue").Ref<number>;
@@ -435,8 +435,8 @@ export declare const components: {
             height?: number | undefined;
             resize?: boolean | undefined;
             title?: string | undefined;
-            closeCB?: Function | null | undefined;
-            responseCB?: Function | null | undefined;
+            closeCB?: (() => void | null) | undefined;
+            responseCB?: (() => void | null) | undefined;
         }[]>;
         getWindowOption(opt: import("./cc-dialog/const").DialogOptions): import("./cc-window").UiWindowOptions;
         getWindowRenderComponent(opt: import("./cc-dialog/const").DialogOptions): any;

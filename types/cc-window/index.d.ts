@@ -5,8 +5,8 @@ export declare class UiWindowOptions {
     height?: number | undefined;
     resize?: boolean;
     title?: string | undefined;
-    closeCB?: Function | null;
-    responseCB?: Function | null;
+    closeCB?: () => void | null;
+    responseCB?: () => void | null;
 }
 export declare const ProvideKey: {
     CloseWindow: string;

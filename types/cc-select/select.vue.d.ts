@@ -1,5 +1,5 @@
-import { PropType } from "vue";
-import { Option } from "./data";
+import { PropType } from 'vue';
+import { Option } from './data';
 declare const _default: import("vue").DefineComponent<{
     data: {
         type: PropType<Option[]>;

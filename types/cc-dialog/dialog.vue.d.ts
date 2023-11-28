@@ -10,8 +10,8 @@ declare const _default: import("vue").DefineComponent<{}, {
         height?: number | undefined;
         resize?: boolean | undefined;
         title?: string | undefined;
-        closeCB?: Function | null | undefined;
-        responseCB?: Function | null | undefined;
+        closeCB?: (() => void | null) | undefined;
+        responseCB?: (() => void | null) | undefined;
     }[]>;
     getWindowOption(opt: DialogOptions): UiWindowOptions;
     getWindowRenderComponent(opt: DialogOptions): any;

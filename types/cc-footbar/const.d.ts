@@ -10,9 +10,9 @@ export interface FootCmd {
      */
     label?: string;
     /**
-   * 显示的icon，label和icon至少得有一个
-   */
-    icon?: "cmder" | string;
+     * 显示的icon，label和icon至少得有一个
+     */
+    icon?: 'cmder' | string;
     cmds: Array<CmdData>;
 }
 export declare function registerCmd(footCmd: FootCmd): void;
