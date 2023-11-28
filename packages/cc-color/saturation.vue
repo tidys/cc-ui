@@ -1,7 +1,5 @@
 <template>
-  <div class="picker" draggable="false" ref="picker"
-       :style="{background:bgColor}"
-       @mousedown.self="onPickerPointerMouseDown">
+  <div class="picker" draggable="false" ref="picker" :style="{ background: bgColor }" @mousedown.self="onPickerPointerMouseDown">
     <div class="white" draggable="false"></div>
     <div class="black" draggable="false"></div>
     <div class="pointer" ref="pointer" draggable="false">
@@ -11,8 +9,8 @@
   </div>
 </template>
 <script lang="ts">
-import {computed, defineComponent, onMounted, ref, toRaw, watch} from 'vue';
-import {createColorByHue, getColorHex, getColorHSV, getColorHue, transformColorBySaturation} from './util';
+import { computed, defineComponent, onMounted, ref, toRaw, watch } from 'vue';
+import { createColorByHue, getColorHex, getColorHSV, getColorHue, transformColorBySaturation } from './util';
 
 export default defineComponent({
   name: 'color-saturation',
@@ -27,7 +25,7 @@ export default defineComponent({
     const picker = ref();
     const pointer = ref();
     const bgColor = ref('red');
-    let baseColor = toRaw(props.color);// 基准色，因为在调整pointer的时候，仅仅是在修改基准色的饱和度
+    let baseColor = toRaw(props.color); // 基准色，因为在调整pointer的时候，仅仅是在修改基准色的饱和度
 
     function updateBaseColor(color: string) {
       baseColor = color;
@@ -44,24 +42,30 @@ export default defineComponent({
       bgColor.value = `#${createColorByHue(hue)}`;
     }
 
-    watch(() => props.color, (v) => {
-      updateView(v);
-    });
+    watch(
+      () => props.color,
+      (v) => {
+        updateView(v);
+      }
+    );
     onMounted(() => {
       updateView(props.color);
     });
     return {
-      bgColor, pointer, picker, updateBaseColor,
+      bgColor,
+      pointer,
+      picker,
+      updateBaseColor,
       onPickerPointerMouseDown(event: MouseEvent) {
         let updatePointer = (e: MouseEvent) => {
           const pointerEl: HTMLDivElement = pointer.value as HTMLDivElement;
           const pickerEl: HTMLDivElement = picker.value as HTMLDivElement;
           const rect: DOMRect = pickerEl.getBoundingClientRect();
-          let left = (e.clientX - rect.left) / rect.width * 100;
+          let left = ((e.clientX - rect.left) / rect.width) * 100;
           left = left > 100 ? 100 : left;
           left = left < 0 ? 0 : left;
           pointerEl.style.left = `${left}%`;
-          let top = (e.clientY - rect.top) / rect.height * 100;
+          let top = ((e.clientY - rect.top) / rect.height) * 100;
           top = top > 100 ? 100 : top;
           top = top < 0 ? 0 : top;
           pointerEl.style.top = `${top}%`;
@@ -137,8 +141,5 @@ export default defineComponent({
     width: 100%;
     height: 100%;
   }
-
-
 }
-
 </style>

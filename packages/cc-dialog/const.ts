@@ -2,7 +2,7 @@ import ccui from '../index';
 import { UiWindowOptions } from '../cc-window/index';
 
 export const DialogMsg = {
-  ShowDialog: 'show-dialog'
+  ShowDialog: 'show-dialog',
 };
 
 /**

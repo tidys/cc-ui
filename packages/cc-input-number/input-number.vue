@@ -7,11 +7,11 @@
 </template>
 
 <script lang="ts">
-import { defineComponent, onMounted, ref, watch } from "vue";
+import { defineComponent, onMounted, ref, watch } from 'vue';
 
 export default defineComponent({
-  name: "CCInputNumber",
-  emits: ["change", "update:value"],
+  name: 'CCInputNumber',
+  emits: ['change', 'update:value'],
   props: {
     disabled: {
       type: Boolean,
@@ -39,7 +39,7 @@ export default defineComponent({
 
     function checkVal(v: string | number): number {
       let result = v;
-      if (typeof (result) === 'string') {
+      if (typeof result === 'string') {
         result = preVal;
       }
       if (typeof result === 'number' && props.min !== undefined) {
@@ -59,14 +59,14 @@ export default defineComponent({
     );
     onMounted(() => {
       if (props.min !== undefined) {
-        (input.value as Element).setAttribute("min", props.min.toString());
+        (input.value as Element).setAttribute('min', props.min.toString());
       }
       if (props.max !== undefined) {
-        (input.value as Element).setAttribute("max", props.max.toString());
+        (input.value as Element).setAttribute('max', props.max.toString());
       }
 
       if (props.step !== undefined) {
-        (input.value as Element).setAttribute("step", props.step.toString());
+        (input.value as Element).setAttribute('step', props.step.toString());
       }
     });
     return {
@@ -76,8 +76,8 @@ export default defineComponent({
         const result = checkVal(val.value);
         preVal = result;
         val.value = result;
-        emit("update:value", result);
-        emit("change", result);
+        emit('update:value', result);
+        emit('change', result);
       },
     };
   },

@@ -9,14 +9,12 @@
       </div>
     </div>
   </div>
-
-
 </template>
 
 <script lang="ts">
-import {computed, defineComponent, ref, watch} from 'vue';
+import { computed, defineComponent, ref, watch } from 'vue';
 import AlphaBoard from './alpha-board.vue';
-import {getColorHex, transformColorWithAlpha} from './util';
+import { getColorHex, transformColorWithAlpha } from './util';
 
 export default defineComponent({
   name: 'color-alpha',
@@ -37,24 +35,26 @@ export default defineComponent({
     const pointer = ref();
     const curTitle = ref(props.title);
 
-    const style = computed(()=>{
-      let color =  getColorHex(props.color);
+    const style = computed(() => {
+      let color = getColorHex(props.color);
       return `background: linear-gradient(to right, transparent 0%, ${color} 100%)`;
     });
     return {
       style,
-      hue, pointer, curTitle,
+      hue,
+      pointer,
+      curTitle,
       onHueMouseDown(event: MouseEvent) {
         const HueEl: HTMLDivElement = hue.value as HTMLDivElement;
         const PointerEl: HTMLDivElement = pointer.value as HTMLDivElement;
         const rect = HueEl.getBoundingClientRect();
         let mouseMove = (e: MouseEvent) => {
-          let x = (e.clientX - rect.left) / rect.width * 100;
+          let x = ((e.clientX - rect.left) / rect.width) * 100;
           x = x > 100 ? 100 : x;
           x = x < 0 ? 0 : x;
 
           PointerEl.style.left = `${x}%`;
-          const color =  transformColorWithAlpha(props.color, x / 100);
+          const color = transformColorWithAlpha(props.color, x / 100);
           emit('update:color', color);
           emit('change', color);
         };
@@ -125,6 +125,5 @@ div {
       }
     }
   }
-
 }
 </style>

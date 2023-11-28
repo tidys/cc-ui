@@ -1,5 +1,6 @@
 const path = require('path')
 module.exports = {
+  lintOnSave: false,
   parallel: false,
   outputDir: path.resolve(__dirname, './dist-demo'),
   pages: {

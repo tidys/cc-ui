@@ -31,4 +31,4 @@ export function showCommand(cmdArray: CmdData[]) {
 }
 export function closeCommand() {
   ccui.Emitter.emit(CmdMsg.CloseCmd);
-} 
+}

@@ -1,27 +1,21 @@
 <template>
-  <div class="btn" @click.stop="onClick"
-       @mouseup="onMouseup"
-       @mousedown="onMousedown"
-       @mouseenter="onMouseenter"
-       @mouseleave="onMouseleave"
-       :class="{'click':isClick}"
-  >
+  <div class="btn" @click.stop="onClick" @mouseup="onMouseup" @mousedown="onMousedown" @mouseenter="onMouseenter" @mouseleave="onMouseleave" :class="{ click: isClick }">
     <div class="text">
       <slot></slot>
     </div>
   </div>
 </template>
 <script lang="ts">
-import {defineComponent, ref, reactive} from 'vue';
+import { defineComponent, ref, reactive } from 'vue';
 import chroma from 'chroma-js';
 
 export default defineComponent({
   name: 'CCButton',
   emits: ['confirm'],
-  props:['color'],
-  setup(props, {emit}) {
-    const color =props.color|| '#7d7d7d';
-    const theme = {color};
+  props: ['color'],
+  setup(props, { emit }) {
+    const color = props.color || '#7d7d7d';
+    const theme = { color };
     const isClick = ref(false);
     const isHover = ref(false);
     return {
@@ -68,8 +62,6 @@ export default defineComponent({
   padding: 0 18px;
   margin: 0 1px;
   cursor: pointer;
-
-
 }
 
 .click {

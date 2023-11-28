@@ -1,3 +1,3 @@
 import CCTextarea from './textarea.vue';
 
-export { CCTextarea }
+export { CCTextarea };

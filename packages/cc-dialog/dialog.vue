@@ -1,10 +1,8 @@
 <template>
   <Teleport to="body">
     <div class="ui-dialog" v-if="show" @click.self="onMaskClick">
-      <CCWindow class="container" v-for="(win, index) in dialogWindows" :key="index" :data="getWindowOption(win)"
-        @close="onWinClose(win)">
-        <component class="comp" :is="getWindowRenderComponent(win)" :data="getWindowRenderComponentData(win)">
-        </component>
+      <CCWindow class="container" v-for="(win, index) in dialogWindows" :key="index" :data="getWindowOption(win)" @close="onWinClose(win)">
+        <component class="comp" :is="getWindowRenderComponent(win)" :data="getWindowRenderComponentData(win)"> </component>
       </CCWindow>
     </div>
   </Teleport>
@@ -28,7 +26,7 @@ export default defineComponent({
     const show = ref(false);
 
     function onWinClose(opt: DialogOptions) {
-      const idx = dialogWindows.value.findIndex(el => el.id === opt.id);
+      const idx = dialogWindows.value.findIndex((el) => el.id === opt.id);
       if (idx !== -1) {
         dialogWindows.value.splice(idx, 1);
         show.value = !!dialogWindows.value.length;
@@ -97,7 +95,7 @@ export default defineComponent({
           height: opt.height,
           title: opt.title,
           closeCB: opt.closeCB,
-          responseCB: opt.responseCB
+          responseCB: opt.responseCB,
         };
       },
       getWindowRenderComponent(opt: DialogOptions) {
@@ -108,9 +106,9 @@ export default defineComponent({
       },
       show,
       onWinClose,
-      onMaskClick
+      onMaskClick,
     };
-  }
+  },
 });
 </script>
 

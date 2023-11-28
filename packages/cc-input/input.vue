@@ -1,14 +1,13 @@
 <template>
   <div class="cc-input">
-    <label style="display: flex;flex: 1;">
-      <input @focusout="onFocusout" :class="{ 'readonly': readonly, 'disabled': disabled }" @focusin="onFocusin" @blur="onBlur"
-        :readonly="readonly" :maxlength="maxlength" :disabled="disabled" v-model="text" type="text" />
+    <label style="display: flex; flex: 1">
+      <input @focusout="onFocusout" :class="{ readonly: readonly, disabled: disabled }" @focusin="onFocusin" @blur="onBlur" :readonly="readonly" :maxlength="maxlength" :disabled="disabled" v-model="text" type="text" />
     </label>
     <slot></slot>
   </div>
 </template>
 <script lang="ts">
-import { defineComponent, ref, toRefs, watch } from 'vue'
+import { defineComponent, ref, toRefs, watch } from 'vue';
 
 export default defineComponent({
   name: 'CCInput',
@@ -28,32 +27,35 @@ export default defineComponent({
     disabled: {
       type: Boolean,
       default: false,
-    }
+    },
   },
   emits: ['update:value', 'change'],
   setup(props, { emit }) {
-    const focusColor = '#fd942b'
-    const borderColor = ref('transparent')
+    const focusColor = '#fd942b';
+    const borderColor = ref('transparent');
     const text = ref(props.value || '');
-    watch(() => props.value, (val) => {
-      text.value = val;
-    })
+    watch(
+      () => props.value,
+      (val) => {
+        text.value = val;
+      }
+    );
     return {
       text,
       borderColor,
       onFocusin() {
-        borderColor.value = focusColor
+        borderColor.value = focusColor;
       },
       onFocusout() {
-        borderColor.value = 'transparent'
+        borderColor.value = 'transparent';
       },
       onBlur() {
-        emit('update:value', text.value)
-        emit('change', text.value)
+        emit('update:value', text.value);
+        emit('change', text.value);
       },
-    }
-  }
-})
+    };
+  },
+});
 </script>
 
 <style scoped lang="less">
@@ -76,7 +78,7 @@ export default defineComponent({
     border: 1px solid #171717;
     border-radius: 3px;
     margin: 0;
-    padding: .17em .5em;
+    padding: 0.17em 0.5em;
     width: 100%;
     display: inline-block;
     outline: none;

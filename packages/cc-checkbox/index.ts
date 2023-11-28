@@ -1,3 +1,3 @@
-import CCCheckBox from './checkbox.vue'
+import CCCheckBox from './checkbox.vue';
 
 export { CCCheckBox };

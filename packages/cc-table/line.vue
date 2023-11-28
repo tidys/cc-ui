@@ -11,16 +11,16 @@ import CCTableCell from './cell.vue';
 export default defineComponent({
   name: 'CCTableLine',
   components: {
-    CCTableCell
+    CCTableCell,
   },
   props: {
     data: {
-      type: Array as PropType<CellData[]>
-    }
+      type: Array as PropType<CellData[]>,
+    },
   },
   setup(props, ctx) {
     return {};
-  }
+  },
 });
 </script>
 <style lang="less" scoped>

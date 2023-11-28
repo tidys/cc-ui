@@ -20,8 +20,8 @@ export default defineComponent({
       type: Array as PropType<CmdData[]>,
       default: () => {
         return [];
-      }
-    }
+      },
+    },
   },
   setup(props, ctx) {
     function filterCommands(cmdArray: CmdData[]) {
@@ -61,9 +61,9 @@ export default defineComponent({
     });
     return {
       show,
-      commands
+      commands,
     };
-  }
+  },
 });
 </script>
 <style scoped lang="less">

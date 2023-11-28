@@ -17,24 +17,24 @@ import CCTableBody from './table-body.vue';
 export default defineComponent({
   name: 'CCTable',
   directives: {
-    resize
+    resize,
   },
   components: {
-    CCTableBody
+    CCTableBody,
   },
   props: {
     columns: {
       type: Array as PropType<TableColumn[]>,
-      default: () => []
+      default: () => [],
     },
     data: {
       type: Array as PropType<TableData[]>,
-      default: () => []
+      default: () => [],
     },
     headColor: {
       type: String,
-      default: '#666'
-    }
+      default: '#666',
+    },
   },
   setup(props, ctx) {
     const { data, columns } = props;
@@ -44,13 +44,13 @@ export default defineComponent({
     const table = ref();
     watch(
       () => props.data.length,
-      v => {
+      (v) => {
         updateTableData(toRaw(props.data));
       }
     );
     watch(
       () => props.headColor,
-      v => {}
+      (v) => {}
     );
     function updateColumnsWidth() {
       if (table.value) {
@@ -94,13 +94,13 @@ export default defineComponent({
           rowIndexCurrent: rowCurrent,
           rowIndexTotal: rowTotal,
           key: item.title,
-          value: item.key
+          value: item.key,
         });
       }
 
       // 收集body的行数据
       let index = 0;
-      tableData.map(item => {
+      tableData.map((item) => {
         rowCurrent++;
         const keys = Object.keys(item);
         const line: LineData = { index: ++index, data: [] };
@@ -119,7 +119,7 @@ export default defineComponent({
             rowIndexCurrent: rowCurrent,
             rowIndexTotal: rowTotal,
             key: key,
-            value: item[key]
+            value: item[key],
           });
         }
       });
@@ -132,9 +132,9 @@ export default defineComponent({
       table,
       columnsWidth,
       bodyLineData,
-      headLineData
+      headLineData,
     };
-  }
+  },
 });
 </script>
 <style lang="less">

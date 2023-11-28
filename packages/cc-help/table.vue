@@ -5,32 +5,27 @@
     </div>
     <div class="content">
       <slot></slot>
-
     </div>
-
   </div>
 </template>
 <script lang="ts">
-import { PropType, defineComponent, h, onMounted, renderSlot } from 'vue'
+import { PropType, defineComponent, h, onMounted, renderSlot } from 'vue';
 export default defineComponent({
   name: 'my-table',
   props: {
     items: {
       type: Array as PropType<string[]>,
       default: () => {
-        return []
-      }
-    }
+        return [];
+      },
+    },
   },
   setup(props, { slots }) {
-
-    onMounted(() => {
-
-    })
+    onMounted(() => {});
     return {
       // 可以考虑使用inject，provide实现
       onClickTab(item: string, index: any) {
-        index=parseInt(index);
+        index = parseInt(index);
         console.log(item, index);
         if (slots.default) {
           const slotsDefault = slots.default();
@@ -44,19 +39,18 @@ export default defineComponent({
               }
             }
           }
-          console.log(slots.default())
+          console.log(slots.default());
         }
-      }
-    }
+      },
+    };
   },
-})
+});
 </script>
 <style scoped lang="less">
 #table {
   user-select: none;
   display: flex;
   flex-direction: column;
-
 
   .head {
     display: flex;
@@ -78,8 +72,6 @@ export default defineComponent({
         border-left: 1px solid black;
       }
     }
-
-
   }
 
   .content {

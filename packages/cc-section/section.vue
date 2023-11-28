@@ -1,8 +1,8 @@
 <template>
   <div class="cc-section">
     <div class="header">
-      <div class="left" @click.stop="fold=!fold">
-        <div class="fold" :class="fold?'arrow-right':'arrow-down'"></div>
+      <div class="left" @click.stop="fold = !fold">
+        <div class="fold" :class="fold ? 'arrow-right' : 'arrow-down'"></div>
         <div class="title">{{ name }}</div>
       </div>
       <slot name="header"></slot>
@@ -11,25 +11,25 @@
   </div>
 </template>
 <script lang="ts">
-import { defineComponent, ref } from 'vue'
+import { defineComponent, ref } from 'vue';
 
 export default defineComponent({
   name: 'CCSection',
   props: {
     name: {
-      type: String
+      type: String,
     },
     expand: {
       type: Boolean,
       default: true,
-    }
+    },
   },
   setup(props, { emit }) {
     const fold = ref(!props.expand || false);
     const name = ref(props.name || '');
-    return { fold, name }
-  }
-})
+    return { fold, name };
+  },
+});
 </script>
 <style scoped lang="less">
 .cc-section {

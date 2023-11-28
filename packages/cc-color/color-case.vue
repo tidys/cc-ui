@@ -1,16 +1,10 @@
 <template>
-  <div class="color-case"
-       @mouseenter="isHover=true"
-       @mouseleave="isHover=false"
-       :style="{'backgroundColor':`#${colorHex}`}">
-    <div v-show="isHover" class="label"
-         :style="{color:`#${labelColor}`}"
-    >#{{ colorHex }}
-    </div>
+  <div class="color-case" @mouseenter="isHover = true" @mouseleave="isHover = false" :style="{ backgroundColor: `#${colorHex}` }">
+    <div v-show="isHover" class="label" :style="{ color: `#${labelColor}` }">#{{ colorHex }}</div>
   </div>
 </template>
 <script lang="ts">
-import {defineComponent, ref} from 'vue';
+import { defineComponent, ref } from 'vue';
 // @ts-ignore
 import tinycolor from 'tinycolor2';
 

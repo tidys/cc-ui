@@ -21,8 +21,8 @@ export default defineComponent({
   emits: ['close'],
   props: {
     data: {
-      type: Object as PropType<UiWindowOptions>
-    }
+      type: Object as PropType<UiWindowOptions>,
+    },
   },
 
   setup(props, { emit }) {
@@ -91,9 +91,9 @@ export default defineComponent({
     return {
       windowEl,
       onWinClose,
-      onMousedown
+      onMousedown,
     };
-  }
+  },
 });
 </script>
 

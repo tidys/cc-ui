@@ -1,12 +1,5 @@
 <template>
-  <div class="btn"
-       :style="{background:`${theme.background}`}"
-       @mouseup="onMouseup"
-       @mousedown="onMousedown"
-       @mouseenter="onMouseenter"
-       @mouseleave="onMouseleave"
-       :class="{'click':isClick}"
-  >
+  <div class="btn" :style="{ background: `${theme.background}` }" @mouseup="onMouseup" @mousedown="onMousedown" @mouseenter="onMouseenter" @mouseleave="onMouseleave" :class="{ click: isClick }">
     <div class="text">
       <slot></slot>
     </div>
@@ -23,15 +16,15 @@ export default defineComponent({
       type: String,
       default: 'color',
       validator: (value) => {
-        return !!['color', 'sprite'].find(el => el === value)
-      }
+        return !!['color', 'sprite'].find((el) => el === value);
+      },
     },
     color: {
       type: String,
     },
     texture: {
-      type: String
-    }
+      type: String,
+    },
   },
   emits: [],
   setup(props: any, { emit }) {

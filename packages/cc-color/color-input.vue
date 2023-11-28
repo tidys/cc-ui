@@ -1,16 +1,13 @@
 <template>
   <div class="root">
     <div class="title">{{ curTitle }}</div>
-    <input class="input" draggable="false"
-           @keydown.enter="onKeyDown"
-           @paste="onChange"
-           v-model="curColor" @change="onChange"/>
+    <input class="input" draggable="false" @keydown.enter="onKeyDown" @paste="onChange" v-model="curColor" @change="onChange" />
   </div>
 </template>
 
 <script lang="ts">
-import {defineComponent, ref, toRaw, watch} from 'vue';
-import {checkColor} from './util';
+import { defineComponent, ref, toRaw, watch } from 'vue';
+import { checkColor } from './util';
 
 export default defineComponent({
   name: 'color-input',
@@ -30,9 +27,12 @@ export default defineComponent({
     const curTitle = ref(props.title);
     let preColor = toRaw(props.color);
 
-    watch(() => props.color, (v) => {
-      updateAndFormatColor(v);
-    });
+    watch(
+      () => props.color,
+      (v) => {
+        updateAndFormatColor(v);
+      }
+    );
 
     function fillColorHead(color: string) {
       if (!color.startsWith('#')) {
@@ -53,7 +53,8 @@ export default defineComponent({
     }
 
     return {
-      curColor, curTitle,
+      curColor,
+      curTitle,
       onKeyDown(event: KeyboardEvent) {
         (event.target as HTMLInputElement).blur();
       },
@@ -81,7 +82,6 @@ export default defineComponent({
     justify-content: center;
     color: #999999;
     background-color: #ffffff;
-
   }
 
   .input {

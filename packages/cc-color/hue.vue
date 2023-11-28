@@ -10,8 +10,8 @@
 </template>
 
 <script lang="ts">
-import {defineComponent, onMounted, ref, watch} from 'vue';
-import {getColorHue, transformColorByHue} from './util';
+import { defineComponent, onMounted, ref, watch } from 'vue';
+import { getColorHue, transformColorByHue } from './util';
 // 色相
 export default defineComponent({
   name: 'color-hue',
@@ -29,25 +29,29 @@ export default defineComponent({
   setup(props, { emit }) {
     const hueEl = ref();
     const pointer = ref();
-    watch(() => props.hue, (hue: number) => {
-      updatePointer(hue);
-    });
+    watch(
+      () => props.hue,
+      (hue: number) => {
+        updatePointer(hue);
+      }
+    );
 
     function updatePointer(hue: number) {
       const PointerEl: HTMLDivElement = pointer.value as HTMLDivElement;
-      PointerEl.style.left = `${hue / 360 * 100}%`;
+      PointerEl.style.left = `${(hue / 360) * 100}%`;
     }
 
     onMounted(() => {
       updatePointer(props.hue);
     });
     return {
-      hueEl, pointer,
+      hueEl,
+      pointer,
       onHueMouseDown(event: MouseEvent) {
         const PointerEl: HTMLDivElement = pointer.value as HTMLDivElement;
         const rect = (hueEl.value as HTMLDivElement).getBoundingClientRect();
         const mouseMove = (e: MouseEvent) => {
-          let x = (e.clientX - rect.left) / rect.width * 100;
+          let x = ((e.clientX - rect.left) / rect.width) * 100;
           x = x > 100 ? 100 : x;
           x = x < 0 ? 0 : x;
 
@@ -93,7 +97,7 @@ div {
       width: 100%;
       height: 100%;
       pointer-events: none;
-      background: linear-gradient(to right, red 0%, #ff0 17%, lime 33%, cyan 50%, blue 66%, #f0f 83%, red 100%)
+      background: linear-gradient(to right, red 0%, #ff0 17%, lime 33%, cyan 50%, blue 66%, #f0f 83%, red 100%);
     }
 
     .pointer {
@@ -116,6 +120,5 @@ div {
       }
     }
   }
-
 }
 </style>

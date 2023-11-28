@@ -12,8 +12,8 @@ export default defineComponent({
   props: {
     data: {
       type: Object as PropType<CmdData>,
-      required: true
-    }
+      required: true,
+    },
   },
   setup(props, ctx) {
     return {
@@ -29,9 +29,9 @@ export default defineComponent({
           }
         }
         closeCommand();
-      }
+      },
     };
-  }
+  },
 });
 </script>
 

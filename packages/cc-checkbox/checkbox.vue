@@ -1,13 +1,13 @@
 <template>
   <div class="checkbox">
-    <input type="checkbox" v-model="val" @change="onChange">
+    <input type="checkbox" v-model="val" @change="onChange" />
     <span class="text" v-if="label.length">{{ label }}</span>
     <slot name="label"></slot>
   </div>
 </template>
 
 <script lang="ts">
-import { defineComponent, ref, watch } from 'vue'
+import { defineComponent, ref, watch } from 'vue';
 
 export default defineComponent({
   name: 'CCCheckbox',
@@ -20,14 +20,17 @@ export default defineComponent({
     label: {
       type: String,
       default: '',
-    }
+    },
   },
   setup(props, { emit }) {
     const val = ref(props.value);
     const label = ref(props.label);
-    watch(() => props.value, (v) => {
-      val.value = v;
-    });
+    watch(
+      () => props.value,
+      (v) => {
+        val.value = v;
+      }
+    );
     return {
       val,
       label,
@@ -38,7 +41,7 @@ export default defineComponent({
       },
     };
   },
-})
+});
 </script>
 
 <style scoped lang="less">

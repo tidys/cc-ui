@@ -6,29 +6,32 @@
   </div>
 </template>
 <script lang="ts">
-import { defineComponent, ref, watch } from "vue"
+import { defineComponent, ref, watch } from 'vue';
 
 export default defineComponent({
-  name: "CCTextarea",
+  name: 'CCTextarea',
   emits: ['change', 'update:data'],
   props: {
-    data: { type: String, default: '' }
+    data: { type: String, default: '' },
   },
   setup(props, { emit }) {
-    const text = ref(props.data)
-    watch(() => props.data, () => {
-      text.value = props.data;
-    });
+    const text = ref(props.data);
+    watch(
+      () => props.data,
+      () => {
+        text.value = props.data;
+      }
+    );
     return {
       text,
       onChange() {
-        emit('update:data', text.value)
-        emit('change', text.value)
+        emit('update:data', text.value);
+        emit('change', text.value);
         text.value = props.data;
-      }
-    }
-  }
-})
+      },
+    };
+  },
+});
 </script>
 <style scoped lang="less">
 .cc-textarea {
@@ -40,7 +43,6 @@ export default defineComponent({
   color: #333333;
   font-size: 1.5em;
   font-weight: 700;
-
 
   textarea {
     display: block;
@@ -63,6 +65,5 @@ export default defineComponent({
       border-color: #fd942b;
     }
   }
-
 }
 </style>

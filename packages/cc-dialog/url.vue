@@ -1,10 +1,10 @@
 <template>
   <div class="url-tip">
     <div class="content">
-      <div style="display: inline ;">
-        <div style="display: inline;">{{ head1 }}</div>
-        <a style="display: inline;" :href="href" target="_blank" ref="aElement">{{ aLink }} </a>
-        <div style="display: inline;">{{ head2 }}</div>
+      <div style="display: inline">
+        <div style="display: inline">{{ head1 }}</div>
+        <a style="display: inline" :href="href" target="_blank" ref="aElement">{{ aLink }} </a>
+        <div style="display: inline">{{ head2 }}</div>
       </div>
     </div>
     <div class="end">{{ timerString }}</div>
@@ -20,8 +20,8 @@ export default defineComponent({
     data: {
       type: Object as PropType<DialogUrlData>,
       required: true,
-      default: () => new DialogUrlData()
-    }
+      default: () => new DialogUrlData(),
+    },
   },
   setup(props, ctx) {
     const { url, label, jump } = props.data;
@@ -70,7 +70,7 @@ export default defineComponent({
       cleanTimer();
     });
     return { head1, head2, aLink, href, aElement, timerString };
-  }
+  },
 });
 </script>
 <style lang="less">

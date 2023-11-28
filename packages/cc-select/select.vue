@@ -11,11 +11,11 @@
   <slot></slot>
 </template>
 <script lang="ts">
-import { defineComponent, ref, PropType, watch } from "vue";
-import { Option } from "./data"
+import { defineComponent, ref, PropType, watch } from 'vue';
+import { Option } from './data';
 
 export default defineComponent({
-  name: "CCSelect",
+  name: 'CCSelect',
   props: {
     data: {
       type: Array as PropType<Option[]>,
@@ -26,18 +26,21 @@ export default defineComponent({
     },
     value: [String, Number],
   },
-  emits: ["change", 'update:data', 'update:value'],
+  emits: ['change', 'update:data', 'update:value'],
   setup(props: any, { emit }) {
-    const curValue = ref(props.value?.toString() || '')
-    watch(() => props.value, (val) => {
-      curValue.value = val.toString();
-    })
+    const curValue = ref(props.value?.toString() || '');
+    watch(
+      () => props.value,
+      (val) => {
+        curValue.value = val.toString();
+      }
+    );
     return {
       curValue,
       onSelectChange() {
         const val = curValue.value.toString();
-        emit("update:value", val);
-        emit("change", val);
+        emit('update:value', val);
+        emit('change', val);
       },
     };
   },
@@ -72,10 +75,9 @@ export default defineComponent({
   }
 
   label {
-
     &:after {
       display: block;
-      content: " ";
+      content: ' ';
       float: right;
       width: 0;
       height: 0;
@@ -87,6 +89,5 @@ export default defineComponent({
       margin-right: 7px;
     }
   }
-
 }
 </style>

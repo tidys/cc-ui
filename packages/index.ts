@@ -3,11 +3,11 @@ import { components } from './components';
 import { TinyEmitter } from 'tiny-emitter';
 import { menu } from './cc-menu/index';
 import { dialog } from './cc-dialog/index';
-import { footbar } from './cc-footbar/index'
+import { footbar } from './cc-footbar/index';
 import { command } from './cc-command/index';
 import { table } from './cc-table/index';
 export const install = (app: App) => {
-  Object.keys(components).forEach(key => {
+  Object.keys(components).forEach((key) => {
     // @ts-ignore
     const comp = components[key];
     app.component(comp.displayName ?? comp.name, comp);

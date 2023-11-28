@@ -64,7 +64,7 @@ export default defineComponent({
       });
     });
     return { menuEl, menus, menuPositionX, menuPositionY };
-  }
+  },
 });
 </script>
 

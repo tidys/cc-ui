@@ -5,13 +5,11 @@
 </template>
 
 <script lang="ts">
-import {defineComponent, ref} from 'vue'
+import { defineComponent, ref } from 'vue';
 
 export default defineComponent({
-  name: "CCSlider"
-})
+  name: 'CCSlider',
+});
 </script>
 
-<style scoped>
-
-</style>
+<style scoped></style>

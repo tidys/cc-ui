@@ -1,6 +1,6 @@
 <template>
   <div class="version">
-    <CMD v-for="(item, index) in commands" :data="item"></CMD>
+    <CMD v-for="(item, index) in commands" :data="item" :key="index"></CMD>
     <div class="placeHolder">{{ tips }}</div>
     <div class="value" v-if="verString.length">version: {{ verString }}</div>
   </div>
@@ -8,7 +8,7 @@
 <script lang="ts">
 import { defineComponent, onMounted, onUnmounted, ref, watch } from 'vue';
 import { FootBarMsg, FootCmd } from './const';
-import CMD from './cmd.vue'
+import CMD from './cmd.vue';
 import ccui from '../index';
 export default defineComponent({
   name: 'cc-footbar',
@@ -52,7 +52,7 @@ export default defineComponent({
         verString.value = v;
       }
     );
-    return { verString, tips, commands, };
+    return { verString, tips, commands };
   },
 });
 </script>

@@ -1,7 +1,5 @@
 <template>
-  <div>
-    empty
-  </div>
+  <div>empty</div>
 </template>
 <script lang="ts">
 import { defineComponent } from 'vue';
@@ -9,10 +7,9 @@ import { defineComponent } from 'vue';
 export default defineComponent({
   name: 'empty',
   setup(props, ctx) {
-      return {}
+    return {};
   },
-})
+});
 </script>
 
-<style lang="less">
-</style>
+<style lang="less"></style>

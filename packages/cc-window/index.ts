@@ -7,13 +7,13 @@ export class UiWindowOptions {
   height? = 400;
   resize?: boolean;
   title? = '';
-  closeCB?: Function | null;
-  responseCB?: Function | null;
+  closeCB?: () => void | null;
+  responseCB?: () => void | null;
 }
 
 export const ProvideKey = {
   CloseWindow: 'CloseWindow',
-  ResponseCB: 'ResponseCB'
+  ResponseCB: 'ResponseCB',
 };
 
 export { CCWindow };

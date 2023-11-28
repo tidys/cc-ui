@@ -13,7 +13,7 @@
 </template>
 
 <script lang="ts">
-import { computed, defineComponent, onMounted, ref, watch,onUnmounted } from 'vue';
+import { computed, defineComponent, onMounted, ref, watch, onUnmounted } from 'vue';
 import Hue from './hue.vue';
 import ColorInput from './color-input.vue';
 import Alpha from './alpha.vue';
@@ -21,14 +21,14 @@ import ColorSaturation from './saturation.vue';
 import { getColorHex, getColorHex8, getColorHue, transformColorByHue } from './util';
 import ColorCase from './color-case.vue';
 import { createPopper } from '@popperjs/core';
-import { emitter,HideOthers } from './event-bus';
+import { emitter, HideOthers } from './event-bus';
 export default defineComponent({
   name: 'CCColor',
   emits: ['update:color', 'change'],
   components: { ColorCase, ColorSaturation, ColorInput, Hue, Alpha },
   props: {
     color: { type: String, default: '#ff0000ff' },
-    alpha: { type: Boolean, default: false }
+    alpha: { type: Boolean, default: false },
   },
   setup(props, { emit }) {
     const show = ref(false);
@@ -36,10 +36,10 @@ export default defineComponent({
     const hueValue = ref(getColorHue(props.color));
     const style = computed(() => {
       return {
-        backgroundColor: `${getColorHex(props.color)}`
+        backgroundColor: `${getColorHex(props.color)}`,
       };
     });
-  
+
     watch(
       () => props.color,
       (val: string) => {
@@ -67,10 +67,10 @@ export default defineComponent({
       show.value = false;
     };
     onMounted(() => {
-      emitter.on(HideOthers,clickAnyWhereToClose);
+      emitter.on(HideOthers, clickAnyWhereToClose);
     });
     onUnmounted(() => {
-      emitter.off(HideOthers,clickAnyWhereToClose);
+      emitter.off(HideOthers, clickAnyWhereToClose);
     });
     return {
       color,
@@ -124,9 +124,9 @@ export default defineComponent({
 
       onFocusin(event: FocusEvent) {
         (event.target as HTMLInputElement).select();
-      }
+      },
     };
-  }
+  },
 });
 </script>
 

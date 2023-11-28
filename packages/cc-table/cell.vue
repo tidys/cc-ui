@@ -5,7 +5,7 @@
       'cell-row-last': data.rowIndexCurrent + 1 >= data.rowIndexTotal,
       'cell-column-last': data.columnIndexCurrent + 1 >= data.columnIndexTotal,
       'cell-fixed': !!data.width,
-      'cell-column-first': data.columnIndexCurrent === 0
+      'cell-column-first': data.columnIndexCurrent === 0,
     }"
     :style="calcStyle()"
   >
@@ -21,8 +21,8 @@ export default defineComponent({
   props: {
     data: {
       type: Object as PropType<CellData>,
-      default: () => {}
-    }
+      default: () => {},
+    },
   },
   setup(props, ctx) {
     const { data } = props;
@@ -33,9 +33,9 @@ export default defineComponent({
         } else {
           return '';
         }
-      }
+      },
     };
-  }
+  },
 });
 </script>
 <style lang="less" scoped>

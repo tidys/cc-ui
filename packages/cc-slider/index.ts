@@ -1,3 +1,3 @@
-import CCSlider from './slider.vue'
+import CCSlider from './slider.vue';
 
-export { CCSlider }
+export { CCSlider };

@@ -1,28 +1,21 @@
 <template>
-  <div class="cc-prop"
-       :style="{'align-items':align}"
-       @mouseenter="isHove=true"
-       @mouseleave="isHove=false"
-  >
-    <div v-show="isShowTips&&tooltip" ref="tips" class="tips">
+  <div class="cc-prop" :style="{ 'align-items': align }" @mouseenter="isHove = true" @mouseleave="isHove = false">
+    <div v-show="isShowTips && tooltip" ref="tips" class="tips">
       <div class="text">{{ tooltip }}</div>
       <div ref="arrow" data-popper-arrow class="arrow"></div>
     </div>
-    <div class="name"
-         @mouseenter="onHover"
-         @mouseleave="onOver"
-    >
-      <span :class="isHove?'name-blue':''" ref="text">{{ name }}</span>
+    <div class="name" @mouseenter="onHover" @mouseleave="onOver">
+      <span :class="isHove ? 'name-blue' : ''" ref="text">{{ name }}</span>
     </div>
     <div class="value">
-      <slot style="flex:1;"></slot>
+      <slot style="flex: 1"></slot>
     </div>
   </div>
 </template>
 <script lang="ts">
-import { defineComponent, onMounted, ref } from 'vue'
-import { createPopper } from '@popperjs/core'
-import { debounce, DebouncedFunc } from 'lodash'
+import { defineComponent, onMounted, ref } from 'vue';
+import { createPopper } from '@popperjs/core';
+import { debounce, DebouncedFunc } from 'lodash';
 
 export default defineComponent({
   name: 'CCProp',
@@ -36,71 +29,70 @@ export default defineComponent({
     },
     align: {
       type: String,
-      default: 'center'
+      default: 'center',
     },
   },
   setup(props, { emit }) {
-    onMounted(() => {
-
-
-    })
-    const name = ref(props.name || '')
+    onMounted(() => {});
+    const name = ref(props.name || '');
     const isHove = ref(false);
-    const tips = ref<HTMLElement>()
+    const tips = ref<HTMLElement>();
     const arrow = ref<HTMLElement>();
-    const isShowTips = ref(false)
+    const isShowTips = ref(false);
     let popperInstance: any = null;
 
     function showTipsFunc(target: any) {
       if (props.tooltip && tips.value) {
         isShowTips.value = true;
         popperInstance = createPopper(target, tips.value, {
-              placement: "top-start", modifiers: [
-                {
-                  name: 'arrow',
-                  options: {
-                    element: arrow.value,
-                    padding: 6,// popper带有圆角时，不希望箭头移动到圆角
-                  }
-                },
-                {
-                  name: 'offset',
-                  options: {
-                    offset: [5, 5]
-                  }
-                }
-              ]
-            }
-        )
+          placement: 'top-start',
+          modifiers: [
+            {
+              name: 'arrow',
+              options: {
+                element: arrow.value,
+                padding: 6, // popper带有圆角时，不希望箭头移动到圆角
+              },
+            },
+            {
+              name: 'offset',
+              options: {
+                offset: [5, 5],
+              },
+            },
+          ],
+        });
       }
     }
 
     let timer: any = null;
     const text = ref<HTMLElement>();
     return {
-      tips, isShowTips, arrow, text,
+      tips,
+      isShowTips,
+      arrow,
+      text,
       name,
       isHove,
       onHover(event: any) {
         if (props.tooltip) {
-
           clearTimeout(timer);
           timer = setTimeout(() => {
-            showTipsFunc(text.value)
+            showTipsFunc(text.value);
           }, 600);
         }
       },
       onOver() {
         if (props.tooltip) {
-          clearTimeout(timer)
+          clearTimeout(timer);
           isShowTips.value = false;
           popperInstance?.destroy();
           popperInstance = null;
         }
       },
-    }
-  }
-})
+    };
+  },
+});
 </script>
 
 <style scoped lang="less">
@@ -181,7 +173,6 @@ export default defineComponent({
       left: -5px;
     }
   }
-
 
   .name-blue {
     color: #09f !important;

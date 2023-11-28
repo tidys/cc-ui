@@ -1,3 +1,3 @@
-import CCInputNumber from './input-number.vue'
+import CCInputNumber from './input-number.vue';
 
-export { CCInputNumber }
+export { CCInputNumber };

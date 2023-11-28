@@ -1,5 +1,5 @@
 <template>
-  <div id="help" @mouseenter="showDetails = true;" @mouseleave="showDetails = true">
+  <div id="help" @mouseenter="showDetails = true" @mouseleave="showDetails = true">
     <div class="title">帮助</div>
     <div v-show="showDetails" class="content">
       <Table :items="items">
@@ -7,14 +7,13 @@
         <div :index="items[1]" class="QQ">QQ联系我</div>
         <div :index="items[2]">WeChat</div>
       </Table>
-
     </div>
   </div>
 </template>
 
 <script lang="ts">
-import { defineComponent, ref } from 'vue'
-import Table from './table.vue'
+import { defineComponent, ref } from 'vue';
+import Table from './table.vue';
 export default defineComponent({
   name: 'cc-help',
   components: { Table },
@@ -22,11 +21,11 @@ export default defineComponent({
     docUrl: {
       type: String,
       default: '',
-    }
+    },
   },
   setup(props, ctx) {
     const showDetails = ref(true);
-    const items = ref<string[]>(["WeChat", "QQ", "QQ群"]);
+    const items = ref<string[]>(['WeChat', 'QQ', 'QQ群']);
     return {
       items,
       showDetails,
@@ -37,11 +36,10 @@ export default defineComponent({
       },
       onClickDoc() {
         const url = 'https://tidys.gitee.io/doc';
-
       },
-    }
+    };
   },
-})
+});
 </script>
 
 <style lang="less" scoped>
