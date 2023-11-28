@@ -402,7 +402,7 @@ declare const _default: {
             menus: import("vue").Ref<{
                 name: string;
                 enabled?: true | undefined;
-                callback: () => void | null;
+                callback: (item: menu.IUiMenuItem) => void | null;
             }[]>;
             menuPositionX: import("vue").Ref<number>;
             menuPositionY: import("vue").Ref<number>;
@@ -452,7 +452,7 @@ declare const _default: {
                 resize?: boolean | undefined;
                 title?: string | undefined;
                 closeCB?: (() => void | null) | undefined;
-                responseCB?: (() => void | null) | undefined;
+                responseCB?: ((data: import("./cc-window").UiWindowOptions) => void | null) | undefined;
             }[]>;
             getWindowOption(opt: dialog.DialogOptions): import("./cc-window").UiWindowOptions;
             getWindowRenderComponent(opt: dialog.DialogOptions): any;

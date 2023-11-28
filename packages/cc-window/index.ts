@@ -8,7 +8,7 @@ export class UiWindowOptions {
   resize?: boolean;
   title? = '';
   closeCB?: () => void | null;
-  responseCB?: () => void | null;
+  responseCB?: (data: UiWindowOptions) => void | null;
 }
 
 export const ProvideKey = {

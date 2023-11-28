@@ -1,9 +1,10 @@
+import { IUiMenuItem } from './const';
 declare const _default: import("vue").DefineComponent<{}, {
     menuEl: import("vue").Ref<HTMLDivElement | undefined>;
     menus: import("vue").Ref<{
         name: string;
         enabled?: true | undefined;
-        callback: () => void | null;
+        callback: (item: IUiMenuItem) => void | null;
     }[]>;
     menuPositionX: import("vue").Ref<number>;
     menuPositionY: import("vue").Ref<number>;

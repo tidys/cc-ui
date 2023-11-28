@@ -6,7 +6,7 @@ export declare class UiWindowOptions {
     resize?: boolean;
     title?: string | undefined;
     closeCB?: () => void | null;
-    responseCB?: () => void | null;
+    responseCB?: (data: UiWindowOptions) => void | null;
 }
 export declare const ProvideKey: {
     CloseWindow: string;

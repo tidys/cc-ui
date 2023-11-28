@@ -3,7 +3,7 @@ import ccui from '../index';
 export interface IUiMenuItem {
   name: string;
   enabled?: true;
-  callback: () => void | null;
+  callback: (item: IUiMenuItem) => void | null;
 }
 
 export const Msg = {
