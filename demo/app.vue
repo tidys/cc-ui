@@ -1,5 +1,5 @@
 <template>
-  <CCTable :columns="tableColumns" :data="tableData" :color="tableColor" headColor="#ff0000"></CCTable>
+  <CCTable class="myTable" :columns="tableColumns" :data="tableData" :color="tableColor" headColor="#888"></CCTable>
   <div v-if="false">
     <div>
       <CCButton @click="onShowDialog">dialog</CCButton>
@@ -80,30 +80,31 @@ export default defineComponent({
     const selectData = ref([
       { label: '1', value: 1 },
       { label: '2', value: 2 },
-      { label: '3', value: 3 }
+      { label: '3', value: 3 },
     ]);
     const tableColumns = ref<TableColumn[]>([
       {
         title: 'name',
         key: 'name',
-        width: 100
+        width: 100,
       },
       {
         title: 'age',
         key: 'age',
-        width: 50
+        width: 50,
       },
       {
         title: 'address',
-        key: 'address'
-      }
+        key: 'address',
+        breakChar: true,
+      },
     ]);
     const _tableData: TableData[] = [];
     for (let i = 0; i < 10; i++) {
       _tableData.push({
         name: `${i}`,
         address: `${i}`,
-        age: i
+        age: i,
       });
     }
     const tableData = ref<TableData[]>(
@@ -111,8 +112,13 @@ export default defineComponent({
         {
           name: 'aaa aaaaaaaa sssssssssssssssssssssssssssss',
           address: '1dddddddddd ddddddddddddd ffffffffffffffff 666666666',
-          age: 18
-        }
+          age: 18,
+        },
+        {
+          name: 'aaa',
+          address: '1dddddddddddddddddddddddffffffffffffffff666666666',
+          age: 18,
+        },
       ])
     );
     const selectValue = ref('1');
@@ -134,7 +140,7 @@ export default defineComponent({
             icon: 'cmder',
             cb: () => {
               console.log(1);
-            }
+            },
           },
           {
             label: '2222222222222',
@@ -142,16 +148,16 @@ export default defineComponent({
             visible: false,
             cb: () => {
               console.log(2);
-            }
+            },
           },
           {
             label: '333 333 333 333 333 333 333 333 333 333 333',
             icon: 'cmder',
             cb: () => {
               console.log(1);
-            }
-          }
-        ]
+            },
+          },
+        ],
       });
     });
 
@@ -172,7 +178,7 @@ export default defineComponent({
             name: i.toString(),
             callback: () => {
               console.log('hello');
-            }
+            },
           });
         }
         ccui.menu.showMenuByMouseEvent(event, menus);
@@ -203,24 +209,28 @@ export default defineComponent({
             label: '1',
             cb: () => {
               console.log('1');
-            }
+            },
           },
           {
             label: '2',
             cb: () => {
               console.log('2');
-            }
-          }
+            },
+          },
         ]);
-      }
+      },
     };
-  }
+  },
 });
 </script>
-<style>
+<style lang="less">
 #app {
   display: flex;
   flex-direction: column;
+  .myTable {
+    width: 100%;
+    flex: 1;
+  }
 }
 
 body {

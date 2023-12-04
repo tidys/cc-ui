@@ -88,6 +88,7 @@ export default defineComponent({
       for (let i = 0; i < columnsData.length; i++) {
         const item = columnsData[i];
         line.data.push({
+          breakChar: item.breakChar,
           width: item.width,
           columnIndexCurrent: i,
           columnIndexTotal: columnsData.length,
@@ -107,12 +108,13 @@ export default defineComponent({
         bodyLineData.value.push(line);
         // 需要安装column的顺序放到数组里面
         for (let i = 0; i < columnsData.length; i++) {
-          const { title, key, width } = columnsData[i];
+          const { title, key, width, breakChar } = columnsData[i];
           if (!item.hasOwnProperty(key)) {
             console.warn(item);
             console.warn(`invalid column data, not exist key: ${key}`);
           }
           line.data.push({
+            breakChar,
             width: width,
             columnIndexCurrent: i,
             columnIndexTotal: columnsData.length,

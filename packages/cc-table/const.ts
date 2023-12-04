@@ -7,6 +7,11 @@ export interface TableColumn {
    * 每一列的宽度
    */
   width?: number;
+
+  /**
+   * 基于字符换行
+   */
+  breakChar?: boolean;
 }
 export interface TableData {
   /** TableColumn的key为TableData的object.key */
@@ -41,11 +46,16 @@ export interface CellData {
    * 列的宽度
    */
   width?: number;
+
+  /**
+   * word-break: break-all;
+   */
+  breakChar?: boolean;
 }
 
 export interface LineData {
   /**行号 */
   index: number;
-  /**改行的数据 */
+  /**行数据 */
   data: CellData[];
 }

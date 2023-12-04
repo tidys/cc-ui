@@ -33,6 +33,10 @@ export default defineComponent({
     return {
       calcStyle() {
         let css = '';
+
+        if (data.breakChar === true) {
+          css += 'word-break: break-all;';
+        }
         if (!placeholder) {
           css += 'min-height:25px;';
         }

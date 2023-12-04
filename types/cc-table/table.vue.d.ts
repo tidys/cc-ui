@@ -27,6 +27,7 @@ declare const _default: import("vue").DefineComponent<{
             key: string;
             value: any;
             width?: number | undefined;
+            breakChar?: boolean | undefined;
         }[];
     }[]>;
     headLineData: import("vue").Ref<{
@@ -39,6 +40,7 @@ declare const _default: import("vue").DefineComponent<{
             key: string;
             value: any;
             width?: number | undefined;
+            breakChar?: boolean | undefined;
         }[];
     }[]>;
 }, unknown, {}, {}, import("vue").ComponentOptionsMixin, import("vue").ComponentOptionsMixin, Record<string, any>, string, import("vue").VNodeProps & import("vue").AllowedComponentProps & import("vue").ComponentCustomProps, Readonly<{
