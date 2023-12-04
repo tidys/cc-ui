@@ -1,6 +1,6 @@
 <template>
   <div class="line">
-    <CCTableCell v-for="(cell, index) in data" :key="index" :data="cell"></CCTableCell>
+    <CCTableCell :placeholder="placeholder" v-for="(cell, index) in data" :key="index" :data="cell"></CCTableCell>
   </div>
 </template>
 
@@ -16,6 +16,10 @@ export default defineComponent({
   props: {
     data: {
       type: Array as PropType<CellData[]>,
+    },
+    placeholder: {
+      type: Boolean,
+      default: false,
     },
   },
   setup(props, ctx) {

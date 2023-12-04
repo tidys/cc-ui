@@ -9,7 +9,7 @@
     }"
     :style="calcStyle()"
   >
-    {{ data.value }}
+    {{ placeholder ? '' : data.value }}
   </div>
 </template>
 
@@ -23,16 +23,23 @@ export default defineComponent({
       type: Object as PropType<CellData>,
       default: () => {},
     },
+    placeholder: {
+      type: Boolean,
+      default: false,
+    },
   },
   setup(props, ctx) {
-    const { data } = props;
+    const { data, placeholder } = props;
     return {
       calcStyle() {
-        if (data.width) {
-          return `width:${data.width}px;min-width:${data.width}px;`;
-        } else {
-          return '';
+        let css = '';
+        if (!placeholder) {
+          css += 'min-height:25px;';
         }
+        if (data.width) {
+          css += `width:${data.width}px;min-width:${data.width}px;`;
+        }
+        return css;
       },
     };
   },
@@ -40,7 +47,6 @@ export default defineComponent({
 </script>
 <style lang="less" scoped>
 .cell {
-  min-height: 25px;
   width: 100%;
   font-weight: normal;
   overflow: hidden;

@@ -152,6 +152,7 @@ export default defineComponent({
   }
   .body {
     display: flex;
+    flex: 1;
     overflow-x: hidden;
     overflow-y: auto;
     width: 100%;

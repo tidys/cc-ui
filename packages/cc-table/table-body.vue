@@ -1,6 +1,7 @@
 <template>
   <div class="table-body">
     <CCTableLine v-for="(item, index) in data" :key="index" :data="item.data"></CCTableLine>
+    <CCTableLine :placeholder="true" class="last" v-if="!isHeader" key="last" :data="data[data.length - 1].data"></CCTableLine>
   </div>
 </template>
 
@@ -44,5 +45,8 @@ export default defineComponent({
   display: flex;
   width: 100%;
   flex-direction: column;
+  .last {
+    flex: 1;
+  }
 }
 </style>
