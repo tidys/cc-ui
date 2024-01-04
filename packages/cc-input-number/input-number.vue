@@ -1,7 +1,7 @@
 <template>
   <div class="cc-input-number">
     <label>
-      <input ref="input" v-model="val" type="number" @change="onChange" />
+      <input ref="input" v-model="val" type="number" :class="{ readonly: readonly, disabled: disabled }" @change="onChange" :disabled="disabled" :readonly="readonly" />
     </label>
   </div>
 </template>
@@ -14,6 +14,10 @@ export default defineComponent({
   emits: ['change', 'update:value'],
   props: {
     disabled: {
+      type: Boolean,
+      default: false,
+    },
+    readonly: {
       type: Boolean,
       default: false,
     },
@@ -85,6 +89,7 @@ export default defineComponent({
 </script>
 
 <style scoped lang="less">
+@import '../common/ccui.less';
 .cc-input-number {
   display: flex;
   flex: 1;
@@ -94,6 +99,18 @@ export default defineComponent({
     width: 100%;
     display: flex;
 
+    .readonly {
+      cursor: default;
+      border-color: @readonly-border-color !important;
+      color: @readonly-color !important;
+    }
+
+    .disabled {
+      cursor: not-allowed;
+      border-color: @disabled-border-color !important;
+      color: @disabled-color !important;
+      user-select: none !important;
+    }
     input {
       height: 100%;
       width: 100%;

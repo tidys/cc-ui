@@ -59,18 +59,21 @@ export default defineComponent({
 </script>
 
 <style scoped lang="less">
+@import '../common/ccui.less';
 .cc-input {
   display: flex;
   flex: 1;
 
   .readonly {
-    border-color: #888888 !important;
-    color: #bdbdbd !important;
+    cursor: default;
+    border-color: @readonly-border-color !important;
+    color: @readonly-color !important;
   }
 
   .disabled {
-    border-color: #888888 !important;
-    color: #888888 !important;
+    cursor: not-allowed;
+    border-color: @disabled-border-color !important;
+    color: @disabled-color !important;
     user-select: none !important;
   }
 
