@@ -3,6 +3,10 @@ declare const _default: import("vue").DefineComponent<{
         type: BooleanConstructor;
         default: boolean;
     };
+    readonly: {
+        type: BooleanConstructor;
+        default: boolean;
+    };
     value: {
         type: NumberConstructor;
         required: true;
@@ -24,11 +28,13 @@ declare const _default: import("vue").DefineComponent<{
     onChange(): void;
 }, unknown, {}, {}, import("vue").ComponentOptionsMixin, import("vue").ComponentOptionsMixin, ("update:value" | "change")[], "update:value" | "change", import("vue").VNodeProps & import("vue").AllowedComponentProps & import("vue").ComponentCustomProps, Readonly<{
     disabled?: unknown;
+    readonly?: unknown;
     value?: unknown;
     min?: unknown;
     max?: unknown;
     step?: unknown;
 } & {
+    readonly: boolean;
     value: number;
     disabled: boolean;
     step: number;
@@ -39,6 +45,7 @@ declare const _default: import("vue").DefineComponent<{
     onChange?: ((...args: any[]) => any) | undefined;
     "onUpdate:value"?: ((...args: any[]) => any) | undefined;
 }, {
+    readonly: boolean;
     value: number;
     disabled: boolean;
     step: number;

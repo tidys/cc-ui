@@ -309,6 +309,10 @@ export declare const components: {
             type: BooleanConstructor;
             default: boolean;
         };
+        readonly: {
+            type: BooleanConstructor;
+            default: boolean;
+        };
         value: {
             type: NumberConstructor;
             required: true;
@@ -330,11 +334,13 @@ export declare const components: {
         onChange(): void;
     }, unknown, {}, {}, import("vue").ComponentOptionsMixin, import("vue").ComponentOptionsMixin, ("update:value" | "change")[], "update:value" | "change", import("vue").VNodeProps & import("vue").AllowedComponentProps & import("vue").ComponentCustomProps, Readonly<{
         disabled?: unknown;
+        readonly?: unknown;
         value?: unknown;
         min?: unknown;
         max?: unknown;
         step?: unknown;
     } & {
+        readonly: boolean;
         value: number;
         disabled: boolean;
         step: number;
@@ -345,6 +351,7 @@ export declare const components: {
         onChange?: ((...args: any[]) => any) | undefined;
         "onUpdate:value"?: ((...args: any[]) => any) | undefined;
     }, {
+        readonly: boolean;
         value: number;
         disabled: boolean;
         step: number;
@@ -370,6 +377,7 @@ export declare const components: {
         isHove: import("vue").Ref<boolean>;
         onHover(event: any): void;
         onOver(): void;
+        getValueStyle(): string;
     }, unknown, {}, {}, import("vue").ComponentOptionsMixin, import("vue").ComponentOptionsMixin, Record<string, any>, string, import("vue").VNodeProps & import("vue").AllowedComponentProps & import("vue").ComponentCustomProps, Readonly<{
         name?: unknown;
         tooltip?: unknown;

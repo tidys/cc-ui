@@ -19,6 +19,7 @@ declare const _default: import("vue").DefineComponent<{
     isHove: import("vue").Ref<boolean>;
     onHover(event: any): void;
     onOver(): void;
+    getValueStyle(): string;
 }, unknown, {}, {}, import("vue").ComponentOptionsMixin, import("vue").ComponentOptionsMixin, Record<string, any>, string, import("vue").VNodeProps & import("vue").AllowedComponentProps & import("vue").ComponentCustomProps, Readonly<{
     name?: unknown;
     tooltip?: unknown;

@@ -1,6 +1,6 @@
 <template>
-  <CCTable class="myTable" :columns="tableColumns" :data="tableData" :color="tableColor" headColor="#888"></CCTable>
-  <div v-if="false">
+  <CCTable v-if="false" class="myTable" :columns="tableColumns" :data="tableData" :color="tableColor" headColor="#888"></CCTable>
+  <div v-if="true">
     <div>
       <CCButton @click="onShowDialog">dialog</CCButton>
       <CCButton @click="onFootBar">footbar</CCButton>
@@ -54,8 +54,20 @@
       <CCProp name="input number">
         <CCInputNumber :value="1" :min="0"></CCInputNumber>
       </CCProp>
+      <CCProp name="input number disabled">
+        <CCInputNumber :value="2" :disabled="true"></CCInputNumber>
+      </CCProp>
+      <CCProp name="input number readonly">
+        <CCInputNumber :value="2" :readonly="true"></CCInputNumber>
+      </CCProp>
+      <CCProp name="align-left" align="left">
+        <CCCheckBox label="ok" :value="true"></CCCheckBox>
+      </CCProp>
+      <CCProp name="align-right" align="right">
+        <CCCheckBox label="ok" :value="true"></CCCheckBox>
+      </CCProp>
       <div style="height: 100px"></div>
-      <CCProp name="textarea" align="flex-start;">
+      <CCProp name="textarea">
         <CCTextarea data="111" @change="onChangeTextarea"></CCTextarea>
       </CCProp>
     </div>
@@ -71,10 +83,10 @@ import { orderTest } from './order';
 import { DialogUrlData, DialogOptions } from '../packages/cc-dialog/const';
 import { IUiMenuItem } from '../packages/cc-menu/const';
 import { TableColumn, TableData } from '../packages/cc-table/const';
-const { CCTable, CCCommand, CCColor, CCFootBar, CCButton, CCHelp, CCInputNumber, CCDialog, CCSection, CCSelect, CCProp, CCTextarea, CCInput } = ccui.components;
+const { CCTable, CCCommand, CCColor, CCFootBar, CCButton, CCHelp, CCInputNumber, CCDialog, CCSection, CCSelect, CCProp, CCTextarea, CCInput, CCCheckBox } = ccui.components;
 export default defineComponent({
   name: 'app',
-  components: { CCTable, CCCommand, CCFootBar, CCColor, CCButton, CCHelp, CCInputNumber, CCDialog, CCSection, CCSelect, CCProp, CCTextarea, CCInput },
+  components: { CCTable, CCCommand, CCFootBar, CCColor, CCButton, CCHelp, CCInputNumber, CCDialog, CCSection, CCSelect, CCProp, CCTextarea, CCInput, CCCheckBox },
   setup() {
     const value = ref('123');
     const selectData = ref([
