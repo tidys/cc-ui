@@ -16,5 +16,8 @@
   },
   "editor.formatOnSaveMode": "modifications",
   "files.autoSave": "onFocusChange",
-  "prettier.useEditorConfig": false
+  "prettier.useEditorConfig": false,
+  "[less]": {
+    "editor.defaultFormatter": "esbenp.prettier-vscode"
+  }
 }

@@ -1,5 +1,5 @@
 <template>
-  <div class="cc-prop" :style="{ 'align-items': align }" @mouseenter="isHove = true" @mouseleave="isHove = false">
+  <div class="cc-prop" @mouseenter="isHove = true" @mouseleave="isHove = false">
     <div v-show="isShowTips && tooltip" ref="tips" class="tips">
       <div class="text">{{ tooltip }}</div>
       <div ref="arrow" data-popper-arrow class="arrow"></div>
@@ -7,7 +7,7 @@
     <div class="name" @mouseenter="onHover" @mouseleave="onOver">
       <span :class="isHove ? 'name-blue' : ''" ref="text">{{ name }}</span>
     </div>
-    <div class="value">
+    <div class="value" :style="getValueStyle()">
       <slot style="flex: 1"></slot>
     </div>
   </div>
@@ -89,6 +89,18 @@ export default defineComponent({
           popperInstance?.destroy();
           popperInstance = null;
         }
+      },
+      getValueStyle() {
+        let align = 'center';
+        if (props.align === 'center') {
+          align = 'center';
+        } else if (props.align === 'left') {
+          align = 'flex-start';
+        } else if (props.align === 'right') {
+          align = 'flex-end';
+        }
+        const css = `justify-content: ${align};`;
+        return css;
       },
     };
   },
@@ -183,7 +195,6 @@ export default defineComponent({
     display: flex;
     flex: 1;
     align-items: center;
-    justify-content: center;
   }
 }
 </style>
