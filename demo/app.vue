@@ -1,6 +1,7 @@
 <template>
-  <CCTable v-if="false" class="myTable" :columns="tableColumns" :data="tableData" :color="tableColor" headColor="#888"></CCTable>
-  <div v-if="true">
+  <CCButtonGroup :recover="true" :items="buttonGroup"> </CCButtonGroup>
+  <div v-if="false">
+    <CCTable v-if="false" class="myTable" :columns="tableColumns" :data="tableData" :color="tableColor" headColor="#888"></CCTable>
     <div>
       <CCButton @click="onShowDialog">dialog</CCButton>
       <CCButton @click="onFootBar">footbar</CCButton>
@@ -83,10 +84,11 @@ import { orderTest } from './order';
 import { DialogUrlData, DialogOptions } from '../packages/cc-dialog/const';
 import { IUiMenuItem } from '../packages/cc-menu/const';
 import { TableColumn, TableData } from '../packages/cc-table/const';
-const { CCTable, CCCommand, CCColor, CCFootBar, CCButton, CCHelp, CCInputNumber, CCDialog, CCSection, CCSelect, CCProp, CCTextarea, CCInput, CCCheckBox } = ccui.components;
+import { ButtonGroupItem } from '../packages/cc-button-group/const';
+const { CCButtonGroup, CCTable, CCCommand, CCColor, CCFootBar, CCButton, CCHelp, CCInputNumber, CCDialog, CCSection, CCSelect, CCProp, CCTextarea, CCInput, CCCheckBox } = ccui.components;
 export default defineComponent({
   name: 'app',
-  components: { CCTable, CCCommand, CCFootBar, CCColor, CCButton, CCHelp, CCInputNumber, CCDialog, CCSection, CCSelect, CCProp, CCTextarea, CCInput, CCCheckBox },
+  components: { CCButtonGroup, CCTable, CCCommand, CCFootBar, CCColor, CCButton, CCHelp, CCInputNumber, CCDialog, CCSection, CCSelect, CCProp, CCTextarea, CCInput, CCCheckBox },
   setup() {
     const value = ref('123');
     const selectData = ref([
@@ -172,8 +174,39 @@ export default defineComponent({
         ],
       });
     });
-
+    const buttonGroupData: ButtonGroupItem[] = [
+      {
+        text: '1',
+        title: '1',
+        icon: 'icon_move',
+      },
+      {
+        icon: 'icon_up_right_arrow',
+      },
+      {
+        icon: 'icon_resize',
+      },
+      {
+        icon: 'icon_magic',
+      },
+      {
+        icon: 'icon_book',
+      },
+    ];
+    if (false) {
+      for (let i = 0; i < 4; i++) {
+        buttonGroupData.push({
+          text: `text text text text${i}`,
+          title: `title${i}`,
+          click() {
+            console.log(i);
+          },
+        });
+      }
+    }
+    const buttonGroup = ref<ButtonGroupItem[]>(buttonGroupData);
     return {
+      buttonGroup,
       tableColumns,
       tableData,
       tableColor,

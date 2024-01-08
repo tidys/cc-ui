@@ -15,4 +15,5 @@ import { CCHelp } from './cc-help';
 import { CCFootBar } from './cc-footbar';
 import { CCCommand } from './cc-command';
 import { CCTable } from './cc-table';
-export const components = { CCTable, CCCommand, CCFootBar, CCButton, CCCheckBox, CCColor, CCSection, CCHelp, CCSelect, CCInput, CCInputNumber, CCProp, CCMenu, CCSlider, CCTextarea, CCWindow, CCDialog };
+import { CCButtonGroup } from './cc-button-group';
+export const components = { CCButtonGroup, CCTable, CCCommand, CCFootBar, CCButton, CCCheckBox, CCColor, CCSection, CCHelp, CCSelect, CCInput, CCInputNumber, CCProp, CCMenu, CCSlider, CCTextarea, CCWindow, CCDialog };

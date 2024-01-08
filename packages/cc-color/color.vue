@@ -149,6 +149,7 @@ export default defineComponent({
     flex-direction: column;
     background-color: white;
     position: absolute;
+    z-index: 9999;
     width: 150px;
     height: 226px;
     border: 1px solid #575757;
