@@ -6,6 +6,90 @@
   "description": "cc-ui组件库在使用",
   "glyphs": [
     {
+      "icon_id": "15299714",
+      "name": "direction_caret_down",
+      "font_class": "arrow_down",
+      "unicode": "e616",
+      "unicode_decimal": 58902
+    },
+    {
+      "icon_id": "15299718",
+      "name": "direction_caret_right",
+      "font_class": "arrow_right",
+      "unicode": "e618",
+      "unicode_decimal": 58904
+    },
+    {
+      "icon_id": "15299720",
+      "name": "direction_caret_up",
+      "font_class": "arrow_up",
+      "unicode": "e619",
+      "unicode_decimal": 58905
+    },
+    {
+      "icon_id": "15299722",
+      "name": "direction_caret_left",
+      "font_class": "arrow_left",
+      "unicode": "e61a",
+      "unicode_decimal": 58906
+    },
+    {
+      "icon_id": "15838521",
+      "name": "picture",
+      "font_class": "picture",
+      "unicode": "e67c",
+      "unicode_decimal": 59004
+    },
+    {
+      "icon_id": "33118499",
+      "name": "place",
+      "font_class": "place",
+      "unicode": "e7e6",
+      "unicode_decimal": 59366
+    },
+    {
+      "icon_id": "7824123",
+      "name": "print",
+      "font_class": "print",
+      "unicode": "e620",
+      "unicode_decimal": 58912
+    },
+    {
+      "icon_id": "36622673",
+      "name": "settings",
+      "font_class": "settings",
+      "unicode": "e615",
+      "unicode_decimal": 58901
+    },
+    {
+      "icon_id": "9785726",
+      "name": "text",
+      "font_class": "text",
+      "unicode": "e65c",
+      "unicode_decimal": 58972
+    },
+    {
+      "icon_id": "6246293",
+      "name": "节点",
+      "font_class": "node",
+      "unicode": "e649",
+      "unicode_decimal": 58953
+    },
+    {
+      "icon_id": "1156016",
+      "name": "车巴巴-未知项",
+      "font_class": "unknown",
+      "unicode": "e626",
+      "unicode_decimal": 58918
+    },
+    {
+      "icon_id": "8794801",
+      "name": "font-size",
+      "font_class": "font_size",
+      "unicode": "e7b9",
+      "unicode_decimal": 59321
+    },
+    {
       "icon_id": "5354458",
       "name": "17-Up-Right-Arrow",
       "font_class": "up_right_arrow",
