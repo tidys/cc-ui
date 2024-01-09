@@ -6,6 +6,7 @@ import { dialog } from './cc-dialog/index';
 import { footbar } from './cc-footbar/index';
 import { command } from './cc-command/index';
 import { table } from './cc-table/index';
+import { select } from './cc-select/index';
 import { buttonGroup } from './cc-button-group/index';
 export const install = (app: App) => {
   Object.keys(components).forEach((key) => {
@@ -16,5 +17,5 @@ export const install = (app: App) => {
 };
 const Emitter = new TinyEmitter();
 // 对外提供的全局方法
-const Methods = { buttonGroup, menu, dialog, footbar, command, table };
+const Methods = { buttonGroup, menu, dialog, footbar, command, table, select };
 export default { install, Emitter, components, ...Methods };

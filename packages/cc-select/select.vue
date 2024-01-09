@@ -12,7 +12,7 @@
 </template>
 <script lang="ts">
 import { defineComponent, ref, PropType, watch } from 'vue';
-import { Option } from './data';
+import { Option } from './const';
 
 export default defineComponent({
   name: 'CCSelect',
