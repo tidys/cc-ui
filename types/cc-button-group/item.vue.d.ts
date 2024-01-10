@@ -1,0 +1,38 @@
+import { PropType } from 'vue';
+import { ButtonGroupItem } from './const';
+declare const _default: import("vue").DefineComponent<{
+    data: {
+        type: PropType<ButtonGroupItem>;
+        default: () => void;
+    };
+    color: {
+        type: StringConstructor;
+        default: string;
+    };
+    recover: {
+        type: BooleanConstructor;
+        default: boolean;
+    };
+}, {
+    el: import("vue").Ref<HTMLElement | undefined>;
+    backgroundColor: import("vue").Ref<string>;
+    onMouseEnter(event: MouseEvent): void;
+    onMouseOver(event: MouseEvent): void;
+    onMouseLeave(event: MouseEvent): void;
+    onClick(event: MouseEvent): void;
+    onMouseDown(event: MouseEvent): void;
+    onMouseUp(event: MouseEvent): void;
+}, unknown, {}, {}, import("vue").ComponentOptionsMixin, import("vue").ComponentOptionsMixin, Record<string, any>, string, import("vue").VNodeProps & import("vue").AllowedComponentProps & import("vue").ComponentCustomProps, Readonly<{
+    data?: unknown;
+    color?: unknown;
+    recover?: unknown;
+} & {
+    color: string;
+    data: ButtonGroupItem;
+    recover: boolean;
+} & {}>, {
+    color: string;
+    data: ButtonGroupItem;
+    recover: boolean;
+}>;
+export default _default;

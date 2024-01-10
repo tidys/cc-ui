@@ -1,2 +1,3 @@
 import CCSelect from './select.vue';
-export { CCSelect };
+import * as select from './const';
+export { CCSelect, select };

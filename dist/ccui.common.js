@@ -109,6 +109,13 @@ module.exports =
 
 /***/ }),
 
+/***/ "067b":
+/***/ (function(module, exports, __webpack_require__) {
+
+// extracted by mini-css-extract-plugin
+
+/***/ }),
+
 /***/ "069b":
 /***/ (function(module, exports, __webpack_require__) {
 
@@ -226,6 +233,255 @@ module.exports = randomByte;
 
 /***/ }),
 
+/***/ "1ab9":
+/***/ (function(module, exports, __webpack_require__) {
+
+/* MIT license */
+var colorNames = __webpack_require__("4f4d");
+var swizzle = __webpack_require__("2514");
+var hasOwnProperty = Object.hasOwnProperty;
+
+var reverseNames = Object.create(null);
+
+// create a list of reverse color names
+for (var name in colorNames) {
+	if (hasOwnProperty.call(colorNames, name)) {
+		reverseNames[colorNames[name]] = name;
+	}
+}
+
+var cs = module.exports = {
+	to: {},
+	get: {}
+};
+
+cs.get = function (string) {
+	var prefix = string.substring(0, 3).toLowerCase();
+	var val;
+	var model;
+	switch (prefix) {
+		case 'hsl':
+			val = cs.get.hsl(string);
+			model = 'hsl';
+			break;
+		case 'hwb':
+			val = cs.get.hwb(string);
+			model = 'hwb';
+			break;
+		default:
+			val = cs.get.rgb(string);
+			model = 'rgb';
+			break;
+	}
+
+	if (!val) {
+		return null;
+	}
+
+	return {model: model, value: val};
+};
+
+cs.get.rgb = function (string) {
+	if (!string) {
+		return null;
+	}
+
+	var abbr = /^#([a-f0-9]{3,4})$/i;
+	var hex = /^#([a-f0-9]{6})([a-f0-9]{2})?$/i;
+	var rgba = /^rgba?\(\s*([+-]?\d+)(?=[\s,])\s*(?:,\s*)?([+-]?\d+)(?=[\s,])\s*(?:,\s*)?([+-]?\d+)\s*(?:[,|\/]\s*([+-]?[\d\.]+)(%?)\s*)?\)$/;
+	var per = /^rgba?\(\s*([+-]?[\d\.]+)\%\s*,?\s*([+-]?[\d\.]+)\%\s*,?\s*([+-]?[\d\.]+)\%\s*(?:[,|\/]\s*([+-]?[\d\.]+)(%?)\s*)?\)$/;
+	var keyword = /^(\w+)$/;
+
+	var rgb = [0, 0, 0, 1];
+	var match;
+	var i;
+	var hexAlpha;
+
+	if (match = string.match(hex)) {
+		hexAlpha = match[2];
+		match = match[1];
+
+		for (i = 0; i < 3; i++) {
+			// https://jsperf.com/slice-vs-substr-vs-substring-methods-long-string/19
+			var i2 = i * 2;
+			rgb[i] = parseInt(match.slice(i2, i2 + 2), 16);
+		}
+
+		if (hexAlpha) {
+			rgb[3] = parseInt(hexAlpha, 16) / 255;
+		}
+	} else if (match = string.match(abbr)) {
+		match = match[1];
+		hexAlpha = match[3];
+
+		for (i = 0; i < 3; i++) {
+			rgb[i] = parseInt(match[i] + match[i], 16);
+		}
+
+		if (hexAlpha) {
+			rgb[3] = parseInt(hexAlpha + hexAlpha, 16) / 255;
+		}
+	} else if (match = string.match(rgba)) {
+		for (i = 0; i < 3; i++) {
+			rgb[i] = parseInt(match[i + 1], 0);
+		}
+
+		if (match[4]) {
+			if (match[5]) {
+				rgb[3] = parseFloat(match[4]) * 0.01;
+			} else {
+				rgb[3] = parseFloat(match[4]);
+			}
+		}
+	} else if (match = string.match(per)) {
+		for (i = 0; i < 3; i++) {
+			rgb[i] = Math.round(parseFloat(match[i + 1]) * 2.55);
+		}
+
+		if (match[4]) {
+			if (match[5]) {
+				rgb[3] = parseFloat(match[4]) * 0.01;
+			} else {
+				rgb[3] = parseFloat(match[4]);
+			}
+		}
+	} else if (match = string.match(keyword)) {
+		if (match[1] === 'transparent') {
+			return [0, 0, 0, 0];
+		}
+
+		if (!hasOwnProperty.call(colorNames, match[1])) {
+			return null;
+		}
+
+		rgb = colorNames[match[1]];
+		rgb[3] = 1;
+
+		return rgb;
+	} else {
+		return null;
+	}
+
+	for (i = 0; i < 3; i++) {
+		rgb[i] = clamp(rgb[i], 0, 255);
+	}
+	rgb[3] = clamp(rgb[3], 0, 1);
+
+	return rgb;
+};
+
+cs.get.hsl = function (string) {
+	if (!string) {
+		return null;
+	}
+
+	var hsl = /^hsla?\(\s*([+-]?(?:\d{0,3}\.)?\d+)(?:deg)?\s*,?\s*([+-]?[\d\.]+)%\s*,?\s*([+-]?[\d\.]+)%\s*(?:[,|\/]\s*([+-]?(?=\.\d|\d)(?:0|[1-9]\d*)?(?:\.\d*)?(?:[eE][+-]?\d+)?)\s*)?\)$/;
+	var match = string.match(hsl);
+
+	if (match) {
+		var alpha = parseFloat(match[4]);
+		var h = ((parseFloat(match[1]) % 360) + 360) % 360;
+		var s = clamp(parseFloat(match[2]), 0, 100);
+		var l = clamp(parseFloat(match[3]), 0, 100);
+		var a = clamp(isNaN(alpha) ? 1 : alpha, 0, 1);
+
+		return [h, s, l, a];
+	}
+
+	return null;
+};
+
+cs.get.hwb = function (string) {
+	if (!string) {
+		return null;
+	}
+
+	var hwb = /^hwb\(\s*([+-]?\d{0,3}(?:\.\d+)?)(?:deg)?\s*,\s*([+-]?[\d\.]+)%\s*,\s*([+-]?[\d\.]+)%\s*(?:,\s*([+-]?(?=\.\d|\d)(?:0|[1-9]\d*)?(?:\.\d*)?(?:[eE][+-]?\d+)?)\s*)?\)$/;
+	var match = string.match(hwb);
+
+	if (match) {
+		var alpha = parseFloat(match[4]);
+		var h = ((parseFloat(match[1]) % 360) + 360) % 360;
+		var w = clamp(parseFloat(match[2]), 0, 100);
+		var b = clamp(parseFloat(match[3]), 0, 100);
+		var a = clamp(isNaN(alpha) ? 1 : alpha, 0, 1);
+		return [h, w, b, a];
+	}
+
+	return null;
+};
+
+cs.to.hex = function () {
+	var rgba = swizzle(arguments);
+
+	return (
+		'#' +
+		hexDouble(rgba[0]) +
+		hexDouble(rgba[1]) +
+		hexDouble(rgba[2]) +
+		(rgba[3] < 1
+			? (hexDouble(Math.round(rgba[3] * 255)))
+			: '')
+	);
+};
+
+cs.to.rgb = function () {
+	var rgba = swizzle(arguments);
+
+	return rgba.length < 4 || rgba[3] === 1
+		? 'rgb(' + Math.round(rgba[0]) + ', ' + Math.round(rgba[1]) + ', ' + Math.round(rgba[2]) + ')'
+		: 'rgba(' + Math.round(rgba[0]) + ', ' + Math.round(rgba[1]) + ', ' + Math.round(rgba[2]) + ', ' + rgba[3] + ')';
+};
+
+cs.to.rgb.percent = function () {
+	var rgba = swizzle(arguments);
+
+	var r = Math.round(rgba[0] / 255 * 100);
+	var g = Math.round(rgba[1] / 255 * 100);
+	var b = Math.round(rgba[2] / 255 * 100);
+
+	return rgba.length < 4 || rgba[3] === 1
+		? 'rgb(' + r + '%, ' + g + '%, ' + b + '%)'
+		: 'rgba(' + r + '%, ' + g + '%, ' + b + '%, ' + rgba[3] + ')';
+};
+
+cs.to.hsl = function () {
+	var hsla = swizzle(arguments);
+	return hsla.length < 4 || hsla[3] === 1
+		? 'hsl(' + hsla[0] + ', ' + hsla[1] + '%, ' + hsla[2] + '%)'
+		: 'hsla(' + hsla[0] + ', ' + hsla[1] + '%, ' + hsla[2] + '%, ' + hsla[3] + ')';
+};
+
+// hwb is a bit different than rgb(a) & hsl(a) since there is no alpha specific syntax
+// (hwb have alpha optional & 1 is default value)
+cs.to.hwb = function () {
+	var hwba = swizzle(arguments);
+
+	var a = '';
+	if (hwba.length >= 4 && hwba[3] !== 1) {
+		a = ', ' + hwba[3];
+	}
+
+	return 'hwb(' + hwba[0] + ', ' + hwba[1] + '%, ' + hwba[2] + '%' + a + ')';
+};
+
+cs.to.keyword = function (rgb) {
+	return reverseNames[rgb.slice(0, 3)];
+};
+
+// helpers
+function clamp(num, min, max) {
+	return Math.min(Math.max(min, num), max);
+}
+
+function hexDouble(num) {
+	var str = Math.round(num).toString(16).toUpperCase();
+	return (str.length < 2) ? '0' + str : str;
+}
+
+
+/***/ }),
+
 /***/ "1bd0":
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
@@ -255,6 +511,43 @@ module.exports = randomByte;
 
 /***/ }),
 
+/***/ "2514":
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+var isArrayish = __webpack_require__("f0cb");
+
+var concat = Array.prototype.concat;
+var slice = Array.prototype.slice;
+
+var swizzle = module.exports = function swizzle(args) {
+	var results = [];
+
+	for (var i = 0, len = args.length; i < len; i++) {
+		var arg = args[i];
+
+		if (isArrayish(arg)) {
+			// http://jsperf.com/javascript-array-concat-vs-push/98
+			results = concat.call(results, slice.call(arg));
+		} else {
+			results.push(arg);
+		}
+	}
+
+	return results;
+};
+
+swizzle.wrap = function (fn) {
+	return function () {
+		return fn(swizzle(arguments));
+	};
+};
+
+
+/***/ }),
+
 /***/ "29a1":
 /***/ (function(module, exports, __webpack_require__) {
 
@@ -262,21 +555,856 @@ module.exports = randomByte;
 
 /***/ }),
 
-/***/ "2b57":
-/***/ (function(module, __webpack_exports__, __webpack_require__) {
-
-"use strict";
-/* harmony import */ var _node_modules_mini_css_extract_plugin_dist_loader_js_ref_10_oneOf_1_0_node_modules_css_loader_dist_cjs_js_ref_10_oneOf_1_1_node_modules_vue_loader_v16_dist_stylePostLoader_js_node_modules_postcss_loader_src_index_js_ref_10_oneOf_1_2_node_modules_less_loader_dist_cjs_js_ref_10_oneOf_1_3_node_modules_cache_loader_dist_cjs_js_ref_0_0_node_modules_vue_loader_v16_dist_index_js_ref_0_1_color_vue_vue_type_style_index_0_id_17eeddef_scoped_true_lang_less__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__("5754");
-/* harmony import */ var _node_modules_mini_css_extract_plugin_dist_loader_js_ref_10_oneOf_1_0_node_modules_css_loader_dist_cjs_js_ref_10_oneOf_1_1_node_modules_vue_loader_v16_dist_stylePostLoader_js_node_modules_postcss_loader_src_index_js_ref_10_oneOf_1_2_node_modules_less_loader_dist_cjs_js_ref_10_oneOf_1_3_node_modules_cache_loader_dist_cjs_js_ref_0_0_node_modules_vue_loader_v16_dist_index_js_ref_0_1_color_vue_vue_type_style_index_0_id_17eeddef_scoped_true_lang_less__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(_node_modules_mini_css_extract_plugin_dist_loader_js_ref_10_oneOf_1_0_node_modules_css_loader_dist_cjs_js_ref_10_oneOf_1_1_node_modules_vue_loader_v16_dist_stylePostLoader_js_node_modules_postcss_loader_src_index_js_ref_10_oneOf_1_2_node_modules_less_loader_dist_cjs_js_ref_10_oneOf_1_3_node_modules_cache_loader_dist_cjs_js_ref_0_0_node_modules_vue_loader_v16_dist_index_js_ref_0_1_color_vue_vue_type_style_index_0_id_17eeddef_scoped_true_lang_less__WEBPACK_IMPORTED_MODULE_0__);
-/* unused harmony reexport * */
-
-
-/***/ }),
-
 /***/ "3002":
 /***/ (function(module, exports, __webpack_require__) {
 
 // extracted by mini-css-extract-plugin
+
+/***/ }),
+
+/***/ "307f":
+/***/ (function(module, exports, __webpack_require__) {
+
+/* MIT license */
+/* eslint-disable no-mixed-operators */
+const cssKeywords = __webpack_require__("4f4d");
+
+// NOTE: conversions should only return primitive values (i.e. arrays, or
+//       values that give correct `typeof` results).
+//       do not use box values types (i.e. Number(), String(), etc.)
+
+const reverseKeywords = {};
+for (const key of Object.keys(cssKeywords)) {
+	reverseKeywords[cssKeywords[key]] = key;
+}
+
+const convert = {
+	rgb: {channels: 3, labels: 'rgb'},
+	hsl: {channels: 3, labels: 'hsl'},
+	hsv: {channels: 3, labels: 'hsv'},
+	hwb: {channels: 3, labels: 'hwb'},
+	cmyk: {channels: 4, labels: 'cmyk'},
+	xyz: {channels: 3, labels: 'xyz'},
+	lab: {channels: 3, labels: 'lab'},
+	lch: {channels: 3, labels: 'lch'},
+	hex: {channels: 1, labels: ['hex']},
+	keyword: {channels: 1, labels: ['keyword']},
+	ansi16: {channels: 1, labels: ['ansi16']},
+	ansi256: {channels: 1, labels: ['ansi256']},
+	hcg: {channels: 3, labels: ['h', 'c', 'g']},
+	apple: {channels: 3, labels: ['r16', 'g16', 'b16']},
+	gray: {channels: 1, labels: ['gray']}
+};
+
+module.exports = convert;
+
+// Hide .channels and .labels properties
+for (const model of Object.keys(convert)) {
+	if (!('channels' in convert[model])) {
+		throw new Error('missing channels property: ' + model);
+	}
+
+	if (!('labels' in convert[model])) {
+		throw new Error('missing channel labels property: ' + model);
+	}
+
+	if (convert[model].labels.length !== convert[model].channels) {
+		throw new Error('channel and label counts mismatch: ' + model);
+	}
+
+	const {channels, labels} = convert[model];
+	delete convert[model].channels;
+	delete convert[model].labels;
+	Object.defineProperty(convert[model], 'channels', {value: channels});
+	Object.defineProperty(convert[model], 'labels', {value: labels});
+}
+
+convert.rgb.hsl = function (rgb) {
+	const r = rgb[0] / 255;
+	const g = rgb[1] / 255;
+	const b = rgb[2] / 255;
+	const min = Math.min(r, g, b);
+	const max = Math.max(r, g, b);
+	const delta = max - min;
+	let h;
+	let s;
+
+	if (max === min) {
+		h = 0;
+	} else if (r === max) {
+		h = (g - b) / delta;
+	} else if (g === max) {
+		h = 2 + (b - r) / delta;
+	} else if (b === max) {
+		h = 4 + (r - g) / delta;
+	}
+
+	h = Math.min(h * 60, 360);
+
+	if (h < 0) {
+		h += 360;
+	}
+
+	const l = (min + max) / 2;
+
+	if (max === min) {
+		s = 0;
+	} else if (l <= 0.5) {
+		s = delta / (max + min);
+	} else {
+		s = delta / (2 - max - min);
+	}
+
+	return [h, s * 100, l * 100];
+};
+
+convert.rgb.hsv = function (rgb) {
+	let rdif;
+	let gdif;
+	let bdif;
+	let h;
+	let s;
+
+	const r = rgb[0] / 255;
+	const g = rgb[1] / 255;
+	const b = rgb[2] / 255;
+	const v = Math.max(r, g, b);
+	const diff = v - Math.min(r, g, b);
+	const diffc = function (c) {
+		return (v - c) / 6 / diff + 1 / 2;
+	};
+
+	if (diff === 0) {
+		h = 0;
+		s = 0;
+	} else {
+		s = diff / v;
+		rdif = diffc(r);
+		gdif = diffc(g);
+		bdif = diffc(b);
+
+		if (r === v) {
+			h = bdif - gdif;
+		} else if (g === v) {
+			h = (1 / 3) + rdif - bdif;
+		} else if (b === v) {
+			h = (2 / 3) + gdif - rdif;
+		}
+
+		if (h < 0) {
+			h += 1;
+		} else if (h > 1) {
+			h -= 1;
+		}
+	}
+
+	return [
+		h * 360,
+		s * 100,
+		v * 100
+	];
+};
+
+convert.rgb.hwb = function (rgb) {
+	const r = rgb[0];
+	const g = rgb[1];
+	let b = rgb[2];
+	const h = convert.rgb.hsl(rgb)[0];
+	const w = 1 / 255 * Math.min(r, Math.min(g, b));
+
+	b = 1 - 1 / 255 * Math.max(r, Math.max(g, b));
+
+	return [h, w * 100, b * 100];
+};
+
+convert.rgb.cmyk = function (rgb) {
+	const r = rgb[0] / 255;
+	const g = rgb[1] / 255;
+	const b = rgb[2] / 255;
+
+	const k = Math.min(1 - r, 1 - g, 1 - b);
+	const c = (1 - r - k) / (1 - k) || 0;
+	const m = (1 - g - k) / (1 - k) || 0;
+	const y = (1 - b - k) / (1 - k) || 0;
+
+	return [c * 100, m * 100, y * 100, k * 100];
+};
+
+function comparativeDistance(x, y) {
+	/*
+		See https://en.m.wikipedia.org/wiki/Euclidean_distance#Squared_Euclidean_distance
+	*/
+	return (
+		((x[0] - y[0]) ** 2) +
+		((x[1] - y[1]) ** 2) +
+		((x[2] - y[2]) ** 2)
+	);
+}
+
+convert.rgb.keyword = function (rgb) {
+	const reversed = reverseKeywords[rgb];
+	if (reversed) {
+		return reversed;
+	}
+
+	let currentClosestDistance = Infinity;
+	let currentClosestKeyword;
+
+	for (const keyword of Object.keys(cssKeywords)) {
+		const value = cssKeywords[keyword];
+
+		// Compute comparative distance
+		const distance = comparativeDistance(rgb, value);
+
+		// Check if its less, if so set as closest
+		if (distance < currentClosestDistance) {
+			currentClosestDistance = distance;
+			currentClosestKeyword = keyword;
+		}
+	}
+
+	return currentClosestKeyword;
+};
+
+convert.keyword.rgb = function (keyword) {
+	return cssKeywords[keyword];
+};
+
+convert.rgb.xyz = function (rgb) {
+	let r = rgb[0] / 255;
+	let g = rgb[1] / 255;
+	let b = rgb[2] / 255;
+
+	// Assume sRGB
+	r = r > 0.04045 ? (((r + 0.055) / 1.055) ** 2.4) : (r / 12.92);
+	g = g > 0.04045 ? (((g + 0.055) / 1.055) ** 2.4) : (g / 12.92);
+	b = b > 0.04045 ? (((b + 0.055) / 1.055) ** 2.4) : (b / 12.92);
+
+	const x = (r * 0.4124) + (g * 0.3576) + (b * 0.1805);
+	const y = (r * 0.2126) + (g * 0.7152) + (b * 0.0722);
+	const z = (r * 0.0193) + (g * 0.1192) + (b * 0.9505);
+
+	return [x * 100, y * 100, z * 100];
+};
+
+convert.rgb.lab = function (rgb) {
+	const xyz = convert.rgb.xyz(rgb);
+	let x = xyz[0];
+	let y = xyz[1];
+	let z = xyz[2];
+
+	x /= 95.047;
+	y /= 100;
+	z /= 108.883;
+
+	x = x > 0.008856 ? (x ** (1 / 3)) : (7.787 * x) + (16 / 116);
+	y = y > 0.008856 ? (y ** (1 / 3)) : (7.787 * y) + (16 / 116);
+	z = z > 0.008856 ? (z ** (1 / 3)) : (7.787 * z) + (16 / 116);
+
+	const l = (116 * y) - 16;
+	const a = 500 * (x - y);
+	const b = 200 * (y - z);
+
+	return [l, a, b];
+};
+
+convert.hsl.rgb = function (hsl) {
+	const h = hsl[0] / 360;
+	const s = hsl[1] / 100;
+	const l = hsl[2] / 100;
+	let t2;
+	let t3;
+	let val;
+
+	if (s === 0) {
+		val = l * 255;
+		return [val, val, val];
+	}
+
+	if (l < 0.5) {
+		t2 = l * (1 + s);
+	} else {
+		t2 = l + s - l * s;
+	}
+
+	const t1 = 2 * l - t2;
+
+	const rgb = [0, 0, 0];
+	for (let i = 0; i < 3; i++) {
+		t3 = h + 1 / 3 * -(i - 1);
+		if (t3 < 0) {
+			t3++;
+		}
+
+		if (t3 > 1) {
+			t3--;
+		}
+
+		if (6 * t3 < 1) {
+			val = t1 + (t2 - t1) * 6 * t3;
+		} else if (2 * t3 < 1) {
+			val = t2;
+		} else if (3 * t3 < 2) {
+			val = t1 + (t2 - t1) * (2 / 3 - t3) * 6;
+		} else {
+			val = t1;
+		}
+
+		rgb[i] = val * 255;
+	}
+
+	return rgb;
+};
+
+convert.hsl.hsv = function (hsl) {
+	const h = hsl[0];
+	let s = hsl[1] / 100;
+	let l = hsl[2] / 100;
+	let smin = s;
+	const lmin = Math.max(l, 0.01);
+
+	l *= 2;
+	s *= (l <= 1) ? l : 2 - l;
+	smin *= lmin <= 1 ? lmin : 2 - lmin;
+	const v = (l + s) / 2;
+	const sv = l === 0 ? (2 * smin) / (lmin + smin) : (2 * s) / (l + s);
+
+	return [h, sv * 100, v * 100];
+};
+
+convert.hsv.rgb = function (hsv) {
+	const h = hsv[0] / 60;
+	const s = hsv[1] / 100;
+	let v = hsv[2] / 100;
+	const hi = Math.floor(h) % 6;
+
+	const f = h - Math.floor(h);
+	const p = 255 * v * (1 - s);
+	const q = 255 * v * (1 - (s * f));
+	const t = 255 * v * (1 - (s * (1 - f)));
+	v *= 255;
+
+	switch (hi) {
+		case 0:
+			return [v, t, p];
+		case 1:
+			return [q, v, p];
+		case 2:
+			return [p, v, t];
+		case 3:
+			return [p, q, v];
+		case 4:
+			return [t, p, v];
+		case 5:
+			return [v, p, q];
+	}
+};
+
+convert.hsv.hsl = function (hsv) {
+	const h = hsv[0];
+	const s = hsv[1] / 100;
+	const v = hsv[2] / 100;
+	const vmin = Math.max(v, 0.01);
+	let sl;
+	let l;
+
+	l = (2 - s) * v;
+	const lmin = (2 - s) * vmin;
+	sl = s * vmin;
+	sl /= (lmin <= 1) ? lmin : 2 - lmin;
+	sl = sl || 0;
+	l /= 2;
+
+	return [h, sl * 100, l * 100];
+};
+
+// http://dev.w3.org/csswg/css-color/#hwb-to-rgb
+convert.hwb.rgb = function (hwb) {
+	const h = hwb[0] / 360;
+	let wh = hwb[1] / 100;
+	let bl = hwb[2] / 100;
+	const ratio = wh + bl;
+	let f;
+
+	// Wh + bl cant be > 1
+	if (ratio > 1) {
+		wh /= ratio;
+		bl /= ratio;
+	}
+
+	const i = Math.floor(6 * h);
+	const v = 1 - bl;
+	f = 6 * h - i;
+
+	if ((i & 0x01) !== 0) {
+		f = 1 - f;
+	}
+
+	const n = wh + f * (v - wh); // Linear interpolation
+
+	let r;
+	let g;
+	let b;
+	/* eslint-disable max-statements-per-line,no-multi-spaces */
+	switch (i) {
+		default:
+		case 6:
+		case 0: r = v;  g = n;  b = wh; break;
+		case 1: r = n;  g = v;  b = wh; break;
+		case 2: r = wh; g = v;  b = n; break;
+		case 3: r = wh; g = n;  b = v; break;
+		case 4: r = n;  g = wh; b = v; break;
+		case 5: r = v;  g = wh; b = n; break;
+	}
+	/* eslint-enable max-statements-per-line,no-multi-spaces */
+
+	return [r * 255, g * 255, b * 255];
+};
+
+convert.cmyk.rgb = function (cmyk) {
+	const c = cmyk[0] / 100;
+	const m = cmyk[1] / 100;
+	const y = cmyk[2] / 100;
+	const k = cmyk[3] / 100;
+
+	const r = 1 - Math.min(1, c * (1 - k) + k);
+	const g = 1 - Math.min(1, m * (1 - k) + k);
+	const b = 1 - Math.min(1, y * (1 - k) + k);
+
+	return [r * 255, g * 255, b * 255];
+};
+
+convert.xyz.rgb = function (xyz) {
+	const x = xyz[0] / 100;
+	const y = xyz[1] / 100;
+	const z = xyz[2] / 100;
+	let r;
+	let g;
+	let b;
+
+	r = (x * 3.2406) + (y * -1.5372) + (z * -0.4986);
+	g = (x * -0.9689) + (y * 1.8758) + (z * 0.0415);
+	b = (x * 0.0557) + (y * -0.2040) + (z * 1.0570);
+
+	// Assume sRGB
+	r = r > 0.0031308
+		? ((1.055 * (r ** (1.0 / 2.4))) - 0.055)
+		: r * 12.92;
+
+	g = g > 0.0031308
+		? ((1.055 * (g ** (1.0 / 2.4))) - 0.055)
+		: g * 12.92;
+
+	b = b > 0.0031308
+		? ((1.055 * (b ** (1.0 / 2.4))) - 0.055)
+		: b * 12.92;
+
+	r = Math.min(Math.max(0, r), 1);
+	g = Math.min(Math.max(0, g), 1);
+	b = Math.min(Math.max(0, b), 1);
+
+	return [r * 255, g * 255, b * 255];
+};
+
+convert.xyz.lab = function (xyz) {
+	let x = xyz[0];
+	let y = xyz[1];
+	let z = xyz[2];
+
+	x /= 95.047;
+	y /= 100;
+	z /= 108.883;
+
+	x = x > 0.008856 ? (x ** (1 / 3)) : (7.787 * x) + (16 / 116);
+	y = y > 0.008856 ? (y ** (1 / 3)) : (7.787 * y) + (16 / 116);
+	z = z > 0.008856 ? (z ** (1 / 3)) : (7.787 * z) + (16 / 116);
+
+	const l = (116 * y) - 16;
+	const a = 500 * (x - y);
+	const b = 200 * (y - z);
+
+	return [l, a, b];
+};
+
+convert.lab.xyz = function (lab) {
+	const l = lab[0];
+	const a = lab[1];
+	const b = lab[2];
+	let x;
+	let y;
+	let z;
+
+	y = (l + 16) / 116;
+	x = a / 500 + y;
+	z = y - b / 200;
+
+	const y2 = y ** 3;
+	const x2 = x ** 3;
+	const z2 = z ** 3;
+	y = y2 > 0.008856 ? y2 : (y - 16 / 116) / 7.787;
+	x = x2 > 0.008856 ? x2 : (x - 16 / 116) / 7.787;
+	z = z2 > 0.008856 ? z2 : (z - 16 / 116) / 7.787;
+
+	x *= 95.047;
+	y *= 100;
+	z *= 108.883;
+
+	return [x, y, z];
+};
+
+convert.lab.lch = function (lab) {
+	const l = lab[0];
+	const a = lab[1];
+	const b = lab[2];
+	let h;
+
+	const hr = Math.atan2(b, a);
+	h = hr * 360 / 2 / Math.PI;
+
+	if (h < 0) {
+		h += 360;
+	}
+
+	const c = Math.sqrt(a * a + b * b);
+
+	return [l, c, h];
+};
+
+convert.lch.lab = function (lch) {
+	const l = lch[0];
+	const c = lch[1];
+	const h = lch[2];
+
+	const hr = h / 360 * 2 * Math.PI;
+	const a = c * Math.cos(hr);
+	const b = c * Math.sin(hr);
+
+	return [l, a, b];
+};
+
+convert.rgb.ansi16 = function (args, saturation = null) {
+	const [r, g, b] = args;
+	let value = saturation === null ? convert.rgb.hsv(args)[2] : saturation; // Hsv -> ansi16 optimization
+
+	value = Math.round(value / 50);
+
+	if (value === 0) {
+		return 30;
+	}
+
+	let ansi = 30
+		+ ((Math.round(b / 255) << 2)
+		| (Math.round(g / 255) << 1)
+		| Math.round(r / 255));
+
+	if (value === 2) {
+		ansi += 60;
+	}
+
+	return ansi;
+};
+
+convert.hsv.ansi16 = function (args) {
+	// Optimization here; we already know the value and don't need to get
+	// it converted for us.
+	return convert.rgb.ansi16(convert.hsv.rgb(args), args[2]);
+};
+
+convert.rgb.ansi256 = function (args) {
+	const r = args[0];
+	const g = args[1];
+	const b = args[2];
+
+	// We use the extended greyscale palette here, with the exception of
+	// black and white. normal palette only has 4 greyscale shades.
+	if (r === g && g === b) {
+		if (r < 8) {
+			return 16;
+		}
+
+		if (r > 248) {
+			return 231;
+		}
+
+		return Math.round(((r - 8) / 247) * 24) + 232;
+	}
+
+	const ansi = 16
+		+ (36 * Math.round(r / 255 * 5))
+		+ (6 * Math.round(g / 255 * 5))
+		+ Math.round(b / 255 * 5);
+
+	return ansi;
+};
+
+convert.ansi16.rgb = function (args) {
+	let color = args % 10;
+
+	// Handle greyscale
+	if (color === 0 || color === 7) {
+		if (args > 50) {
+			color += 3.5;
+		}
+
+		color = color / 10.5 * 255;
+
+		return [color, color, color];
+	}
+
+	const mult = (~~(args > 50) + 1) * 0.5;
+	const r = ((color & 1) * mult) * 255;
+	const g = (((color >> 1) & 1) * mult) * 255;
+	const b = (((color >> 2) & 1) * mult) * 255;
+
+	return [r, g, b];
+};
+
+convert.ansi256.rgb = function (args) {
+	// Handle greyscale
+	if (args >= 232) {
+		const c = (args - 232) * 10 + 8;
+		return [c, c, c];
+	}
+
+	args -= 16;
+
+	let rem;
+	const r = Math.floor(args / 36) / 5 * 255;
+	const g = Math.floor((rem = args % 36) / 6) / 5 * 255;
+	const b = (rem % 6) / 5 * 255;
+
+	return [r, g, b];
+};
+
+convert.rgb.hex = function (args) {
+	const integer = ((Math.round(args[0]) & 0xFF) << 16)
+		+ ((Math.round(args[1]) & 0xFF) << 8)
+		+ (Math.round(args[2]) & 0xFF);
+
+	const string = integer.toString(16).toUpperCase();
+	return '000000'.substring(string.length) + string;
+};
+
+convert.hex.rgb = function (args) {
+	const match = args.toString(16).match(/[a-f0-9]{6}|[a-f0-9]{3}/i);
+	if (!match) {
+		return [0, 0, 0];
+	}
+
+	let colorString = match[0];
+
+	if (match[0].length === 3) {
+		colorString = colorString.split('').map(char => {
+			return char + char;
+		}).join('');
+	}
+
+	const integer = parseInt(colorString, 16);
+	const r = (integer >> 16) & 0xFF;
+	const g = (integer >> 8) & 0xFF;
+	const b = integer & 0xFF;
+
+	return [r, g, b];
+};
+
+convert.rgb.hcg = function (rgb) {
+	const r = rgb[0] / 255;
+	const g = rgb[1] / 255;
+	const b = rgb[2] / 255;
+	const max = Math.max(Math.max(r, g), b);
+	const min = Math.min(Math.min(r, g), b);
+	const chroma = (max - min);
+	let grayscale;
+	let hue;
+
+	if (chroma < 1) {
+		grayscale = min / (1 - chroma);
+	} else {
+		grayscale = 0;
+	}
+
+	if (chroma <= 0) {
+		hue = 0;
+	} else
+	if (max === r) {
+		hue = ((g - b) / chroma) % 6;
+	} else
+	if (max === g) {
+		hue = 2 + (b - r) / chroma;
+	} else {
+		hue = 4 + (r - g) / chroma;
+	}
+
+	hue /= 6;
+	hue %= 1;
+
+	return [hue * 360, chroma * 100, grayscale * 100];
+};
+
+convert.hsl.hcg = function (hsl) {
+	const s = hsl[1] / 100;
+	const l = hsl[2] / 100;
+
+	const c = l < 0.5 ? (2.0 * s * l) : (2.0 * s * (1.0 - l));
+
+	let f = 0;
+	if (c < 1.0) {
+		f = (l - 0.5 * c) / (1.0 - c);
+	}
+
+	return [hsl[0], c * 100, f * 100];
+};
+
+convert.hsv.hcg = function (hsv) {
+	const s = hsv[1] / 100;
+	const v = hsv[2] / 100;
+
+	const c = s * v;
+	let f = 0;
+
+	if (c < 1.0) {
+		f = (v - c) / (1 - c);
+	}
+
+	return [hsv[0], c * 100, f * 100];
+};
+
+convert.hcg.rgb = function (hcg) {
+	const h = hcg[0] / 360;
+	const c = hcg[1] / 100;
+	const g = hcg[2] / 100;
+
+	if (c === 0.0) {
+		return [g * 255, g * 255, g * 255];
+	}
+
+	const pure = [0, 0, 0];
+	const hi = (h % 1) * 6;
+	const v = hi % 1;
+	const w = 1 - v;
+	let mg = 0;
+
+	/* eslint-disable max-statements-per-line */
+	switch (Math.floor(hi)) {
+		case 0:
+			pure[0] = 1; pure[1] = v; pure[2] = 0; break;
+		case 1:
+			pure[0] = w; pure[1] = 1; pure[2] = 0; break;
+		case 2:
+			pure[0] = 0; pure[1] = 1; pure[2] = v; break;
+		case 3:
+			pure[0] = 0; pure[1] = w; pure[2] = 1; break;
+		case 4:
+			pure[0] = v; pure[1] = 0; pure[2] = 1; break;
+		default:
+			pure[0] = 1; pure[1] = 0; pure[2] = w;
+	}
+	/* eslint-enable max-statements-per-line */
+
+	mg = (1.0 - c) * g;
+
+	return [
+		(c * pure[0] + mg) * 255,
+		(c * pure[1] + mg) * 255,
+		(c * pure[2] + mg) * 255
+	];
+};
+
+convert.hcg.hsv = function (hcg) {
+	const c = hcg[1] / 100;
+	const g = hcg[2] / 100;
+
+	const v = c + g * (1.0 - c);
+	let f = 0;
+
+	if (v > 0.0) {
+		f = c / v;
+	}
+
+	return [hcg[0], f * 100, v * 100];
+};
+
+convert.hcg.hsl = function (hcg) {
+	const c = hcg[1] / 100;
+	const g = hcg[2] / 100;
+
+	const l = g * (1.0 - c) + 0.5 * c;
+	let s = 0;
+
+	if (l > 0.0 && l < 0.5) {
+		s = c / (2 * l);
+	} else
+	if (l >= 0.5 && l < 1.0) {
+		s = c / (2 * (1 - l));
+	}
+
+	return [hcg[0], s * 100, l * 100];
+};
+
+convert.hcg.hwb = function (hcg) {
+	const c = hcg[1] / 100;
+	const g = hcg[2] / 100;
+	const v = c + g * (1.0 - c);
+	return [hcg[0], (v - c) * 100, (1 - v) * 100];
+};
+
+convert.hwb.hcg = function (hwb) {
+	const w = hwb[1] / 100;
+	const b = hwb[2] / 100;
+	const v = 1 - b;
+	const c = v - w;
+	let g = 0;
+
+	if (c < 1) {
+		g = (v - c) / (1 - c);
+	}
+
+	return [hwb[0], c * 100, g * 100];
+};
+
+convert.apple.rgb = function (apple) {
+	return [(apple[0] / 65535) * 255, (apple[1] / 65535) * 255, (apple[2] / 65535) * 255];
+};
+
+convert.rgb.apple = function (rgb) {
+	return [(rgb[0] / 255) * 65535, (rgb[1] / 255) * 65535, (rgb[2] / 255) * 65535];
+};
+
+convert.gray.rgb = function (args) {
+	return [args[0] / 100 * 255, args[0] / 100 * 255, args[0] / 100 * 255];
+};
+
+convert.gray.hsl = function (args) {
+	return [0, 0, args[0]];
+};
+
+convert.gray.hsv = convert.gray.hsl;
+
+convert.gray.hwb = function (gray) {
+	return [0, 100, gray[0]];
+};
+
+convert.gray.cmyk = function (gray) {
+	return [0, 0, 0, gray[0]];
+};
+
+convert.gray.lab = function (gray) {
+	return [gray[0], 0, 0];
+};
+
+convert.gray.hex = function (gray) {
+	const val = Math.round(gray[0] / 100 * 255) & 0xFF;
+	const integer = (val << 16) + (val << 8) + val;
+
+	const string = integer.toString(16).toUpperCase();
+	return '000000'.substring(string.length) + string;
+};
+
+convert.rgb.gray = function (rgb) {
+	const val = (rgb[0] + rgb[1] + rgb[2]) / 3;
+	return [val / 255 * 100];
+};
+
 
 /***/ }),
 
@@ -356,6 +1484,13 @@ function build(clusterWorkerId) {
 
 module.exports = build;
 
+
+/***/ }),
+
+/***/ "4024":
+/***/ (function(module, exports, __webpack_require__) {
+
+// extracted by mini-css-extract-plugin
 
 /***/ }),
 
@@ -477,21 +1612,196 @@ module.exports = {
 
 /***/ }),
 
-/***/ "4a7b":
+/***/ "4a69":
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+/* harmony import */ var _node_modules_mini_css_extract_plugin_dist_loader_js_ref_10_oneOf_1_0_node_modules_css_loader_dist_cjs_js_ref_10_oneOf_1_1_node_modules_vue_loader_v16_dist_stylePostLoader_js_node_modules_postcss_loader_src_index_js_ref_10_oneOf_1_2_node_modules_less_loader_dist_cjs_js_ref_10_oneOf_1_3_node_modules_cache_loader_dist_cjs_js_ref_0_0_node_modules_vue_loader_v16_dist_index_js_ref_0_1_color_vue_vue_type_style_index_0_id_7aabc3e9_scoped_true_lang_less__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__("4024");
+/* harmony import */ var _node_modules_mini_css_extract_plugin_dist_loader_js_ref_10_oneOf_1_0_node_modules_css_loader_dist_cjs_js_ref_10_oneOf_1_1_node_modules_vue_loader_v16_dist_stylePostLoader_js_node_modules_postcss_loader_src_index_js_ref_10_oneOf_1_2_node_modules_less_loader_dist_cjs_js_ref_10_oneOf_1_3_node_modules_cache_loader_dist_cjs_js_ref_0_0_node_modules_vue_loader_v16_dist_index_js_ref_0_1_color_vue_vue_type_style_index_0_id_7aabc3e9_scoped_true_lang_less__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(_node_modules_mini_css_extract_plugin_dist_loader_js_ref_10_oneOf_1_0_node_modules_css_loader_dist_cjs_js_ref_10_oneOf_1_1_node_modules_vue_loader_v16_dist_stylePostLoader_js_node_modules_postcss_loader_src_index_js_ref_10_oneOf_1_2_node_modules_less_loader_dist_cjs_js_ref_10_oneOf_1_3_node_modules_cache_loader_dist_cjs_js_ref_0_0_node_modules_vue_loader_v16_dist_index_js_ref_0_1_color_vue_vue_type_style_index_0_id_7aabc3e9_scoped_true_lang_less__WEBPACK_IMPORTED_MODULE_0__);
+/* unused harmony reexport * */
+
+
+/***/ }),
+
+/***/ "4cf2":
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+/* harmony import */ var _node_modules_mini_css_extract_plugin_dist_loader_js_ref_10_oneOf_1_0_node_modules_css_loader_dist_cjs_js_ref_10_oneOf_1_1_node_modules_vue_loader_v16_dist_stylePostLoader_js_node_modules_postcss_loader_src_index_js_ref_10_oneOf_1_2_node_modules_less_loader_dist_cjs_js_ref_10_oneOf_1_3_node_modules_cache_loader_dist_cjs_js_ref_0_0_node_modules_vue_loader_v16_dist_index_js_ref_0_1_button_vue_vue_type_style_index_0_id_386514bd_scoped_true_lang_less__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__("4eb6");
+/* harmony import */ var _node_modules_mini_css_extract_plugin_dist_loader_js_ref_10_oneOf_1_0_node_modules_css_loader_dist_cjs_js_ref_10_oneOf_1_1_node_modules_vue_loader_v16_dist_stylePostLoader_js_node_modules_postcss_loader_src_index_js_ref_10_oneOf_1_2_node_modules_less_loader_dist_cjs_js_ref_10_oneOf_1_3_node_modules_cache_loader_dist_cjs_js_ref_0_0_node_modules_vue_loader_v16_dist_index_js_ref_0_1_button_vue_vue_type_style_index_0_id_386514bd_scoped_true_lang_less__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(_node_modules_mini_css_extract_plugin_dist_loader_js_ref_10_oneOf_1_0_node_modules_css_loader_dist_cjs_js_ref_10_oneOf_1_1_node_modules_vue_loader_v16_dist_stylePostLoader_js_node_modules_postcss_loader_src_index_js_ref_10_oneOf_1_2_node_modules_less_loader_dist_cjs_js_ref_10_oneOf_1_3_node_modules_cache_loader_dist_cjs_js_ref_0_0_node_modules_vue_loader_v16_dist_index_js_ref_0_1_button_vue_vue_type_style_index_0_id_386514bd_scoped_true_lang_less__WEBPACK_IMPORTED_MODULE_0__);
+/* unused harmony reexport * */
+
+
+/***/ }),
+
+/***/ "4eb6":
 /***/ (function(module, exports, __webpack_require__) {
 
 // extracted by mini-css-extract-plugin
+
+/***/ }),
+
+/***/ "4f4d":
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+module.exports = {
+	"aliceblue": [240, 248, 255],
+	"antiquewhite": [250, 235, 215],
+	"aqua": [0, 255, 255],
+	"aquamarine": [127, 255, 212],
+	"azure": [240, 255, 255],
+	"beige": [245, 245, 220],
+	"bisque": [255, 228, 196],
+	"black": [0, 0, 0],
+	"blanchedalmond": [255, 235, 205],
+	"blue": [0, 0, 255],
+	"blueviolet": [138, 43, 226],
+	"brown": [165, 42, 42],
+	"burlywood": [222, 184, 135],
+	"cadetblue": [95, 158, 160],
+	"chartreuse": [127, 255, 0],
+	"chocolate": [210, 105, 30],
+	"coral": [255, 127, 80],
+	"cornflowerblue": [100, 149, 237],
+	"cornsilk": [255, 248, 220],
+	"crimson": [220, 20, 60],
+	"cyan": [0, 255, 255],
+	"darkblue": [0, 0, 139],
+	"darkcyan": [0, 139, 139],
+	"darkgoldenrod": [184, 134, 11],
+	"darkgray": [169, 169, 169],
+	"darkgreen": [0, 100, 0],
+	"darkgrey": [169, 169, 169],
+	"darkkhaki": [189, 183, 107],
+	"darkmagenta": [139, 0, 139],
+	"darkolivegreen": [85, 107, 47],
+	"darkorange": [255, 140, 0],
+	"darkorchid": [153, 50, 204],
+	"darkred": [139, 0, 0],
+	"darksalmon": [233, 150, 122],
+	"darkseagreen": [143, 188, 143],
+	"darkslateblue": [72, 61, 139],
+	"darkslategray": [47, 79, 79],
+	"darkslategrey": [47, 79, 79],
+	"darkturquoise": [0, 206, 209],
+	"darkviolet": [148, 0, 211],
+	"deeppink": [255, 20, 147],
+	"deepskyblue": [0, 191, 255],
+	"dimgray": [105, 105, 105],
+	"dimgrey": [105, 105, 105],
+	"dodgerblue": [30, 144, 255],
+	"firebrick": [178, 34, 34],
+	"floralwhite": [255, 250, 240],
+	"forestgreen": [34, 139, 34],
+	"fuchsia": [255, 0, 255],
+	"gainsboro": [220, 220, 220],
+	"ghostwhite": [248, 248, 255],
+	"gold": [255, 215, 0],
+	"goldenrod": [218, 165, 32],
+	"gray": [128, 128, 128],
+	"green": [0, 128, 0],
+	"greenyellow": [173, 255, 47],
+	"grey": [128, 128, 128],
+	"honeydew": [240, 255, 240],
+	"hotpink": [255, 105, 180],
+	"indianred": [205, 92, 92],
+	"indigo": [75, 0, 130],
+	"ivory": [255, 255, 240],
+	"khaki": [240, 230, 140],
+	"lavender": [230, 230, 250],
+	"lavenderblush": [255, 240, 245],
+	"lawngreen": [124, 252, 0],
+	"lemonchiffon": [255, 250, 205],
+	"lightblue": [173, 216, 230],
+	"lightcoral": [240, 128, 128],
+	"lightcyan": [224, 255, 255],
+	"lightgoldenrodyellow": [250, 250, 210],
+	"lightgray": [211, 211, 211],
+	"lightgreen": [144, 238, 144],
+	"lightgrey": [211, 211, 211],
+	"lightpink": [255, 182, 193],
+	"lightsalmon": [255, 160, 122],
+	"lightseagreen": [32, 178, 170],
+	"lightskyblue": [135, 206, 250],
+	"lightslategray": [119, 136, 153],
+	"lightslategrey": [119, 136, 153],
+	"lightsteelblue": [176, 196, 222],
+	"lightyellow": [255, 255, 224],
+	"lime": [0, 255, 0],
+	"limegreen": [50, 205, 50],
+	"linen": [250, 240, 230],
+	"magenta": [255, 0, 255],
+	"maroon": [128, 0, 0],
+	"mediumaquamarine": [102, 205, 170],
+	"mediumblue": [0, 0, 205],
+	"mediumorchid": [186, 85, 211],
+	"mediumpurple": [147, 112, 219],
+	"mediumseagreen": [60, 179, 113],
+	"mediumslateblue": [123, 104, 238],
+	"mediumspringgreen": [0, 250, 154],
+	"mediumturquoise": [72, 209, 204],
+	"mediumvioletred": [199, 21, 133],
+	"midnightblue": [25, 25, 112],
+	"mintcream": [245, 255, 250],
+	"mistyrose": [255, 228, 225],
+	"moccasin": [255, 228, 181],
+	"navajowhite": [255, 222, 173],
+	"navy": [0, 0, 128],
+	"oldlace": [253, 245, 230],
+	"olive": [128, 128, 0],
+	"olivedrab": [107, 142, 35],
+	"orange": [255, 165, 0],
+	"orangered": [255, 69, 0],
+	"orchid": [218, 112, 214],
+	"palegoldenrod": [238, 232, 170],
+	"palegreen": [152, 251, 152],
+	"paleturquoise": [175, 238, 238],
+	"palevioletred": [219, 112, 147],
+	"papayawhip": [255, 239, 213],
+	"peachpuff": [255, 218, 185],
+	"peru": [205, 133, 63],
+	"pink": [255, 192, 203],
+	"plum": [221, 160, 221],
+	"powderblue": [176, 224, 230],
+	"purple": [128, 0, 128],
+	"rebeccapurple": [102, 51, 153],
+	"red": [255, 0, 0],
+	"rosybrown": [188, 143, 143],
+	"royalblue": [65, 105, 225],
+	"saddlebrown": [139, 69, 19],
+	"salmon": [250, 128, 114],
+	"sandybrown": [244, 164, 96],
+	"seagreen": [46, 139, 87],
+	"seashell": [255, 245, 238],
+	"sienna": [160, 82, 45],
+	"silver": [192, 192, 192],
+	"skyblue": [135, 206, 235],
+	"slateblue": [106, 90, 205],
+	"slategray": [112, 128, 144],
+	"slategrey": [112, 128, 144],
+	"snow": [255, 250, 250],
+	"springgreen": [0, 255, 127],
+	"steelblue": [70, 130, 180],
+	"tan": [210, 180, 140],
+	"teal": [0, 128, 128],
+	"thistle": [216, 191, 216],
+	"tomato": [255, 99, 71],
+	"turquoise": [64, 224, 208],
+	"violet": [238, 130, 238],
+	"wheat": [245, 222, 179],
+	"white": [255, 255, 255],
+	"whitesmoke": [245, 245, 245],
+	"yellow": [255, 255, 0],
+	"yellowgreen": [154, 205, 50]
+};
+
 
 /***/ }),
 
 /***/ "54f4":
-/***/ (function(module, exports, __webpack_require__) {
-
-// extracted by mini-css-extract-plugin
-
-/***/ }),
-
-/***/ "5754":
 /***/ (function(module, exports, __webpack_require__) {
 
 // extracted by mini-css-extract-plugin
@@ -3751,6 +5061,17 @@ module.exports = {
 
 /***/ }),
 
+/***/ "619c":
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+/* harmony import */ var _node_modules_mini_css_extract_plugin_dist_loader_js_ref_10_oneOf_1_0_node_modules_css_loader_dist_cjs_js_ref_10_oneOf_1_1_node_modules_vue_loader_v16_dist_stylePostLoader_js_node_modules_postcss_loader_src_index_js_ref_10_oneOf_1_2_node_modules_less_loader_dist_cjs_js_ref_10_oneOf_1_3_node_modules_cache_loader_dist_cjs_js_ref_0_0_node_modules_vue_loader_v16_dist_index_js_ref_0_1_item_vue_vue_type_style_index_0_id_f0eaa83a_scoped_true_lang_less__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__("b4dc");
+/* harmony import */ var _node_modules_mini_css_extract_plugin_dist_loader_js_ref_10_oneOf_1_0_node_modules_css_loader_dist_cjs_js_ref_10_oneOf_1_1_node_modules_vue_loader_v16_dist_stylePostLoader_js_node_modules_postcss_loader_src_index_js_ref_10_oneOf_1_2_node_modules_less_loader_dist_cjs_js_ref_10_oneOf_1_3_node_modules_cache_loader_dist_cjs_js_ref_0_0_node_modules_vue_loader_v16_dist_index_js_ref_0_1_item_vue_vue_type_style_index_0_id_f0eaa83a_scoped_true_lang_less__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(_node_modules_mini_css_extract_plugin_dist_loader_js_ref_10_oneOf_1_0_node_modules_css_loader_dist_cjs_js_ref_10_oneOf_1_1_node_modules_vue_loader_v16_dist_stylePostLoader_js_node_modules_postcss_loader_src_index_js_ref_10_oneOf_1_2_node_modules_less_loader_dist_cjs_js_ref_10_oneOf_1_3_node_modules_cache_loader_dist_cjs_js_ref_0_0_node_modules_vue_loader_v16_dist_index_js_ref_0_1_item_vue_vue_type_style_index_0_id_f0eaa83a_scoped_true_lang_less__WEBPACK_IMPORTED_MODULE_0__);
+/* unused harmony reexport * */
+
+
+/***/ }),
+
 /***/ "6275":
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
@@ -4970,6 +6291,509 @@ else {}
 
 /***/ }),
 
+/***/ "6929":
+/***/ (function(module, exports, __webpack_require__) {
+
+const colorString = __webpack_require__("1ab9");
+const convert = __webpack_require__("dedd");
+
+const skippedModels = [
+	// To be honest, I don't really feel like keyword belongs in color convert, but eh.
+	'keyword',
+
+	// Gray conflicts with some method names, and has its own method defined.
+	'gray',
+
+	// Shouldn't really be in color-convert either...
+	'hex',
+];
+
+const hashedModelKeys = {};
+for (const model of Object.keys(convert)) {
+	hashedModelKeys[[...convert[model].labels].sort().join('')] = model;
+}
+
+const limiters = {};
+
+function Color(object, model) {
+	if (!(this instanceof Color)) {
+		return new Color(object, model);
+	}
+
+	if (model && model in skippedModels) {
+		model = null;
+	}
+
+	if (model && !(model in convert)) {
+		throw new Error('Unknown model: ' + model);
+	}
+
+	let i;
+	let channels;
+
+	if (object == null) { // eslint-disable-line no-eq-null,eqeqeq
+		this.model = 'rgb';
+		this.color = [0, 0, 0];
+		this.valpha = 1;
+	} else if (object instanceof Color) {
+		this.model = object.model;
+		this.color = [...object.color];
+		this.valpha = object.valpha;
+	} else if (typeof object === 'string') {
+		const result = colorString.get(object);
+		if (result === null) {
+			throw new Error('Unable to parse color from string: ' + object);
+		}
+
+		this.model = result.model;
+		channels = convert[this.model].channels;
+		this.color = result.value.slice(0, channels);
+		this.valpha = typeof result.value[channels] === 'number' ? result.value[channels] : 1;
+	} else if (object.length > 0) {
+		this.model = model || 'rgb';
+		channels = convert[this.model].channels;
+		const newArray = Array.prototype.slice.call(object, 0, channels);
+		this.color = zeroArray(newArray, channels);
+		this.valpha = typeof object[channels] === 'number' ? object[channels] : 1;
+	} else if (typeof object === 'number') {
+		// This is always RGB - can be converted later on.
+		this.model = 'rgb';
+		this.color = [
+			(object >> 16) & 0xFF,
+			(object >> 8) & 0xFF,
+			object & 0xFF,
+		];
+		this.valpha = 1;
+	} else {
+		this.valpha = 1;
+
+		const keys = Object.keys(object);
+		if ('alpha' in object) {
+			keys.splice(keys.indexOf('alpha'), 1);
+			this.valpha = typeof object.alpha === 'number' ? object.alpha : 0;
+		}
+
+		const hashedKeys = keys.sort().join('');
+		if (!(hashedKeys in hashedModelKeys)) {
+			throw new Error('Unable to parse color from object: ' + JSON.stringify(object));
+		}
+
+		this.model = hashedModelKeys[hashedKeys];
+
+		const {labels} = convert[this.model];
+		const color = [];
+		for (i = 0; i < labels.length; i++) {
+			color.push(object[labels[i]]);
+		}
+
+		this.color = zeroArray(color);
+	}
+
+	// Perform limitations (clamping, etc.)
+	if (limiters[this.model]) {
+		channels = convert[this.model].channels;
+		for (i = 0; i < channels; i++) {
+			const limit = limiters[this.model][i];
+			if (limit) {
+				this.color[i] = limit(this.color[i]);
+			}
+		}
+	}
+
+	this.valpha = Math.max(0, Math.min(1, this.valpha));
+
+	if (Object.freeze) {
+		Object.freeze(this);
+	}
+}
+
+Color.prototype = {
+	toString() {
+		return this.string();
+	},
+
+	toJSON() {
+		return this[this.model]();
+	},
+
+	string(places) {
+		let self = this.model in colorString.to ? this : this.rgb();
+		self = self.round(typeof places === 'number' ? places : 1);
+		const args = self.valpha === 1 ? self.color : [...self.color, this.valpha];
+		return colorString.to[self.model](args);
+	},
+
+	percentString(places) {
+		const self = this.rgb().round(typeof places === 'number' ? places : 1);
+		const args = self.valpha === 1 ? self.color : [...self.color, this.valpha];
+		return colorString.to.rgb.percent(args);
+	},
+
+	array() {
+		return this.valpha === 1 ? [...this.color] : [...this.color, this.valpha];
+	},
+
+	object() {
+		const result = {};
+		const {channels} = convert[this.model];
+		const {labels} = convert[this.model];
+
+		for (let i = 0; i < channels; i++) {
+			result[labels[i]] = this.color[i];
+		}
+
+		if (this.valpha !== 1) {
+			result.alpha = this.valpha;
+		}
+
+		return result;
+	},
+
+	unitArray() {
+		const rgb = this.rgb().color;
+		rgb[0] /= 255;
+		rgb[1] /= 255;
+		rgb[2] /= 255;
+
+		if (this.valpha !== 1) {
+			rgb.push(this.valpha);
+		}
+
+		return rgb;
+	},
+
+	unitObject() {
+		const rgb = this.rgb().object();
+		rgb.r /= 255;
+		rgb.g /= 255;
+		rgb.b /= 255;
+
+		if (this.valpha !== 1) {
+			rgb.alpha = this.valpha;
+		}
+
+		return rgb;
+	},
+
+	round(places) {
+		places = Math.max(places || 0, 0);
+		return new Color([...this.color.map(roundToPlace(places)), this.valpha], this.model);
+	},
+
+	alpha(value) {
+		if (value !== undefined) {
+			return new Color([...this.color, Math.max(0, Math.min(1, value))], this.model);
+		}
+
+		return this.valpha;
+	},
+
+	// Rgb
+	red: getset('rgb', 0, maxfn(255)),
+	green: getset('rgb', 1, maxfn(255)),
+	blue: getset('rgb', 2, maxfn(255)),
+
+	hue: getset(['hsl', 'hsv', 'hsl', 'hwb', 'hcg'], 0, value => ((value % 360) + 360) % 360),
+
+	saturationl: getset('hsl', 1, maxfn(100)),
+	lightness: getset('hsl', 2, maxfn(100)),
+
+	saturationv: getset('hsv', 1, maxfn(100)),
+	value: getset('hsv', 2, maxfn(100)),
+
+	chroma: getset('hcg', 1, maxfn(100)),
+	gray: getset('hcg', 2, maxfn(100)),
+
+	white: getset('hwb', 1, maxfn(100)),
+	wblack: getset('hwb', 2, maxfn(100)),
+
+	cyan: getset('cmyk', 0, maxfn(100)),
+	magenta: getset('cmyk', 1, maxfn(100)),
+	yellow: getset('cmyk', 2, maxfn(100)),
+	black: getset('cmyk', 3, maxfn(100)),
+
+	x: getset('xyz', 0, maxfn(95.047)),
+	y: getset('xyz', 1, maxfn(100)),
+	z: getset('xyz', 2, maxfn(108.833)),
+
+	l: getset('lab', 0, maxfn(100)),
+	a: getset('lab', 1),
+	b: getset('lab', 2),
+
+	keyword(value) {
+		if (value !== undefined) {
+			return new Color(value);
+		}
+
+		return convert[this.model].keyword(this.color);
+	},
+
+	hex(value) {
+		if (value !== undefined) {
+			return new Color(value);
+		}
+
+		return colorString.to.hex(this.rgb().round().color);
+	},
+
+	hexa(value) {
+		if (value !== undefined) {
+			return new Color(value);
+		}
+
+		const rgbArray = this.rgb().round().color;
+
+		let alphaHex = Math.round(this.valpha * 255).toString(16).toUpperCase();
+		if (alphaHex.length === 1) {
+			alphaHex = '0' + alphaHex;
+		}
+
+		return colorString.to.hex(rgbArray) + alphaHex;
+	},
+
+	rgbNumber() {
+		const rgb = this.rgb().color;
+		return ((rgb[0] & 0xFF) << 16) | ((rgb[1] & 0xFF) << 8) | (rgb[2] & 0xFF);
+	},
+
+	luminosity() {
+		// http://www.w3.org/TR/WCAG20/#relativeluminancedef
+		const rgb = this.rgb().color;
+
+		const lum = [];
+		for (const [i, element] of rgb.entries()) {
+			const chan = element / 255;
+			lum[i] = (chan <= 0.04045) ? chan / 12.92 : ((chan + 0.055) / 1.055) ** 2.4;
+		}
+
+		return 0.2126 * lum[0] + 0.7152 * lum[1] + 0.0722 * lum[2];
+	},
+
+	contrast(color2) {
+		// http://www.w3.org/TR/WCAG20/#contrast-ratiodef
+		const lum1 = this.luminosity();
+		const lum2 = color2.luminosity();
+
+		if (lum1 > lum2) {
+			return (lum1 + 0.05) / (lum2 + 0.05);
+		}
+
+		return (lum2 + 0.05) / (lum1 + 0.05);
+	},
+
+	level(color2) {
+		// https://www.w3.org/TR/WCAG/#contrast-enhanced
+		const contrastRatio = this.contrast(color2);
+		if (contrastRatio >= 7) {
+			return 'AAA';
+		}
+
+		return (contrastRatio >= 4.5) ? 'AA' : '';
+	},
+
+	isDark() {
+		// YIQ equation from http://24ways.org/2010/calculating-color-contrast
+		const rgb = this.rgb().color;
+		const yiq = (rgb[0] * 2126 + rgb[1] * 7152 + rgb[2] * 722) / 10000;
+		return yiq < 128;
+	},
+
+	isLight() {
+		return !this.isDark();
+	},
+
+	negate() {
+		const rgb = this.rgb();
+		for (let i = 0; i < 3; i++) {
+			rgb.color[i] = 255 - rgb.color[i];
+		}
+
+		return rgb;
+	},
+
+	lighten(ratio) {
+		const hsl = this.hsl();
+		hsl.color[2] += hsl.color[2] * ratio;
+		return hsl;
+	},
+
+	darken(ratio) {
+		const hsl = this.hsl();
+		hsl.color[2] -= hsl.color[2] * ratio;
+		return hsl;
+	},
+
+	saturate(ratio) {
+		const hsl = this.hsl();
+		hsl.color[1] += hsl.color[1] * ratio;
+		return hsl;
+	},
+
+	desaturate(ratio) {
+		const hsl = this.hsl();
+		hsl.color[1] -= hsl.color[1] * ratio;
+		return hsl;
+	},
+
+	whiten(ratio) {
+		const hwb = this.hwb();
+		hwb.color[1] += hwb.color[1] * ratio;
+		return hwb;
+	},
+
+	blacken(ratio) {
+		const hwb = this.hwb();
+		hwb.color[2] += hwb.color[2] * ratio;
+		return hwb;
+	},
+
+	grayscale() {
+		// http://en.wikipedia.org/wiki/Grayscale#Converting_color_to_grayscale
+		const rgb = this.rgb().color;
+		const value = rgb[0] * 0.3 + rgb[1] * 0.59 + rgb[2] * 0.11;
+		return Color.rgb(value, value, value);
+	},
+
+	fade(ratio) {
+		return this.alpha(this.valpha - (this.valpha * ratio));
+	},
+
+	opaquer(ratio) {
+		return this.alpha(this.valpha + (this.valpha * ratio));
+	},
+
+	rotate(degrees) {
+		const hsl = this.hsl();
+		let hue = hsl.color[0];
+		hue = (hue + degrees) % 360;
+		hue = hue < 0 ? 360 + hue : hue;
+		hsl.color[0] = hue;
+		return hsl;
+	},
+
+	mix(mixinColor, weight) {
+		// Ported from sass implementation in C
+		// https://github.com/sass/libsass/blob/0e6b4a2850092356aa3ece07c6b249f0221caced/functions.cpp#L209
+		if (!mixinColor || !mixinColor.rgb) {
+			throw new Error('Argument to "mix" was not a Color instance, but rather an instance of ' + typeof mixinColor);
+		}
+
+		const color1 = mixinColor.rgb();
+		const color2 = this.rgb();
+		const p = weight === undefined ? 0.5 : weight;
+
+		const w = 2 * p - 1;
+		const a = color1.alpha() - color2.alpha();
+
+		const w1 = (((w * a === -1) ? w : (w + a) / (1 + w * a)) + 1) / 2;
+		const w2 = 1 - w1;
+
+		return Color.rgb(
+			w1 * color1.red() + w2 * color2.red(),
+			w1 * color1.green() + w2 * color2.green(),
+			w1 * color1.blue() + w2 * color2.blue(),
+			color1.alpha() * p + color2.alpha() * (1 - p));
+	},
+};
+
+// Model conversion methods and static constructors
+for (const model of Object.keys(convert)) {
+	if (skippedModels.includes(model)) {
+		continue;
+	}
+
+	const {channels} = convert[model];
+
+	// Conversion methods
+	Color.prototype[model] = function (...args) {
+		if (this.model === model) {
+			return new Color(this);
+		}
+
+		if (args.length > 0) {
+			return new Color(args, model);
+		}
+
+		return new Color([...assertArray(convert[this.model][model].raw(this.color)), this.valpha], model);
+	};
+
+	// 'static' construction methods
+	Color[model] = function (...args) {
+		let color = args[0];
+		if (typeof color === 'number') {
+			color = zeroArray(args, channels);
+		}
+
+		return new Color(color, model);
+	};
+}
+
+function roundTo(number, places) {
+	return Number(number.toFixed(places));
+}
+
+function roundToPlace(places) {
+	return function (number) {
+		return roundTo(number, places);
+	};
+}
+
+function getset(model, channel, modifier) {
+	model = Array.isArray(model) ? model : [model];
+
+	for (const m of model) {
+		(limiters[m] || (limiters[m] = []))[channel] = modifier;
+	}
+
+	model = model[0];
+
+	return function (value) {
+		let result;
+
+		if (value !== undefined) {
+			if (modifier) {
+				value = modifier(value);
+			}
+
+			result = this[model]();
+			result.color[channel] = value;
+			return result;
+		}
+
+		result = this[model]().color[channel];
+		if (modifier) {
+			result = modifier(result);
+		}
+
+		return result;
+	};
+}
+
+function maxfn(max) {
+	return function (v) {
+		return Math.max(0, Math.min(max, v));
+	};
+}
+
+function assertArray(value) {
+	return Array.isArray(value) ? value : [value];
+}
+
+function zeroArray(array, length) {
+	for (let i = 0; i < length; i++) {
+		if (typeof array[i] !== 'number') {
+			array[i] = 0;
+		}
+	}
+
+	return array;
+}
+
+module.exports = Color;
+
+
+/***/ }),
+
 /***/ "6abb":
 /***/ (function(module, exports, __webpack_require__) {
 
@@ -4996,6 +6820,17 @@ exports.default = (sfc, props) => {
 
 /***/ }),
 
+/***/ "6b41":
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+/* harmony import */ var _node_modules_mini_css_extract_plugin_dist_loader_js_ref_10_oneOf_1_0_node_modules_css_loader_dist_cjs_js_ref_10_oneOf_1_1_node_modules_vue_loader_v16_dist_stylePostLoader_js_node_modules_postcss_loader_src_index_js_ref_10_oneOf_1_2_node_modules_less_loader_dist_cjs_js_ref_10_oneOf_1_3_node_modules_cache_loader_dist_cjs_js_ref_0_0_node_modules_vue_loader_v16_dist_index_js_ref_0_1_select_vue_vue_type_style_index_0_id_582879e8_scoped_true_lang_less__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__("067b");
+/* harmony import */ var _node_modules_mini_css_extract_plugin_dist_loader_js_ref_10_oneOf_1_0_node_modules_css_loader_dist_cjs_js_ref_10_oneOf_1_1_node_modules_vue_loader_v16_dist_stylePostLoader_js_node_modules_postcss_loader_src_index_js_ref_10_oneOf_1_2_node_modules_less_loader_dist_cjs_js_ref_10_oneOf_1_3_node_modules_cache_loader_dist_cjs_js_ref_0_0_node_modules_vue_loader_v16_dist_index_js_ref_0_1_select_vue_vue_type_style_index_0_id_582879e8_scoped_true_lang_less__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(_node_modules_mini_css_extract_plugin_dist_loader_js_ref_10_oneOf_1_0_node_modules_css_loader_dist_cjs_js_ref_10_oneOf_1_1_node_modules_vue_loader_v16_dist_stylePostLoader_js_node_modules_postcss_loader_src_index_js_ref_10_oneOf_1_2_node_modules_less_loader_dist_cjs_js_ref_10_oneOf_1_3_node_modules_cache_loader_dist_cjs_js_ref_0_0_node_modules_vue_loader_v16_dist_index_js_ref_0_1_select_vue_vue_type_style_index_0_id_582879e8_scoped_true_lang_less__WEBPACK_IMPORTED_MODULE_0__);
+/* unused harmony reexport * */
+
+
+/***/ }),
+
 /***/ "6b50":
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
@@ -5007,7 +6842,118 @@ exports.default = (sfc, props) => {
 
 /***/ }),
 
+/***/ "6e7e":
+/***/ (function(module, exports, __webpack_require__) {
+
+const conversions = __webpack_require__("307f");
+
+/*
+	This function routes a model to all other models.
+
+	all functions that are routed have a property `.conversion` attached
+	to the returned synthetic function. This property is an array
+	of strings, each with the steps in between the 'from' and 'to'
+	color models (inclusive).
+
+	conversions that are not possible simply are not included.
+*/
+
+function buildGraph() {
+	const graph = {};
+	// https://jsperf.com/object-keys-vs-for-in-with-closure/3
+	const models = Object.keys(conversions);
+
+	for (let len = models.length, i = 0; i < len; i++) {
+		graph[models[i]] = {
+			// http://jsperf.com/1-vs-infinity
+			// micro-opt, but this is simple.
+			distance: -1,
+			parent: null
+		};
+	}
+
+	return graph;
+}
+
+// https://en.wikipedia.org/wiki/Breadth-first_search
+function deriveBFS(fromModel) {
+	const graph = buildGraph();
+	const queue = [fromModel]; // Unshift -> queue -> pop
+
+	graph[fromModel].distance = 0;
+
+	while (queue.length) {
+		const current = queue.pop();
+		const adjacents = Object.keys(conversions[current]);
+
+		for (let len = adjacents.length, i = 0; i < len; i++) {
+			const adjacent = adjacents[i];
+			const node = graph[adjacent];
+
+			if (node.distance === -1) {
+				node.distance = graph[current].distance + 1;
+				node.parent = current;
+				queue.unshift(adjacent);
+			}
+		}
+	}
+
+	return graph;
+}
+
+function link(from, to) {
+	return function (args) {
+		return to(from(args));
+	};
+}
+
+function wrapConversion(toModel, graph) {
+	const path = [graph[toModel].parent, toModel];
+	let fn = conversions[graph[toModel].parent][toModel];
+
+	let cur = graph[toModel].parent;
+	while (graph[cur].parent) {
+		path.unshift(graph[cur].parent);
+		fn = link(conversions[graph[cur].parent][cur], fn);
+		cur = graph[cur].parent;
+	}
+
+	fn.conversion = path;
+	return fn;
+}
+
+module.exports = function (fromModel) {
+	const graph = deriveBFS(fromModel);
+	const conversion = {};
+
+	const models = Object.keys(graph);
+	for (let len = models.length, i = 0; i < len; i++) {
+		const toModel = models[i];
+		const node = graph[toModel];
+
+		if (node.parent === null) {
+			// No possible conversion, or this node is the source model.
+			continue;
+		}
+
+		conversion[toModel] = wrapConversion(toModel, graph);
+	}
+
+	return conversion;
+};
+
+
+
+/***/ }),
+
 /***/ "73e6":
+/***/ (function(module, exports, __webpack_require__) {
+
+// extracted by mini-css-extract-plugin
+
+/***/ }),
+
+/***/ "779f":
 /***/ (function(module, exports, __webpack_require__) {
 
 // extracted by mini-css-extract-plugin
@@ -7940,12 +9886,30 @@ module.exports = __webpack_exports__;
 
 /***/ }),
 
+/***/ "a928":
+/***/ (function(module, exports, __webpack_require__) {
+
+// extracted by mini-css-extract-plugin
+
+/***/ }),
+
 /***/ "ae21":
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
 /* harmony import */ var _node_modules_mini_css_extract_plugin_dist_loader_js_ref_10_oneOf_1_0_node_modules_css_loader_dist_cjs_js_ref_10_oneOf_1_1_node_modules_vue_loader_v16_dist_stylePostLoader_js_node_modules_postcss_loader_src_index_js_ref_10_oneOf_1_2_node_modules_less_loader_dist_cjs_js_ref_10_oneOf_1_3_node_modules_cache_loader_dist_cjs_js_ref_0_0_node_modules_vue_loader_v16_dist_index_js_ref_0_1_command_vue_vue_type_style_index_0_id_71ebc0dd_scoped_true_lang_less__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__("4829");
 /* harmony import */ var _node_modules_mini_css_extract_plugin_dist_loader_js_ref_10_oneOf_1_0_node_modules_css_loader_dist_cjs_js_ref_10_oneOf_1_1_node_modules_vue_loader_v16_dist_stylePostLoader_js_node_modules_postcss_loader_src_index_js_ref_10_oneOf_1_2_node_modules_less_loader_dist_cjs_js_ref_10_oneOf_1_3_node_modules_cache_loader_dist_cjs_js_ref_0_0_node_modules_vue_loader_v16_dist_index_js_ref_0_1_command_vue_vue_type_style_index_0_id_71ebc0dd_scoped_true_lang_less__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(_node_modules_mini_css_extract_plugin_dist_loader_js_ref_10_oneOf_1_0_node_modules_css_loader_dist_cjs_js_ref_10_oneOf_1_1_node_modules_vue_loader_v16_dist_stylePostLoader_js_node_modules_postcss_loader_src_index_js_ref_10_oneOf_1_2_node_modules_less_loader_dist_cjs_js_ref_10_oneOf_1_3_node_modules_cache_loader_dist_cjs_js_ref_0_0_node_modules_vue_loader_v16_dist_index_js_ref_0_1_command_vue_vue_type_style_index_0_id_71ebc0dd_scoped_true_lang_less__WEBPACK_IMPORTED_MODULE_0__);
+/* unused harmony reexport * */
+
+
+/***/ }),
+
+/***/ "b048":
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+/* harmony import */ var _node_modules_mini_css_extract_plugin_dist_loader_js_ref_10_oneOf_1_0_node_modules_css_loader_dist_cjs_js_ref_10_oneOf_1_1_node_modules_vue_loader_v16_dist_stylePostLoader_js_node_modules_postcss_loader_src_index_js_ref_10_oneOf_1_2_node_modules_less_loader_dist_cjs_js_ref_10_oneOf_1_3_node_modules_cache_loader_dist_cjs_js_ref_0_0_node_modules_vue_loader_v16_dist_index_js_ref_0_1_button_group_vue_vue_type_style_index_0_id_1e5663d6_scoped_true_lang_less__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__("779f");
+/* harmony import */ var _node_modules_mini_css_extract_plugin_dist_loader_js_ref_10_oneOf_1_0_node_modules_css_loader_dist_cjs_js_ref_10_oneOf_1_1_node_modules_vue_loader_v16_dist_stylePostLoader_js_node_modules_postcss_loader_src_index_js_ref_10_oneOf_1_2_node_modules_less_loader_dist_cjs_js_ref_10_oneOf_1_3_node_modules_cache_loader_dist_cjs_js_ref_0_0_node_modules_vue_loader_v16_dist_index_js_ref_0_1_button_group_vue_vue_type_style_index_0_id_1e5663d6_scoped_true_lang_less__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(_node_modules_mini_css_extract_plugin_dist_loader_js_ref_10_oneOf_1_0_node_modules_css_loader_dist_cjs_js_ref_10_oneOf_1_1_node_modules_vue_loader_v16_dist_stylePostLoader_js_node_modules_postcss_loader_src_index_js_ref_10_oneOf_1_2_node_modules_less_loader_dist_cjs_js_ref_10_oneOf_1_3_node_modules_cache_loader_dist_cjs_js_ref_0_0_node_modules_vue_loader_v16_dist_index_js_ref_0_1_button_group_vue_vue_type_style_index_0_id_1e5663d6_scoped_true_lang_less__WEBPACK_IMPORTED_MODULE_0__);
 /* unused harmony reexport * */
 
 
@@ -7959,6 +9923,13 @@ module.exports = __webpack_exports__;
 /* harmony import */ var _node_modules_mini_css_extract_plugin_dist_loader_js_ref_10_oneOf_1_0_node_modules_css_loader_dist_cjs_js_ref_10_oneOf_1_1_node_modules_vue_loader_v16_dist_stylePostLoader_js_node_modules_postcss_loader_src_index_js_ref_10_oneOf_1_2_node_modules_less_loader_dist_cjs_js_ref_10_oneOf_1_3_node_modules_cache_loader_dist_cjs_js_ref_0_0_node_modules_vue_loader_v16_dist_index_js_ref_0_1_section_vue_vue_type_style_index_0_id_63690e11_scoped_true_lang_less__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(_node_modules_mini_css_extract_plugin_dist_loader_js_ref_10_oneOf_1_0_node_modules_css_loader_dist_cjs_js_ref_10_oneOf_1_1_node_modules_vue_loader_v16_dist_stylePostLoader_js_node_modules_postcss_loader_src_index_js_ref_10_oneOf_1_2_node_modules_less_loader_dist_cjs_js_ref_10_oneOf_1_3_node_modules_cache_loader_dist_cjs_js_ref_0_0_node_modules_vue_loader_v16_dist_index_js_ref_0_1_section_vue_vue_type_style_index_0_id_63690e11_scoped_true_lang_less__WEBPACK_IMPORTED_MODULE_0__);
 /* unused harmony reexport * */
 
+
+/***/ }),
+
+/***/ "b4dc":
+/***/ (function(module, exports, __webpack_require__) {
+
+// extracted by mini-css-extract-plugin
 
 /***/ }),
 
@@ -7986,6 +9957,17 @@ module.exports = __webpack_exports__;
 "use strict";
 /* harmony import */ var _node_modules_mini_css_extract_plugin_dist_loader_js_ref_10_oneOf_1_0_node_modules_css_loader_dist_cjs_js_ref_10_oneOf_1_1_node_modules_vue_loader_v16_dist_stylePostLoader_js_node_modules_postcss_loader_src_index_js_ref_10_oneOf_1_2_node_modules_less_loader_dist_cjs_js_ref_10_oneOf_1_3_node_modules_cache_loader_dist_cjs_js_ref_0_0_node_modules_vue_loader_v16_dist_index_js_ref_0_1_hue_vue_vue_type_style_index_0_id_b75be4da_scoped_true_lang_less__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__("6501");
 /* harmony import */ var _node_modules_mini_css_extract_plugin_dist_loader_js_ref_10_oneOf_1_0_node_modules_css_loader_dist_cjs_js_ref_10_oneOf_1_1_node_modules_vue_loader_v16_dist_stylePostLoader_js_node_modules_postcss_loader_src_index_js_ref_10_oneOf_1_2_node_modules_less_loader_dist_cjs_js_ref_10_oneOf_1_3_node_modules_cache_loader_dist_cjs_js_ref_0_0_node_modules_vue_loader_v16_dist_index_js_ref_0_1_hue_vue_vue_type_style_index_0_id_b75be4da_scoped_true_lang_less__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(_node_modules_mini_css_extract_plugin_dist_loader_js_ref_10_oneOf_1_0_node_modules_css_loader_dist_cjs_js_ref_10_oneOf_1_1_node_modules_vue_loader_v16_dist_stylePostLoader_js_node_modules_postcss_loader_src_index_js_ref_10_oneOf_1_2_node_modules_less_loader_dist_cjs_js_ref_10_oneOf_1_3_node_modules_cache_loader_dist_cjs_js_ref_0_0_node_modules_vue_loader_v16_dist_index_js_ref_0_1_hue_vue_vue_type_style_index_0_id_b75be4da_scoped_true_lang_less__WEBPACK_IMPORTED_MODULE_0__);
+/* unused harmony reexport * */
+
+
+/***/ }),
+
+/***/ "bce8":
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+/* harmony import */ var _node_modules_mini_css_extract_plugin_dist_loader_js_ref_10_oneOf_1_0_node_modules_css_loader_dist_cjs_js_ref_10_oneOf_1_1_node_modules_vue_loader_v16_dist_stylePostLoader_js_node_modules_postcss_loader_src_index_js_ref_10_oneOf_1_2_node_modules_less_loader_dist_cjs_js_ref_10_oneOf_1_3_node_modules_cache_loader_dist_cjs_js_ref_0_0_node_modules_vue_loader_v16_dist_index_js_ref_0_1_divider_vue_vue_type_style_index_0_id_d76e4a94_scoped_true_lang_less__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__("a928");
+/* harmony import */ var _node_modules_mini_css_extract_plugin_dist_loader_js_ref_10_oneOf_1_0_node_modules_css_loader_dist_cjs_js_ref_10_oneOf_1_1_node_modules_vue_loader_v16_dist_stylePostLoader_js_node_modules_postcss_loader_src_index_js_ref_10_oneOf_1_2_node_modules_less_loader_dist_cjs_js_ref_10_oneOf_1_3_node_modules_cache_loader_dist_cjs_js_ref_0_0_node_modules_vue_loader_v16_dist_index_js_ref_0_1_divider_vue_vue_type_style_index_0_id_d76e4a94_scoped_true_lang_less__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(_node_modules_mini_css_extract_plugin_dist_loader_js_ref_10_oneOf_1_0_node_modules_css_loader_dist_cjs_js_ref_10_oneOf_1_1_node_modules_vue_loader_v16_dist_stylePostLoader_js_node_modules_postcss_loader_src_index_js_ref_10_oneOf_1_2_node_modules_less_loader_dist_cjs_js_ref_10_oneOf_1_3_node_modules_cache_loader_dist_cjs_js_ref_0_0_node_modules_vue_loader_v16_dist_index_js_ref_0_1_divider_vue_vue_type_style_index_0_id_d76e4a94_scoped_true_lang_less__WEBPACK_IMPORTED_MODULE_0__);
 /* unused harmony reexport * */
 
 
@@ -8090,17 +10072,6 @@ E.prototype = {
 
 module.exports = E;
 module.exports.TinyEmitter = E;
-
-
-/***/ }),
-
-/***/ "c38a":
-/***/ (function(module, __webpack_exports__, __webpack_require__) {
-
-"use strict";
-/* harmony import */ var _node_modules_mini_css_extract_plugin_dist_loader_js_ref_10_oneOf_1_0_node_modules_css_loader_dist_cjs_js_ref_10_oneOf_1_1_node_modules_vue_loader_v16_dist_stylePostLoader_js_node_modules_postcss_loader_src_index_js_ref_10_oneOf_1_2_node_modules_less_loader_dist_cjs_js_ref_10_oneOf_1_3_node_modules_cache_loader_dist_cjs_js_ref_0_0_node_modules_vue_loader_v16_dist_index_js_ref_0_1_select_vue_vue_type_style_index_0_id_06d9830e_scoped_true_lang_less__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__("fb6a");
-/* harmony import */ var _node_modules_mini_css_extract_plugin_dist_loader_js_ref_10_oneOf_1_0_node_modules_css_loader_dist_cjs_js_ref_10_oneOf_1_1_node_modules_vue_loader_v16_dist_stylePostLoader_js_node_modules_postcss_loader_src_index_js_ref_10_oneOf_1_2_node_modules_less_loader_dist_cjs_js_ref_10_oneOf_1_3_node_modules_cache_loader_dist_cjs_js_ref_0_0_node_modules_vue_loader_v16_dist_index_js_ref_0_1_select_vue_vue_type_style_index_0_id_06d9830e_scoped_true_lang_less__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(_node_modules_mini_css_extract_plugin_dist_loader_js_ref_10_oneOf_1_0_node_modules_css_loader_dist_cjs_js_ref_10_oneOf_1_1_node_modules_vue_loader_v16_dist_stylePostLoader_js_node_modules_postcss_loader_src_index_js_ref_10_oneOf_1_2_node_modules_less_loader_dist_cjs_js_ref_10_oneOf_1_3_node_modules_cache_loader_dist_cjs_js_ref_0_0_node_modules_vue_loader_v16_dist_index_js_ref_0_1_select_vue_vue_type_style_index_0_id_06d9830e_scoped_true_lang_less__WEBPACK_IMPORTED_MODULE_0__);
-/* unused harmony reexport * */
 
 
 /***/ }),
@@ -8214,6 +10185,94 @@ module.exports = isShortId;
 
 /***/ }),
 
+/***/ "dedd":
+/***/ (function(module, exports, __webpack_require__) {
+
+const conversions = __webpack_require__("307f");
+const route = __webpack_require__("6e7e");
+
+const convert = {};
+
+const models = Object.keys(conversions);
+
+function wrapRaw(fn) {
+	const wrappedFn = function (...args) {
+		const arg0 = args[0];
+		if (arg0 === undefined || arg0 === null) {
+			return arg0;
+		}
+
+		if (arg0.length > 1) {
+			args = arg0;
+		}
+
+		return fn(args);
+	};
+
+	// Preserve .conversion property if there is one
+	if ('conversion' in fn) {
+		wrappedFn.conversion = fn.conversion;
+	}
+
+	return wrappedFn;
+}
+
+function wrapRounded(fn) {
+	const wrappedFn = function (...args) {
+		const arg0 = args[0];
+
+		if (arg0 === undefined || arg0 === null) {
+			return arg0;
+		}
+
+		if (arg0.length > 1) {
+			args = arg0;
+		}
+
+		const result = fn(args);
+
+		// We're assuming the result is an array here.
+		// see notice in conversions.js; don't use box types
+		// in conversion functions.
+		if (typeof result === 'object') {
+			for (let len = result.length, i = 0; i < len; i++) {
+				result[i] = Math.round(result[i]);
+			}
+		}
+
+		return result;
+	};
+
+	// Preserve .conversion property if there is one
+	if ('conversion' in fn) {
+		wrappedFn.conversion = fn.conversion;
+	}
+
+	return wrappedFn;
+}
+
+models.forEach(fromModel => {
+	convert[fromModel] = {};
+
+	Object.defineProperty(convert[fromModel], 'channels', {value: conversions[fromModel].channels});
+	Object.defineProperty(convert[fromModel], 'labels', {value: conversions[fromModel].labels});
+
+	const routes = route(fromModel);
+	const routeModels = Object.keys(routes);
+
+	routeModels.forEach(toModel => {
+		const fn = routes[toModel];
+
+		convert[fromModel][toModel] = wrapRounded(fn);
+		convert[fromModel][toModel].raw = wrapRaw(fn);
+	});
+});
+
+module.exports = convert;
+
+
+/***/ }),
+
 /***/ "e06e":
 /***/ (function(module, exports, __webpack_require__) {
 
@@ -8314,13 +10373,18 @@ module.exports = function (random, alphabet, size) {
 
 /***/ }),
 
-/***/ "f316":
-/***/ (function(module, __webpack_exports__, __webpack_require__) {
+/***/ "f0cb":
+/***/ (function(module, exports) {
 
-"use strict";
-/* harmony import */ var _node_modules_mini_css_extract_plugin_dist_loader_js_ref_10_oneOf_1_0_node_modules_css_loader_dist_cjs_js_ref_10_oneOf_1_1_node_modules_vue_loader_v16_dist_stylePostLoader_js_node_modules_postcss_loader_src_index_js_ref_10_oneOf_1_2_node_modules_less_loader_dist_cjs_js_ref_10_oneOf_1_3_node_modules_cache_loader_dist_cjs_js_ref_0_0_node_modules_vue_loader_v16_dist_index_js_ref_0_1_button_vue_vue_type_style_index_0_id_2841b450_scoped_true_lang_less__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__("4a7b");
-/* harmony import */ var _node_modules_mini_css_extract_plugin_dist_loader_js_ref_10_oneOf_1_0_node_modules_css_loader_dist_cjs_js_ref_10_oneOf_1_1_node_modules_vue_loader_v16_dist_stylePostLoader_js_node_modules_postcss_loader_src_index_js_ref_10_oneOf_1_2_node_modules_less_loader_dist_cjs_js_ref_10_oneOf_1_3_node_modules_cache_loader_dist_cjs_js_ref_0_0_node_modules_vue_loader_v16_dist_index_js_ref_0_1_button_vue_vue_type_style_index_0_id_2841b450_scoped_true_lang_less__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(_node_modules_mini_css_extract_plugin_dist_loader_js_ref_10_oneOf_1_0_node_modules_css_loader_dist_cjs_js_ref_10_oneOf_1_1_node_modules_vue_loader_v16_dist_stylePostLoader_js_node_modules_postcss_loader_src_index_js_ref_10_oneOf_1_2_node_modules_less_loader_dist_cjs_js_ref_10_oneOf_1_3_node_modules_cache_loader_dist_cjs_js_ref_0_0_node_modules_vue_loader_v16_dist_index_js_ref_0_1_button_vue_vue_type_style_index_0_id_2841b450_scoped_true_lang_less__WEBPACK_IMPORTED_MODULE_0__);
-/* unused harmony reexport * */
+module.exports = function isArrayish(obj) {
+	if (!obj || typeof obj === 'string') {
+		return false;
+	}
+
+	return obj instanceof Array || Array.isArray(obj) ||
+		(obj.length >= 0 && (obj.splice instanceof Function ||
+			(Object.getOwnPropertyDescriptor(obj, (obj.length - 1)) && obj.constructor.name !== 'String')));
+};
 
 
 /***/ }),
@@ -8363,6 +10427,10 @@ __webpack_require__.r(const_namespaceObject);
 __webpack_require__.d(const_namespaceObject, "Msg", function() { return Msg; });
 __webpack_require__.d(const_namespaceObject, "showMenuByMouseEvent", function() { return showMenuByMouseEvent; });
 
+// NAMESPACE OBJECT: ./packages/cc-select/const.ts
+var cc_select_const_namespaceObject = {};
+__webpack_require__.r(cc_select_const_namespaceObject);
+
 // NAMESPACE OBJECT: ./packages/cc-dialog/const.ts
 var cc_dialog_const_namespaceObject = {};
 __webpack_require__.r(cc_dialog_const_namespaceObject);
@@ -8389,6 +10457,18 @@ __webpack_require__.d(cc_command_const_namespaceObject, "closeCommand", function
 var cc_table_const_namespaceObject = {};
 __webpack_require__.r(cc_table_const_namespaceObject);
 
+// NAMESPACE OBJECT: ./packages/cc-button-group/const.ts
+var cc_button_group_const_namespaceObject = {};
+__webpack_require__.r(cc_button_group_const_namespaceObject);
+__webpack_require__.d(cc_button_group_const_namespaceObject, "Msg", function() { return const_Msg; });
+__webpack_require__.d(cc_button_group_const_namespaceObject, "ProvideKey", function() { return const_ProvideKey; });
+__webpack_require__.d(cc_button_group_const_namespaceObject, "ButtonState", function() { return ButtonState; });
+
+// NAMESPACE OBJECT: ./packages/cc-divider/const.ts
+var cc_divider_const_namespaceObject = {};
+__webpack_require__.r(cc_divider_const_namespaceObject);
+__webpack_require__.d(cc_divider_const_namespaceObject, "Msg", function() { return cc_divider_const_Msg; });
+
 // CONCATENATED MODULE: ./node_modules/@vue/cli-service/lib/commands/build/setPublicPath.js
 // This file is imported into lib/wc client bundles.
 
@@ -8408,10 +10488,22 @@ if (typeof window !== 'undefined') {
 // EXTERNAL MODULE: external {"commonjs":"vue","commonjs2":"vue","root":"Vue"}
 var external_commonjs_vue_commonjs2_vue_root_Vue_ = __webpack_require__("8bbf");
 
-// CONCATENATED MODULE: ./node_modules/cache-loader/dist/cjs.js??ref--13-0!./node_modules/babel-loader/lib!./node_modules/@vue/cli-plugin-typescript/node_modules/ts-loader??ref--13-2!./node_modules/vue-loader-v16/dist/templateLoader.js??ref--7!./node_modules/cache-loader/dist/cjs.js??ref--0-0!./node_modules/vue-loader-v16/dist??ref--0-1!./packages/cc-button/button.vue?vue&type=template&id=2841b450&scoped=true&ts=true
+// CONCATENATED MODULE: ./node_modules/cache-loader/dist/cjs.js??ref--13-0!./node_modules/babel-loader/lib!./node_modules/@vue/cli-plugin-typescript/node_modules/ts-loader??ref--13-2!./node_modules/vue-loader-v16/dist/templateLoader.js??ref--7!./node_modules/cache-loader/dist/cjs.js??ref--0-0!./node_modules/vue-loader-v16/dist??ref--0-1!./packages/cc-button/button.vue?vue&type=template&id=386514bd&scoped=true&ts=true
 
-const _withScopeId = n => (Object(external_commonjs_vue_commonjs2_vue_root_Vue_["pushScopeId"])("data-v-2841b450"), n = n(), Object(external_commonjs_vue_commonjs2_vue_root_Vue_["popScopeId"])(), n);
+const _withScopeId = n => (Object(external_commonjs_vue_commonjs2_vue_root_Vue_["pushScopeId"])("data-v-386514bd"), n = n(), Object(external_commonjs_vue_commonjs2_vue_root_Vue_["popScopeId"])(), n);
 const _hoisted_1 = {
+  ref: "tips",
+  class: "tips"
+};
+const _hoisted_2 = {
+  class: "text"
+};
+const _hoisted_3 = {
+  ref: "arrow",
+  "data-popper-arrow": "",
+  class: "arrow"
+};
+const _hoisted_4 = {
   class: "text"
 };
 function render(_ctx, _cache, $props, $setup, $data, $options) {
@@ -8419,6 +10511,7 @@ function render(_ctx, _cache, $props, $setup, $data, $options) {
     class: Object(external_commonjs_vue_commonjs2_vue_root_Vue_["normalizeClass"])(["btn", {
       click: _ctx.isClick
     }]),
+    ref: "text",
     style: Object(external_commonjs_vue_commonjs2_vue_root_Vue_["normalizeStyle"])({
       background: `${_ctx.theme.background}`
     }),
@@ -8434,9 +10527,9 @@ function render(_ctx, _cache, $props, $setup, $data, $options) {
     onMouseleave: _cache[3] || (_cache[3] =
     //@ts-ignore
     (...args) => _ctx.onMouseleave && _ctx.onMouseleave(...args))
-  }, [Object(external_commonjs_vue_commonjs2_vue_root_Vue_["createElementVNode"])("div", _hoisted_1, [Object(external_commonjs_vue_commonjs2_vue_root_Vue_["renderSlot"])(_ctx.$slots, "default", {}, undefined, true)])], 38);
+  }, [Object(external_commonjs_vue_commonjs2_vue_root_Vue_["withDirectives"])(Object(external_commonjs_vue_commonjs2_vue_root_Vue_["createElementVNode"])("div", _hoisted_1, [Object(external_commonjs_vue_commonjs2_vue_root_Vue_["createElementVNode"])("div", _hoisted_2, Object(external_commonjs_vue_commonjs2_vue_root_Vue_["toDisplayString"])(_ctx.tooltip), 1), Object(external_commonjs_vue_commonjs2_vue_root_Vue_["createElementVNode"])("div", _hoisted_3, null, 512)], 512), [[external_commonjs_vue_commonjs2_vue_root_Vue_["vShow"], _ctx.isShowTips && _ctx.tooltip]]), Object(external_commonjs_vue_commonjs2_vue_root_Vue_["createElementVNode"])("div", _hoisted_4, [Object(external_commonjs_vue_commonjs2_vue_root_Vue_["renderSlot"])(_ctx.$slots, "default", {}, undefined, true)])], 38);
 }
-// CONCATENATED MODULE: ./packages/cc-button/button.vue?vue&type=template&id=2841b450&scoped=true&ts=true
+// CONCATENATED MODULE: ./packages/cc-button/button.vue?vue&type=template&id=386514bd&scoped=true&ts=true
 
 // EXTERNAL MODULE: ./node_modules/chroma-js/chroma.js
 var chroma = __webpack_require__("6149");
@@ -8517,848 +10610,6 @@ class transition_Transition {
     this.instance && this.instance.onMouseup(this.theme);
   }
 }
-// CONCATENATED MODULE: ./node_modules/cache-loader/dist/cjs.js??ref--13-0!./node_modules/babel-loader/lib!./node_modules/@vue/cli-plugin-typescript/node_modules/ts-loader??ref--13-2!./node_modules/cache-loader/dist/cjs.js??ref--0-0!./node_modules/vue-loader-v16/dist??ref--0-1!./packages/cc-button/button.vue?vue&type=script&lang=ts
-
-
-/* harmony default export */ var buttonvue_type_script_lang_ts = (Object(external_commonjs_vue_commonjs2_vue_root_Vue_["defineComponent"])({
-  name: 'CCButton',
-  props: {
-    transition: {
-      type: String,
-      default: 'color',
-      validator: value => {
-        return !!['color', 'sprite'].find(el => el === value);
-      }
-    },
-    color: {
-      type: String
-    },
-    texture: {
-      type: String
-    }
-  },
-  emits: [],
-  setup(props, {
-    emit
-  }) {
-    const isClick = Object(external_commonjs_vue_commonjs2_vue_root_Vue_["ref"])(false);
-    const isHover = Object(external_commonjs_vue_commonjs2_vue_root_Vue_["ref"])(false);
-    const transition = new transition_Transition(props.transition, props);
-    return {
-      theme: transition.theme,
-      isClick,
-      onMouseup() {
-        isClick.value = false;
-        transition.onMouseup();
-      },
-      onMousedown() {
-        isClick.value = true;
-        transition.onMousedown();
-      },
-      onMouseenter() {
-        isHover.value = true;
-        transition.onMouseenter();
-      },
-      onMouseleave() {
-        isHover.value = false;
-        transition.onMouseleave();
-      }
-    };
-  }
-}));
-// CONCATENATED MODULE: ./packages/cc-button/button.vue?vue&type=script&lang=ts
- 
-// EXTERNAL MODULE: ./packages/cc-button/button.vue?vue&type=style&index=0&id=2841b450&scoped=true&lang=less
-var buttonvue_type_style_index_0_id_2841b450_scoped_true_lang_less = __webpack_require__("f316");
-
-// EXTERNAL MODULE: ./node_modules/vue-loader-v16/dist/exportHelper.js
-var exportHelper = __webpack_require__("6b0d");
-var exportHelper_default = /*#__PURE__*/__webpack_require__.n(exportHelper);
-
-// CONCATENATED MODULE: ./packages/cc-button/button.vue
-
-
-
-
-
-
-
-const __exports__ = /*#__PURE__*/exportHelper_default()(buttonvue_type_script_lang_ts, [['render',render],['__scopeId',"data-v-2841b450"]])
-
-/* harmony default export */ var cc_button_button = (__exports__);
-// CONCATENATED MODULE: ./packages/cc-button/index.ts
-
-
-// CONCATENATED MODULE: ./node_modules/cache-loader/dist/cjs.js??ref--13-0!./node_modules/babel-loader/lib!./node_modules/@vue/cli-plugin-typescript/node_modules/ts-loader??ref--13-2!./node_modules/vue-loader-v16/dist/templateLoader.js??ref--7!./node_modules/cache-loader/dist/cjs.js??ref--0-0!./node_modules/vue-loader-v16/dist??ref--0-1!./packages/cc-checkbox/checkbox.vue?vue&type=template&id=eaa98a84&scoped=true&ts=true
-
-const checkboxvue_type_template_id_eaa98a84_scoped_true_ts_true_withScopeId = n => (Object(external_commonjs_vue_commonjs2_vue_root_Vue_["pushScopeId"])("data-v-eaa98a84"), n = n(), Object(external_commonjs_vue_commonjs2_vue_root_Vue_["popScopeId"])(), n);
-const checkboxvue_type_template_id_eaa98a84_scoped_true_ts_true_hoisted_1 = {
-  class: "checkbox"
-};
-const _hoisted_2 = {
-  key: 0,
-  class: "text"
-};
-function checkboxvue_type_template_id_eaa98a84_scoped_true_ts_true_render(_ctx, _cache, $props, $setup, $data, $options) {
-  return Object(external_commonjs_vue_commonjs2_vue_root_Vue_["openBlock"])(), Object(external_commonjs_vue_commonjs2_vue_root_Vue_["createElementBlock"])("div", checkboxvue_type_template_id_eaa98a84_scoped_true_ts_true_hoisted_1, [Object(external_commonjs_vue_commonjs2_vue_root_Vue_["withDirectives"])(Object(external_commonjs_vue_commonjs2_vue_root_Vue_["createElementVNode"])("input", {
-    type: "checkbox",
-    "onUpdate:modelValue": _cache[0] || (_cache[0] = $event => _ctx.val = $event),
-    onChange: _cache[1] || (_cache[1] =
-    //@ts-ignore
-    (...args) => _ctx.onChange && _ctx.onChange(...args))
-  }, null, 544), [[external_commonjs_vue_commonjs2_vue_root_Vue_["vModelCheckbox"], _ctx.val]]), _ctx.label.length ? (Object(external_commonjs_vue_commonjs2_vue_root_Vue_["openBlock"])(), Object(external_commonjs_vue_commonjs2_vue_root_Vue_["createElementBlock"])("span", _hoisted_2, Object(external_commonjs_vue_commonjs2_vue_root_Vue_["toDisplayString"])(_ctx.label), 1)) : Object(external_commonjs_vue_commonjs2_vue_root_Vue_["createCommentVNode"])("", true), Object(external_commonjs_vue_commonjs2_vue_root_Vue_["renderSlot"])(_ctx.$slots, "label", {}, undefined, true)]);
-}
-// CONCATENATED MODULE: ./packages/cc-checkbox/checkbox.vue?vue&type=template&id=eaa98a84&scoped=true&ts=true
-
-// CONCATENATED MODULE: ./node_modules/cache-loader/dist/cjs.js??ref--13-0!./node_modules/babel-loader/lib!./node_modules/@vue/cli-plugin-typescript/node_modules/ts-loader??ref--13-2!./node_modules/cache-loader/dist/cjs.js??ref--0-0!./node_modules/vue-loader-v16/dist??ref--0-1!./packages/cc-checkbox/checkbox.vue?vue&type=script&lang=ts
-
-/* harmony default export */ var checkboxvue_type_script_lang_ts = (Object(external_commonjs_vue_commonjs2_vue_root_Vue_["defineComponent"])({
-  name: 'CCCheckbox',
-  emits: ['update:value', 'change'],
-  props: {
-    value: {
-      type: Boolean,
-      default: false
-    },
-    label: {
-      type: String,
-      default: ''
-    }
-  },
-  setup(props, {
-    emit
-  }) {
-    const val = Object(external_commonjs_vue_commonjs2_vue_root_Vue_["ref"])(props.value);
-    const label = Object(external_commonjs_vue_commonjs2_vue_root_Vue_["ref"])(props.label);
-    Object(external_commonjs_vue_commonjs2_vue_root_Vue_["watch"])(() => props.value, v => {
-      val.value = v;
-    });
-    return {
-      val,
-      label,
-      onChange() {
-        const v = val.value;
-        emit('update:value', v);
-        emit('change', v);
-      }
-    };
-  }
-}));
-// CONCATENATED MODULE: ./packages/cc-checkbox/checkbox.vue?vue&type=script&lang=ts
- 
-// EXTERNAL MODULE: ./packages/cc-checkbox/checkbox.vue?vue&type=style&index=0&id=eaa98a84&scoped=true&lang=less
-var checkboxvue_type_style_index_0_id_eaa98a84_scoped_true_lang_less = __webpack_require__("a493");
-
-// CONCATENATED MODULE: ./packages/cc-checkbox/checkbox.vue
-
-
-
-
-
-
-
-const checkbox_exports_ = /*#__PURE__*/exportHelper_default()(checkboxvue_type_script_lang_ts, [['render',checkboxvue_type_template_id_eaa98a84_scoped_true_ts_true_render],['__scopeId',"data-v-eaa98a84"]])
-
-/* harmony default export */ var cc_checkbox_checkbox = (checkbox_exports_);
-// CONCATENATED MODULE: ./packages/cc-checkbox/index.ts
-
-
-// CONCATENATED MODULE: ./node_modules/cache-loader/dist/cjs.js??ref--13-0!./node_modules/babel-loader/lib!./node_modules/@vue/cli-plugin-typescript/node_modules/ts-loader??ref--13-2!./node_modules/vue-loader-v16/dist/templateLoader.js??ref--7!./node_modules/cache-loader/dist/cjs.js??ref--0-0!./node_modules/vue-loader-v16/dist??ref--0-1!./packages/cc-color/color.vue?vue&type=template&id=17eeddef&scoped=true&ts=true
-
-const colorvue_type_template_id_17eeddef_scoped_true_ts_true_withScopeId = n => (Object(external_commonjs_vue_commonjs2_vue_root_Vue_["pushScopeId"])("data-v-17eeddef"), n = n(), Object(external_commonjs_vue_commonjs2_vue_root_Vue_["popScopeId"])(), n);
-const colorvue_type_template_id_17eeddef_scoped_true_ts_true_hoisted_1 = {
-  class: "cc-color"
-};
-const colorvue_type_template_id_17eeddef_scoped_true_ts_true_hoisted_2 = {
-  class: "colors"
-};
-function colorvue_type_template_id_17eeddef_scoped_true_ts_true_render(_ctx, _cache, $props, $setup, $data, $options) {
-  const _component_ColorSaturation = Object(external_commonjs_vue_commonjs2_vue_root_Vue_["resolveComponent"])("ColorSaturation");
-  const _component_Hue = Object(external_commonjs_vue_commonjs2_vue_root_Vue_["resolveComponent"])("Hue");
-  const _component_ColorInput = Object(external_commonjs_vue_commonjs2_vue_root_Vue_["resolveComponent"])("ColorInput");
-  const _component_ColorCase = Object(external_commonjs_vue_commonjs2_vue_root_Vue_["resolveComponent"])("ColorCase");
-  return Object(external_commonjs_vue_commonjs2_vue_root_Vue_["openBlock"])(), Object(external_commonjs_vue_commonjs2_vue_root_Vue_["createElementBlock"])("div", colorvue_type_template_id_17eeddef_scoped_true_ts_true_hoisted_1, [Object(external_commonjs_vue_commonjs2_vue_root_Vue_["createElementVNode"])("div", {
-    ref: "color",
-    class: "color",
-    style: Object(external_commonjs_vue_commonjs2_vue_root_Vue_["normalizeStyle"])(_ctx.style),
-    onClick: _cache[0] || (_cache[0] = Object(external_commonjs_vue_commonjs2_vue_root_Vue_["withModifiers"])(
-    //@ts-ignore
-    (...args) => _ctx.onShowPanel && _ctx.onShowPanel(...args), ["stop", "prevent"]))
-  }, null, 4), Object(external_commonjs_vue_commonjs2_vue_root_Vue_["withDirectives"])(Object(external_commonjs_vue_commonjs2_vue_root_Vue_["createElementVNode"])("div", {
-    ref: "panel",
-    class: "color-panel",
-    onClick: _cache[3] || (_cache[3] = Object(external_commonjs_vue_commonjs2_vue_root_Vue_["withModifiers"])(() => {}, ["stop", "prevent"]))
-  }, [Object(external_commonjs_vue_commonjs2_vue_root_Vue_["createVNode"])(_component_ColorSaturation, {
-    ref: "saturationComp",
-    color: _ctx.hexColor,
-    onChange: _ctx.onColorChangeSaturation
-  }, null, 8, ["color", "onChange"]), Object(external_commonjs_vue_commonjs2_vue_root_Vue_["createVNode"])(_component_Hue, {
-    class: "board",
-    title: "",
-    hue: _ctx.hueValue,
-    "onUpdate:hue": _cache[1] || (_cache[1] = $event => _ctx.hueValue = $event),
-    onChange: _ctx.onChangeColorHue
-  }, null, 8, ["hue", "onChange"]), Object(external_commonjs_vue_commonjs2_vue_root_Vue_["createVNode"])(_component_ColorInput, {
-    title: "HEX:",
-    color: _ctx.hexColor,
-    "onUpdate:color": _cache[2] || (_cache[2] = $event => _ctx.hexColor = $event),
-    onChange: _ctx.onColorChangeHex,
-    onFocusin: _ctx.onFocusin
-  }, null, 8, ["color", "onChange", "onFocusin"]), Object(external_commonjs_vue_commonjs2_vue_root_Vue_["createElementVNode"])("div", colorvue_type_template_id_17eeddef_scoped_true_ts_true_hoisted_2, [(Object(external_commonjs_vue_commonjs2_vue_root_Vue_["openBlock"])(true), Object(external_commonjs_vue_commonjs2_vue_root_Vue_["createElementBlock"])(external_commonjs_vue_commonjs2_vue_root_Vue_["Fragment"], null, Object(external_commonjs_vue_commonjs2_vue_root_Vue_["renderList"])(_ctx.colorList, (item, index) => {
-    return Object(external_commonjs_vue_commonjs2_vue_root_Vue_["openBlock"])(), Object(external_commonjs_vue_commonjs2_vue_root_Vue_["createBlock"])(_component_ColorCase, {
-      class: "color-item",
-      onClick: Object(external_commonjs_vue_commonjs2_vue_root_Vue_["withModifiers"])($event => _ctx.onColorListSelect(item), ["prevent", "stop"]),
-      key: index,
-      color: item
-    }, null, 8, ["onClick", "color"]);
-  }), 128))])], 512), [[external_commonjs_vue_commonjs2_vue_root_Vue_["vShow"], _ctx.show]])]);
-}
-// CONCATENATED MODULE: ./packages/cc-color/color.vue?vue&type=template&id=17eeddef&scoped=true&ts=true
-
-// CONCATENATED MODULE: ./node_modules/cache-loader/dist/cjs.js??ref--13-0!./node_modules/babel-loader/lib!./node_modules/@vue/cli-plugin-typescript/node_modules/ts-loader??ref--13-2!./node_modules/vue-loader-v16/dist/templateLoader.js??ref--7!./node_modules/cache-loader/dist/cjs.js??ref--0-0!./node_modules/vue-loader-v16/dist??ref--0-1!./packages/cc-color/hue.vue?vue&type=template&id=b75be4da&scoped=true&ts=true
-
-const huevue_type_template_id_b75be4da_scoped_true_ts_true_withScopeId = n => (Object(external_commonjs_vue_commonjs2_vue_root_Vue_["pushScopeId"])("data-v-b75be4da"), n = n(), Object(external_commonjs_vue_commonjs2_vue_root_Vue_["popScopeId"])(), n);
-const huevue_type_template_id_b75be4da_scoped_true_ts_true_hoisted_1 = {
-  class: "root"
-};
-const huevue_type_template_id_b75be4da_scoped_true_ts_true_hoisted_2 = /*#__PURE__*/huevue_type_template_id_b75be4da_scoped_true_ts_true_withScopeId(() => /*#__PURE__*/Object(external_commonjs_vue_commonjs2_vue_root_Vue_["createElementVNode"])("div", {
-  class: "bg"
-}, null, -1));
-const _hoisted_3 = {
-  class: "pointer",
-  ref: "pointer"
-};
-const _hoisted_4 = /*#__PURE__*/huevue_type_template_id_b75be4da_scoped_true_ts_true_withScopeId(() => /*#__PURE__*/Object(external_commonjs_vue_commonjs2_vue_root_Vue_["createElementVNode"])("div", {
-  class: "shape"
-}, null, -1));
-const _hoisted_5 = [_hoisted_4];
-function huevue_type_template_id_b75be4da_scoped_true_ts_true_render(_ctx, _cache, $props, $setup, $data, $options) {
-  return Object(external_commonjs_vue_commonjs2_vue_root_Vue_["openBlock"])(), Object(external_commonjs_vue_commonjs2_vue_root_Vue_["createElementBlock"])("div", huevue_type_template_id_b75be4da_scoped_true_ts_true_hoisted_1, [Object(external_commonjs_vue_commonjs2_vue_root_Vue_["createElementVNode"])("div", {
-    class: "hue",
-    ref: "hueEl",
-    onMousedown: _cache[0] || (_cache[0] = Object(external_commonjs_vue_commonjs2_vue_root_Vue_["withModifiers"])(
-    //@ts-ignore
-    (...args) => _ctx.onHueMouseDown && _ctx.onHueMouseDown(...args), ["self"]))
-  }, [huevue_type_template_id_b75be4da_scoped_true_ts_true_hoisted_2, Object(external_commonjs_vue_commonjs2_vue_root_Vue_["createElementVNode"])("div", _hoisted_3, _hoisted_5, 512)], 544)]);
-}
-// CONCATENATED MODULE: ./packages/cc-color/hue.vue?vue&type=template&id=b75be4da&scoped=true&ts=true
-
-// CONCATENATED MODULE: ./node_modules/cache-loader/dist/cjs.js??ref--13-0!./node_modules/babel-loader/lib!./node_modules/@vue/cli-plugin-typescript/node_modules/ts-loader??ref--13-2!./node_modules/cache-loader/dist/cjs.js??ref--0-0!./node_modules/vue-loader-v16/dist??ref--0-1!./packages/cc-color/hue.vue?vue&type=script&lang=ts
-
-// 色相
-/* harmony default export */ var huevue_type_script_lang_ts = (Object(external_commonjs_vue_commonjs2_vue_root_Vue_["defineComponent"])({
-  name: 'color-hue',
-  emits: ['change', 'update:hue'],
-  props: {
-    title: {
-      type: String,
-      default: '颜色'
-    },
-    hue: {
-      type: Number,
-      default: 0
-    }
-  },
-  setup(props, {
-    emit
-  }) {
-    const hueEl = Object(external_commonjs_vue_commonjs2_vue_root_Vue_["ref"])();
-    const pointer = Object(external_commonjs_vue_commonjs2_vue_root_Vue_["ref"])();
-    Object(external_commonjs_vue_commonjs2_vue_root_Vue_["watch"])(() => props.hue, hue => {
-      updatePointer(hue);
-    });
-    function updatePointer(hue) {
-      const PointerEl = pointer.value;
-      PointerEl.style.left = `${hue / 360 * 100}%`;
-    }
-    Object(external_commonjs_vue_commonjs2_vue_root_Vue_["onMounted"])(() => {
-      updatePointer(props.hue);
-    });
-    return {
-      hueEl,
-      pointer,
-      onHueMouseDown(event) {
-        const PointerEl = pointer.value;
-        const rect = hueEl.value.getBoundingClientRect();
-        const mouseMove = e => {
-          let x = (e.clientX - rect.left) / rect.width * 100;
-          x = x > 100 ? 100 : x;
-          x = x < 0 ? 0 : x;
-          PointerEl.style.left = `${x}%`;
-          const hue = 360 * (x / 100);
-          emit('update:hue', hue);
-          emit('change', hue);
-        };
-        let mouseUp = e => {
-          document.removeEventListener('mousemove', mouseMove);
-          document.removeEventListener('mouseup', mouseUp);
-        };
-        document.addEventListener('mousemove', mouseMove);
-        document.addEventListener('mouseup', mouseUp);
-        mouseMove(event);
-      }
-    };
-  }
-}));
-// CONCATENATED MODULE: ./packages/cc-color/hue.vue?vue&type=script&lang=ts
- 
-// EXTERNAL MODULE: ./packages/cc-color/hue.vue?vue&type=style&index=0&id=b75be4da&scoped=true&lang=less
-var huevue_type_style_index_0_id_b75be4da_scoped_true_lang_less = __webpack_require__("b975");
-
-// CONCATENATED MODULE: ./packages/cc-color/hue.vue
-
-
-
-
-
-
-
-const hue_exports_ = /*#__PURE__*/exportHelper_default()(huevue_type_script_lang_ts, [['render',huevue_type_template_id_b75be4da_scoped_true_ts_true_render],['__scopeId',"data-v-b75be4da"]])
-
-/* harmony default export */ var cc_color_hue = (hue_exports_);
-// CONCATENATED MODULE: ./node_modules/cache-loader/dist/cjs.js??ref--13-0!./node_modules/babel-loader/lib!./node_modules/@vue/cli-plugin-typescript/node_modules/ts-loader??ref--13-2!./node_modules/vue-loader-v16/dist/templateLoader.js??ref--7!./node_modules/cache-loader/dist/cjs.js??ref--0-0!./node_modules/vue-loader-v16/dist??ref--0-1!./packages/cc-color/color-input.vue?vue&type=template&id=0d640867&scoped=true&ts=true
-
-const color_inputvue_type_template_id_0d640867_scoped_true_ts_true_withScopeId = n => (Object(external_commonjs_vue_commonjs2_vue_root_Vue_["pushScopeId"])("data-v-0d640867"), n = n(), Object(external_commonjs_vue_commonjs2_vue_root_Vue_["popScopeId"])(), n);
-const color_inputvue_type_template_id_0d640867_scoped_true_ts_true_hoisted_1 = {
-  class: "root"
-};
-const color_inputvue_type_template_id_0d640867_scoped_true_ts_true_hoisted_2 = {
-  class: "title"
-};
-function color_inputvue_type_template_id_0d640867_scoped_true_ts_true_render(_ctx, _cache, $props, $setup, $data, $options) {
-  return Object(external_commonjs_vue_commonjs2_vue_root_Vue_["openBlock"])(), Object(external_commonjs_vue_commonjs2_vue_root_Vue_["createElementBlock"])("div", color_inputvue_type_template_id_0d640867_scoped_true_ts_true_hoisted_1, [Object(external_commonjs_vue_commonjs2_vue_root_Vue_["createElementVNode"])("div", color_inputvue_type_template_id_0d640867_scoped_true_ts_true_hoisted_2, Object(external_commonjs_vue_commonjs2_vue_root_Vue_["toDisplayString"])(_ctx.curTitle), 1), Object(external_commonjs_vue_commonjs2_vue_root_Vue_["withDirectives"])(Object(external_commonjs_vue_commonjs2_vue_root_Vue_["createElementVNode"])("input", {
-    class: "input",
-    draggable: "false",
-    onKeydown: _cache[0] || (_cache[0] = Object(external_commonjs_vue_commonjs2_vue_root_Vue_["withKeys"])(
-    //@ts-ignore
-    (...args) => _ctx.onKeyDown && _ctx.onKeyDown(...args), ["enter"])),
-    onPaste: _cache[1] || (_cache[1] =
-    //@ts-ignore
-    (...args) => _ctx.onChange && _ctx.onChange(...args)),
-    "onUpdate:modelValue": _cache[2] || (_cache[2] = $event => _ctx.curColor = $event),
-    onChange: _cache[3] || (_cache[3] =
-    //@ts-ignore
-    (...args) => _ctx.onChange && _ctx.onChange(...args))
-  }, null, 544), [[external_commonjs_vue_commonjs2_vue_root_Vue_["vModelText"], _ctx.curColor]])]);
-}
-// CONCATENATED MODULE: ./packages/cc-color/color-input.vue?vue&type=template&id=0d640867&scoped=true&ts=true
-
-// EXTERNAL MODULE: ./node_modules/tinycolor2/tinycolor.js
-var tinycolor = __webpack_require__("66cb");
-var tinycolor_default = /*#__PURE__*/__webpack_require__.n(tinycolor);
-
-// CONCATENATED MODULE: ./packages/cc-color/util.ts
-// @ts-ignore
-
-// 获取颜色色相
-function getColorHue(str) {
-  return tinycolor_default()(str).toHsv().h;
-}
-// 改变颜色的色相
-function transformColorByHue(colorStr, hue) {
-  const old = tinycolor_default()(colorStr).toHsv();
-  const hsv = tinycolor_default()().toHsv();
-  hsv.h = hue;
-  hsv.s = old.s;
-  hsv.v = old.v;
-  const newColor = tinycolor_default()(hsv);
-  return newColor.toHex8();
-}
-// 改变颜色的饱和度
-function transformColorBySaturation(colorStr, saturation, bright) {
-  const color = tinycolor_default()(colorStr);
-  const hsvaColor = color.toHsv();
-  hsvaColor.s = saturation;
-  hsvaColor.v = bright;
-  return tinycolor_default()(hsvaColor).toHex8();
-}
-function createColorByHue(hue) {
-  const hsv = tinycolor_default()().toHsv();
-  hsv.h = hue;
-  hsv.s = 1;
-  hsv.v = 1;
-  return tinycolor_default()(hsv).toHex();
-}
-function getColorHSV(str) {
-  return tinycolor_default()(str).toHsv();
-}
-function transformColorWithAlpha(colorStr, alpha) {
-  const color = tinycolor_default()(colorStr);
-  const hsl = color.toHsl();
-  hsl.a = alpha;
-  const newColor = tinycolor_default()(hsl);
-  return newColor.toHex8();
-}
-function getColorHex(colorStr) {
-  const color = tinycolor_default()(colorStr);
-  return `#${color.toHex()}`;
-}
-function getColorHex8(colorStr) {
-  const color = tinycolor_default()(colorStr);
-  return `#${color.toHex8()}`;
-}
-function checkColor(str) {
-  const color = tinycolor_default()(str);
-  if (color.isValid()) {
-    return color.toHex8();
-  } else {
-    return null;
-  }
-}
-// CONCATENATED MODULE: ./node_modules/cache-loader/dist/cjs.js??ref--13-0!./node_modules/babel-loader/lib!./node_modules/@vue/cli-plugin-typescript/node_modules/ts-loader??ref--13-2!./node_modules/cache-loader/dist/cjs.js??ref--0-0!./node_modules/vue-loader-v16/dist??ref--0-1!./packages/cc-color/color-input.vue?vue&type=script&lang=ts
-
-
-/* harmony default export */ var color_inputvue_type_script_lang_ts = (Object(external_commonjs_vue_commonjs2_vue_root_Vue_["defineComponent"])({
-  name: 'color-input',
-  emits: ['change', 'update:color'],
-  props: {
-    title: {
-      type: String,
-      default: ''
-    },
-    color: {
-      type: String,
-      default: '#818181'
-    }
-  },
-  setup(props, {
-    emit
-  }) {
-    const curColor = Object(external_commonjs_vue_commonjs2_vue_root_Vue_["ref"])(props.color);
-    const curTitle = Object(external_commonjs_vue_commonjs2_vue_root_Vue_["ref"])(props.title);
-    let preColor = Object(external_commonjs_vue_commonjs2_vue_root_Vue_["toRaw"])(props.color);
-    Object(external_commonjs_vue_commonjs2_vue_root_Vue_["watch"])(() => props.color, v => {
-      updateAndFormatColor(v);
-    });
-    function fillColorHead(color) {
-      if (!color.startsWith('#')) {
-        color = `#${color}`;
-      }
-      return color;
-    }
-    function updateAndFormatColor(str) {
-      const color = checkColor(str);
-      if (color) {
-        curColor.value = preColor = fillColorHead(color);
-        return true;
-      } else {
-        curColor.value = preColor = fillColorHead(preColor);
-        return false;
-      }
-    }
-    return {
-      curColor,
-      curTitle,
-      onKeyDown(event) {
-        event.target.blur();
-      },
-      onChange() {
-        if (updateAndFormatColor(curColor.value)) {
-          const color = curColor.value;
-          emit('update:color', color);
-          emit('change', color);
-        }
-      }
-    };
-  }
-}));
-// CONCATENATED MODULE: ./packages/cc-color/color-input.vue?vue&type=script&lang=ts
- 
-// EXTERNAL MODULE: ./packages/cc-color/color-input.vue?vue&type=style&index=0&id=0d640867&scoped=true&lang=less
-var color_inputvue_type_style_index_0_id_0d640867_scoped_true_lang_less = __webpack_require__("b93f");
-
-// CONCATENATED MODULE: ./packages/cc-color/color-input.vue
-
-
-
-
-
-
-
-const color_input_exports_ = /*#__PURE__*/exportHelper_default()(color_inputvue_type_script_lang_ts, [['render',color_inputvue_type_template_id_0d640867_scoped_true_ts_true_render],['__scopeId',"data-v-0d640867"]])
-
-/* harmony default export */ var color_input = (color_input_exports_);
-// CONCATENATED MODULE: ./node_modules/cache-loader/dist/cjs.js??ref--13-0!./node_modules/babel-loader/lib!./node_modules/@vue/cli-plugin-typescript/node_modules/ts-loader??ref--13-2!./node_modules/vue-loader-v16/dist/templateLoader.js??ref--7!./node_modules/cache-loader/dist/cjs.js??ref--0-0!./node_modules/vue-loader-v16/dist??ref--0-1!./packages/cc-color/alpha.vue?vue&type=template&id=09f2c50c&scoped=true&ts=true
-
-const alphavue_type_template_id_09f2c50c_scoped_true_ts_true_withScopeId = n => (Object(external_commonjs_vue_commonjs2_vue_root_Vue_["pushScopeId"])("data-v-09f2c50c"), n = n(), Object(external_commonjs_vue_commonjs2_vue_root_Vue_["popScopeId"])(), n);
-const alphavue_type_template_id_09f2c50c_scoped_true_ts_true_hoisted_1 = {
-  class: "root"
-};
-const alphavue_type_template_id_09f2c50c_scoped_true_ts_true_hoisted_2 = {
-  class: "title"
-};
-const alphavue_type_template_id_09f2c50c_scoped_true_ts_true_hoisted_3 = {
-  class: "pointer",
-  ref: "pointer"
-};
-const alphavue_type_template_id_09f2c50c_scoped_true_ts_true_hoisted_4 = /*#__PURE__*/alphavue_type_template_id_09f2c50c_scoped_true_ts_true_withScopeId(() => /*#__PURE__*/Object(external_commonjs_vue_commonjs2_vue_root_Vue_["createElementVNode"])("div", {
-  class: "shape"
-}, null, -1));
-const alphavue_type_template_id_09f2c50c_scoped_true_ts_true_hoisted_5 = [alphavue_type_template_id_09f2c50c_scoped_true_ts_true_hoisted_4];
-function alphavue_type_template_id_09f2c50c_scoped_true_ts_true_render(_ctx, _cache, $props, $setup, $data, $options) {
-  const _component_AlphaBoard = Object(external_commonjs_vue_commonjs2_vue_root_Vue_["resolveComponent"])("AlphaBoard");
-  return Object(external_commonjs_vue_commonjs2_vue_root_Vue_["openBlock"])(), Object(external_commonjs_vue_commonjs2_vue_root_Vue_["createElementBlock"])("div", alphavue_type_template_id_09f2c50c_scoped_true_ts_true_hoisted_1, [Object(external_commonjs_vue_commonjs2_vue_root_Vue_["createElementVNode"])("div", alphavue_type_template_id_09f2c50c_scoped_true_ts_true_hoisted_2, Object(external_commonjs_vue_commonjs2_vue_root_Vue_["toDisplayString"])(_ctx.curTitle), 1), Object(external_commonjs_vue_commonjs2_vue_root_Vue_["createElementVNode"])("div", {
-    class: "hue",
-    ref: "hue",
-    onMousedown: _cache[0] || (_cache[0] = Object(external_commonjs_vue_commonjs2_vue_root_Vue_["withModifiers"])(
-    //@ts-ignore
-    (...args) => _ctx.onHueMouseDown && _ctx.onHueMouseDown(...args), ["self"]))
-  }, [Object(external_commonjs_vue_commonjs2_vue_root_Vue_["createVNode"])(_component_AlphaBoard, {
-    class: "alpha"
-  }), Object(external_commonjs_vue_commonjs2_vue_root_Vue_["createElementVNode"])("div", {
-    class: "bg",
-    style: Object(external_commonjs_vue_commonjs2_vue_root_Vue_["normalizeStyle"])(_ctx.style)
-  }, null, 4), Object(external_commonjs_vue_commonjs2_vue_root_Vue_["createElementVNode"])("div", alphavue_type_template_id_09f2c50c_scoped_true_ts_true_hoisted_3, alphavue_type_template_id_09f2c50c_scoped_true_ts_true_hoisted_5, 512)], 544)]);
-}
-// CONCATENATED MODULE: ./packages/cc-color/alpha.vue?vue&type=template&id=09f2c50c&scoped=true&ts=true
-
-// CONCATENATED MODULE: ./node_modules/cache-loader/dist/cjs.js??ref--13-0!./node_modules/babel-loader/lib!./node_modules/@vue/cli-plugin-typescript/node_modules/ts-loader??ref--13-2!./node_modules/vue-loader-v16/dist/templateLoader.js??ref--7!./node_modules/cache-loader/dist/cjs.js??ref--0-0!./node_modules/vue-loader-v16/dist??ref--0-1!./packages/cc-color/alpha-board.vue?vue&type=template&id=3072c77b&scoped=true&ts=true
-
-function alpha_boardvue_type_template_id_3072c77b_scoped_true_ts_true_render(_ctx, _cache, $props, $setup, $data, $options) {
-  return Object(external_commonjs_vue_commonjs2_vue_root_Vue_["openBlock"])(), Object(external_commonjs_vue_commonjs2_vue_root_Vue_["createElementBlock"])("div", {
-    class: "board",
-    style: Object(external_commonjs_vue_commonjs2_vue_root_Vue_["normalizeStyle"])(_ctx.bgStyle)
-  }, null, 4);
-}
-// CONCATENATED MODULE: ./packages/cc-color/alpha-board.vue?vue&type=template&id=3072c77b&scoped=true&ts=true
-
-// CONCATENATED MODULE: ./node_modules/cache-loader/dist/cjs.js??ref--13-0!./node_modules/babel-loader/lib!./node_modules/@vue/cli-plugin-typescript/node_modules/ts-loader??ref--13-2!./node_modules/cache-loader/dist/cjs.js??ref--0-0!./node_modules/vue-loader-v16/dist??ref--0-1!./packages/cc-color/alpha-board.vue?vue&type=script&lang=ts
-
-/* harmony default export */ var alpha_boardvue_type_script_lang_ts = (Object(external_commonjs_vue_commonjs2_vue_root_Vue_["defineComponent"])({
-  name: 'alpha-board',
-  props: {
-    size: {
-      type: Number,
-      default: 4
-    },
-    white: {
-      type: String,
-      default: '#fff'
-    },
-    grey: {
-      type: String,
-      default: '#e6e6e6'
-    }
-  },
-  setup(props, {
-    emit
-  }) {
-    function getBoardImgData(color1, color2, size) {
-      if (typeof document === 'undefined') {
-        return '';
-      }
-      const canvas = document.createElement('canvas');
-      canvas.width = canvas.height = size * 2;
-      const ctx = canvas.getContext('2d');
-      if (!ctx) {
-        return '';
-      }
-      ctx.fillStyle = color1;
-      ctx.fillRect(0, 0, canvas.width, canvas.height);
-      ctx.fillStyle = color2;
-      ctx.fillRect(0, 0, size, size);
-      ctx.translate(size, size);
-      ctx.fillRect(0, 0, size, size);
-      return canvas.toDataURL();
-    }
-    const bgStyle = Object(external_commonjs_vue_commonjs2_vue_root_Vue_["computed"])(() => {
-      const base64 = getBoardImgData(props.white, props.grey, props.size);
-      return `background-image:url(${base64})`;
-    });
-    return {
-      bgStyle
-    };
-  }
-}));
-// CONCATENATED MODULE: ./packages/cc-color/alpha-board.vue?vue&type=script&lang=ts
- 
-// EXTERNAL MODULE: ./packages/cc-color/alpha-board.vue?vue&type=style&index=0&id=3072c77b&scoped=true&lang=less
-var alpha_boardvue_type_style_index_0_id_3072c77b_scoped_true_lang_less = __webpack_require__("f406");
-
-// CONCATENATED MODULE: ./packages/cc-color/alpha-board.vue
-
-
-
-
-
-
-
-const alpha_board_exports_ = /*#__PURE__*/exportHelper_default()(alpha_boardvue_type_script_lang_ts, [['render',alpha_boardvue_type_template_id_3072c77b_scoped_true_ts_true_render],['__scopeId',"data-v-3072c77b"]])
-
-/* harmony default export */ var alpha_board = (alpha_board_exports_);
-// CONCATENATED MODULE: ./node_modules/cache-loader/dist/cjs.js??ref--13-0!./node_modules/babel-loader/lib!./node_modules/@vue/cli-plugin-typescript/node_modules/ts-loader??ref--13-2!./node_modules/cache-loader/dist/cjs.js??ref--0-0!./node_modules/vue-loader-v16/dist??ref--0-1!./packages/cc-color/alpha.vue?vue&type=script&lang=ts
-
-
-
-/* harmony default export */ var alphavue_type_script_lang_ts = (Object(external_commonjs_vue_commonjs2_vue_root_Vue_["defineComponent"])({
-  name: 'color-alpha',
-  components: {
-    AlphaBoard: alpha_board
-  },
-  emits: ['change', 'update:color'],
-  props: {
-    title: {
-      type: String,
-      default: '颜色'
-    },
-    color: {
-      type: String,
-      default: 'red'
-    }
-  },
-  setup(props, {
-    emit
-  }) {
-    const hue = Object(external_commonjs_vue_commonjs2_vue_root_Vue_["ref"])();
-    const pointer = Object(external_commonjs_vue_commonjs2_vue_root_Vue_["ref"])();
-    const curTitle = Object(external_commonjs_vue_commonjs2_vue_root_Vue_["ref"])(props.title);
-    const style = Object(external_commonjs_vue_commonjs2_vue_root_Vue_["computed"])(() => {
-      let color = getColorHex(props.color);
-      return `background: linear-gradient(to right, transparent 0%, ${color} 100%)`;
-    });
-    return {
-      style,
-      hue,
-      pointer,
-      curTitle,
-      onHueMouseDown(event) {
-        const HueEl = hue.value;
-        const PointerEl = pointer.value;
-        const rect = HueEl.getBoundingClientRect();
-        let mouseMove = e => {
-          let x = (e.clientX - rect.left) / rect.width * 100;
-          x = x > 100 ? 100 : x;
-          x = x < 0 ? 0 : x;
-          PointerEl.style.left = `${x}%`;
-          const color = transformColorWithAlpha(props.color, x / 100);
-          emit('update:color', color);
-          emit('change', color);
-        };
-        let mouseUp = e => {
-          document.removeEventListener('mousemove', mouseMove);
-          document.removeEventListener('mouseup', mouseUp);
-        };
-        document.addEventListener('mousemove', mouseMove);
-        document.addEventListener('mouseup', mouseUp);
-        mouseMove(event);
-      }
-    };
-  }
-}));
-// CONCATENATED MODULE: ./packages/cc-color/alpha.vue?vue&type=script&lang=ts
- 
-// EXTERNAL MODULE: ./packages/cc-color/alpha.vue?vue&type=style&index=0&id=09f2c50c&scoped=true&lang=less
-var alphavue_type_style_index_0_id_09f2c50c_scoped_true_lang_less = __webpack_require__("7b24");
-
-// CONCATENATED MODULE: ./packages/cc-color/alpha.vue
-
-
-
-
-
-
-
-const alpha_exports_ = /*#__PURE__*/exportHelper_default()(alphavue_type_script_lang_ts, [['render',alphavue_type_template_id_09f2c50c_scoped_true_ts_true_render],['__scopeId',"data-v-09f2c50c"]])
-
-/* harmony default export */ var cc_color_alpha = (alpha_exports_);
-// CONCATENATED MODULE: ./node_modules/cache-loader/dist/cjs.js??ref--13-0!./node_modules/babel-loader/lib!./node_modules/@vue/cli-plugin-typescript/node_modules/ts-loader??ref--13-2!./node_modules/vue-loader-v16/dist/templateLoader.js??ref--7!./node_modules/cache-loader/dist/cjs.js??ref--0-0!./node_modules/vue-loader-v16/dist??ref--0-1!./packages/cc-color/saturation.vue?vue&type=template&id=ee66b0a6&scoped=true&ts=true
-
-const saturationvue_type_template_id_ee66b0a6_scoped_true_ts_true_withScopeId = n => (Object(external_commonjs_vue_commonjs2_vue_root_Vue_["pushScopeId"])("data-v-ee66b0a6"), n = n(), Object(external_commonjs_vue_commonjs2_vue_root_Vue_["popScopeId"])(), n);
-const saturationvue_type_template_id_ee66b0a6_scoped_true_ts_true_hoisted_1 = /*#__PURE__*/saturationvue_type_template_id_ee66b0a6_scoped_true_ts_true_withScopeId(() => /*#__PURE__*/Object(external_commonjs_vue_commonjs2_vue_root_Vue_["createElementVNode"])("div", {
-  class: "white",
-  draggable: "false"
-}, null, -1));
-const saturationvue_type_template_id_ee66b0a6_scoped_true_ts_true_hoisted_2 = /*#__PURE__*/saturationvue_type_template_id_ee66b0a6_scoped_true_ts_true_withScopeId(() => /*#__PURE__*/Object(external_commonjs_vue_commonjs2_vue_root_Vue_["createElementVNode"])("div", {
-  class: "black",
-  draggable: "false"
-}, null, -1));
-const saturationvue_type_template_id_ee66b0a6_scoped_true_ts_true_hoisted_3 = {
-  class: "pointer",
-  ref: "pointer",
-  draggable: "false"
-};
-const saturationvue_type_template_id_ee66b0a6_scoped_true_ts_true_hoisted_4 = /*#__PURE__*/saturationvue_type_template_id_ee66b0a6_scoped_true_ts_true_withScopeId(() => /*#__PURE__*/Object(external_commonjs_vue_commonjs2_vue_root_Vue_["createElementVNode"])("div", {
-  class: "shape1",
-  draggable: "false"
-}, null, -1));
-const saturationvue_type_template_id_ee66b0a6_scoped_true_ts_true_hoisted_5 = /*#__PURE__*/saturationvue_type_template_id_ee66b0a6_scoped_true_ts_true_withScopeId(() => /*#__PURE__*/Object(external_commonjs_vue_commonjs2_vue_root_Vue_["createElementVNode"])("div", {
-  class: "shape2",
-  draggable: "false"
-}, null, -1));
-const _hoisted_6 = [saturationvue_type_template_id_ee66b0a6_scoped_true_ts_true_hoisted_4, saturationvue_type_template_id_ee66b0a6_scoped_true_ts_true_hoisted_5];
-function saturationvue_type_template_id_ee66b0a6_scoped_true_ts_true_render(_ctx, _cache, $props, $setup, $data, $options) {
-  return Object(external_commonjs_vue_commonjs2_vue_root_Vue_["openBlock"])(), Object(external_commonjs_vue_commonjs2_vue_root_Vue_["createElementBlock"])("div", {
-    class: "picker",
-    draggable: "false",
-    ref: "picker",
-    style: Object(external_commonjs_vue_commonjs2_vue_root_Vue_["normalizeStyle"])({
-      background: _ctx.bgColor
-    }),
-    onMousedown: _cache[0] || (_cache[0] = Object(external_commonjs_vue_commonjs2_vue_root_Vue_["withModifiers"])(
-    //@ts-ignore
-    (...args) => _ctx.onPickerPointerMouseDown && _ctx.onPickerPointerMouseDown(...args), ["self"]))
-  }, [saturationvue_type_template_id_ee66b0a6_scoped_true_ts_true_hoisted_1, saturationvue_type_template_id_ee66b0a6_scoped_true_ts_true_hoisted_2, Object(external_commonjs_vue_commonjs2_vue_root_Vue_["createElementVNode"])("div", saturationvue_type_template_id_ee66b0a6_scoped_true_ts_true_hoisted_3, _hoisted_6, 512)], 36);
-}
-// CONCATENATED MODULE: ./packages/cc-color/saturation.vue?vue&type=template&id=ee66b0a6&scoped=true&ts=true
-
-// CONCATENATED MODULE: ./node_modules/cache-loader/dist/cjs.js??ref--13-0!./node_modules/babel-loader/lib!./node_modules/@vue/cli-plugin-typescript/node_modules/ts-loader??ref--13-2!./node_modules/cache-loader/dist/cjs.js??ref--0-0!./node_modules/vue-loader-v16/dist??ref--0-1!./packages/cc-color/saturation.vue?vue&type=script&lang=ts
-
-
-/* harmony default export */ var saturationvue_type_script_lang_ts = (Object(external_commonjs_vue_commonjs2_vue_root_Vue_["defineComponent"])({
-  name: 'color-saturation',
-  emits: ['change', 'update:color'],
-  props: {
-    color: {
-      type: String,
-      default: 'red'
-    }
-  },
-  setup(props, {
-    emit
-  }) {
-    const picker = Object(external_commonjs_vue_commonjs2_vue_root_Vue_["ref"])();
-    const pointer = Object(external_commonjs_vue_commonjs2_vue_root_Vue_["ref"])();
-    const bgColor = Object(external_commonjs_vue_commonjs2_vue_root_Vue_["ref"])('red');
-    let baseColor = Object(external_commonjs_vue_commonjs2_vue_root_Vue_["toRaw"])(props.color); // 基准色，因为在调整pointer的时候，仅仅是在修改基准色的饱和度
-    function updateBaseColor(color) {
-      baseColor = color;
-      updateView(color);
-    }
-    function updateView(str) {
-      const pointerEl = pointer.value;
-      const {
-        s,
-        v
-      } = getColorHSV(str);
-      pointerEl.style.left = `${s * 100}%`;
-      pointerEl.style.top = `${(1 - v) * 100}%`;
-      const hue = getColorHue(str);
-      bgColor.value = `#${createColorByHue(hue)}`;
-    }
-    Object(external_commonjs_vue_commonjs2_vue_root_Vue_["watch"])(() => props.color, v => {
-      updateView(v);
-    });
-    Object(external_commonjs_vue_commonjs2_vue_root_Vue_["onMounted"])(() => {
-      updateView(props.color);
-    });
-    return {
-      bgColor,
-      pointer,
-      picker,
-      updateBaseColor,
-      onPickerPointerMouseDown(event) {
-        let updatePointer = e => {
-          const pointerEl = pointer.value;
-          const pickerEl = picker.value;
-          const rect = pickerEl.getBoundingClientRect();
-          let left = (e.clientX - rect.left) / rect.width * 100;
-          left = left > 100 ? 100 : left;
-          left = left < 0 ? 0 : left;
-          pointerEl.style.left = `${left}%`;
-          let top = (e.clientY - rect.top) / rect.height * 100;
-          top = top > 100 ? 100 : top;
-          top = top < 0 ? 0 : top;
-          pointerEl.style.top = `${top}%`;
-          let saturation = left / 100;
-          let bright = 1 - top / 100;
-          let color = transformColorBySaturation(baseColor, saturation, bright);
-          emit('update:color', color);
-          emit('change', color);
-        };
-        let upCallback = e => {
-          document.removeEventListener('mousemove', updatePointer);
-          document.removeEventListener('mouseup', upCallback);
-        };
-        document.addEventListener('mousemove', updatePointer);
-        document.addEventListener('mouseup', upCallback);
-        updatePointer(event);
-      }
-    };
-  }
-}));
-// CONCATENATED MODULE: ./packages/cc-color/saturation.vue?vue&type=script&lang=ts
- 
-// EXTERNAL MODULE: ./packages/cc-color/saturation.vue?vue&type=style&index=0&id=ee66b0a6&scoped=true&lang=less
-var saturationvue_type_style_index_0_id_ee66b0a6_scoped_true_lang_less = __webpack_require__("feab");
-
-// CONCATENATED MODULE: ./packages/cc-color/saturation.vue
-
-
-
-
-
-
-
-const saturation_exports_ = /*#__PURE__*/exportHelper_default()(saturationvue_type_script_lang_ts, [['render',saturationvue_type_template_id_ee66b0a6_scoped_true_ts_true_render],['__scopeId',"data-v-ee66b0a6"]])
-
-/* harmony default export */ var cc_color_saturation = (saturation_exports_);
-// CONCATENATED MODULE: ./node_modules/cache-loader/dist/cjs.js??ref--13-0!./node_modules/babel-loader/lib!./node_modules/@vue/cli-plugin-typescript/node_modules/ts-loader??ref--13-2!./node_modules/vue-loader-v16/dist/templateLoader.js??ref--7!./node_modules/cache-loader/dist/cjs.js??ref--0-0!./node_modules/vue-loader-v16/dist??ref--0-1!./packages/cc-color/color-case.vue?vue&type=template&id=8cdb8896&scoped=true&ts=true
-
-function color_casevue_type_template_id_8cdb8896_scoped_true_ts_true_render(_ctx, _cache, $props, $setup, $data, $options) {
-  return Object(external_commonjs_vue_commonjs2_vue_root_Vue_["openBlock"])(), Object(external_commonjs_vue_commonjs2_vue_root_Vue_["createElementBlock"])("div", {
-    class: "color-case",
-    onMouseenter: _cache[0] || (_cache[0] = $event => _ctx.isHover = true),
-    onMouseleave: _cache[1] || (_cache[1] = $event => _ctx.isHover = false),
-    style: Object(external_commonjs_vue_commonjs2_vue_root_Vue_["normalizeStyle"])({
-      backgroundColor: `#${_ctx.colorHex}`
-    })
-  }, [Object(external_commonjs_vue_commonjs2_vue_root_Vue_["withDirectives"])(Object(external_commonjs_vue_commonjs2_vue_root_Vue_["createElementVNode"])("div", {
-    class: "label",
-    style: Object(external_commonjs_vue_commonjs2_vue_root_Vue_["normalizeStyle"])({
-      color: `#${_ctx.labelColor}`
-    })
-  }, "#" + Object(external_commonjs_vue_commonjs2_vue_root_Vue_["toDisplayString"])(_ctx.colorHex), 5), [[external_commonjs_vue_commonjs2_vue_root_Vue_["vShow"], _ctx.isHover]])], 36);
-}
-// CONCATENATED MODULE: ./packages/cc-color/color-case.vue?vue&type=template&id=8cdb8896&scoped=true&ts=true
-
-// CONCATENATED MODULE: ./node_modules/cache-loader/dist/cjs.js??ref--13-0!./node_modules/babel-loader/lib!./node_modules/@vue/cli-plugin-typescript/node_modules/ts-loader??ref--13-2!./node_modules/cache-loader/dist/cjs.js??ref--0-0!./node_modules/vue-loader-v16/dist??ref--0-1!./packages/cc-color/color-case.vue?vue&type=script&lang=ts
-
-// @ts-ignore
-
-/* harmony default export */ var color_casevue_type_script_lang_ts = (Object(external_commonjs_vue_commonjs2_vue_root_Vue_["defineComponent"])({
-  name: 'color-case',
-  props: {
-    color: {
-      type: String,
-      default: 'red'
-    }
-  },
-  setup(props, {
-    emit
-  }) {
-    const color = tinycolor_default()(props.color);
-    const colorHex = Object(external_commonjs_vue_commonjs2_vue_root_Vue_["ref"])(color.toHex());
-    const rgb = color.toRgb();
-    rgb.r = 255 - rgb.r;
-    rgb.g = 255 - rgb.g;
-    rgb.b = 255 - rgb.b;
-    const reverseColor = tinycolor_default()(rgb);
-    reverseColor.darken(40);
-    const labelColor = Object(external_commonjs_vue_commonjs2_vue_root_Vue_["ref"])(reverseColor.toHex());
-    const isHover = Object(external_commonjs_vue_commonjs2_vue_root_Vue_["ref"])(false);
-    return {
-      isHover,
-      colorHex,
-      labelColor
-    };
-  }
-}));
-// CONCATENATED MODULE: ./packages/cc-color/color-case.vue?vue&type=script&lang=ts
- 
-// EXTERNAL MODULE: ./packages/cc-color/color-case.vue?vue&type=style&index=0&id=8cdb8896&scoped=true&lang=less
-var color_casevue_type_style_index_0_id_8cdb8896_scoped_true_lang_less = __webpack_require__("cac7");
-
-// CONCATENATED MODULE: ./packages/cc-color/color-case.vue
-
-
-
-
-
-
-
-const color_case_exports_ = /*#__PURE__*/exportHelper_default()(color_casevue_type_script_lang_ts, [['render',color_casevue_type_template_id_8cdb8896_scoped_true_ts_true_render],['__scopeId',"data-v-8cdb8896"]])
-
-/* harmony default export */ var color_case = (color_case_exports_);
 // CONCATENATED MODULE: ./node_modules/@popperjs/core/lib/dom-utils/getWindow.js
 function getWindow(node) {
   if (node == null) {
@@ -11358,12 +12609,902 @@ var popper_createPopper = /*#__PURE__*/popperGenerator({
  // eslint-disable-next-line import/no-unused-modules
 
 
+// CONCATENATED MODULE: ./node_modules/cache-loader/dist/cjs.js??ref--13-0!./node_modules/babel-loader/lib!./node_modules/@vue/cli-plugin-typescript/node_modules/ts-loader??ref--13-2!./node_modules/cache-loader/dist/cjs.js??ref--0-0!./node_modules/vue-loader-v16/dist??ref--0-1!./packages/cc-button/button.vue?vue&type=script&lang=ts
+
+
+
+/* harmony default export */ var buttonvue_type_script_lang_ts = (Object(external_commonjs_vue_commonjs2_vue_root_Vue_["defineComponent"])({
+  name: 'CCButton',
+  props: {
+    transition: {
+      type: String,
+      default: 'color',
+      validator: value => {
+        return !!['color', 'sprite'].find(el => el === value);
+      }
+    },
+    color: {
+      type: String
+    },
+    texture: {
+      type: String
+    },
+    tooltip: {
+      type: String,
+      default: ''
+    }
+  },
+  emits: [],
+  setup(props, {
+    emit
+  }) {
+    const isClick = Object(external_commonjs_vue_commonjs2_vue_root_Vue_["ref"])(false);
+    const isHover = Object(external_commonjs_vue_commonjs2_vue_root_Vue_["ref"])(false);
+    const transition = new transition_Transition(props.transition, props);
+    const isShowTips = Object(external_commonjs_vue_commonjs2_vue_root_Vue_["ref"])(false);
+    const tips = Object(external_commonjs_vue_commonjs2_vue_root_Vue_["ref"])();
+    let timer = null;
+    let popperInstance = null;
+    function showTipsFunc(target) {
+      if (props.tooltip && tips.value) {
+        isShowTips.value = true;
+        popperInstance = popper_createPopper(target, tips.value, {
+          placement: 'top-start',
+          modifiers: [{
+            name: 'arrow',
+            options: {
+              element: arrow.value,
+              padding: 6
+            }
+          }, {
+            name: 'offset',
+            options: {
+              offset: [5, 5]
+            }
+          }]
+        });
+      }
+    }
+    const arrow = Object(external_commonjs_vue_commonjs2_vue_root_Vue_["ref"])();
+    const text = Object(external_commonjs_vue_commonjs2_vue_root_Vue_["ref"])();
+    return {
+      arrow,
+      text,
+      tips,
+      isShowTips,
+      theme: transition.theme,
+      isClick,
+      onHover(event) {},
+      onMouseup() {
+        isClick.value = false;
+        transition.onMouseup();
+      },
+      onMousedown() {
+        isClick.value = true;
+        transition.onMousedown();
+      },
+      onMouseenter() {
+        if (props.tooltip) {
+          clearTimeout(timer);
+          timer = setTimeout(() => {
+            showTipsFunc(text.value);
+          }, 600);
+        }
+        isHover.value = true;
+        transition.onMouseenter();
+      },
+      onMouseleave() {
+        if (props.tooltip) {
+          clearTimeout(timer);
+          isShowTips.value = false;
+          popperInstance === null || popperInstance === void 0 ? void 0 : popperInstance.destroy();
+          popperInstance = null;
+        }
+        isHover.value = false;
+        transition.onMouseleave();
+      }
+    };
+  }
+}));
+// CONCATENATED MODULE: ./packages/cc-button/button.vue?vue&type=script&lang=ts
+ 
+// EXTERNAL MODULE: ./packages/cc-button/button.vue?vue&type=style&index=0&id=386514bd&scoped=true&lang=less
+var buttonvue_type_style_index_0_id_386514bd_scoped_true_lang_less = __webpack_require__("4cf2");
+
+// EXTERNAL MODULE: ./node_modules/vue-loader-v16/dist/exportHelper.js
+var exportHelper = __webpack_require__("6b0d");
+var exportHelper_default = /*#__PURE__*/__webpack_require__.n(exportHelper);
+
+// CONCATENATED MODULE: ./packages/cc-button/button.vue
+
+
+
+
+
+
+
+const __exports__ = /*#__PURE__*/exportHelper_default()(buttonvue_type_script_lang_ts, [['render',render],['__scopeId',"data-v-386514bd"]])
+
+/* harmony default export */ var cc_button_button = (__exports__);
+// CONCATENATED MODULE: ./packages/cc-button/index.ts
+
+
+// CONCATENATED MODULE: ./node_modules/cache-loader/dist/cjs.js??ref--13-0!./node_modules/babel-loader/lib!./node_modules/@vue/cli-plugin-typescript/node_modules/ts-loader??ref--13-2!./node_modules/vue-loader-v16/dist/templateLoader.js??ref--7!./node_modules/cache-loader/dist/cjs.js??ref--0-0!./node_modules/vue-loader-v16/dist??ref--0-1!./packages/cc-checkbox/checkbox.vue?vue&type=template&id=eaa98a84&scoped=true&ts=true
+
+const checkboxvue_type_template_id_eaa98a84_scoped_true_ts_true_withScopeId = n => (Object(external_commonjs_vue_commonjs2_vue_root_Vue_["pushScopeId"])("data-v-eaa98a84"), n = n(), Object(external_commonjs_vue_commonjs2_vue_root_Vue_["popScopeId"])(), n);
+const checkboxvue_type_template_id_eaa98a84_scoped_true_ts_true_hoisted_1 = {
+  class: "checkbox"
+};
+const checkboxvue_type_template_id_eaa98a84_scoped_true_ts_true_hoisted_2 = {
+  key: 0,
+  class: "text"
+};
+function checkboxvue_type_template_id_eaa98a84_scoped_true_ts_true_render(_ctx, _cache, $props, $setup, $data, $options) {
+  return Object(external_commonjs_vue_commonjs2_vue_root_Vue_["openBlock"])(), Object(external_commonjs_vue_commonjs2_vue_root_Vue_["createElementBlock"])("div", checkboxvue_type_template_id_eaa98a84_scoped_true_ts_true_hoisted_1, [Object(external_commonjs_vue_commonjs2_vue_root_Vue_["withDirectives"])(Object(external_commonjs_vue_commonjs2_vue_root_Vue_["createElementVNode"])("input", {
+    type: "checkbox",
+    "onUpdate:modelValue": _cache[0] || (_cache[0] = $event => _ctx.val = $event),
+    onChange: _cache[1] || (_cache[1] =
+    //@ts-ignore
+    (...args) => _ctx.onChange && _ctx.onChange(...args))
+  }, null, 544), [[external_commonjs_vue_commonjs2_vue_root_Vue_["vModelCheckbox"], _ctx.val]]), _ctx.label.length ? (Object(external_commonjs_vue_commonjs2_vue_root_Vue_["openBlock"])(), Object(external_commonjs_vue_commonjs2_vue_root_Vue_["createElementBlock"])("span", checkboxvue_type_template_id_eaa98a84_scoped_true_ts_true_hoisted_2, Object(external_commonjs_vue_commonjs2_vue_root_Vue_["toDisplayString"])(_ctx.label), 1)) : Object(external_commonjs_vue_commonjs2_vue_root_Vue_["createCommentVNode"])("", true), Object(external_commonjs_vue_commonjs2_vue_root_Vue_["renderSlot"])(_ctx.$slots, "label", {}, undefined, true)]);
+}
+// CONCATENATED MODULE: ./packages/cc-checkbox/checkbox.vue?vue&type=template&id=eaa98a84&scoped=true&ts=true
+
+// CONCATENATED MODULE: ./node_modules/cache-loader/dist/cjs.js??ref--13-0!./node_modules/babel-loader/lib!./node_modules/@vue/cli-plugin-typescript/node_modules/ts-loader??ref--13-2!./node_modules/cache-loader/dist/cjs.js??ref--0-0!./node_modules/vue-loader-v16/dist??ref--0-1!./packages/cc-checkbox/checkbox.vue?vue&type=script&lang=ts
+
+/* harmony default export */ var checkboxvue_type_script_lang_ts = (Object(external_commonjs_vue_commonjs2_vue_root_Vue_["defineComponent"])({
+  name: 'CCCheckbox',
+  emits: ['update:value', 'change'],
+  props: {
+    value: {
+      type: Boolean,
+      default: false
+    },
+    label: {
+      type: String,
+      default: ''
+    }
+  },
+  setup(props, {
+    emit
+  }) {
+    const val = Object(external_commonjs_vue_commonjs2_vue_root_Vue_["ref"])(props.value);
+    const label = Object(external_commonjs_vue_commonjs2_vue_root_Vue_["ref"])(props.label);
+    Object(external_commonjs_vue_commonjs2_vue_root_Vue_["watch"])(() => props.value, v => {
+      val.value = v;
+    });
+    return {
+      val,
+      label,
+      onChange() {
+        const v = val.value;
+        emit('update:value', v);
+        emit('change', v);
+      }
+    };
+  }
+}));
+// CONCATENATED MODULE: ./packages/cc-checkbox/checkbox.vue?vue&type=script&lang=ts
+ 
+// EXTERNAL MODULE: ./packages/cc-checkbox/checkbox.vue?vue&type=style&index=0&id=eaa98a84&scoped=true&lang=less
+var checkboxvue_type_style_index_0_id_eaa98a84_scoped_true_lang_less = __webpack_require__("a493");
+
+// CONCATENATED MODULE: ./packages/cc-checkbox/checkbox.vue
+
+
+
+
+
+
+
+const checkbox_exports_ = /*#__PURE__*/exportHelper_default()(checkboxvue_type_script_lang_ts, [['render',checkboxvue_type_template_id_eaa98a84_scoped_true_ts_true_render],['__scopeId',"data-v-eaa98a84"]])
+
+/* harmony default export */ var cc_checkbox_checkbox = (checkbox_exports_);
+// CONCATENATED MODULE: ./packages/cc-checkbox/index.ts
+
+
+// CONCATENATED MODULE: ./node_modules/cache-loader/dist/cjs.js??ref--13-0!./node_modules/babel-loader/lib!./node_modules/@vue/cli-plugin-typescript/node_modules/ts-loader??ref--13-2!./node_modules/vue-loader-v16/dist/templateLoader.js??ref--7!./node_modules/cache-loader/dist/cjs.js??ref--0-0!./node_modules/vue-loader-v16/dist??ref--0-1!./packages/cc-color/color.vue?vue&type=template&id=7aabc3e9&scoped=true&ts=true
+
+const colorvue_type_template_id_7aabc3e9_scoped_true_ts_true_withScopeId = n => (Object(external_commonjs_vue_commonjs2_vue_root_Vue_["pushScopeId"])("data-v-7aabc3e9"), n = n(), Object(external_commonjs_vue_commonjs2_vue_root_Vue_["popScopeId"])(), n);
+const colorvue_type_template_id_7aabc3e9_scoped_true_ts_true_hoisted_1 = {
+  class: "cc-color"
+};
+const colorvue_type_template_id_7aabc3e9_scoped_true_ts_true_hoisted_2 = {
+  class: "colors"
+};
+function colorvue_type_template_id_7aabc3e9_scoped_true_ts_true_render(_ctx, _cache, $props, $setup, $data, $options) {
+  const _component_ColorSaturation = Object(external_commonjs_vue_commonjs2_vue_root_Vue_["resolveComponent"])("ColorSaturation");
+  const _component_Hue = Object(external_commonjs_vue_commonjs2_vue_root_Vue_["resolveComponent"])("Hue");
+  const _component_ColorInput = Object(external_commonjs_vue_commonjs2_vue_root_Vue_["resolveComponent"])("ColorInput");
+  const _component_ColorCase = Object(external_commonjs_vue_commonjs2_vue_root_Vue_["resolveComponent"])("ColorCase");
+  return Object(external_commonjs_vue_commonjs2_vue_root_Vue_["openBlock"])(), Object(external_commonjs_vue_commonjs2_vue_root_Vue_["createElementBlock"])("div", colorvue_type_template_id_7aabc3e9_scoped_true_ts_true_hoisted_1, [Object(external_commonjs_vue_commonjs2_vue_root_Vue_["createElementVNode"])("div", {
+    ref: "color",
+    class: "color",
+    style: Object(external_commonjs_vue_commonjs2_vue_root_Vue_["normalizeStyle"])(_ctx.style),
+    onClick: _cache[0] || (_cache[0] = Object(external_commonjs_vue_commonjs2_vue_root_Vue_["withModifiers"])(
+    //@ts-ignore
+    (...args) => _ctx.onShowPanel && _ctx.onShowPanel(...args), ["stop", "prevent"]))
+  }, null, 4), Object(external_commonjs_vue_commonjs2_vue_root_Vue_["withDirectives"])(Object(external_commonjs_vue_commonjs2_vue_root_Vue_["createElementVNode"])("div", {
+    ref: "panel",
+    class: "color-panel",
+    onClick: _cache[3] || (_cache[3] = Object(external_commonjs_vue_commonjs2_vue_root_Vue_["withModifiers"])(() => {}, ["stop", "prevent"]))
+  }, [Object(external_commonjs_vue_commonjs2_vue_root_Vue_["createVNode"])(_component_ColorSaturation, {
+    ref: "saturationComp",
+    color: _ctx.hexColor,
+    onChange: _ctx.onColorChangeSaturation
+  }, null, 8, ["color", "onChange"]), Object(external_commonjs_vue_commonjs2_vue_root_Vue_["createVNode"])(_component_Hue, {
+    class: "board",
+    title: "",
+    hue: _ctx.hueValue,
+    "onUpdate:hue": _cache[1] || (_cache[1] = $event => _ctx.hueValue = $event),
+    onChange: _ctx.onChangeColorHue
+  }, null, 8, ["hue", "onChange"]), Object(external_commonjs_vue_commonjs2_vue_root_Vue_["createVNode"])(_component_ColorInput, {
+    title: "HEX:",
+    color: _ctx.hexColor,
+    "onUpdate:color": _cache[2] || (_cache[2] = $event => _ctx.hexColor = $event),
+    onChange: _ctx.onColorChangeHex,
+    onFocusin: _ctx.onFocusin
+  }, null, 8, ["color", "onChange", "onFocusin"]), Object(external_commonjs_vue_commonjs2_vue_root_Vue_["createElementVNode"])("div", colorvue_type_template_id_7aabc3e9_scoped_true_ts_true_hoisted_2, [(Object(external_commonjs_vue_commonjs2_vue_root_Vue_["openBlock"])(true), Object(external_commonjs_vue_commonjs2_vue_root_Vue_["createElementBlock"])(external_commonjs_vue_commonjs2_vue_root_Vue_["Fragment"], null, Object(external_commonjs_vue_commonjs2_vue_root_Vue_["renderList"])(_ctx.colorList, (item, index) => {
+    return Object(external_commonjs_vue_commonjs2_vue_root_Vue_["openBlock"])(), Object(external_commonjs_vue_commonjs2_vue_root_Vue_["createBlock"])(_component_ColorCase, {
+      class: "color-item",
+      onClick: Object(external_commonjs_vue_commonjs2_vue_root_Vue_["withModifiers"])($event => _ctx.onColorListSelect(item), ["prevent", "stop"]),
+      key: index,
+      color: item
+    }, null, 8, ["onClick", "color"]);
+  }), 128))])], 512), [[external_commonjs_vue_commonjs2_vue_root_Vue_["vShow"], _ctx.show]])]);
+}
+// CONCATENATED MODULE: ./packages/cc-color/color.vue?vue&type=template&id=7aabc3e9&scoped=true&ts=true
+
+// CONCATENATED MODULE: ./node_modules/cache-loader/dist/cjs.js??ref--13-0!./node_modules/babel-loader/lib!./node_modules/@vue/cli-plugin-typescript/node_modules/ts-loader??ref--13-2!./node_modules/vue-loader-v16/dist/templateLoader.js??ref--7!./node_modules/cache-loader/dist/cjs.js??ref--0-0!./node_modules/vue-loader-v16/dist??ref--0-1!./packages/cc-color/hue.vue?vue&type=template&id=b75be4da&scoped=true&ts=true
+
+const huevue_type_template_id_b75be4da_scoped_true_ts_true_withScopeId = n => (Object(external_commonjs_vue_commonjs2_vue_root_Vue_["pushScopeId"])("data-v-b75be4da"), n = n(), Object(external_commonjs_vue_commonjs2_vue_root_Vue_["popScopeId"])(), n);
+const huevue_type_template_id_b75be4da_scoped_true_ts_true_hoisted_1 = {
+  class: "root"
+};
+const huevue_type_template_id_b75be4da_scoped_true_ts_true_hoisted_2 = /*#__PURE__*/huevue_type_template_id_b75be4da_scoped_true_ts_true_withScopeId(() => /*#__PURE__*/Object(external_commonjs_vue_commonjs2_vue_root_Vue_["createElementVNode"])("div", {
+  class: "bg"
+}, null, -1));
+const huevue_type_template_id_b75be4da_scoped_true_ts_true_hoisted_3 = {
+  class: "pointer",
+  ref: "pointer"
+};
+const huevue_type_template_id_b75be4da_scoped_true_ts_true_hoisted_4 = /*#__PURE__*/huevue_type_template_id_b75be4da_scoped_true_ts_true_withScopeId(() => /*#__PURE__*/Object(external_commonjs_vue_commonjs2_vue_root_Vue_["createElementVNode"])("div", {
+  class: "shape"
+}, null, -1));
+const _hoisted_5 = [huevue_type_template_id_b75be4da_scoped_true_ts_true_hoisted_4];
+function huevue_type_template_id_b75be4da_scoped_true_ts_true_render(_ctx, _cache, $props, $setup, $data, $options) {
+  return Object(external_commonjs_vue_commonjs2_vue_root_Vue_["openBlock"])(), Object(external_commonjs_vue_commonjs2_vue_root_Vue_["createElementBlock"])("div", huevue_type_template_id_b75be4da_scoped_true_ts_true_hoisted_1, [Object(external_commonjs_vue_commonjs2_vue_root_Vue_["createElementVNode"])("div", {
+    class: "hue",
+    ref: "hueEl",
+    onMousedown: _cache[0] || (_cache[0] = Object(external_commonjs_vue_commonjs2_vue_root_Vue_["withModifiers"])(
+    //@ts-ignore
+    (...args) => _ctx.onHueMouseDown && _ctx.onHueMouseDown(...args), ["self"]))
+  }, [huevue_type_template_id_b75be4da_scoped_true_ts_true_hoisted_2, Object(external_commonjs_vue_commonjs2_vue_root_Vue_["createElementVNode"])("div", huevue_type_template_id_b75be4da_scoped_true_ts_true_hoisted_3, _hoisted_5, 512)], 544)]);
+}
+// CONCATENATED MODULE: ./packages/cc-color/hue.vue?vue&type=template&id=b75be4da&scoped=true&ts=true
+
+// CONCATENATED MODULE: ./node_modules/cache-loader/dist/cjs.js??ref--13-0!./node_modules/babel-loader/lib!./node_modules/@vue/cli-plugin-typescript/node_modules/ts-loader??ref--13-2!./node_modules/cache-loader/dist/cjs.js??ref--0-0!./node_modules/vue-loader-v16/dist??ref--0-1!./packages/cc-color/hue.vue?vue&type=script&lang=ts
+
+// 色相
+/* harmony default export */ var huevue_type_script_lang_ts = (Object(external_commonjs_vue_commonjs2_vue_root_Vue_["defineComponent"])({
+  name: 'color-hue',
+  emits: ['change', 'update:hue'],
+  props: {
+    title: {
+      type: String,
+      default: '颜色'
+    },
+    hue: {
+      type: Number,
+      default: 0
+    }
+  },
+  setup(props, {
+    emit
+  }) {
+    const hueEl = Object(external_commonjs_vue_commonjs2_vue_root_Vue_["ref"])();
+    const pointer = Object(external_commonjs_vue_commonjs2_vue_root_Vue_["ref"])();
+    Object(external_commonjs_vue_commonjs2_vue_root_Vue_["watch"])(() => props.hue, hue => {
+      updatePointer(hue);
+    });
+    function updatePointer(hue) {
+      const PointerEl = pointer.value;
+      PointerEl.style.left = `${hue / 360 * 100}%`;
+    }
+    Object(external_commonjs_vue_commonjs2_vue_root_Vue_["onMounted"])(() => {
+      updatePointer(props.hue);
+    });
+    return {
+      hueEl,
+      pointer,
+      onHueMouseDown(event) {
+        const PointerEl = pointer.value;
+        const rect = hueEl.value.getBoundingClientRect();
+        const mouseMove = e => {
+          let x = (e.clientX - rect.left) / rect.width * 100;
+          x = x > 100 ? 100 : x;
+          x = x < 0 ? 0 : x;
+          PointerEl.style.left = `${x}%`;
+          const hue = 360 * (x / 100);
+          emit('update:hue', hue);
+          emit('change', hue);
+        };
+        let mouseUp = e => {
+          document.removeEventListener('mousemove', mouseMove);
+          document.removeEventListener('mouseup', mouseUp);
+        };
+        document.addEventListener('mousemove', mouseMove);
+        document.addEventListener('mouseup', mouseUp);
+        mouseMove(event);
+      }
+    };
+  }
+}));
+// CONCATENATED MODULE: ./packages/cc-color/hue.vue?vue&type=script&lang=ts
+ 
+// EXTERNAL MODULE: ./packages/cc-color/hue.vue?vue&type=style&index=0&id=b75be4da&scoped=true&lang=less
+var huevue_type_style_index_0_id_b75be4da_scoped_true_lang_less = __webpack_require__("b975");
+
+// CONCATENATED MODULE: ./packages/cc-color/hue.vue
+
+
+
+
+
+
+
+const hue_exports_ = /*#__PURE__*/exportHelper_default()(huevue_type_script_lang_ts, [['render',huevue_type_template_id_b75be4da_scoped_true_ts_true_render],['__scopeId',"data-v-b75be4da"]])
+
+/* harmony default export */ var cc_color_hue = (hue_exports_);
+// CONCATENATED MODULE: ./node_modules/cache-loader/dist/cjs.js??ref--13-0!./node_modules/babel-loader/lib!./node_modules/@vue/cli-plugin-typescript/node_modules/ts-loader??ref--13-2!./node_modules/vue-loader-v16/dist/templateLoader.js??ref--7!./node_modules/cache-loader/dist/cjs.js??ref--0-0!./node_modules/vue-loader-v16/dist??ref--0-1!./packages/cc-color/color-input.vue?vue&type=template&id=0d640867&scoped=true&ts=true
+
+const color_inputvue_type_template_id_0d640867_scoped_true_ts_true_withScopeId = n => (Object(external_commonjs_vue_commonjs2_vue_root_Vue_["pushScopeId"])("data-v-0d640867"), n = n(), Object(external_commonjs_vue_commonjs2_vue_root_Vue_["popScopeId"])(), n);
+const color_inputvue_type_template_id_0d640867_scoped_true_ts_true_hoisted_1 = {
+  class: "root"
+};
+const color_inputvue_type_template_id_0d640867_scoped_true_ts_true_hoisted_2 = {
+  class: "title"
+};
+function color_inputvue_type_template_id_0d640867_scoped_true_ts_true_render(_ctx, _cache, $props, $setup, $data, $options) {
+  return Object(external_commonjs_vue_commonjs2_vue_root_Vue_["openBlock"])(), Object(external_commonjs_vue_commonjs2_vue_root_Vue_["createElementBlock"])("div", color_inputvue_type_template_id_0d640867_scoped_true_ts_true_hoisted_1, [Object(external_commonjs_vue_commonjs2_vue_root_Vue_["createElementVNode"])("div", color_inputvue_type_template_id_0d640867_scoped_true_ts_true_hoisted_2, Object(external_commonjs_vue_commonjs2_vue_root_Vue_["toDisplayString"])(_ctx.curTitle), 1), Object(external_commonjs_vue_commonjs2_vue_root_Vue_["withDirectives"])(Object(external_commonjs_vue_commonjs2_vue_root_Vue_["createElementVNode"])("input", {
+    class: "input",
+    draggable: "false",
+    onKeydown: _cache[0] || (_cache[0] = Object(external_commonjs_vue_commonjs2_vue_root_Vue_["withKeys"])(
+    //@ts-ignore
+    (...args) => _ctx.onKeyDown && _ctx.onKeyDown(...args), ["enter"])),
+    onPaste: _cache[1] || (_cache[1] =
+    //@ts-ignore
+    (...args) => _ctx.onChange && _ctx.onChange(...args)),
+    "onUpdate:modelValue": _cache[2] || (_cache[2] = $event => _ctx.curColor = $event),
+    onChange: _cache[3] || (_cache[3] =
+    //@ts-ignore
+    (...args) => _ctx.onChange && _ctx.onChange(...args))
+  }, null, 544), [[external_commonjs_vue_commonjs2_vue_root_Vue_["vModelText"], _ctx.curColor]])]);
+}
+// CONCATENATED MODULE: ./packages/cc-color/color-input.vue?vue&type=template&id=0d640867&scoped=true&ts=true
+
+// EXTERNAL MODULE: ./node_modules/tinycolor2/tinycolor.js
+var tinycolor = __webpack_require__("66cb");
+var tinycolor_default = /*#__PURE__*/__webpack_require__.n(tinycolor);
+
+// CONCATENATED MODULE: ./packages/cc-color/util.ts
+// @ts-ignore
+
+// 获取颜色色相
+function getColorHue(str) {
+  return tinycolor_default()(str).toHsv().h;
+}
+// 改变颜色的色相
+function transformColorByHue(colorStr, hue) {
+  const old = tinycolor_default()(colorStr).toHsv();
+  const hsv = tinycolor_default()().toHsv();
+  hsv.h = hue;
+  hsv.s = old.s;
+  hsv.v = old.v;
+  const newColor = tinycolor_default()(hsv);
+  return newColor.toHex8();
+}
+// 改变颜色的饱和度
+function transformColorBySaturation(colorStr, saturation, bright) {
+  const color = tinycolor_default()(colorStr);
+  const hsvaColor = color.toHsv();
+  hsvaColor.s = saturation;
+  hsvaColor.v = bright;
+  return tinycolor_default()(hsvaColor).toHex8();
+}
+function createColorByHue(hue) {
+  const hsv = tinycolor_default()().toHsv();
+  hsv.h = hue;
+  hsv.s = 1;
+  hsv.v = 1;
+  return tinycolor_default()(hsv).toHex();
+}
+function getColorHSV(str) {
+  return tinycolor_default()(str).toHsv();
+}
+function transformColorWithAlpha(colorStr, alpha) {
+  const color = tinycolor_default()(colorStr);
+  const hsl = color.toHsl();
+  hsl.a = alpha;
+  const newColor = tinycolor_default()(hsl);
+  return newColor.toHex8();
+}
+function getColorHex(colorStr) {
+  const color = tinycolor_default()(colorStr);
+  return `#${color.toHex()}`;
+}
+function getColorHex8(colorStr) {
+  const color = tinycolor_default()(colorStr);
+  return `#${color.toHex8()}`;
+}
+function checkColor(str) {
+  const color = tinycolor_default()(str);
+  if (color.isValid()) {
+    return color.toHex8();
+  } else {
+    return null;
+  }
+}
+// CONCATENATED MODULE: ./node_modules/cache-loader/dist/cjs.js??ref--13-0!./node_modules/babel-loader/lib!./node_modules/@vue/cli-plugin-typescript/node_modules/ts-loader??ref--13-2!./node_modules/cache-loader/dist/cjs.js??ref--0-0!./node_modules/vue-loader-v16/dist??ref--0-1!./packages/cc-color/color-input.vue?vue&type=script&lang=ts
+
+
+/* harmony default export */ var color_inputvue_type_script_lang_ts = (Object(external_commonjs_vue_commonjs2_vue_root_Vue_["defineComponent"])({
+  name: 'color-input',
+  emits: ['change', 'update:color'],
+  props: {
+    title: {
+      type: String,
+      default: ''
+    },
+    color: {
+      type: String,
+      default: '#818181'
+    }
+  },
+  setup(props, {
+    emit
+  }) {
+    const curColor = Object(external_commonjs_vue_commonjs2_vue_root_Vue_["ref"])(props.color);
+    const curTitle = Object(external_commonjs_vue_commonjs2_vue_root_Vue_["ref"])(props.title);
+    let preColor = Object(external_commonjs_vue_commonjs2_vue_root_Vue_["toRaw"])(props.color);
+    Object(external_commonjs_vue_commonjs2_vue_root_Vue_["watch"])(() => props.color, v => {
+      updateAndFormatColor(v);
+    });
+    function fillColorHead(color) {
+      if (!color.startsWith('#')) {
+        color = `#${color}`;
+      }
+      return color;
+    }
+    function updateAndFormatColor(str) {
+      const color = checkColor(str);
+      if (color) {
+        curColor.value = preColor = fillColorHead(color);
+        return true;
+      } else {
+        curColor.value = preColor = fillColorHead(preColor);
+        return false;
+      }
+    }
+    return {
+      curColor,
+      curTitle,
+      onKeyDown(event) {
+        event.target.blur();
+      },
+      onChange() {
+        if (updateAndFormatColor(curColor.value)) {
+          const color = curColor.value;
+          emit('update:color', color);
+          emit('change', color);
+        }
+      }
+    };
+  }
+}));
+// CONCATENATED MODULE: ./packages/cc-color/color-input.vue?vue&type=script&lang=ts
+ 
+// EXTERNAL MODULE: ./packages/cc-color/color-input.vue?vue&type=style&index=0&id=0d640867&scoped=true&lang=less
+var color_inputvue_type_style_index_0_id_0d640867_scoped_true_lang_less = __webpack_require__("b93f");
+
+// CONCATENATED MODULE: ./packages/cc-color/color-input.vue
+
+
+
+
+
+
+
+const color_input_exports_ = /*#__PURE__*/exportHelper_default()(color_inputvue_type_script_lang_ts, [['render',color_inputvue_type_template_id_0d640867_scoped_true_ts_true_render],['__scopeId',"data-v-0d640867"]])
+
+/* harmony default export */ var color_input = (color_input_exports_);
+// CONCATENATED MODULE: ./node_modules/cache-loader/dist/cjs.js??ref--13-0!./node_modules/babel-loader/lib!./node_modules/@vue/cli-plugin-typescript/node_modules/ts-loader??ref--13-2!./node_modules/vue-loader-v16/dist/templateLoader.js??ref--7!./node_modules/cache-loader/dist/cjs.js??ref--0-0!./node_modules/vue-loader-v16/dist??ref--0-1!./packages/cc-color/alpha.vue?vue&type=template&id=09f2c50c&scoped=true&ts=true
+
+const alphavue_type_template_id_09f2c50c_scoped_true_ts_true_withScopeId = n => (Object(external_commonjs_vue_commonjs2_vue_root_Vue_["pushScopeId"])("data-v-09f2c50c"), n = n(), Object(external_commonjs_vue_commonjs2_vue_root_Vue_["popScopeId"])(), n);
+const alphavue_type_template_id_09f2c50c_scoped_true_ts_true_hoisted_1 = {
+  class: "root"
+};
+const alphavue_type_template_id_09f2c50c_scoped_true_ts_true_hoisted_2 = {
+  class: "title"
+};
+const alphavue_type_template_id_09f2c50c_scoped_true_ts_true_hoisted_3 = {
+  class: "pointer",
+  ref: "pointer"
+};
+const alphavue_type_template_id_09f2c50c_scoped_true_ts_true_hoisted_4 = /*#__PURE__*/alphavue_type_template_id_09f2c50c_scoped_true_ts_true_withScopeId(() => /*#__PURE__*/Object(external_commonjs_vue_commonjs2_vue_root_Vue_["createElementVNode"])("div", {
+  class: "shape"
+}, null, -1));
+const alphavue_type_template_id_09f2c50c_scoped_true_ts_true_hoisted_5 = [alphavue_type_template_id_09f2c50c_scoped_true_ts_true_hoisted_4];
+function alphavue_type_template_id_09f2c50c_scoped_true_ts_true_render(_ctx, _cache, $props, $setup, $data, $options) {
+  const _component_AlphaBoard = Object(external_commonjs_vue_commonjs2_vue_root_Vue_["resolveComponent"])("AlphaBoard");
+  return Object(external_commonjs_vue_commonjs2_vue_root_Vue_["openBlock"])(), Object(external_commonjs_vue_commonjs2_vue_root_Vue_["createElementBlock"])("div", alphavue_type_template_id_09f2c50c_scoped_true_ts_true_hoisted_1, [Object(external_commonjs_vue_commonjs2_vue_root_Vue_["createElementVNode"])("div", alphavue_type_template_id_09f2c50c_scoped_true_ts_true_hoisted_2, Object(external_commonjs_vue_commonjs2_vue_root_Vue_["toDisplayString"])(_ctx.curTitle), 1), Object(external_commonjs_vue_commonjs2_vue_root_Vue_["createElementVNode"])("div", {
+    class: "hue",
+    ref: "hue",
+    onMousedown: _cache[0] || (_cache[0] = Object(external_commonjs_vue_commonjs2_vue_root_Vue_["withModifiers"])(
+    //@ts-ignore
+    (...args) => _ctx.onHueMouseDown && _ctx.onHueMouseDown(...args), ["self"]))
+  }, [Object(external_commonjs_vue_commonjs2_vue_root_Vue_["createVNode"])(_component_AlphaBoard, {
+    class: "alpha"
+  }), Object(external_commonjs_vue_commonjs2_vue_root_Vue_["createElementVNode"])("div", {
+    class: "bg",
+    style: Object(external_commonjs_vue_commonjs2_vue_root_Vue_["normalizeStyle"])(_ctx.style)
+  }, null, 4), Object(external_commonjs_vue_commonjs2_vue_root_Vue_["createElementVNode"])("div", alphavue_type_template_id_09f2c50c_scoped_true_ts_true_hoisted_3, alphavue_type_template_id_09f2c50c_scoped_true_ts_true_hoisted_5, 512)], 544)]);
+}
+// CONCATENATED MODULE: ./packages/cc-color/alpha.vue?vue&type=template&id=09f2c50c&scoped=true&ts=true
+
+// CONCATENATED MODULE: ./node_modules/cache-loader/dist/cjs.js??ref--13-0!./node_modules/babel-loader/lib!./node_modules/@vue/cli-plugin-typescript/node_modules/ts-loader??ref--13-2!./node_modules/vue-loader-v16/dist/templateLoader.js??ref--7!./node_modules/cache-loader/dist/cjs.js??ref--0-0!./node_modules/vue-loader-v16/dist??ref--0-1!./packages/cc-color/alpha-board.vue?vue&type=template&id=3072c77b&scoped=true&ts=true
+
+function alpha_boardvue_type_template_id_3072c77b_scoped_true_ts_true_render(_ctx, _cache, $props, $setup, $data, $options) {
+  return Object(external_commonjs_vue_commonjs2_vue_root_Vue_["openBlock"])(), Object(external_commonjs_vue_commonjs2_vue_root_Vue_["createElementBlock"])("div", {
+    class: "board",
+    style: Object(external_commonjs_vue_commonjs2_vue_root_Vue_["normalizeStyle"])(_ctx.bgStyle)
+  }, null, 4);
+}
+// CONCATENATED MODULE: ./packages/cc-color/alpha-board.vue?vue&type=template&id=3072c77b&scoped=true&ts=true
+
+// CONCATENATED MODULE: ./node_modules/cache-loader/dist/cjs.js??ref--13-0!./node_modules/babel-loader/lib!./node_modules/@vue/cli-plugin-typescript/node_modules/ts-loader??ref--13-2!./node_modules/cache-loader/dist/cjs.js??ref--0-0!./node_modules/vue-loader-v16/dist??ref--0-1!./packages/cc-color/alpha-board.vue?vue&type=script&lang=ts
+
+/* harmony default export */ var alpha_boardvue_type_script_lang_ts = (Object(external_commonjs_vue_commonjs2_vue_root_Vue_["defineComponent"])({
+  name: 'alpha-board',
+  props: {
+    size: {
+      type: Number,
+      default: 4
+    },
+    white: {
+      type: String,
+      default: '#fff'
+    },
+    grey: {
+      type: String,
+      default: '#e6e6e6'
+    }
+  },
+  setup(props, {
+    emit
+  }) {
+    function getBoardImgData(color1, color2, size) {
+      if (typeof document === 'undefined') {
+        return '';
+      }
+      const canvas = document.createElement('canvas');
+      canvas.width = canvas.height = size * 2;
+      const ctx = canvas.getContext('2d');
+      if (!ctx) {
+        return '';
+      }
+      ctx.fillStyle = color1;
+      ctx.fillRect(0, 0, canvas.width, canvas.height);
+      ctx.fillStyle = color2;
+      ctx.fillRect(0, 0, size, size);
+      ctx.translate(size, size);
+      ctx.fillRect(0, 0, size, size);
+      return canvas.toDataURL();
+    }
+    const bgStyle = Object(external_commonjs_vue_commonjs2_vue_root_Vue_["computed"])(() => {
+      const base64 = getBoardImgData(props.white, props.grey, props.size);
+      return `background-image:url(${base64})`;
+    });
+    return {
+      bgStyle
+    };
+  }
+}));
+// CONCATENATED MODULE: ./packages/cc-color/alpha-board.vue?vue&type=script&lang=ts
+ 
+// EXTERNAL MODULE: ./packages/cc-color/alpha-board.vue?vue&type=style&index=0&id=3072c77b&scoped=true&lang=less
+var alpha_boardvue_type_style_index_0_id_3072c77b_scoped_true_lang_less = __webpack_require__("f406");
+
+// CONCATENATED MODULE: ./packages/cc-color/alpha-board.vue
+
+
+
+
+
+
+
+const alpha_board_exports_ = /*#__PURE__*/exportHelper_default()(alpha_boardvue_type_script_lang_ts, [['render',alpha_boardvue_type_template_id_3072c77b_scoped_true_ts_true_render],['__scopeId',"data-v-3072c77b"]])
+
+/* harmony default export */ var alpha_board = (alpha_board_exports_);
+// CONCATENATED MODULE: ./node_modules/cache-loader/dist/cjs.js??ref--13-0!./node_modules/babel-loader/lib!./node_modules/@vue/cli-plugin-typescript/node_modules/ts-loader??ref--13-2!./node_modules/cache-loader/dist/cjs.js??ref--0-0!./node_modules/vue-loader-v16/dist??ref--0-1!./packages/cc-color/alpha.vue?vue&type=script&lang=ts
+
+
+
+/* harmony default export */ var alphavue_type_script_lang_ts = (Object(external_commonjs_vue_commonjs2_vue_root_Vue_["defineComponent"])({
+  name: 'color-alpha',
+  components: {
+    AlphaBoard: alpha_board
+  },
+  emits: ['change', 'update:color'],
+  props: {
+    title: {
+      type: String,
+      default: '颜色'
+    },
+    color: {
+      type: String,
+      default: 'red'
+    }
+  },
+  setup(props, {
+    emit
+  }) {
+    const hue = Object(external_commonjs_vue_commonjs2_vue_root_Vue_["ref"])();
+    const pointer = Object(external_commonjs_vue_commonjs2_vue_root_Vue_["ref"])();
+    const curTitle = Object(external_commonjs_vue_commonjs2_vue_root_Vue_["ref"])(props.title);
+    const style = Object(external_commonjs_vue_commonjs2_vue_root_Vue_["computed"])(() => {
+      let color = getColorHex(props.color);
+      return `background: linear-gradient(to right, transparent 0%, ${color} 100%)`;
+    });
+    return {
+      style,
+      hue,
+      pointer,
+      curTitle,
+      onHueMouseDown(event) {
+        const HueEl = hue.value;
+        const PointerEl = pointer.value;
+        const rect = HueEl.getBoundingClientRect();
+        let mouseMove = e => {
+          let x = (e.clientX - rect.left) / rect.width * 100;
+          x = x > 100 ? 100 : x;
+          x = x < 0 ? 0 : x;
+          PointerEl.style.left = `${x}%`;
+          const color = transformColorWithAlpha(props.color, x / 100);
+          emit('update:color', color);
+          emit('change', color);
+        };
+        let mouseUp = e => {
+          document.removeEventListener('mousemove', mouseMove);
+          document.removeEventListener('mouseup', mouseUp);
+        };
+        document.addEventListener('mousemove', mouseMove);
+        document.addEventListener('mouseup', mouseUp);
+        mouseMove(event);
+      }
+    };
+  }
+}));
+// CONCATENATED MODULE: ./packages/cc-color/alpha.vue?vue&type=script&lang=ts
+ 
+// EXTERNAL MODULE: ./packages/cc-color/alpha.vue?vue&type=style&index=0&id=09f2c50c&scoped=true&lang=less
+var alphavue_type_style_index_0_id_09f2c50c_scoped_true_lang_less = __webpack_require__("7b24");
+
+// CONCATENATED MODULE: ./packages/cc-color/alpha.vue
+
+
+
+
+
+
+
+const alpha_exports_ = /*#__PURE__*/exportHelper_default()(alphavue_type_script_lang_ts, [['render',alphavue_type_template_id_09f2c50c_scoped_true_ts_true_render],['__scopeId',"data-v-09f2c50c"]])
+
+/* harmony default export */ var cc_color_alpha = (alpha_exports_);
+// CONCATENATED MODULE: ./node_modules/cache-loader/dist/cjs.js??ref--13-0!./node_modules/babel-loader/lib!./node_modules/@vue/cli-plugin-typescript/node_modules/ts-loader??ref--13-2!./node_modules/vue-loader-v16/dist/templateLoader.js??ref--7!./node_modules/cache-loader/dist/cjs.js??ref--0-0!./node_modules/vue-loader-v16/dist??ref--0-1!./packages/cc-color/saturation.vue?vue&type=template&id=ee66b0a6&scoped=true&ts=true
+
+const saturationvue_type_template_id_ee66b0a6_scoped_true_ts_true_withScopeId = n => (Object(external_commonjs_vue_commonjs2_vue_root_Vue_["pushScopeId"])("data-v-ee66b0a6"), n = n(), Object(external_commonjs_vue_commonjs2_vue_root_Vue_["popScopeId"])(), n);
+const saturationvue_type_template_id_ee66b0a6_scoped_true_ts_true_hoisted_1 = /*#__PURE__*/saturationvue_type_template_id_ee66b0a6_scoped_true_ts_true_withScopeId(() => /*#__PURE__*/Object(external_commonjs_vue_commonjs2_vue_root_Vue_["createElementVNode"])("div", {
+  class: "white",
+  draggable: "false"
+}, null, -1));
+const saturationvue_type_template_id_ee66b0a6_scoped_true_ts_true_hoisted_2 = /*#__PURE__*/saturationvue_type_template_id_ee66b0a6_scoped_true_ts_true_withScopeId(() => /*#__PURE__*/Object(external_commonjs_vue_commonjs2_vue_root_Vue_["createElementVNode"])("div", {
+  class: "black",
+  draggable: "false"
+}, null, -1));
+const saturationvue_type_template_id_ee66b0a6_scoped_true_ts_true_hoisted_3 = {
+  class: "pointer",
+  ref: "pointer",
+  draggable: "false"
+};
+const saturationvue_type_template_id_ee66b0a6_scoped_true_ts_true_hoisted_4 = /*#__PURE__*/saturationvue_type_template_id_ee66b0a6_scoped_true_ts_true_withScopeId(() => /*#__PURE__*/Object(external_commonjs_vue_commonjs2_vue_root_Vue_["createElementVNode"])("div", {
+  class: "shape1",
+  draggable: "false"
+}, null, -1));
+const saturationvue_type_template_id_ee66b0a6_scoped_true_ts_true_hoisted_5 = /*#__PURE__*/saturationvue_type_template_id_ee66b0a6_scoped_true_ts_true_withScopeId(() => /*#__PURE__*/Object(external_commonjs_vue_commonjs2_vue_root_Vue_["createElementVNode"])("div", {
+  class: "shape2",
+  draggable: "false"
+}, null, -1));
+const _hoisted_6 = [saturationvue_type_template_id_ee66b0a6_scoped_true_ts_true_hoisted_4, saturationvue_type_template_id_ee66b0a6_scoped_true_ts_true_hoisted_5];
+function saturationvue_type_template_id_ee66b0a6_scoped_true_ts_true_render(_ctx, _cache, $props, $setup, $data, $options) {
+  return Object(external_commonjs_vue_commonjs2_vue_root_Vue_["openBlock"])(), Object(external_commonjs_vue_commonjs2_vue_root_Vue_["createElementBlock"])("div", {
+    class: "picker",
+    draggable: "false",
+    ref: "picker",
+    style: Object(external_commonjs_vue_commonjs2_vue_root_Vue_["normalizeStyle"])({
+      background: _ctx.bgColor
+    }),
+    onMousedown: _cache[0] || (_cache[0] = Object(external_commonjs_vue_commonjs2_vue_root_Vue_["withModifiers"])(
+    //@ts-ignore
+    (...args) => _ctx.onPickerPointerMouseDown && _ctx.onPickerPointerMouseDown(...args), ["self"]))
+  }, [saturationvue_type_template_id_ee66b0a6_scoped_true_ts_true_hoisted_1, saturationvue_type_template_id_ee66b0a6_scoped_true_ts_true_hoisted_2, Object(external_commonjs_vue_commonjs2_vue_root_Vue_["createElementVNode"])("div", saturationvue_type_template_id_ee66b0a6_scoped_true_ts_true_hoisted_3, _hoisted_6, 512)], 36);
+}
+// CONCATENATED MODULE: ./packages/cc-color/saturation.vue?vue&type=template&id=ee66b0a6&scoped=true&ts=true
+
+// CONCATENATED MODULE: ./node_modules/cache-loader/dist/cjs.js??ref--13-0!./node_modules/babel-loader/lib!./node_modules/@vue/cli-plugin-typescript/node_modules/ts-loader??ref--13-2!./node_modules/cache-loader/dist/cjs.js??ref--0-0!./node_modules/vue-loader-v16/dist??ref--0-1!./packages/cc-color/saturation.vue?vue&type=script&lang=ts
+
+
+/* harmony default export */ var saturationvue_type_script_lang_ts = (Object(external_commonjs_vue_commonjs2_vue_root_Vue_["defineComponent"])({
+  name: 'color-saturation',
+  emits: ['change', 'update:color'],
+  props: {
+    color: {
+      type: String,
+      default: 'red'
+    }
+  },
+  setup(props, {
+    emit
+  }) {
+    const picker = Object(external_commonjs_vue_commonjs2_vue_root_Vue_["ref"])();
+    const pointer = Object(external_commonjs_vue_commonjs2_vue_root_Vue_["ref"])();
+    const bgColor = Object(external_commonjs_vue_commonjs2_vue_root_Vue_["ref"])('red');
+    let baseColor = Object(external_commonjs_vue_commonjs2_vue_root_Vue_["toRaw"])(props.color); // 基准色，因为在调整pointer的时候，仅仅是在修改基准色的饱和度
+    function updateBaseColor(color) {
+      baseColor = color;
+      updateView(color);
+    }
+    function updateView(str) {
+      const pointerEl = pointer.value;
+      const {
+        s,
+        v
+      } = getColorHSV(str);
+      pointerEl.style.left = `${s * 100}%`;
+      pointerEl.style.top = `${(1 - v) * 100}%`;
+      const hue = getColorHue(str);
+      bgColor.value = `#${createColorByHue(hue)}`;
+    }
+    Object(external_commonjs_vue_commonjs2_vue_root_Vue_["watch"])(() => props.color, v => {
+      updateView(v);
+    });
+    Object(external_commonjs_vue_commonjs2_vue_root_Vue_["onMounted"])(() => {
+      updateView(props.color);
+    });
+    return {
+      bgColor,
+      pointer,
+      picker,
+      updateBaseColor,
+      onPickerPointerMouseDown(event) {
+        let updatePointer = e => {
+          const pointerEl = pointer.value;
+          const pickerEl = picker.value;
+          const rect = pickerEl.getBoundingClientRect();
+          let left = (e.clientX - rect.left) / rect.width * 100;
+          left = left > 100 ? 100 : left;
+          left = left < 0 ? 0 : left;
+          pointerEl.style.left = `${left}%`;
+          let top = (e.clientY - rect.top) / rect.height * 100;
+          top = top > 100 ? 100 : top;
+          top = top < 0 ? 0 : top;
+          pointerEl.style.top = `${top}%`;
+          let saturation = left / 100;
+          let bright = 1 - top / 100;
+          let color = transformColorBySaturation(baseColor, saturation, bright);
+          emit('update:color', color);
+          emit('change', color);
+        };
+        let upCallback = e => {
+          document.removeEventListener('mousemove', updatePointer);
+          document.removeEventListener('mouseup', upCallback);
+        };
+        document.addEventListener('mousemove', updatePointer);
+        document.addEventListener('mouseup', upCallback);
+        updatePointer(event);
+      }
+    };
+  }
+}));
+// CONCATENATED MODULE: ./packages/cc-color/saturation.vue?vue&type=script&lang=ts
+ 
+// EXTERNAL MODULE: ./packages/cc-color/saturation.vue?vue&type=style&index=0&id=ee66b0a6&scoped=true&lang=less
+var saturationvue_type_style_index_0_id_ee66b0a6_scoped_true_lang_less = __webpack_require__("feab");
+
+// CONCATENATED MODULE: ./packages/cc-color/saturation.vue
+
+
+
+
+
+
+
+const saturation_exports_ = /*#__PURE__*/exportHelper_default()(saturationvue_type_script_lang_ts, [['render',saturationvue_type_template_id_ee66b0a6_scoped_true_ts_true_render],['__scopeId',"data-v-ee66b0a6"]])
+
+/* harmony default export */ var cc_color_saturation = (saturation_exports_);
+// CONCATENATED MODULE: ./node_modules/cache-loader/dist/cjs.js??ref--13-0!./node_modules/babel-loader/lib!./node_modules/@vue/cli-plugin-typescript/node_modules/ts-loader??ref--13-2!./node_modules/vue-loader-v16/dist/templateLoader.js??ref--7!./node_modules/cache-loader/dist/cjs.js??ref--0-0!./node_modules/vue-loader-v16/dist??ref--0-1!./packages/cc-color/color-case.vue?vue&type=template&id=8cdb8896&scoped=true&ts=true
+
+function color_casevue_type_template_id_8cdb8896_scoped_true_ts_true_render(_ctx, _cache, $props, $setup, $data, $options) {
+  return Object(external_commonjs_vue_commonjs2_vue_root_Vue_["openBlock"])(), Object(external_commonjs_vue_commonjs2_vue_root_Vue_["createElementBlock"])("div", {
+    class: "color-case",
+    onMouseenter: _cache[0] || (_cache[0] = $event => _ctx.isHover = true),
+    onMouseleave: _cache[1] || (_cache[1] = $event => _ctx.isHover = false),
+    style: Object(external_commonjs_vue_commonjs2_vue_root_Vue_["normalizeStyle"])({
+      backgroundColor: `#${_ctx.colorHex}`
+    })
+  }, [Object(external_commonjs_vue_commonjs2_vue_root_Vue_["withDirectives"])(Object(external_commonjs_vue_commonjs2_vue_root_Vue_["createElementVNode"])("div", {
+    class: "label",
+    style: Object(external_commonjs_vue_commonjs2_vue_root_Vue_["normalizeStyle"])({
+      color: `#${_ctx.labelColor}`
+    })
+  }, "#" + Object(external_commonjs_vue_commonjs2_vue_root_Vue_["toDisplayString"])(_ctx.colorHex), 5), [[external_commonjs_vue_commonjs2_vue_root_Vue_["vShow"], _ctx.isHover]])], 36);
+}
+// CONCATENATED MODULE: ./packages/cc-color/color-case.vue?vue&type=template&id=8cdb8896&scoped=true&ts=true
+
+// CONCATENATED MODULE: ./node_modules/cache-loader/dist/cjs.js??ref--13-0!./node_modules/babel-loader/lib!./node_modules/@vue/cli-plugin-typescript/node_modules/ts-loader??ref--13-2!./node_modules/cache-loader/dist/cjs.js??ref--0-0!./node_modules/vue-loader-v16/dist??ref--0-1!./packages/cc-color/color-case.vue?vue&type=script&lang=ts
+
+// @ts-ignore
+
+/* harmony default export */ var color_casevue_type_script_lang_ts = (Object(external_commonjs_vue_commonjs2_vue_root_Vue_["defineComponent"])({
+  name: 'color-case',
+  props: {
+    color: {
+      type: String,
+      default: 'red'
+    }
+  },
+  setup(props, {
+    emit
+  }) {
+    const color = tinycolor_default()(props.color);
+    const colorHex = Object(external_commonjs_vue_commonjs2_vue_root_Vue_["ref"])(color.toHex());
+    const rgb = color.toRgb();
+    rgb.r = 255 - rgb.r;
+    rgb.g = 255 - rgb.g;
+    rgb.b = 255 - rgb.b;
+    const reverseColor = tinycolor_default()(rgb);
+    reverseColor.darken(40);
+    const labelColor = Object(external_commonjs_vue_commonjs2_vue_root_Vue_["ref"])(reverseColor.toHex());
+    const isHover = Object(external_commonjs_vue_commonjs2_vue_root_Vue_["ref"])(false);
+    return {
+      isHover,
+      colorHex,
+      labelColor
+    };
+  }
+}));
+// CONCATENATED MODULE: ./packages/cc-color/color-case.vue?vue&type=script&lang=ts
+ 
+// EXTERNAL MODULE: ./packages/cc-color/color-case.vue?vue&type=style&index=0&id=8cdb8896&scoped=true&lang=less
+var color_casevue_type_style_index_0_id_8cdb8896_scoped_true_lang_less = __webpack_require__("cac7");
+
+// CONCATENATED MODULE: ./packages/cc-color/color-case.vue
+
+
+
+
+
+
+
+const color_case_exports_ = /*#__PURE__*/exportHelper_default()(color_casevue_type_script_lang_ts, [['render',color_casevue_type_template_id_8cdb8896_scoped_true_ts_true_render],['__scopeId',"data-v-8cdb8896"]])
+
+/* harmony default export */ var color_case = (color_case_exports_);
 // EXTERNAL MODULE: ./node_modules/tiny-emitter/index.js
 var tiny_emitter = __webpack_require__("c0e2");
 
 // CONCATENATED MODULE: ./packages/cc-color/event-bus.ts
 
-const emitter = new tiny_emitter["TinyEmitter"]();
+const event_bus_emitter = new tiny_emitter["TinyEmitter"]();
 const HideOthers = 'hide-others';
 // CONCATENATED MODULE: ./node_modules/cache-loader/dist/cjs.js??ref--13-0!./node_modules/babel-loader/lib!./node_modules/@vue/cli-plugin-typescript/node_modules/ts-loader??ref--13-2!./node_modules/cache-loader/dist/cjs.js??ref--0-0!./node_modules/vue-loader-v16/dist??ref--0-1!./packages/cc-color/color.vue?vue&type=script&lang=ts
 
@@ -11428,10 +13569,10 @@ const HideOthers = 'hide-others';
       show.value = false;
     };
     Object(external_commonjs_vue_commonjs2_vue_root_Vue_["onMounted"])(() => {
-      emitter.on(HideOthers, clickAnyWhereToClose);
+      event_bus_emitter.on(HideOthers, clickAnyWhereToClose);
     });
     Object(external_commonjs_vue_commonjs2_vue_root_Vue_["onUnmounted"])(() => {
-      emitter.off(HideOthers, clickAnyWhereToClose);
+      event_bus_emitter.off(HideOthers, clickAnyWhereToClose);
     });
     return {
       color,
@@ -11448,7 +13589,7 @@ const HideOthers = 'hide-others';
           popperInstance === null || popperInstance === void 0 ? void 0 : popperInstance.destroy();
           document.removeEventListener('click', clickAnyWhereToClose);
         } else {
-          emitter.emit(HideOthers);
+          event_bus_emitter.emit(HideOthers);
           show.value = true;
           if (color.value && panel.value) {
             popperInstance = popper_createPopper(color.value, panel.value, {
@@ -11492,8 +13633,8 @@ const HideOthers = 'hide-others';
 }));
 // CONCATENATED MODULE: ./packages/cc-color/color.vue?vue&type=script&lang=ts
  
-// EXTERNAL MODULE: ./packages/cc-color/color.vue?vue&type=style&index=0&id=17eeddef&scoped=true&lang=less
-var colorvue_type_style_index_0_id_17eeddef_scoped_true_lang_less = __webpack_require__("2b57");
+// EXTERNAL MODULE: ./packages/cc-color/color.vue?vue&type=style&index=0&id=7aabc3e9&scoped=true&lang=less
+var colorvue_type_style_index_0_id_7aabc3e9_scoped_true_lang_less = __webpack_require__("4a69");
 
 // CONCATENATED MODULE: ./packages/cc-color/color.vue
 
@@ -11503,7 +13644,7 @@ var colorvue_type_style_index_0_id_17eeddef_scoped_true_lang_less = __webpack_re
 
 
 
-const color_exports_ = /*#__PURE__*/exportHelper_default()(colorvue_type_script_lang_ts, [['render',colorvue_type_template_id_17eeddef_scoped_true_ts_true_render],['__scopeId',"data-v-17eeddef"]])
+const color_exports_ = /*#__PURE__*/exportHelper_default()(colorvue_type_script_lang_ts, [['render',colorvue_type_template_id_7aabc3e9_scoped_true_ts_true_render],['__scopeId',"data-v-7aabc3e9"]])
 
 /* harmony default export */ var cc_color_color = (color_exports_);
 // CONCATENATED MODULE: ./packages/cc-color/index.ts
@@ -12121,15 +14262,15 @@ const menu_exports_ = /*#__PURE__*/exportHelper_default()(menuvue_type_script_la
 
 
 
-// CONCATENATED MODULE: ./node_modules/cache-loader/dist/cjs.js??ref--13-0!./node_modules/babel-loader/lib!./node_modules/@vue/cli-plugin-typescript/node_modules/ts-loader??ref--13-2!./node_modules/vue-loader-v16/dist/templateLoader.js??ref--7!./node_modules/cache-loader/dist/cjs.js??ref--0-0!./node_modules/vue-loader-v16/dist??ref--0-1!./packages/cc-select/select.vue?vue&type=template&id=06d9830e&scoped=true&ts=true
+// CONCATENATED MODULE: ./node_modules/cache-loader/dist/cjs.js??ref--13-0!./node_modules/babel-loader/lib!./node_modules/@vue/cli-plugin-typescript/node_modules/ts-loader??ref--13-2!./node_modules/vue-loader-v16/dist/templateLoader.js??ref--7!./node_modules/cache-loader/dist/cjs.js??ref--0-0!./node_modules/vue-loader-v16/dist??ref--0-1!./packages/cc-select/select.vue?vue&type=template&id=582879e8&scoped=true&ts=true
 
-const selectvue_type_template_id_06d9830e_scoped_true_ts_true_withScopeId = n => (Object(external_commonjs_vue_commonjs2_vue_root_Vue_["pushScopeId"])("data-v-06d9830e"), n = n(), Object(external_commonjs_vue_commonjs2_vue_root_Vue_["popScopeId"])(), n);
-const selectvue_type_template_id_06d9830e_scoped_true_ts_true_hoisted_1 = {
+const selectvue_type_template_id_582879e8_scoped_true_ts_true_withScopeId = n => (Object(external_commonjs_vue_commonjs2_vue_root_Vue_["pushScopeId"])("data-v-582879e8"), n = n(), Object(external_commonjs_vue_commonjs2_vue_root_Vue_["popScopeId"])(), n);
+const selectvue_type_template_id_582879e8_scoped_true_ts_true_hoisted_1 = {
   class: "cc-select"
 };
-const selectvue_type_template_id_06d9830e_scoped_true_ts_true_hoisted_2 = ["value"];
-function selectvue_type_template_id_06d9830e_scoped_true_ts_true_render(_ctx, _cache, $props, $setup, $data, $options) {
-  return Object(external_commonjs_vue_commonjs2_vue_root_Vue_["openBlock"])(), Object(external_commonjs_vue_commonjs2_vue_root_Vue_["createElementBlock"])(external_commonjs_vue_commonjs2_vue_root_Vue_["Fragment"], null, [Object(external_commonjs_vue_commonjs2_vue_root_Vue_["createElementVNode"])("div", selectvue_type_template_id_06d9830e_scoped_true_ts_true_hoisted_1, [Object(external_commonjs_vue_commonjs2_vue_root_Vue_["createElementVNode"])("label", null, [Object(external_commonjs_vue_commonjs2_vue_root_Vue_["withDirectives"])(Object(external_commonjs_vue_commonjs2_vue_root_Vue_["createElementVNode"])("select", {
+const selectvue_type_template_id_582879e8_scoped_true_ts_true_hoisted_2 = ["value"];
+function selectvue_type_template_id_582879e8_scoped_true_ts_true_render(_ctx, _cache, $props, $setup, $data, $options) {
+  return Object(external_commonjs_vue_commonjs2_vue_root_Vue_["openBlock"])(), Object(external_commonjs_vue_commonjs2_vue_root_Vue_["createElementBlock"])(external_commonjs_vue_commonjs2_vue_root_Vue_["Fragment"], null, [Object(external_commonjs_vue_commonjs2_vue_root_Vue_["createElementVNode"])("div", selectvue_type_template_id_582879e8_scoped_true_ts_true_hoisted_1, [Object(external_commonjs_vue_commonjs2_vue_root_Vue_["createElementVNode"])("label", null, [Object(external_commonjs_vue_commonjs2_vue_root_Vue_["withDirectives"])(Object(external_commonjs_vue_commonjs2_vue_root_Vue_["createElementVNode"])("select", {
     onChange: _cache[0] || (_cache[0] =
     //@ts-ignore
     (...args) => _ctx.onSelectChange && _ctx.onSelectChange(...args)),
@@ -12138,10 +14279,10 @@ function selectvue_type_template_id_06d9830e_scoped_true_ts_true_render(_ctx, _c
     return Object(external_commonjs_vue_commonjs2_vue_root_Vue_["openBlock"])(), Object(external_commonjs_vue_commonjs2_vue_root_Vue_["createElementBlock"])("option", {
       key: index,
       value: item.value
-    }, Object(external_commonjs_vue_commonjs2_vue_root_Vue_["toDisplayString"])(item.label), 9, selectvue_type_template_id_06d9830e_scoped_true_ts_true_hoisted_2);
+    }, Object(external_commonjs_vue_commonjs2_vue_root_Vue_["toDisplayString"])(item.label), 9, selectvue_type_template_id_582879e8_scoped_true_ts_true_hoisted_2);
   }), 128))], 544), [[external_commonjs_vue_commonjs2_vue_root_Vue_["vModelSelect"], _ctx.curValue]])])]), Object(external_commonjs_vue_commonjs2_vue_root_Vue_["renderSlot"])(_ctx.$slots, "default", {}, undefined, true)], 64);
 }
-// CONCATENATED MODULE: ./packages/cc-select/select.vue?vue&type=template&id=06d9830e&scoped=true&ts=true
+// CONCATENATED MODULE: ./packages/cc-select/select.vue?vue&type=template&id=582879e8&scoped=true&ts=true
 
 // CONCATENATED MODULE: ./node_modules/cache-loader/dist/cjs.js??ref--13-0!./node_modules/babel-loader/lib!./node_modules/@vue/cli-plugin-typescript/node_modules/ts-loader??ref--13-2!./node_modules/cache-loader/dist/cjs.js??ref--0-0!./node_modules/vue-loader-v16/dist??ref--0-1!./packages/cc-select/select.vue?vue&type=script&lang=ts
 
@@ -12178,8 +14319,8 @@ function selectvue_type_template_id_06d9830e_scoped_true_ts_true_render(_ctx, _c
 }));
 // CONCATENATED MODULE: ./packages/cc-select/select.vue?vue&type=script&lang=ts
  
-// EXTERNAL MODULE: ./packages/cc-select/select.vue?vue&type=style&index=0&id=06d9830e&scoped=true&lang=less
-var selectvue_type_style_index_0_id_06d9830e_scoped_true_lang_less = __webpack_require__("c38a");
+// EXTERNAL MODULE: ./packages/cc-select/select.vue?vue&type=style&index=0&id=582879e8&scoped=true&lang=less
+var selectvue_type_style_index_0_id_582879e8_scoped_true_lang_less = __webpack_require__("6b41");
 
 // CONCATENATED MODULE: ./packages/cc-select/select.vue
 
@@ -12189,10 +14330,13 @@ var selectvue_type_style_index_0_id_06d9830e_scoped_true_lang_less = __webpack_r
 
 
 
-const select_exports_ = /*#__PURE__*/exportHelper_default()(selectvue_type_script_lang_ts, [['render',selectvue_type_template_id_06d9830e_scoped_true_ts_true_render],['__scopeId',"data-v-06d9830e"]])
+const select_exports_ = /*#__PURE__*/exportHelper_default()(selectvue_type_script_lang_ts, [['render',selectvue_type_template_id_582879e8_scoped_true_ts_true_render],['__scopeId',"data-v-582879e8"]])
 
 /* harmony default export */ var cc_select_select = (select_exports_);
+// CONCATENATED MODULE: ./packages/cc-select/const.ts
+
 // CONCATENATED MODULE: ./packages/cc-select/index.ts
+
 
 
 // CONCATENATED MODULE: ./node_modules/cache-loader/dist/cjs.js??ref--13-0!./node_modules/babel-loader/lib!./node_modules/@vue/cli-plugin-typescript/node_modules/ts-loader??ref--13-2!./node_modules/vue-loader-v16/dist/templateLoader.js??ref--7!./node_modules/cache-loader/dist/cjs.js??ref--0-0!./node_modules/vue-loader-v16/dist??ref--0-1!./packages/cc-slider/slider.vue?vue&type=template&id=3f45aa9c&ts=true
@@ -13673,6 +15817,441 @@ const cc_table_table_exports_ = /*#__PURE__*/exportHelper_default()(cc_table_tab
 
 
 
+// CONCATENATED MODULE: ./node_modules/cache-loader/dist/cjs.js??ref--13-0!./node_modules/babel-loader/lib!./node_modules/@vue/cli-plugin-typescript/node_modules/ts-loader??ref--13-2!./node_modules/vue-loader-v16/dist/templateLoader.js??ref--7!./node_modules/cache-loader/dist/cjs.js??ref--0-0!./node_modules/vue-loader-v16/dist??ref--0-1!./packages/cc-button-group/button-group.vue?vue&type=template&id=1e5663d6&scoped=true&ts=true
+
+const button_groupvue_type_template_id_1e5663d6_scoped_true_ts_true_withScopeId = n => (Object(external_commonjs_vue_commonjs2_vue_root_Vue_["pushScopeId"])("data-v-1e5663d6"), n = n(), Object(external_commonjs_vue_commonjs2_vue_root_Vue_["popScopeId"])(), n);
+const button_groupvue_type_template_id_1e5663d6_scoped_true_ts_true_hoisted_1 = {
+  class: "cc-button-group"
+};
+function button_groupvue_type_template_id_1e5663d6_scoped_true_ts_true_render(_ctx, _cache, $props, $setup, $data, $options) {
+  const _component_CCButtonGroupItem = Object(external_commonjs_vue_commonjs2_vue_root_Vue_["resolveComponent"])("CCButtonGroupItem");
+  return Object(external_commonjs_vue_commonjs2_vue_root_Vue_["openBlock"])(), Object(external_commonjs_vue_commonjs2_vue_root_Vue_["createElementBlock"])("div", button_groupvue_type_template_id_1e5663d6_scoped_true_ts_true_hoisted_1, [(Object(external_commonjs_vue_commonjs2_vue_root_Vue_["openBlock"])(true), Object(external_commonjs_vue_commonjs2_vue_root_Vue_["createElementBlock"])(external_commonjs_vue_commonjs2_vue_root_Vue_["Fragment"], null, Object(external_commonjs_vue_commonjs2_vue_root_Vue_["renderList"])(_ctx.items, (item, index) => {
+    return Object(external_commonjs_vue_commonjs2_vue_root_Vue_["openBlock"])(), Object(external_commonjs_vue_commonjs2_vue_root_Vue_["createBlock"])(_component_CCButtonGroupItem, {
+      key: index,
+      data: item,
+      recover: _ctx.recover
+    }, null, 8, ["data", "recover"]);
+  }), 128))]);
+}
+// CONCATENATED MODULE: ./packages/cc-button-group/button-group.vue?vue&type=template&id=1e5663d6&scoped=true&ts=true
+
+// CONCATENATED MODULE: ./packages/cc-button-group/const.ts
+const const_Msg = {
+  ButtonTap: 'button-tap'
+};
+const const_ProvideKey = {
+  Emitter: 'emitter',
+  ZIndex: 'zIndex'
+};
+var ButtonState;
+(function (ButtonState) {
+  ButtonState["Normal"] = "normal";
+  ButtonState["Press"] = "press";
+})(ButtonState || (ButtonState = {}));
+// CONCATENATED MODULE: ./node_modules/cache-loader/dist/cjs.js??ref--13-0!./node_modules/babel-loader/lib!./node_modules/@vue/cli-plugin-typescript/node_modules/ts-loader??ref--13-2!./node_modules/vue-loader-v16/dist/templateLoader.js??ref--7!./node_modules/cache-loader/dist/cjs.js??ref--0-0!./node_modules/vue-loader-v16/dist??ref--0-1!./packages/cc-button-group/item.vue?vue&type=template&id=f0eaa83a&scoped=true&ts=true
+
+const itemvue_type_template_id_f0eaa83a_scoped_true_ts_true_withScopeId = n => (Object(external_commonjs_vue_commonjs2_vue_root_Vue_["pushScopeId"])("data-v-f0eaa83a"), n = n(), Object(external_commonjs_vue_commonjs2_vue_root_Vue_["popScopeId"])(), n);
+const itemvue_type_template_id_f0eaa83a_scoped_true_ts_true_hoisted_1 = ["title"];
+const itemvue_type_template_id_f0eaa83a_scoped_true_ts_true_hoisted_2 = {
+  key: 0
+};
+const itemvue_type_template_id_f0eaa83a_scoped_true_ts_true_hoisted_3 = {
+  key: 1
+};
+const itemvue_type_template_id_f0eaa83a_scoped_true_ts_true_hoisted_4 = {
+  key: 2
+};
+const itemvue_type_template_id_f0eaa83a_scoped_true_ts_true_hoisted_5 = {
+  key: 3
+};
+function itemvue_type_template_id_f0eaa83a_scoped_true_ts_true_render(_ctx, _cache, $props, $setup, $data, $options) {
+  return Object(external_commonjs_vue_commonjs2_vue_root_Vue_["openBlock"])(), Object(external_commonjs_vue_commonjs2_vue_root_Vue_["createElementBlock"])("div", {
+    ref: "el",
+    class: "cc-button-group-item",
+    style: Object(external_commonjs_vue_commonjs2_vue_root_Vue_["normalizeStyle"])({
+      'background-color': _ctx.backgroundColor
+    }),
+    onMouseenter: _cache[0] || (_cache[0] =
+    //@ts-ignore
+    (...args) => _ctx.onMouseEnter && _ctx.onMouseEnter(...args)),
+    onMouseover: _cache[1] || (_cache[1] =
+    //@ts-ignore
+    (...args) => _ctx.onMouseOver && _ctx.onMouseOver(...args)),
+    onMouseleave: _cache[2] || (_cache[2] =
+    //@ts-ignore
+    (...args) => _ctx.onMouseLeave && _ctx.onMouseLeave(...args)),
+    title: _ctx.data.title,
+    onClick: _cache[3] || (_cache[3] = Object(external_commonjs_vue_commonjs2_vue_root_Vue_["withModifiers"])(
+    //@ts-ignore
+    (...args) => _ctx.onClick && _ctx.onClick(...args), ["stop", "prevent"])),
+    onMousedown: _cache[4] || (_cache[4] = Object(external_commonjs_vue_commonjs2_vue_root_Vue_["withModifiers"])(
+    //@ts-ignore
+    (...args) => _ctx.onMouseDown && _ctx.onMouseDown(...args), ["stop", "prevent"])),
+    onMouseup: _cache[5] || (_cache[5] = Object(external_commonjs_vue_commonjs2_vue_root_Vue_["withModifiers"])(
+    //@ts-ignore
+    (...args) => _ctx.onMouseUp && _ctx.onMouseUp(...args), ["stop", "prevent"]))
+  }, [!!_ctx.data.icon ? (Object(external_commonjs_vue_commonjs2_vue_root_Vue_["openBlock"])(), Object(external_commonjs_vue_commonjs2_vue_root_Vue_["createElementBlock"])("div", itemvue_type_template_id_f0eaa83a_scoped_true_ts_true_hoisted_2, [Object(external_commonjs_vue_commonjs2_vue_root_Vue_["createElementVNode"])("i", {
+    class: Object(external_commonjs_vue_commonjs2_vue_root_Vue_["normalizeClass"])(["iconfont", _ctx.data.icon])
+  }, null, 2)])) : !!_ctx.data.svg ? (Object(external_commonjs_vue_commonjs2_vue_root_Vue_["openBlock"])(), Object(external_commonjs_vue_commonjs2_vue_root_Vue_["createElementBlock"])("div", itemvue_type_template_id_f0eaa83a_scoped_true_ts_true_hoisted_3)) : _ctx.data.text !== undefined ? (Object(external_commonjs_vue_commonjs2_vue_root_Vue_["openBlock"])(), Object(external_commonjs_vue_commonjs2_vue_root_Vue_["createElementBlock"])("div", itemvue_type_template_id_f0eaa83a_scoped_true_ts_true_hoisted_4, Object(external_commonjs_vue_commonjs2_vue_root_Vue_["toDisplayString"])(_ctx.data.text || ''), 1)) : (Object(external_commonjs_vue_commonjs2_vue_root_Vue_["openBlock"])(), Object(external_commonjs_vue_commonjs2_vue_root_Vue_["createElementBlock"])("div", itemvue_type_template_id_f0eaa83a_scoped_true_ts_true_hoisted_5))], 44, itemvue_type_template_id_f0eaa83a_scoped_true_ts_true_hoisted_1);
+}
+// CONCATENATED MODULE: ./packages/cc-button-group/item.vue?vue&type=template&id=f0eaa83a&scoped=true&ts=true
+
+// EXTERNAL MODULE: ./node_modules/color/index.js
+var node_modules_color = __webpack_require__("6929");
+var color_default = /*#__PURE__*/__webpack_require__.n(node_modules_color);
+
+// CONCATENATED MODULE: ./node_modules/cache-loader/dist/cjs.js??ref--13-0!./node_modules/babel-loader/lib!./node_modules/@vue/cli-plugin-typescript/node_modules/ts-loader??ref--13-2!./node_modules/cache-loader/dist/cjs.js??ref--0-0!./node_modules/vue-loader-v16/dist??ref--0-1!./packages/cc-button-group/item.vue?vue&type=script&lang=ts
+
+
+
+/* harmony default export */ var cc_button_group_itemvue_type_script_lang_ts = (Object(external_commonjs_vue_commonjs2_vue_root_Vue_["defineComponent"])({
+  name: 'CCButtonGroupItem',
+  props: {
+    data: {
+      type: Object,
+      default: () => {}
+    },
+    color: {
+      type: String,
+      default: '#444'
+    },
+    recover: {
+      type: Boolean,
+      default: false
+    }
+  },
+  setup(props, ctx) {
+    const el = Object(external_commonjs_vue_commonjs2_vue_root_Vue_["ref"])();
+    const backgroundColor = Object(external_commonjs_vue_commonjs2_vue_root_Vue_["ref"])(props.color);
+    const bgColor = Object(external_commonjs_vue_commonjs2_vue_root_Vue_["toRaw"])(props.color);
+    const {
+      data,
+      recover
+    } = props;
+    let state = ButtonState.Normal;
+    const colorPress = color_default()(bgColor).lighten(1).hex();
+    const colorEnter = color_default()(bgColor).lighten(0.5).hex();
+    const borderColor = '#222';
+    const borderHoverColor = color_default()(borderColor).lighten(3).hex();
+    const onTap = () => {
+      state = ButtonState.Normal;
+      updateBgColor();
+    };
+    const emitter = Object(external_commonjs_vue_commonjs2_vue_root_Vue_["inject"])(const_ProvideKey.Emitter);
+    const zIndexFunc = Object(external_commonjs_vue_commonjs2_vue_root_Vue_["inject"])(const_ProvideKey.ZIndex);
+    Object(external_commonjs_vue_commonjs2_vue_root_Vue_["onMounted"])(() => {
+      emitter.on(const_Msg.ButtonTap, onTap);
+    });
+    Object(external_commonjs_vue_commonjs2_vue_root_Vue_["onUnmounted"])(() => {
+      emitter.off(const_Msg.ButtonTap, onTap);
+    });
+    function updateBgColor() {
+      if (el && el.value) {
+        const {
+          style
+        } = el.value;
+        style.zIndex = isHover ? '1' : '0';
+      }
+      if (state === ButtonState.Press) {
+        backgroundColor.value = colorPress;
+      } else if (state === ButtonState.Normal) {
+        if (isHover) {
+          backgroundColor.value = colorEnter;
+        } else {
+          backgroundColor.value = '';
+        }
+      }
+    }
+    let isHover = false;
+    function updateBorderColor() {
+      if (el) {
+        const {
+          style
+        } = el.value;
+        style.borderColor = isHover ? borderHoverColor : borderColor;
+        // style.zIndex = zIndexFunc().toString();
+      }
+    }
+
+    return {
+      el,
+      backgroundColor,
+      onMouseEnter(event) {
+        isHover = true;
+        updateBorderColor();
+        updateBgColor();
+      },
+      onMouseOver(event) {},
+      onMouseLeave(event) {
+        isHover = false;
+        updateBorderColor();
+        updateBgColor();
+      },
+      onClick(event) {},
+      onMouseDown(event) {
+        emitter.emit(const_Msg.ButtonTap);
+        state = ButtonState.Press;
+        updateBgColor();
+        if (data && data.click) {
+          data.click();
+        }
+      },
+      onMouseUp(event) {
+        if (recover) {
+          state = ButtonState.Normal;
+        } else {
+          state = ButtonState.Press;
+        }
+        updateBgColor();
+      }
+    };
+  }
+}));
+// CONCATENATED MODULE: ./packages/cc-button-group/item.vue?vue&type=script&lang=ts
+ 
+// EXTERNAL MODULE: ./packages/cc-button-group/item.vue?vue&type=style&index=0&id=f0eaa83a&scoped=true&lang=less
+var itemvue_type_style_index_0_id_f0eaa83a_scoped_true_lang_less = __webpack_require__("619c");
+
+// CONCATENATED MODULE: ./packages/cc-button-group/item.vue
+
+
+
+
+
+
+
+const cc_button_group_item_exports_ = /*#__PURE__*/exportHelper_default()(cc_button_group_itemvue_type_script_lang_ts, [['render',itemvue_type_template_id_f0eaa83a_scoped_true_ts_true_render],['__scopeId',"data-v-f0eaa83a"]])
+
+/* harmony default export */ var cc_button_group_item = (cc_button_group_item_exports_);
+// CONCATENATED MODULE: ./node_modules/cache-loader/dist/cjs.js??ref--13-0!./node_modules/babel-loader/lib!./node_modules/@vue/cli-plugin-typescript/node_modules/ts-loader??ref--13-2!./node_modules/cache-loader/dist/cjs.js??ref--0-0!./node_modules/vue-loader-v16/dist??ref--0-1!./packages/cc-button-group/button-group.vue?vue&type=script&lang=ts
+
+
+
+
+/* harmony default export */ var button_groupvue_type_script_lang_ts = (Object(external_commonjs_vue_commonjs2_vue_root_Vue_["defineComponent"])({
+  name: 'CCButtonGroup',
+  components: {
+    CCButtonGroupItem: cc_button_group_item
+  },
+  props: {
+    items: {
+      type: Array,
+      default: () => []
+    },
+    color: {
+      type: String,
+      default: '#444'
+    },
+    /**
+     * 按下后是否自动回复原来的样式
+     */
+    recover: {
+      type: Boolean,
+      default: false
+    }
+  },
+  setup(props, ctx) {
+    const emitter = new tiny_emitter["TinyEmitter"]();
+    Object(external_commonjs_vue_commonjs2_vue_root_Vue_["provide"])(const_ProvideKey.Emitter, emitter);
+    let zIndex = 0;
+    /**
+     * 暂时废弃了这种方式，可能会越界
+     */
+    Object(external_commonjs_vue_commonjs2_vue_root_Vue_["provide"])(const_ProvideKey.ZIndex, () => {
+      zIndex++;
+      return zIndex;
+    });
+    return {};
+  }
+}));
+// CONCATENATED MODULE: ./packages/cc-button-group/button-group.vue?vue&type=script&lang=ts
+ 
+// EXTERNAL MODULE: ./packages/cc-button-group/button-group.vue?vue&type=style&index=0&id=1e5663d6&scoped=true&lang=less
+var button_groupvue_type_style_index_0_id_1e5663d6_scoped_true_lang_less = __webpack_require__("b048");
+
+// CONCATENATED MODULE: ./packages/cc-button-group/button-group.vue
+
+
+
+
+
+
+
+const button_group_exports_ = /*#__PURE__*/exportHelper_default()(button_groupvue_type_script_lang_ts, [['render',button_groupvue_type_template_id_1e5663d6_scoped_true_ts_true_render],['__scopeId',"data-v-1e5663d6"]])
+
+/* harmony default export */ var button_group = (button_group_exports_);
+// CONCATENATED MODULE: ./packages/cc-button-group/index.ts
+
+
+
+// CONCATENATED MODULE: ./node_modules/cache-loader/dist/cjs.js??ref--13-0!./node_modules/babel-loader/lib!./node_modules/@vue/cli-plugin-typescript/node_modules/ts-loader??ref--13-2!./node_modules/vue-loader-v16/dist/templateLoader.js??ref--7!./node_modules/cache-loader/dist/cjs.js??ref--0-0!./node_modules/vue-loader-v16/dist??ref--0-1!./packages/cc-divider/divider.vue?vue&type=template&id=d76e4a94&scoped=true&ts=true
+
+function dividervue_type_template_id_d76e4a94_scoped_true_ts_true_render(_ctx, _cache, $props, $setup, $data, $options) {
+  return Object(external_commonjs_vue_commonjs2_vue_root_Vue_["openBlock"])(), Object(external_commonjs_vue_commonjs2_vue_root_Vue_["createElementBlock"])("div", {
+    ref: "dividerEl",
+    class: "divider",
+    style: Object(external_commonjs_vue_commonjs2_vue_root_Vue_["normalizeStyle"])(_ctx.getCSS()),
+    onMouseenter: _cache[0] || (_cache[0] =
+    //@ts-ignore
+    (...args) => _ctx.onMouseEnter && _ctx.onMouseEnter(...args)),
+    onMouseleave: _cache[1] || (_cache[1] =
+    //@ts-ignore
+    (...args) => _ctx.onMouseLeave && _ctx.onMouseLeave(...args)),
+    onMousedown: _cache[2] || (_cache[2] =
+    //@ts-ignore
+    (...args) => _ctx.onDividerMouseDown && _ctx.onDividerMouseDown(...args))
+  }, null, 36);
+}
+// CONCATENATED MODULE: ./packages/cc-divider/divider.vue?vue&type=template&id=d76e4a94&scoped=true&ts=true
+
+// CONCATENATED MODULE: ./node_modules/cache-loader/dist/cjs.js??ref--13-0!./node_modules/babel-loader/lib!./node_modules/@vue/cli-plugin-typescript/node_modules/ts-loader??ref--13-2!./node_modules/cache-loader/dist/cjs.js??ref--0-0!./node_modules/vue-loader-v16/dist??ref--0-1!./packages/cc-divider/divider.vue?vue&type=script&lang=ts
+
+
+/* harmony default export */ var dividervue_type_script_lang_ts = (Object(external_commonjs_vue_commonjs2_vue_root_Vue_["defineComponent"])({
+  name: 'cc-divider',
+  emits: ['move'],
+  props: {
+    vertical: {
+      type: Boolean,
+      default: true
+    },
+    color: {
+      type: String,
+      default: '#444'
+    },
+    width: {
+      type: Number,
+      default: 3
+    },
+    influence: {
+      type: Boolean,
+      default: true
+    }
+  },
+  setup(props, {
+    emit
+  }) {
+    const lightColor = color_default()(props.color).lighten(0.6).hex();
+    const hoverColor = color_default()(props.color).lighten(0.2).hex();
+    const isMove = Object(external_commonjs_vue_commonjs2_vue_root_Vue_["ref"])(false);
+    function onDividerMove(event) {
+      if (props.influence && dividerEl.value) {
+        const el = dividerEl.value;
+        const el1 = el.previousElementSibling;
+        const el2 = el.nextElementSibling;
+        if (el1 && el2) {
+          const opts = {
+            offset: 1
+          };
+          if (props.vertical) {
+            do {
+              const offset = event.movementX;
+              let width1 = el1.clientWidth + offset;
+              if (el1.style.minWidth) {
+                const minWidth1 = parseInt(el1.style.minWidth);
+                if (width1 < minWidth1) {
+                  break;
+                }
+              }
+              let width2 = el2.clientWidth - offset;
+              if (el2.style.minWidth) {
+                const minWidth2 = parseInt(el2.style.minWidth);
+                if (width2 < minWidth2) {
+                  break;
+                }
+              }
+              el1.style.width = `${width1}px`;
+              el2.style.width = `${width2}px`;
+            } while (1);
+          } else {
+            const offset = event.movementY;
+            let height1 = el1.clientHeight + offset;
+            if (el1.style.minHeight) {
+              const minHeight1 = parseInt(el1.style.minHeight);
+            } else {
+              el1.style.height = `${height1}px`;
+            }
+            let height2 = el2.clientHeight - offset;
+            el2.style.height = `${height2}px`;
+          }
+        }
+      }
+      emit('move', event);
+    }
+    const dividerEl = Object(external_commonjs_vue_commonjs2_vue_root_Vue_["ref"])();
+    const isHover = Object(external_commonjs_vue_commonjs2_vue_root_Vue_["ref"])(false);
+    return {
+      dividerEl,
+      isMove,
+      isHover,
+      onMouseEnter() {
+        isHover.value = true;
+      },
+      onMouseLeave() {
+        isHover.value = false;
+      },
+      getCSS() {
+        const {
+          vertical,
+          width,
+          color
+        } = props;
+        let css = [];
+        if (isMove.value) {
+          css.push(`background-color:${lightColor}`);
+        } else {
+          if (isHover.value) {
+            css.push(`background-color:${hoverColor}`);
+          } else {
+            css.push(`background-color:${color}`);
+          }
+        }
+        if (vertical) {
+          css.push(`cursor: ew-resize`);
+          css.push(`width: ${width}px`);
+          css.push(`height: 100%`);
+        } else {
+          css.push(`cursor: ns-resize`);
+          css.push(`width: 100%`);
+          css.push(`height: ${width}px`);
+        }
+        return css.join(';');
+      },
+      onDividerMouseDown(event) {
+        isMove.value = true;
+        document.addEventListener('mousemove', onDividerMove);
+        function onMouseUp() {
+          isMove.value = false;
+          document.removeEventListener('mouseup', onMouseUp);
+          document.removeEventListener('mousemove', onDividerMove);
+        }
+        document.addEventListener('mouseup', onMouseUp);
+      }
+    };
+  }
+}));
+// CONCATENATED MODULE: ./packages/cc-divider/divider.vue?vue&type=script&lang=ts
+ 
+// EXTERNAL MODULE: ./packages/cc-divider/divider.vue?vue&type=style&index=0&id=d76e4a94&scoped=true&lang=less
+var dividervue_type_style_index_0_id_d76e4a94_scoped_true_lang_less = __webpack_require__("bce8");
+
+// CONCATENATED MODULE: ./packages/cc-divider/divider.vue
+
+
+
+
+
+
+
+const divider_exports_ = /*#__PURE__*/exportHelper_default()(dividervue_type_script_lang_ts, [['render',dividervue_type_template_id_d76e4a94_scoped_true_ts_true_render],['__scopeId',"data-v-d76e4a94"]])
+
+/* harmony default export */ var divider = (divider_exports_);
+// CONCATENATED MODULE: ./packages/cc-divider/const.ts
+const cc_divider_const_Msg = {};
+// CONCATENATED MODULE: ./packages/cc-divider/index.ts
+
+
+
 // CONCATENATED MODULE: ./packages/components.ts
 
 
@@ -13691,7 +16270,11 @@ const cc_table_table_exports_ = /*#__PURE__*/exportHelper_default()(cc_table_tab
 
 
 
+
+
 const components = {
+  CCDivider: divider,
+  CCButtonGroup: button_group,
   CCTable: cc_table_table,
   CCCommand: command,
   CCFootBar: cc_footbar,
@@ -13718,6 +16301,9 @@ const components = {
 
 
 
+
+
+
 const install = app => {
   Object.keys(components).forEach(key => {
     var _a;
@@ -13729,11 +16315,14 @@ const install = app => {
 const Emitter = new tiny_emitter["TinyEmitter"]();
 // 对外提供的全局方法
 const Methods = {
+  divider: cc_divider_const_namespaceObject,
+  buttonGroup: cc_button_group_const_namespaceObject,
   menu: const_namespaceObject,
   dialog: cc_dialog_const_namespaceObject,
   footbar: cc_footbar_const_namespaceObject,
   command: cc_command_const_namespaceObject,
-  table: cc_table_const_namespaceObject
+  table: cc_table_const_namespaceObject,
+  select: cc_select_const_namespaceObject
 };
 /* harmony default export */ var packages_0 = (Object.assign({
   install,
@@ -13746,13 +16335,6 @@ const Methods = {
 /* harmony default export */ var entry_lib = __webpack_exports__["default"] = (packages_0);
 
 
-
-/***/ }),
-
-/***/ "fb6a":
-/***/ (function(module, exports, __webpack_require__) {
-
-// extracted by mini-css-extract-plugin
 
 /***/ }),
 

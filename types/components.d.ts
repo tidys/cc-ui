@@ -1,4 +1,73 @@
 export declare const components: {
+    CCDivider: import("vue").DefineComponent<{
+        vertical: {
+            type: BooleanConstructor;
+            default: boolean;
+        };
+        color: {
+            type: StringConstructor;
+            default: string;
+        };
+        width: {
+            type: NumberConstructor;
+            default: number;
+        };
+        influence: {
+            type: BooleanConstructor;
+            default: boolean;
+        };
+    }, {
+        dividerEl: import("vue").Ref<HTMLElement | undefined>;
+        isMove: import("vue").Ref<boolean>;
+        isHover: import("vue").Ref<boolean>;
+        onMouseEnter(): void;
+        onMouseLeave(): void;
+        getCSS(): string;
+        onDividerMouseDown(event: MouseEvent): void;
+    }, unknown, {}, {}, import("vue").ComponentOptionsMixin, import("vue").ComponentOptionsMixin, "move"[], "move", import("vue").VNodeProps & import("vue").AllowedComponentProps & import("vue").ComponentCustomProps, Readonly<{
+        vertical?: unknown;
+        color?: unknown;
+        width?: unknown;
+        influence?: unknown;
+    } & {
+        color: string;
+        width: number;
+        vertical: boolean;
+        influence: boolean;
+    } & {}> & {
+        onMove?: ((...args: any[]) => any) | undefined;
+    }, {
+        color: string;
+        width: number;
+        vertical: boolean;
+        influence: boolean;
+    }>;
+    CCButtonGroup: import("vue").DefineComponent<{
+        items: {
+            type: import("vue").PropType<import("./cc-button-group/const").ButtonGroupItem[]>;
+            default: () => never[];
+        };
+        color: {
+            type: StringConstructor;
+            default: string;
+        };
+        recover: {
+            type: BooleanConstructor;
+            default: boolean;
+        };
+    }, {}, unknown, {}, {}, import("vue").ComponentOptionsMixin, import("vue").ComponentOptionsMixin, Record<string, any>, string, import("vue").VNodeProps & import("vue").AllowedComponentProps & import("vue").ComponentCustomProps, Readonly<{
+        items?: unknown;
+        color?: unknown;
+        recover?: unknown;
+    } & {
+        color: string;
+        recover: boolean;
+        items: import("./cc-button-group/const").ButtonGroupItem[];
+    } & {}>, {
+        color: string;
+        recover: boolean;
+        items: import("./cc-button-group/const").ButtonGroupItem[];
+    }>;
     CCTable: import("vue").DefineComponent<{
         columns: {
             type: import("vue").PropType<import("./cc-table/const").TableColumn[]>;
@@ -114,11 +183,20 @@ export declare const components: {
         texture: {
             type: StringConstructor;
         };
+        tooltip: {
+            type: StringConstructor;
+            default: string;
+        };
     }, {
+        arrow: import("vue").Ref<HTMLElement | undefined>;
+        text: import("vue").Ref<HTMLElement | undefined>;
+        tips: import("vue").Ref<HTMLDivElement | undefined>;
+        isShowTips: import("vue").Ref<boolean>;
         theme: {
             background: string;
         };
         isClick: import("vue").Ref<boolean>;
+        onHover(event: any): void;
         onMouseup(): void;
         onMousedown(): void;
         onMouseenter(): void;
@@ -127,13 +205,16 @@ export declare const components: {
         transition?: unknown;
         color?: unknown;
         texture?: unknown;
+        tooltip?: unknown;
     } & {
         transition: string;
+        tooltip: string;
     } & {
         color?: string | undefined;
         texture?: string | undefined;
     }> & {}, {
         transition: string;
+        tooltip: string;
     }>;
     CCCheckBox: import("vue").DefineComponent<{
         value: {
@@ -240,7 +321,7 @@ export declare const components: {
     }>;
     CCSelect: import("vue").DefineComponent<{
         data: {
-            type: import("vue").PropType<import("./cc-select/data").Option[]>;
+            type: import("vue").PropType<import("./cc-select/const").Option[]>;
             required: true;
             default(): never[];
         };
@@ -252,7 +333,7 @@ export declare const components: {
         data?: unknown;
         value?: unknown;
     } & {
-        data: import("./cc-select/data").Option[];
+        data: import("./cc-select/const").Option[];
     } & {
         value?: string | number | undefined;
     }> & {
@@ -260,7 +341,7 @@ export declare const components: {
         "onUpdate:value"?: ((...args: any[]) => any) | undefined;
         "onUpdate:data"?: ((...args: any[]) => any) | undefined;
     }, {
-        data: import("./cc-select/data").Option[];
+        data: import("./cc-select/const").Option[];
     }>;
     CCInput: import("vue").DefineComponent<{
         value: {

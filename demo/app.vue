@@ -1,6 +1,12 @@
 <template>
-  <CCButtonGroup :recover="true" :items="buttonGroup"> </CCButtonGroup>
+  <div>
+    <div style="width: 100%; height: 50px; background-color: rgb(138, 138, 138)"></div>
+    <CCDivider :vertical="false" color="#444"></CCDivider>
+    <div style="width: 100%; height: 50px; background-color: rgb(214, 214, 214)"></div>
+    <CCButton tooltip="123">111</CCButton>
+  </div>
   <div v-if="false">
+    <CCButtonGroup :recover="true" :items="buttonGroup"> </CCButtonGroup>
     <CCTable v-if="false" class="myTable" :columns="tableColumns" :data="tableData" :color="tableColor" headColor="#888"></CCTable>
     <div>
       <CCButton @click="onShowDialog">dialog</CCButton>
@@ -85,10 +91,10 @@ import { DialogUrlData, DialogOptions } from '../packages/cc-dialog/const';
 import { IUiMenuItem } from '../packages/cc-menu/const';
 import { TableColumn, TableData } from '../packages/cc-table/const';
 import { ButtonGroupItem } from '../packages/cc-button-group/const';
-const { CCButtonGroup, CCTable, CCCommand, CCColor, CCFootBar, CCButton, CCHelp, CCInputNumber, CCDialog, CCSection, CCSelect, CCProp, CCTextarea, CCInput, CCCheckBox } = ccui.components;
+const { CCDivider, CCButtonGroup, CCTable, CCCommand, CCColor, CCFootBar, CCButton, CCHelp, CCInputNumber, CCDialog, CCSection, CCSelect, CCProp, CCTextarea, CCInput, CCCheckBox } = ccui.components;
 export default defineComponent({
   name: 'app',
-  components: { CCButtonGroup, CCTable, CCCommand, CCFootBar, CCColor, CCButton, CCHelp, CCInputNumber, CCDialog, CCSection, CCSelect, CCProp, CCTextarea, CCInput, CCCheckBox },
+  components: { CCDivider, CCButtonGroup, CCTable, CCCommand, CCFootBar, CCColor, CCButton, CCHelp, CCInputNumber, CCDialog, CCSection, CCSelect, CCProp, CCTextarea, CCInput, CCCheckBox },
   setup() {
     const value = ref('123');
     const selectData = ref([
