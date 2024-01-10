@@ -15,9 +15,17 @@ declare const _default: import("vue").DefineComponent<{
         type: BooleanConstructor;
         default: boolean;
     };
+    /**
+     * input的值是否为目录
+     */
+    directory: {
+        type: BooleanConstructor;
+        default: boolean;
+    };
 }, {
     text: import("vue").Ref<string>;
     borderColor: import("vue").Ref<string>;
+    getCSS(): string;
     onFocusin(): void;
     onFocusout(): void;
     onBlur(): void;
@@ -26,11 +34,13 @@ declare const _default: import("vue").DefineComponent<{
     readonly?: unknown;
     maxlength?: unknown;
     disabled?: unknown;
+    directory?: unknown;
 } & {
     readonly: boolean;
     value: string;
     maxlength: number;
     disabled: boolean;
+    directory: boolean;
 } & {}> & {
     onChange?: ((...args: any[]) => any) | undefined;
     "onUpdate:value"?: ((...args: any[]) => any) | undefined;
@@ -39,5 +49,6 @@ declare const _default: import("vue").DefineComponent<{
     value: string;
     maxlength: number;
     disabled: boolean;
+    directory: boolean;
 }>;
 export default _default;

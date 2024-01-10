@@ -382,9 +382,14 @@ declare const _default: {
                 type: BooleanConstructor;
                 default: boolean;
             };
+            directory: {
+                type: BooleanConstructor;
+                default: boolean;
+            };
         }, {
             text: import("vue").Ref<string>;
             borderColor: import("vue").Ref<string>;
+            getCSS(): string;
             onFocusin(): void;
             onFocusout(): void;
             onBlur(): void;
@@ -393,11 +398,13 @@ declare const _default: {
             readonly?: unknown;
             maxlength?: unknown;
             disabled?: unknown;
+            directory?: unknown;
         } & {
             readonly: boolean;
             value: string;
             maxlength: number;
             disabled: boolean;
+            directory: boolean;
         } & {}> & {
             onChange?: ((...args: any[]) => any) | undefined;
             "onUpdate:value"?: ((...args: any[]) => any) | undefined;
@@ -406,6 +413,7 @@ declare const _default: {
             value: string;
             maxlength: number;
             disabled: boolean;
+            directory: boolean;
         }>;
         CCInputNumber: import("vue").DefineComponent<{
             disabled: {

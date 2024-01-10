@@ -1,7 +1,7 @@
 <template>
   <div class="cc-input">
     <label style="display: flex; flex: 1">
-      <input @focusout="onFocusout" :class="{ readonly: readonly, disabled: disabled }" @focusin="onFocusin" @blur="onBlur" :readonly="readonly" :maxlength="maxlength" :disabled="disabled" v-model="text" type="text" />
+      <input @focusout="onFocusout" :style="getCSS()" :class="{ readonly: readonly, disabled: disabled }" @focusin="onFocusin" @blur="onBlur" :readonly="readonly" :maxlength="maxlength" :disabled="disabled" v-model="text" type="text" />
     </label>
     <slot></slot>
   </div>
@@ -28,6 +28,13 @@ export default defineComponent({
       type: Boolean,
       default: false,
     },
+    /**
+     * input的值是否为目录
+     */
+    directory: {
+      type: Boolean,
+      default: false,
+    },
   },
   emits: ['update:value', 'change'],
   setup(props, { emit }) {
@@ -43,6 +50,13 @@ export default defineComponent({
     return {
       text,
       borderColor,
+      getCSS() {
+        const css: string[] = [];
+        if (props.directory) {
+          css.push(`cursor: pointer !important`);
+        }
+        return css.join(';');
+      },
       onFocusin() {
         borderColor.value = focusColor;
       },

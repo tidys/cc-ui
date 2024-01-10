@@ -360,9 +360,14 @@ export declare const components: {
             type: BooleanConstructor;
             default: boolean;
         };
+        directory: {
+            type: BooleanConstructor;
+            default: boolean;
+        };
     }, {
         text: import("vue").Ref<string>;
         borderColor: import("vue").Ref<string>;
+        getCSS(): string;
         onFocusin(): void;
         onFocusout(): void;
         onBlur(): void;
@@ -371,11 +376,13 @@ export declare const components: {
         readonly?: unknown;
         maxlength?: unknown;
         disabled?: unknown;
+        directory?: unknown;
     } & {
         readonly: boolean;
         value: string;
         maxlength: number;
         disabled: boolean;
+        directory: boolean;
     } & {}> & {
         onChange?: ((...args: any[]) => any) | undefined;
         "onUpdate:value"?: ((...args: any[]) => any) | undefined;
@@ -384,6 +391,7 @@ export declare const components: {
         value: string;
         maxlength: number;
         disabled: boolean;
+        directory: boolean;
     }>;
     CCInputNumber: import("vue").DefineComponent<{
         disabled: {
