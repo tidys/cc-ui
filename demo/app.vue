@@ -1,9 +1,17 @@
 <template>
-  <div>
-    <div style="width: 100%; height: 50px; background-color: rgb(138, 138, 138)"></div>
+  <div v-if="false">
+    <CCButton tooltip="tooltip test">tooltip</CCButton>
+    <CCInput :directory="true"></CCInput>
+  </div>
+  <div v-if="false">
+    <div style="min-height: 20px; width: 100%; height: 50px; background-color: rgb(138, 138, 138)"></div>
     <CCDivider :vertical="false" color="#444"></CCDivider>
-    <div style="width: 100%; height: 50px; background-color: rgb(214, 214, 214)"></div>
-    <CCButton tooltip="123">111</CCButton>
+    <div style="min-height: 20px; width: 100%; height: 50px; background-color: rgb(214, 214, 214)"></div>
+  </div>
+  <div style="display: flex; flex-direction: row; height: 100px; width: 100%">
+    <div style="min-width: 20px; flex: 1; height: 100%; background-color: rgb(138, 138, 138)"></div>
+    <CCDivider :vertical="true" color="#444"></CCDivider>
+    <div style="min-width: 20px; flex: 1; height: 100%; background-color: rgb(214, 214, 214)"></div>
   </div>
   <div v-if="false">
     <CCButtonGroup :recover="true" :items="buttonGroup"> </CCButtonGroup>

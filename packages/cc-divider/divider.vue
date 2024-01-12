@@ -38,39 +38,53 @@ export default defineComponent({
         const el1: HTMLElement = el.previousElementSibling as HTMLElement;
         const el2: HTMLElement = el.nextElementSibling as HTMLElement;
 
-        if (el1 && el2) {
-          const opts: {
-            offset: number;
-            property: 'clientWidth' | 'clientHeight';
-            minCss: 'minWidth' | 'minHeight';
-            targetCss: 'width' | 'height';
-          } = {
-            offset: vertical ? event.movementX : event.movementY,
-            property: vertical ? 'clientWidth' : 'clientHeight',
-            minCss: vertical ? 'minWidth' : 'minHeight',
-            targetCss: vertical ? 'width' : 'height',
-          };
-          do {
-            const { offset, property, minCss, targetCss } = opts;
-            let v1 = el1[property] + offset;
-            if (el1.style[minCss]) {
-              const min1 = parseInt(el1.style[minCss]);
-              if (v1 < min1) {
-                break;
+        if (el1 && el2 && el && el.parentElement) {
+          if (el.parentElement.style.display === 'flex') {
+            // flex布局算法不一样
+            el.parentElement.clientWidth;
+          } else {
+            const opts: {
+              offset: number;
+              property: 'clientWidth' | 'clientHeight';
+              minCss: 'minWidth' | 'minHeight';
+              targetCss: 'width' | 'height';
+            } = {
+              offset: vertical ? event.movementX : event.movementY,
+              property: vertical ? 'clientWidth' : 'clientHeight',
+              minCss: vertical ? 'minWidth' : 'minHeight',
+              targetCss: vertical ? 'width' : 'height',
+            };
+            do {
+              console.log(1);
+              const { offset, property, minCss, targetCss } = opts;
+              let v1 = el1[property] + offset;
+              if (el1.style[minCss]) {
+                const min1 = parseInt(el1.style[minCss]);
+                if (v1 < min1) {
+                  break;
+                }
               }
-            }
-            let v2 = el2[property] - offset;
-            if (el2.style[minCss]) {
-              const min2 = parseInt(el2.style[minCss]);
-              if (v2 < min2) {
-                break;
+              let v2 = el2[property] - offset;
+              if (el2.style[minCss]) {
+                const min2 = parseInt(el2.style[minCss]);
+                if (v2 < min2) {
+                  break;
+                }
               }
-            }
 
-            el1.style[targetCss] = `${v1}px`;
-            el2.style[targetCss] = `${v2}px`;
-            break;
-          } while (1);
+              [el1, el2].map((item) => {
+                if (item.style.flexGrow) {
+                  item.style.flexGrow = '';
+                }
+                if (item.style.flexShrink) {
+                  item.style.flexShrink = '';
+                }
+              });
+              el1.style[targetCss] = `${v1}px`;
+              el2.style[targetCss] = `${v2}px`;
+              break;
+            } while (1);
+          }
         }
       }
       emit('move', event);
