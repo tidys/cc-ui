@@ -6951,6 +6951,13 @@ module.exports = function (fromModel) {
 
 /***/ }),
 
+/***/ "7683":
+/***/ (function(module, exports, __webpack_require__) {
+
+// extracted by mini-css-extract-plugin
+
+/***/ }),
+
 /***/ "779f":
 /***/ (function(module, exports, __webpack_require__) {
 
@@ -8106,6 +8113,17 @@ module.exports = __WEBPACK_EXTERNAL_MODULE__8bbf__;
 "use strict";
 
 module.exports = __webpack_require__("069b");
+
+
+/***/ }),
+
+/***/ "9096":
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+/* harmony import */ var _node_modules_mini_css_extract_plugin_dist_loader_js_ref_10_oneOf_1_0_node_modules_css_loader_dist_cjs_js_ref_10_oneOf_1_1_node_modules_vue_loader_v16_dist_stylePostLoader_js_node_modules_postcss_loader_src_index_js_ref_10_oneOf_1_2_node_modules_less_loader_dist_cjs_js_ref_10_oneOf_1_3_node_modules_cache_loader_dist_cjs_js_ref_0_0_node_modules_vue_loader_v16_dist_index_js_ref_0_1_divider_vue_vue_type_style_index_0_id_9657184c_scoped_true_lang_less__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__("7683");
+/* harmony import */ var _node_modules_mini_css_extract_plugin_dist_loader_js_ref_10_oneOf_1_0_node_modules_css_loader_dist_cjs_js_ref_10_oneOf_1_1_node_modules_vue_loader_v16_dist_stylePostLoader_js_node_modules_postcss_loader_src_index_js_ref_10_oneOf_1_2_node_modules_less_loader_dist_cjs_js_ref_10_oneOf_1_3_node_modules_cache_loader_dist_cjs_js_ref_0_0_node_modules_vue_loader_v16_dist_index_js_ref_0_1_divider_vue_vue_type_style_index_0_id_9657184c_scoped_true_lang_less__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(_node_modules_mini_css_extract_plugin_dist_loader_js_ref_10_oneOf_1_0_node_modules_css_loader_dist_cjs_js_ref_10_oneOf_1_1_node_modules_vue_loader_v16_dist_stylePostLoader_js_node_modules_postcss_loader_src_index_js_ref_10_oneOf_1_2_node_modules_less_loader_dist_cjs_js_ref_10_oneOf_1_3_node_modules_cache_loader_dist_cjs_js_ref_0_0_node_modules_vue_loader_v16_dist_index_js_ref_0_1_divider_vue_vue_type_style_index_0_id_9657184c_scoped_true_lang_less__WEBPACK_IMPORTED_MODULE_0__);
+/* unused harmony reexport * */
 
 
 /***/ }),
@@ -9891,13 +9909,6 @@ module.exports = __webpack_exports__;
 
 /***/ }),
 
-/***/ "a928":
-/***/ (function(module, exports, __webpack_require__) {
-
-// extracted by mini-css-extract-plugin
-
-/***/ }),
-
 /***/ "ae21":
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
@@ -9962,17 +9973,6 @@ module.exports = __webpack_exports__;
 "use strict";
 /* harmony import */ var _node_modules_mini_css_extract_plugin_dist_loader_js_ref_10_oneOf_1_0_node_modules_css_loader_dist_cjs_js_ref_10_oneOf_1_1_node_modules_vue_loader_v16_dist_stylePostLoader_js_node_modules_postcss_loader_src_index_js_ref_10_oneOf_1_2_node_modules_less_loader_dist_cjs_js_ref_10_oneOf_1_3_node_modules_cache_loader_dist_cjs_js_ref_0_0_node_modules_vue_loader_v16_dist_index_js_ref_0_1_hue_vue_vue_type_style_index_0_id_b75be4da_scoped_true_lang_less__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__("6501");
 /* harmony import */ var _node_modules_mini_css_extract_plugin_dist_loader_js_ref_10_oneOf_1_0_node_modules_css_loader_dist_cjs_js_ref_10_oneOf_1_1_node_modules_vue_loader_v16_dist_stylePostLoader_js_node_modules_postcss_loader_src_index_js_ref_10_oneOf_1_2_node_modules_less_loader_dist_cjs_js_ref_10_oneOf_1_3_node_modules_cache_loader_dist_cjs_js_ref_0_0_node_modules_vue_loader_v16_dist_index_js_ref_0_1_hue_vue_vue_type_style_index_0_id_b75be4da_scoped_true_lang_less__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(_node_modules_mini_css_extract_plugin_dist_loader_js_ref_10_oneOf_1_0_node_modules_css_loader_dist_cjs_js_ref_10_oneOf_1_1_node_modules_vue_loader_v16_dist_stylePostLoader_js_node_modules_postcss_loader_src_index_js_ref_10_oneOf_1_2_node_modules_less_loader_dist_cjs_js_ref_10_oneOf_1_3_node_modules_cache_loader_dist_cjs_js_ref_0_0_node_modules_vue_loader_v16_dist_index_js_ref_0_1_hue_vue_vue_type_style_index_0_id_b75be4da_scoped_true_lang_less__WEBPACK_IMPORTED_MODULE_0__);
-/* unused harmony reexport * */
-
-
-/***/ }),
-
-/***/ "bce8":
-/***/ (function(module, __webpack_exports__, __webpack_require__) {
-
-"use strict";
-/* harmony import */ var _node_modules_mini_css_extract_plugin_dist_loader_js_ref_10_oneOf_1_0_node_modules_css_loader_dist_cjs_js_ref_10_oneOf_1_1_node_modules_vue_loader_v16_dist_stylePostLoader_js_node_modules_postcss_loader_src_index_js_ref_10_oneOf_1_2_node_modules_less_loader_dist_cjs_js_ref_10_oneOf_1_3_node_modules_cache_loader_dist_cjs_js_ref_0_0_node_modules_vue_loader_v16_dist_index_js_ref_0_1_divider_vue_vue_type_style_index_0_id_d76e4a94_scoped_true_lang_less__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__("a928");
-/* harmony import */ var _node_modules_mini_css_extract_plugin_dist_loader_js_ref_10_oneOf_1_0_node_modules_css_loader_dist_cjs_js_ref_10_oneOf_1_1_node_modules_vue_loader_v16_dist_stylePostLoader_js_node_modules_postcss_loader_src_index_js_ref_10_oneOf_1_2_node_modules_less_loader_dist_cjs_js_ref_10_oneOf_1_3_node_modules_cache_loader_dist_cjs_js_ref_0_0_node_modules_vue_loader_v16_dist_index_js_ref_0_1_divider_vue_vue_type_style_index_0_id_d76e4a94_scoped_true_lang_less__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(_node_modules_mini_css_extract_plugin_dist_loader_js_ref_10_oneOf_1_0_node_modules_css_loader_dist_cjs_js_ref_10_oneOf_1_1_node_modules_vue_loader_v16_dist_stylePostLoader_js_node_modules_postcss_loader_src_index_js_ref_10_oneOf_1_2_node_modules_less_loader_dist_cjs_js_ref_10_oneOf_1_3_node_modules_cache_loader_dist_cjs_js_ref_0_0_node_modules_vue_loader_v16_dist_index_js_ref_0_1_divider_vue_vue_type_style_index_0_id_d76e4a94_scoped_true_lang_less__WEBPACK_IMPORTED_MODULE_0__);
 /* unused harmony reexport * */
 
 
@@ -16108,9 +16108,9 @@ const button_group_exports_ = /*#__PURE__*/exportHelper_default()(button_groupvu
 
 
 
-// CONCATENATED MODULE: ./node_modules/cache-loader/dist/cjs.js??ref--13-0!./node_modules/babel-loader/lib!./node_modules/@vue/cli-plugin-typescript/node_modules/ts-loader??ref--13-2!./node_modules/vue-loader-v16/dist/templateLoader.js??ref--7!./node_modules/cache-loader/dist/cjs.js??ref--0-0!./node_modules/vue-loader-v16/dist??ref--0-1!./packages/cc-divider/divider.vue?vue&type=template&id=d76e4a94&scoped=true&ts=true
+// CONCATENATED MODULE: ./node_modules/cache-loader/dist/cjs.js??ref--13-0!./node_modules/babel-loader/lib!./node_modules/@vue/cli-plugin-typescript/node_modules/ts-loader??ref--13-2!./node_modules/vue-loader-v16/dist/templateLoader.js??ref--7!./node_modules/cache-loader/dist/cjs.js??ref--0-0!./node_modules/vue-loader-v16/dist??ref--0-1!./packages/cc-divider/divider.vue?vue&type=template&id=9657184c&scoped=true&ts=true
 
-function dividervue_type_template_id_d76e4a94_scoped_true_ts_true_render(_ctx, _cache, $props, $setup, $data, $options) {
+function dividervue_type_template_id_9657184c_scoped_true_ts_true_render(_ctx, _cache, $props, $setup, $data, $options) {
   return Object(external_commonjs_vue_commonjs2_vue_root_Vue_["openBlock"])(), Object(external_commonjs_vue_commonjs2_vue_root_Vue_["createElementBlock"])("div", {
     ref: "dividerEl",
     class: "divider",
@@ -16126,7 +16126,7 @@ function dividervue_type_template_id_d76e4a94_scoped_true_ts_true_render(_ctx, _
     (...args) => _ctx.onDividerMouseDown && _ctx.onDividerMouseDown(...args))
   }, null, 36);
 }
-// CONCATENATED MODULE: ./packages/cc-divider/divider.vue?vue&type=template&id=d76e4a94&scoped=true&ts=true
+// CONCATENATED MODULE: ./packages/cc-divider/divider.vue?vue&type=template&id=9657184c&scoped=true&ts=true
 
 // CONCATENATED MODULE: ./node_modules/cache-loader/dist/cjs.js??ref--13-0!./node_modules/babel-loader/lib!./node_modules/@vue/cli-plugin-typescript/node_modules/ts-loader??ref--13-2!./node_modules/cache-loader/dist/cjs.js??ref--0-0!./node_modules/vue-loader-v16/dist??ref--0-1!./packages/cc-divider/divider.vue?vue&type=script&lang=ts
 
@@ -16157,46 +16157,59 @@ function dividervue_type_template_id_d76e4a94_scoped_true_ts_true_render(_ctx, _
   }) {
     const lightColor = color_default()(props.color).lighten(0.6).hex();
     const hoverColor = color_default()(props.color).lighten(0.2).hex();
+    const {
+      vertical
+    } = props;
     const isMove = Object(external_commonjs_vue_commonjs2_vue_root_Vue_["ref"])(false);
     function onDividerMove(event) {
       if (props.influence && dividerEl.value) {
         const el = dividerEl.value;
         const el1 = el.previousElementSibling;
         const el2 = el.nextElementSibling;
-        if (el1 && el2) {
-          const opts = {
-            offset: 1
-          };
-          if (props.vertical) {
-            do {
-              const offset = event.movementX;
-              let width1 = el1.clientWidth + offset;
-              if (el1.style.minWidth) {
-                const minWidth1 = parseInt(el1.style.minWidth);
-                if (width1 < minWidth1) {
-                  break;
-                }
-              }
-              let width2 = el2.clientWidth - offset;
-              if (el2.style.minWidth) {
-                const minWidth2 = parseInt(el2.style.minWidth);
-                if (width2 < minWidth2) {
-                  break;
-                }
-              }
-              el1.style.width = `${width1}px`;
-              el2.style.width = `${width2}px`;
-            } while (1);
+        if (el1 && el2 && el && el.parentElement) {
+          if (el.parentElement.style.display === 'flex') {
+            // flex布局算法不一样
+            el.parentElement.clientWidth;
           } else {
-            const offset = event.movementY;
-            let height1 = el1.clientHeight + offset;
-            if (el1.style.minHeight) {
-              const minHeight1 = parseInt(el1.style.minHeight);
-            } else {
-              el1.style.height = `${height1}px`;
-            }
-            let height2 = el2.clientHeight - offset;
-            el2.style.height = `${height2}px`;
+            const opts = {
+              offset: vertical ? event.movementX : event.movementY,
+              property: vertical ? 'clientWidth' : 'clientHeight',
+              minCss: vertical ? 'minWidth' : 'minHeight',
+              targetCss: vertical ? 'width' : 'height'
+            };
+            do {
+              const {
+                offset,
+                property,
+                minCss,
+                targetCss
+              } = opts;
+              let v1 = el1[property] + offset;
+              if (el1.style[minCss]) {
+                const min1 = parseInt(el1.style[minCss]);
+                if (v1 < min1) {
+                  break;
+                }
+              }
+              let v2 = el2[property] - offset;
+              if (el2.style[minCss]) {
+                const min2 = parseInt(el2.style[minCss]);
+                if (v2 < min2) {
+                  break;
+                }
+              }
+              [el1, el2].map(item => {
+                if (item.style.flexGrow) {
+                  item.style.flexGrow = '';
+                }
+                if (item.style.flexShrink) {
+                  item.style.flexShrink = '';
+                }
+              });
+              el1.style[targetCss] = `${v1}px`;
+              el2.style[targetCss] = `${v2}px`;
+              break;
+            } while (1);
           }
         }
       }
@@ -16256,8 +16269,8 @@ function dividervue_type_template_id_d76e4a94_scoped_true_ts_true_render(_ctx, _
 }));
 // CONCATENATED MODULE: ./packages/cc-divider/divider.vue?vue&type=script&lang=ts
  
-// EXTERNAL MODULE: ./packages/cc-divider/divider.vue?vue&type=style&index=0&id=d76e4a94&scoped=true&lang=less
-var dividervue_type_style_index_0_id_d76e4a94_scoped_true_lang_less = __webpack_require__("bce8");
+// EXTERNAL MODULE: ./packages/cc-divider/divider.vue?vue&type=style&index=0&id=9657184c&scoped=true&lang=less
+var dividervue_type_style_index_0_id_9657184c_scoped_true_lang_less = __webpack_require__("9096");
 
 // CONCATENATED MODULE: ./packages/cc-divider/divider.vue
 
@@ -16267,7 +16280,7 @@ var dividervue_type_style_index_0_id_d76e4a94_scoped_true_lang_less = __webpack_
 
 
 
-const divider_exports_ = /*#__PURE__*/exportHelper_default()(dividervue_type_script_lang_ts, [['render',dividervue_type_template_id_d76e4a94_scoped_true_ts_true_render],['__scopeId',"data-v-d76e4a94"]])
+const divider_exports_ = /*#__PURE__*/exportHelper_default()(dividervue_type_script_lang_ts, [['render',dividervue_type_template_id_9657184c_scoped_true_ts_true_render],['__scopeId',"data-v-9657184c"]])
 
 /* harmony default export */ var divider = (divider_exports_);
 // CONCATENATED MODULE: ./packages/cc-divider/const.ts

@@ -55,7 +55,6 @@ export default defineComponent({
               targetCss: vertical ? 'width' : 'height',
             };
             do {
-              console.log(1);
               const { offset, property, minCss, targetCss } = opts;
               let v1 = el1[property] + offset;
               if (el1.style[minCss]) {
