@@ -1,5 +1,5 @@
 <template>
-  <div ref="el" class="cc-button-group-item" :style="{ 'background-color': backgroundColor }" @mouseenter="onMouseEnter" @mouseover="onMouseOver" @mouseleave="onMouseLeave" :title="data.title" @click.stop.prevent="onClick" @mousedown.stop.prevent="onMouseDown" @mouseup.stop.prevent="onMouseUp">
+  <div ref="el" v-if="data.visible === undefined ? true : !!data.visible" class="cc-button-group-item" :style="{ 'background-color': backgroundColor }" @mouseenter="onMouseEnter" @mouseover="onMouseOver" @mouseleave="onMouseLeave" :title="data.title" @click.stop.prevent="onClick" @mousedown.stop.prevent="onMouseDown" @mouseup.stop.prevent="onMouseUp">
     <div v-if="!!data.icon">
       <i class="iconfont" :class="data.icon"></i>
     </div>

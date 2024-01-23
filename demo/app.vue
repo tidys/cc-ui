@@ -14,7 +14,10 @@
     <div style="min-width: 20px; flex: 1; height: 100%; background-color: rgb(214, 214, 214)"></div>
   </div>
   <div v-if="false">
-    <CCButtonGroup :recover="true" :items="buttonGroup"> </CCButtonGroup>
+    <div style="display: flex; flex-direction: row; align-items: center">
+      <CCButtonGroup :recover="true" :items="buttonGroup"> </CCButtonGroup>
+      <CCButton @click="onHideBtnGroupFirst">visible btnGroup 1</CCButton>
+    </div>
     <CCTable v-if="false" class="myTable" :columns="tableColumns" :data="tableData" :color="tableColor" headColor="#888"></CCTable>
     <div>
       <CCButton @click="onShowDialog">dialog</CCButton>
@@ -92,7 +95,7 @@
   </div>
 </template>
 <script lang="ts">
-import { defineComponent, ref, onMounted } from 'vue';
+import { defineComponent, ref, onMounted, reactive } from 'vue';
 import ccui from '../packages/index';
 import { orderTest } from './order';
 import { DialogUrlData, DialogOptions } from '../packages/cc-dialog/const';
@@ -188,12 +191,14 @@ export default defineComponent({
         ],
       });
     });
+    const btnGroupData1: ButtonGroupItem = reactive({
+      text: '1',
+      title: '1',
+      icon: 'icon_move',
+      visible: true,
+    });
     const buttonGroupData: ButtonGroupItem[] = [
-      {
-        text: '1',
-        title: '1',
-        icon: 'icon_move',
-      },
+      btnGroupData1,
       {
         icon: 'icon_up_right_arrow',
       },
@@ -224,6 +229,9 @@ export default defineComponent({
       tableColumns,
       tableData,
       tableColor,
+      onHideBtnGroupFirst() {
+        btnGroupData1.visible = !btnGroupData1.visible; // 无效
+      },
       onOrder() {
         orderTest();
       },

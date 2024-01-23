@@ -4,7 +4,7 @@
   </div>
 </template>
 <script lang="ts">
-import { defineComponent, provide, PropType, ref, toRaw } from 'vue';
+import { defineComponent, provide, PropType, ref, toRaw, watch } from 'vue';
 import { ButtonGroupItem, ProvideKey } from './const';
 import CCButtonGroupItem from './item.vue';
 import { TinyEmitter } from 'tiny-emitter';
@@ -39,6 +39,7 @@ export default defineComponent({
       zIndex++;
       return zIndex;
     });
+    watch(props.items, (newVal) => {});
     return {};
   },
 });
