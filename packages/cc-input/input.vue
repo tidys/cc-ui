@@ -1,7 +1,7 @@
 <template>
   <div class="cc-input">
     <label style="display: flex; flex: 1">
-      <input @focusout="onFocusout" :style="getCSS()" :class="{ readonly: readonly, disabled: disabled }" @focusin="onFocusin" @blur="onBlur" :readonly="readonly" :maxlength="maxlength" :disabled="disabled" v-model="text" type="text" />
+      <input :placeholder="placeholder" @focusout="onFocusout" :style="getCSS()" :class="{ readonly: readonly, disabled: disabled }" @focusin="onFocusin" @blur="onBlur" :readonly="readonly" :maxlength="maxlength" :disabled="disabled" v-model="text" type="text" />
     </label>
     <slot></slot>
   </div>
@@ -34,6 +34,10 @@ export default defineComponent({
     directory: {
       type: Boolean,
       default: false,
+    },
+    placeholder: {
+      type: String,
+      default: '',
     },
   },
   emits: ['update:value', 'change'],
