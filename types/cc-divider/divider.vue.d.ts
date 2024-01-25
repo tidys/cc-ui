@@ -23,22 +23,29 @@ declare const _default: import("vue").DefineComponent<{
     onMouseLeave(): void;
     getCSS(): string;
     onDividerMouseDown(event: MouseEvent): void;
-}, unknown, {}, {}, import("vue").ComponentOptionsMixin, import("vue").ComponentOptionsMixin, "move"[], "move", import("vue").VNodeProps & import("vue").AllowedComponentProps & import("vue").ComponentCustomProps, Readonly<{
-    vertical?: unknown;
-    color?: unknown;
-    width?: unknown;
-    influence?: unknown;
-} & {
-    color: string;
-    width: number;
-    vertical: boolean;
-    influence: boolean;
-} & {}> & {
+}, unknown, {}, {}, import("vue").ComponentOptionsMixin, import("vue").ComponentOptionsMixin, "move"[], "move", import("vue").VNodeProps & import("vue").AllowedComponentProps & import("vue").ComponentCustomProps, Readonly<import("vue").ExtractPropTypes<{
+    vertical: {
+        type: BooleanConstructor;
+        default: boolean;
+    };
+    color: {
+        type: StringConstructor;
+        default: string;
+    };
+    width: {
+        type: NumberConstructor;
+        default: number;
+    };
+    influence: {
+        type: BooleanConstructor;
+        default: boolean;
+    };
+}>> & {
     onMove?: ((...args: any[]) => any) | undefined;
 }, {
     color: string;
     width: number;
     vertical: boolean;
     influence: boolean;
-}>;
+}, {}>;
 export default _default;

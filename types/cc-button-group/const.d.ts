@@ -7,6 +7,10 @@ export declare const ProvideKey: {
 };
 export interface ButtonGroupItem {
     /**
+     * 是否隐藏
+     */
+    visible?: boolean;
+    /**
      * 显示的icon，这是暂时没有对接上
      */
     svg?: string;

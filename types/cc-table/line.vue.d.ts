@@ -8,14 +8,15 @@ declare const _default: import("vue").DefineComponent<{
         type: BooleanConstructor;
         default: boolean;
     };
-}, {}, unknown, {}, {}, import("vue").ComponentOptionsMixin, import("vue").ComponentOptionsMixin, Record<string, any>, string, import("vue").VNodeProps & import("vue").AllowedComponentProps & import("vue").ComponentCustomProps, Readonly<{
-    data?: unknown;
-    placeholder?: unknown;
-} & {
+}, {}, unknown, {}, {}, import("vue").ComponentOptionsMixin, import("vue").ComponentOptionsMixin, {}, string, import("vue").VNodeProps & import("vue").AllowedComponentProps & import("vue").ComponentCustomProps, Readonly<import("vue").ExtractPropTypes<{
+    data: {
+        type: PropType<CellData[]>;
+    };
+    placeholder: {
+        type: BooleanConstructor;
+        default: boolean;
+    };
+}>>, {
     placeholder: boolean;
-} & {
-    data?: CellData[] | undefined;
-}>, {
-    placeholder: boolean;
-}>;
+}, {}>;
 export default _default;

@@ -17,11 +17,12 @@ declare const _default: import("vue").DefineComponent<{
             cb: (() => void) | null;
         }[];
     }[]>;
-}, unknown, {}, {}, import("vue").ComponentOptionsMixin, import("vue").ComponentOptionsMixin, Record<string, any>, string, import("vue").VNodeProps & import("vue").AllowedComponentProps & import("vue").ComponentCustomProps, Readonly<{
-    version?: unknown;
-} & {
+}, unknown, {}, {}, import("vue").ComponentOptionsMixin, import("vue").ComponentOptionsMixin, {}, string, import("vue").VNodeProps & import("vue").AllowedComponentProps & import("vue").ComponentCustomProps, Readonly<import("vue").ExtractPropTypes<{
+    version: {
+        type: StringConstructor;
+        default: string;
+    };
+}>>, {
     version: string;
-} & {}>, {
-    version: string;
-}>;
+}, {}>;
 export default _default;

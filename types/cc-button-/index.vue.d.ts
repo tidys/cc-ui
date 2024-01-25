@@ -11,13 +11,11 @@ declare const _default: import("vue").DefineComponent<Readonly<{
     onMouseenter(): void;
     onMouseleave(): void;
     onClick(): void;
-}, unknown, {}, {}, import("vue").ComponentOptionsMixin, import("vue").ComponentOptionsMixin, "confirm"[], "confirm", import("vue").VNodeProps & import("vue").AllowedComponentProps & import("vue").ComponentCustomProps, Readonly<{
-    readonly color?: unknown;
-} & {
-    color: any;
-} & {}> & {
+}, unknown, {}, {}, import("vue").ComponentOptionsMixin, import("vue").ComponentOptionsMixin, "confirm"[], "confirm", import("vue").VNodeProps & import("vue").AllowedComponentProps & import("vue").ComponentCustomProps, Readonly<import("vue").ExtractPropTypes<Readonly<{
+    color?: any;
+}>>> & {
     onConfirm?: ((...args: any[]) => any) | undefined;
 }, {
-    color: any;
-}>;
+    readonly color?: any;
+}, {}>;
 export default _default;

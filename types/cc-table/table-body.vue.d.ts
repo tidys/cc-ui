@@ -13,17 +13,22 @@ declare const _default: import("vue").DefineComponent<{
         type: PropType<LineData[]>;
         default: () => never[];
     };
-}, {}, unknown, {}, {}, import("vue").ComponentOptionsMixin, import("vue").ComponentOptionsMixin, Record<string, any>, string, import("vue").VNodeProps & import("vue").AllowedComponentProps & import("vue").ComponentCustomProps, Readonly<{
-    isHeader?: unknown;
-    columns?: unknown;
-    data?: unknown;
-} & {
+}, {}, unknown, {}, {}, import("vue").ComponentOptionsMixin, import("vue").ComponentOptionsMixin, {}, string, import("vue").VNodeProps & import("vue").AllowedComponentProps & import("vue").ComponentCustomProps, Readonly<import("vue").ExtractPropTypes<{
+    isHeader: {
+        type: BooleanConstructor;
+        default: boolean;
+    };
+    columns: {
+        type: PropType<TableColumn[]>;
+        default: () => never[];
+    };
+    data: {
+        type: PropType<LineData[]>;
+        default: () => never[];
+    };
+}>>, {
     data: LineData[];
     isHeader: boolean;
     columns: TableColumn[];
-} & {}>, {
-    data: LineData[];
-    isHeader: boolean;
-    columns: TableColumn[];
-}>;
+}, {}>;
 export default _default;

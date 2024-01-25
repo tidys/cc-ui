@@ -20,17 +20,20 @@ declare const _default: import("vue").DefineComponent<{
     onHover(event: any): void;
     onOver(): void;
     getValueStyle(): string;
-}, unknown, {}, {}, import("vue").ComponentOptionsMixin, import("vue").ComponentOptionsMixin, Record<string, any>, string, import("vue").VNodeProps & import("vue").AllowedComponentProps & import("vue").ComponentCustomProps, Readonly<{
-    name?: unknown;
-    tooltip?: unknown;
-    align?: unknown;
-} & {
+}, unknown, {}, {}, import("vue").ComponentOptionsMixin, import("vue").ComponentOptionsMixin, {}, string, import("vue").VNodeProps & import("vue").AllowedComponentProps & import("vue").ComponentCustomProps, Readonly<import("vue").ExtractPropTypes<{
+    name: {
+        type: StringConstructor;
+    };
+    tooltip: {
+        type: StringConstructor;
+        default: string;
+    };
+    align: {
+        type: StringConstructor;
+        default: string;
+    };
+}>>, {
     tooltip: string;
     align: string;
-} & {
-    name?: string | undefined;
-}>, {
-    tooltip: string;
-    align: string;
-}>;
+}, {}>;
 export default _default;

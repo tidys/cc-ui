@@ -24,17 +24,20 @@ declare const _default: import("vue").DefineComponent<{
     onColorChangeHex(color: string): void;
     onColorListSelect(color: string): void;
     onFocusin(event: FocusEvent): void;
-}, unknown, {}, {}, import("vue").ComponentOptionsMixin, import("vue").ComponentOptionsMixin, ("change" | "update:color")[], "change" | "update:color", import("vue").VNodeProps & import("vue").AllowedComponentProps & import("vue").ComponentCustomProps, Readonly<{
-    color?: unknown;
-    alpha?: unknown;
-} & {
-    color: string;
-    alpha: boolean;
-} & {}> & {
+}, unknown, {}, {}, import("vue").ComponentOptionsMixin, import("vue").ComponentOptionsMixin, ("change" | "update:color")[], "change" | "update:color", import("vue").VNodeProps & import("vue").AllowedComponentProps & import("vue").ComponentCustomProps, Readonly<import("vue").ExtractPropTypes<{
+    color: {
+        type: StringConstructor;
+        default: string;
+    };
+    alpha: {
+        type: BooleanConstructor;
+        default: boolean;
+    };
+}>> & {
     onChange?: ((...args: any[]) => any) | undefined;
     "onUpdate:color"?: ((...args: any[]) => any) | undefined;
 }, {
     color: string;
     alpha: boolean;
-}>;
+}, {}>;
 export default _default;

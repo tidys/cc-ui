@@ -14,11 +14,12 @@ declare const _default: import("vue").DefineComponent<{
         visible?: boolean | undefined;
         cb: (() => void) | null;
     }[]>;
-}, unknown, {}, {}, import("vue").ComponentOptionsMixin, import("vue").ComponentOptionsMixin, Record<string, any>, string, import("vue").VNodeProps & import("vue").AllowedComponentProps & import("vue").ComponentCustomProps, Readonly<{
-    items?: unknown;
-} & {
+}, unknown, {}, {}, import("vue").ComponentOptionsMixin, import("vue").ComponentOptionsMixin, {}, string, import("vue").VNodeProps & import("vue").AllowedComponentProps & import("vue").ComponentCustomProps, Readonly<import("vue").ExtractPropTypes<{
+    items: {
+        type: PropType<CmdData[]>;
+        default: () => never[];
+    };
+}>>, {
     items: CmdData[];
-} & {}>, {
-    items: CmdData[];
-}>;
+}, {}>;
 export default _default;

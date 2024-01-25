@@ -43,17 +43,22 @@ declare const _default: import("vue").DefineComponent<{
             breakChar?: boolean | undefined;
         }[];
     }[]>;
-}, unknown, {}, {}, import("vue").ComponentOptionsMixin, import("vue").ComponentOptionsMixin, Record<string, any>, string, import("vue").VNodeProps & import("vue").AllowedComponentProps & import("vue").ComponentCustomProps, Readonly<{
-    columns?: unknown;
-    data?: unknown;
-    headColor?: unknown;
-} & {
+}, unknown, {}, {}, import("vue").ComponentOptionsMixin, import("vue").ComponentOptionsMixin, {}, string, import("vue").VNodeProps & import("vue").AllowedComponentProps & import("vue").ComponentCustomProps, Readonly<import("vue").ExtractPropTypes<{
+    columns: {
+        type: PropType<TableColumn[]>;
+        default: () => never[];
+    };
+    data: {
+        type: PropType<TableData[]>;
+        default: () => never[];
+    };
+    headColor: {
+        type: StringConstructor;
+        default: string;
+    };
+}>>, {
     data: TableData[];
     columns: TableColumn[];
     headColor: string;
-} & {}>, {
-    data: TableData[];
-    columns: TableColumn[];
-    headColor: string;
-}>;
+}, {}>;
 export default _default;

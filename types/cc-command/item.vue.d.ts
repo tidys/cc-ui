@@ -9,9 +9,10 @@ declare const _default: import("vue").DefineComponent<{
     onMouseEnter(): void;
     onMouseLeave(): void;
     onClick(): void;
-}, unknown, {}, {}, import("vue").ComponentOptionsMixin, import("vue").ComponentOptionsMixin, Record<string, any>, string, import("vue").VNodeProps & import("vue").AllowedComponentProps & import("vue").ComponentCustomProps, Readonly<{
-    data?: unknown;
-} & {
-    data: CmdData;
-} & {}>, {}>;
+}, unknown, {}, {}, import("vue").ComponentOptionsMixin, import("vue").ComponentOptionsMixin, {}, string, import("vue").VNodeProps & import("vue").AllowedComponentProps & import("vue").ComponentCustomProps, Readonly<import("vue").ExtractPropTypes<{
+    data: {
+        type: PropType<CmdData>;
+        required: true;
+    };
+}>>, {}, {}>;
 export default _default;

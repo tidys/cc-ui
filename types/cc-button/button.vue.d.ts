@@ -28,19 +28,24 @@ declare const _default: import("vue").DefineComponent<{
     onMousedown(): void;
     onMouseenter(): void;
     onMouseleave(): void;
-}, unknown, {}, {}, import("vue").ComponentOptionsMixin, import("vue").ComponentOptionsMixin, never[], never, import("vue").VNodeProps & import("vue").AllowedComponentProps & import("vue").ComponentCustomProps, Readonly<{
-    transition?: unknown;
-    color?: unknown;
-    texture?: unknown;
-    tooltip?: unknown;
-} & {
+}, unknown, {}, {}, import("vue").ComponentOptionsMixin, import("vue").ComponentOptionsMixin, never[], never, import("vue").VNodeProps & import("vue").AllowedComponentProps & import("vue").ComponentCustomProps, Readonly<import("vue").ExtractPropTypes<{
+    transition: {
+        type: StringConstructor;
+        default: string;
+        validator: (value: unknown) => boolean;
+    };
+    color: {
+        type: StringConstructor;
+    };
+    texture: {
+        type: StringConstructor;
+    };
+    tooltip: {
+        type: StringConstructor;
+        default: string;
+    };
+}>> & {}, {
     transition: string;
     tooltip: string;
-} & {
-    color?: string | undefined;
-    texture?: string | undefined;
-}> & {}, {
-    transition: string;
-    tooltip: string;
-}>;
+}, {}>;
 export default _default;

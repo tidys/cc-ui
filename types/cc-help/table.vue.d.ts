@@ -6,11 +6,12 @@ declare const _default: import("vue").DefineComponent<{
     };
 }, {
     onClickTab(item: string, index: any): void;
-}, unknown, {}, {}, import("vue").ComponentOptionsMixin, import("vue").ComponentOptionsMixin, Record<string, any>, string, import("vue").VNodeProps & import("vue").AllowedComponentProps & import("vue").ComponentCustomProps, Readonly<{
-    items?: unknown;
-} & {
+}, unknown, {}, {}, import("vue").ComponentOptionsMixin, import("vue").ComponentOptionsMixin, {}, string, import("vue").VNodeProps & import("vue").AllowedComponentProps & import("vue").ComponentCustomProps, Readonly<import("vue").ExtractPropTypes<{
+    items: {
+        type: PropType<string[]>;
+        default: () => never[];
+    };
+}>>, {
     items: string[];
-} & {}>, {
-    items: string[];
-}>;
+}, {}>;
 export default _default;
