@@ -22,45 +22,52 @@ export default defineComponent({
   },
   setup(props, { emit }) {
     let currentSelectTreeItem: ITreeData | null = null;
+    function keydownCallback(e: KeyboardEvent) {
+      switch (e.key) {
+        case 'ArrowUp':
+          {
+            const ret = findBrother(false);
+            if (ret) {
+              ret.comp.doSelect();
+            }
+          }
+          break;
+        case 'ArrowDown':
+          {
+            const ret = findBrother(true);
+            if (ret) {
+              ret.comp.doSelect();
+            }
+          }
+          break;
+        case 'ArrowLeft':
+          {
+            const ret = getCurrentComponent();
+            if (ret) {
+              ret.doFold(true);
+            }
+          }
+          break;
+        case 'ArrowRight':
+          {
+            const ret = getCurrentComponent();
+            if (ret) {
+              ret.doFold(false);
+            }
+          }
+          break;
+      }
+    }
     onMounted(() => {
       const treeEl = treeElement.value as HTMLElement;
       if (treeEl) {
-        treeEl.addEventListener('keydown', (e: KeyboardEvent) => {
-          switch (e.key) {
-            case 'ArrowUp':
-              {
-                const ret = findBrother(false);
-                if (ret) {
-                  ret.comp.doSelect();
-                }
-              }
-              break;
-            case 'ArrowDown':
-              {
-                const ret = findBrother(true);
-                if (ret) {
-                  ret.comp.doSelect();
-                }
-              }
-              break;
-            case 'ArrowLeft':
-              {
-                const ret = getCurrentComponent();
-                if (ret) {
-                  ret.doFold(true);
-                }
-              }
-              break;
-            case 'ArrowRight':
-              {
-                const ret = getCurrentComponent();
-                if (ret) {
-                  ret.doFold(false);
-                }
-              }
-              break;
-          }
-        });
+        treeEl.addEventListener('keydown', keydownCallback);
+      }
+    });
+    onUnmounted(() => {
+      const treeEl = treeElement.value as HTMLElement;
+      if (treeEl) {
+        treeEl.removeEventListener('keydown', keydownCallback);
       }
     });
     function getCurrentComponent() {
@@ -98,9 +105,9 @@ export default defineComponent({
         array.push({ key: value.id!, text: value.text, comp: item });
         loop(item, array);
       }
-      array.forEach((item) => {
-        console.log(item.text);
-      });
+      // array.forEach((item) => {
+      //   console.log(item.text);
+      // });
       return array;
     }
     function findBrother(down: boolean) {
