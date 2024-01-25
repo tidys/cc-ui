@@ -4,7 +4,7 @@
   "main": "dist/ccui.umd.js",
   "typings": "types/index.d.ts",
   "scripts": {
-    "yarnInstallForce": "yarn install --force",
+    "yarnInstallForce": "yarn config delete proxy  && yarn install --force --network-timeout 100000",
     "demo-serve": "vue-cli-service serve",
     "demo-build": "vue-cli-service build --mode development",
     "lint": "vue-cli-service lint",
@@ -33,7 +33,7 @@
     "tinycolor2": "1.4.2",
     "ts-loader": "9.3.1",
     "ts-node": "10.9.1",
-    "vue": "3.2.26",
+    "vue": "3.3.0",
     "vue-tsc": "0.40.13",
     "vue3-resize-directive": "2.0.3",
     "xmlhttprequest": "1.8.0"
