@@ -79,9 +79,9 @@ export default defineComponent({
       return ret.comp;
     }
     function loop(item: any, array: Array<{ key: string; text: string; comp: typeof TreeItem }> = []) {
-      for (let i = 0; i < item.childrenElements.length; i++) {
-        const child: typeof TreeItem = item.childrenElements[i];
-        if (!child.fold) {
+      if (!item.fold) {
+        for (let i = 0; i < item.childrenElements.length; i++) {
+          const child: typeof TreeItem = item.childrenElements[i];
           const value: ITreeData = toRaw(child.value);
           array.push({ key: value.id!, text: value.text, comp: child });
           loop(child, array);
