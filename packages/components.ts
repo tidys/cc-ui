@@ -17,4 +17,5 @@ import { CCCommand } from './cc-command';
 import { CCTable } from './cc-table';
 import { CCButtonGroup } from './cc-button-group';
 import { CCDivider } from './cc-divider';
-export const components = { CCDivider, CCButtonGroup, CCTable, CCCommand, CCFootBar, CCButton, CCCheckBox, CCColor, CCSection, CCHelp, CCSelect, CCInput, CCInputNumber, CCProp, CCMenu, CCSlider, CCTextarea, CCWindow, CCDialog };
+import { CCTree } from './cc-tree';
+export const components = { CCTree, CCDivider, CCButtonGroup, CCTable, CCCommand, CCFootBar, CCButton, CCCheckBox, CCColor, CCSection, CCHelp, CCSelect, CCInput, CCInputNumber, CCProp, CCMenu, CCSlider, CCTextarea, CCWindow, CCDialog };

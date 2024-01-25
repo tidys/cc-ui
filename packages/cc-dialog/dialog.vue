@@ -47,6 +47,7 @@ export default defineComponent({
     let ins: MousetrapInstance | null = null;
     onMounted(() => {
       ccui.Emitter.on(DialogMsg.ShowDialog, onShowDialog);
+      // 可能会干扰到其他组件的key事件
       ins = new Mousetrap(document.body);
       ins.bind(['esc'], onClick, 'keydown');
     });

@@ -1,4 +1,7 @@
 <template>
+  <div v-if="true">
+    <CCTree :value="treeData" @node-click="onTreeNodeClick" @node-expand="onTreeNodeExpend" @node-collapse="onTreeNodeCollapsed"></CCTree>
+  </div>
   <div v-if="false">
     <CCButton tooltip="tooltip test">tooltip</CCButton>
     <CCInput placeholder="test placeholder" :directory="true"></CCInput>
@@ -8,7 +11,7 @@
     <CCDivider :vertical="false" color="#444"></CCDivider>
     <div style="min-height: 20px; width: 100%; height: 50px; background-color: rgb(214, 214, 214)"></div>
   </div>
-  <div style="display: flex; flex-direction: row; height: 100px; width: 100%">
+  <div v-if="false" style="display: flex; flex-direction: row; height: 100px; width: 100%">
     <div style="min-width: 20px; flex: 1; height: 100%; background-color: rgb(138, 138, 138)"></div>
     <CCDivider :vertical="true" color="#444"></CCDivider>
     <div style="min-width: 20px; flex: 1; height: 100%; background-color: rgb(214, 214, 214)"></div>
@@ -102,10 +105,11 @@ import { DialogUrlData, DialogOptions } from '../packages/cc-dialog/const';
 import { IUiMenuItem } from '../packages/cc-menu/const';
 import { TableColumn, TableData } from '../packages/cc-table/const';
 import { ButtonGroupItem } from '../packages/cc-button-group/const';
-const { CCDivider, CCButtonGroup, CCTable, CCCommand, CCColor, CCFootBar, CCButton, CCHelp, CCInputNumber, CCDialog, CCSection, CCSelect, CCProp, CCTextarea, CCInput, CCCheckBox } = ccui.components;
+import { ITreeData } from '../packages/cc-tree/const';
+const { CCTree, CCDivider, CCButtonGroup, CCTable, CCCommand, CCColor, CCFootBar, CCButton, CCHelp, CCInputNumber, CCDialog, CCSection, CCSelect, CCProp, CCTextarea, CCInput, CCCheckBox } = ccui.components;
 export default defineComponent({
   name: 'app',
-  components: { CCDivider, CCButtonGroup, CCTable, CCCommand, CCFootBar, CCColor, CCButton, CCHelp, CCInputNumber, CCDialog, CCSection, CCSelect, CCProp, CCTextarea, CCInput, CCCheckBox },
+  components: { CCTree, CCDivider, CCButtonGroup, CCTable, CCCommand, CCFootBar, CCColor, CCButton, CCHelp, CCInputNumber, CCDialog, CCSection, CCSelect, CCProp, CCTextarea, CCInput, CCCheckBox },
   setup() {
     const value = ref('123');
     const selectData = ref([
@@ -224,11 +228,36 @@ export default defineComponent({
       }
     }
     const buttonGroup = ref<ButtonGroupItem[]>(buttonGroupData);
+
+    const treeData = ref<ITreeData[]>([
+      {
+        text: '1',
+        children: [
+          {
+            text: '11',
+          },
+        ],
+      },
+      {
+        text: '2',
+        active: false,
+      },
+    ]);
     return {
+      treeData,
       buttonGroup,
       tableColumns,
       tableData,
       tableColor,
+      onTreeNodeClick(data: ITreeData) {
+        console.log('click:', data);
+      },
+      onTreeNodeExpend(data: ITreeData) {
+        console.log('expend:', data);
+      },
+      onTreeNodeCollapsed(data: ITreeData) {
+        console.log('collapsed:', data);
+      },
       onHideBtnGroupFirst() {
         btnGroupData1.visible = !btnGroupData1.visible; // 无效
       },
