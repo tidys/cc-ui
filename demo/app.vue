@@ -106,6 +106,7 @@ import { IUiMenuItem } from '../packages/cc-menu/const';
 import { TableColumn, TableData } from '../packages/cc-table/const';
 import { ButtonGroupItem } from '../packages/cc-button-group/const';
 import { ITreeData } from '../packages/cc-tree/const';
+import { CmdData } from '../packages/cc-command/const';
 const { CCTree, CCDivider, CCButtonGroup, CCTable, CCCommand, CCColor, CCFootBar, CCButton, CCHelp, CCInputNumber, CCDialog, CCSection, CCSelect, CCProp, CCTextarea, CCInput, CCCheckBox } = ccui.components;
 export default defineComponent({
   name: 'app',
@@ -300,20 +301,16 @@ export default defineComponent({
         console.log(v);
       },
       onCommand() {
-        ccui.command.showCommand([
-          {
-            label: '1',
+        const cmd: CmdData[] = [];
+        for (let i = 0; i < 10; i++) {
+          cmd.push({
+            label: i.toString(),
             cb: () => {
-              console.log('1');
+              console.log(i);
             },
-          },
-          {
-            label: '2',
-            cb: () => {
-              console.log('2');
-            },
-          },
-        ]);
+          });
+        }
+        ccui.command.showCommand(cmd);
       },
     };
   },

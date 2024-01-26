@@ -23,6 +23,8 @@ export default defineComponent({
   setup(props, { emit }) {
     let currentSelectTreeItem: ITreeData | null = null;
     function keydownCallback(e: KeyboardEvent) {
+      e.preventDefault();
+      e.stopPropagation();
       switch (e.key) {
         case 'ArrowUp':
           {
