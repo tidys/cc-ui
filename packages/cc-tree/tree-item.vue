@@ -11,28 +11,10 @@
     </div>
   </div>
   <!-- <el-tree
-            :data="treeData"
-            ref="tree"
-            style="display: inline-block"
-            :props="defaultProps"
-            :highlight-current="true"
-            :default-expand-all="false"
-            :default-expanded-keys="expandedKeys"
-            :filter-node-method="filterNode"
-            :expand-on-click-node="false"
-            node-key="uuid"
-            @node-expand="onNodeExpand"
-            @node-collapse="onNodeCollapse"
-            @node-click="handleNodeClick"
-          >
-            <span
-              slot-scope="{ node, data }"
-              class="leaf"
-              :class="data.active ? 'leaf-show' : 'leaf-hide'"
-            >
-              <span>{{ node.label }}</span>
-            </span>
-          </el-tree> -->
+          :default-expanded-keys="expandedKeys"
+          :filter-node-method="filterNode"
+          node-key="uuid">
+</el-tree> -->
 </template>
 <script lang="ts">
 import { ref, toRaw, defineComponent, PropType, inject, onMounted, onUnmounted } from 'vue';
@@ -59,7 +41,8 @@ export default defineComponent({
     },
   },
   setup(props, { emit }) {
-    props.value.id = generate();
+    const id = props.value?.id;
+    props.value.id = id === undefined ? generate() : id;
     const emitter = inject(ProvideKeys.Emitter) as TinyEmitter;
     const NodeClick = inject(ProvideKeys.NodeClick, (data: ITreeData) => {});
     const NodeCollapse = inject(ProvideKeys.NodeCollapse, (data: ITreeData) => {});
