@@ -3,7 +3,7 @@
     <div :style="{ backgroundColor: `${headColor}` }" class="head">
       <CCTableBody :data="headLineData" :columns="columns" :isHeader="true"></CCTableBody>
     </div>
-    <div class="body">
+    <div class="body ccui-scrollbar">
       <CCTableBody :data="bodyLineData" :columns="columns" :isHeader="false"></CCTableBody>
     </div>
   </div>
@@ -158,25 +158,6 @@ export default defineComponent({
     overflow-x: hidden;
     overflow-y: auto;
     width: 100%;
-  }
-
-  .body::-webkit-scrollbar {
-    width: 5px;
-    height: 1px;
-  }
-
-  .body::-webkit-scrollbar-thumb {
-    /*滚动条里面小方块*/
-    border-radius: 10px;
-    box-shadow: inset 0 0 5px rgba(0, 0, 0, 0.2);
-    background: #d3d3d3;
-  }
-
-  .body::-webkit-scrollbar-track {
-    /*滚动条里面轨道*/
-    box-shadow: inset 0 0 5px rgba(0, 0, 0, 0.2);
-    border-radius: 10px;
-    background: #5e5e5e;
   }
 }
 </style>

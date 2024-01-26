@@ -1,7 +1,7 @@
 <template>
   <Teleport to="body">
     <div class="command" v-if="show">
-      <div class="items" @mouseup.prevent.stop>
+      <div class="items ccui-scrollbar" @mouseup.prevent.stop>
         <Item v-for="(item, index) in commands" :key="index" :data="item"></Item>
       </div>
     </div>
@@ -89,25 +89,6 @@ export default defineComponent({
     box-shadow: 0px 2px 19px 4px rgb(0 0 0);
     border-bottom-left-radius: 6px;
     border-bottom-right-radius: 6px;
-  }
-
-  .items::-webkit-scrollbar {
-    width: 5px;
-    height: 1px;
-  }
-
-  .items::-webkit-scrollbar-thumb {
-    /*滚动条里面小方块*/
-    border-radius: 10px;
-    box-shadow: inset 0 0 5px rgba(0, 0, 0, 0.2);
-    background: #d3d3d3;
-  }
-
-  .items::-webkit-scrollbar-track {
-    /*滚动条里面轨道*/
-    box-shadow: inset 0 0 5px rgba(0, 0, 0, 0.2);
-    border-radius: 10px;
-    background: #5e5e5e;
   }
 }
 </style>
