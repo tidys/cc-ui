@@ -78,7 +78,7 @@ export default defineComponent({
         backgroundColor.value = colorHover;
         return;
       }
-      backgroundColor.value = '';
+      backgroundColor.value = props.color;
     }
     const childrenElements = ref([]);
 
