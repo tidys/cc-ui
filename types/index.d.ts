@@ -1,4 +1,5 @@
 import { App } from 'vue';
+import './common/scrollbar.less';
 import { TinyEmitter } from 'tiny-emitter';
 import { menu } from './cc-menu/index';
 import { dialog } from './cc-dialog/index';
