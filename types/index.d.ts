@@ -1,3 +1,4 @@
+/// <reference types="short-uuid" />
 import { App } from 'vue';
 import './common/scrollbar.less';
 import { TinyEmitter } from 'tiny-emitter';
@@ -680,7 +681,7 @@ declare const _default: {
                 comp?: any;
                 data?: any;
                 clickOutsideClose?: boolean | undefined;
-                id?: string | undefined;
+                id?: import("short-uuid").SUUID | undefined;
                 width?: number | undefined;
                 height?: number | undefined;
                 resize?: boolean | undefined;

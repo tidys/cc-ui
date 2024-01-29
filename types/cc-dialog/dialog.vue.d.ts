@@ -1,3 +1,4 @@
+/// <reference types="short-uuid" />
 import { DialogOptions } from './const';
 import { UiWindowOptions } from '../cc-window/index';
 declare const _default: import("vue").DefineComponent<{}, {
@@ -5,7 +6,7 @@ declare const _default: import("vue").DefineComponent<{}, {
         comp?: any;
         data?: any;
         clickOutsideClose?: boolean | undefined;
-        id?: string | undefined;
+        id?: import("short-uuid").SUUID | undefined;
         width?: number | undefined;
         height?: number | undefined;
         resize?: boolean | undefined;

@@ -1,3 +1,4 @@
+/// <reference types="short-uuid" />
 export declare const components: {
     CCTree: import("vue").DefineComponent<{
         value: {
@@ -657,7 +658,7 @@ export declare const components: {
             comp?: any;
             data?: any;
             clickOutsideClose?: boolean | undefined;
-            id?: string | undefined;
+            id?: import("short-uuid").SUUID | undefined;
             width?: number | undefined;
             height?: number | undefined;
             resize?: boolean | undefined;

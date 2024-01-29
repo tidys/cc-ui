@@ -120,109 +120,17 @@ module.exports =
 
 /***/ }),
 
-/***/ "067b":
+/***/ "049d":
 /***/ (function(module, exports, __webpack_require__) {
 
 // extracted by mini-css-extract-plugin
 
 /***/ }),
 
-/***/ "069b":
+/***/ "067b":
 /***/ (function(module, exports, __webpack_require__) {
 
-"use strict";
-
-
-var alphabet = __webpack_require__("41fa");
-var build = __webpack_require__("3df9");
-var isValid = __webpack_require__("dd14");
-
-// if you are using cluster or multiple servers use this to make each instance
-// has a unique value for worker
-// Note: I don't know if this is automatically set when using third
-// party cluster solutions such as pm2.
-var clusterWorkerId = __webpack_require__("9fc2") || 0;
-
-/**
- * Set the seed.
- * Highly recommended if you don't want people to try to figure out your id schema.
- * exposed as shortid.seed(int)
- * @param seed Integer value to seed the random alphabet.  ALWAYS USE THE SAME SEED or you might get overlaps.
- */
-function seed(seedValue) {
-    alphabet.seed(seedValue);
-    return module.exports;
-}
-
-/**
- * Set the cluster worker or machine id
- * exposed as shortid.worker(int)
- * @param workerId worker must be positive integer.  Number less than 16 is recommended.
- * returns shortid module so it can be chained.
- */
-function worker(workerId) {
-    clusterWorkerId = workerId;
-    return module.exports;
-}
-
-/**
- *
- * sets new characters to use in the alphabet
- * returns the shuffled alphabet
- */
-function characters(newCharacters) {
-    if (newCharacters !== undefined) {
-        alphabet.characters(newCharacters);
-    }
-
-    return alphabet.shuffled();
-}
-
-/**
- * Generate unique id
- * Returns string id
- */
-function generate() {
-  return build(clusterWorkerId);
-}
-
-// Export all other functions as properties of the generate function
-module.exports = generate;
-module.exports.generate = generate;
-module.exports.seed = seed;
-module.exports.worker = worker;
-module.exports.characters = characters;
-module.exports.isValid = isValid;
-
-
-/***/ }),
-
-/***/ "091d":
-/***/ (function(module, exports, __webpack_require__) {
-
-"use strict";
-
-
-var crypto = typeof window === 'object' && (window.crypto || window.msCrypto); // IE 11 uses window.msCrypto
-
-var randomByte;
-
-if (!crypto || !crypto.getRandomValues) {
-    randomByte = function(size) {
-        var bytes = [];
-        for (var i = 0; i < size; i++) {
-            bytes.push(Math.floor(Math.random() * 256));
-        }
-        return bytes;
-    };
-} else {
-    randomByte = function(size) {
-        return crypto.getRandomValues(new Uint8Array(size));
-    };
-}
-
-module.exports = randomByte;
-
+// extracted by mini-css-extract-plugin
 
 /***/ }),
 
@@ -602,17 +510,6 @@ swizzle.wrap = function (fn) {
 		return fn(swizzle(arguments));
 	};
 };
-
-
-/***/ }),
-
-/***/ "27c0":
-/***/ (function(module, __webpack_exports__, __webpack_require__) {
-
-"use strict";
-/* harmony import */ var _node_modules_mini_css_extract_plugin_dist_loader_js_ref_10_oneOf_1_0_node_modules_css_loader_dist_cjs_js_ref_10_oneOf_1_1_node_modules_vue_loader_v16_dist_stylePostLoader_js_node_modules_postcss_loader_src_index_js_ref_10_oneOf_1_2_node_modules_less_loader_dist_cjs_js_ref_10_oneOf_1_3_node_modules_cache_loader_dist_cjs_js_ref_0_0_node_modules_vue_loader_v16_dist_index_js_ref_0_1_dialog_vue_vue_type_style_index_0_id_18a1cd58_scoped_true_lang_less__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__("e49c");
-/* harmony import */ var _node_modules_mini_css_extract_plugin_dist_loader_js_ref_10_oneOf_1_0_node_modules_css_loader_dist_cjs_js_ref_10_oneOf_1_1_node_modules_vue_loader_v16_dist_stylePostLoader_js_node_modules_postcss_loader_src_index_js_ref_10_oneOf_1_2_node_modules_less_loader_dist_cjs_js_ref_10_oneOf_1_3_node_modules_cache_loader_dist_cjs_js_ref_0_0_node_modules_vue_loader_v16_dist_index_js_ref_0_1_dialog_vue_vue_type_style_index_0_id_18a1cd58_scoped_true_lang_less__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(_node_modules_mini_css_extract_plugin_dist_loader_js_ref_10_oneOf_1_0_node_modules_css_loader_dist_cjs_js_ref_10_oneOf_1_1_node_modules_vue_loader_v16_dist_stylePostLoader_js_node_modules_postcss_loader_src_index_js_ref_10_oneOf_1_2_node_modules_less_loader_dist_cjs_js_ref_10_oneOf_1_3_node_modules_cache_loader_dist_cjs_js_ref_0_0_node_modules_vue_loader_v16_dist_index_js_ref_0_1_dialog_vue_vue_type_style_index_0_id_18a1cd58_scoped_true_lang_less__WEBPACK_IMPORTED_MODULE_0__);
-/* unused harmony reexport * */
 
 
 /***/ }),
@@ -1509,60 +1406,6 @@ convert.rgb.gray = function (rgb) {
 
 /***/ }),
 
-/***/ "3df9":
-/***/ (function(module, exports, __webpack_require__) {
-
-"use strict";
-
-
-var generate = __webpack_require__("bd92");
-var alphabet = __webpack_require__("41fa");
-
-// Ignore all milliseconds before a certain time to reduce the size of the date entropy without sacrificing uniqueness.
-// This number should be updated every year or so to keep the generated id short.
-// To regenerate `new Date() - 0` and bump the version. Always bump the version!
-var REDUCE_TIME = 1567752802062;
-
-// don't change unless we change the algos or REDUCE_TIME
-// must be an integer and less than 16
-var version = 7;
-
-// Counter is used when shortid is called multiple times in one second.
-var counter;
-
-// Remember the last time shortid was called in case counter is needed.
-var previousSeconds;
-
-/**
- * Generate unique id
- * Returns string id
- */
-function build(clusterWorkerId) {
-    var str = '';
-
-    var seconds = Math.floor((Date.now() - REDUCE_TIME) * 0.001);
-
-    if (seconds === previousSeconds) {
-        counter++;
-    } else {
-        counter = 0;
-        previousSeconds = seconds;
-    }
-
-    str = str + generate(version);
-    str = str + generate(clusterWorkerId);
-    if (counter > 0) {
-        str = str + generate(counter);
-    }
-    str = str + generate(seconds);
-    return str;
-}
-
-module.exports = build;
-
-
-/***/ }),
-
 /***/ "4024":
 /***/ (function(module, exports, __webpack_require__) {
 
@@ -1577,117 +1420,6 @@ module.exports = build;
 /* harmony import */ var _node_modules_mini_css_extract_plugin_dist_loader_js_ref_10_oneOf_1_0_node_modules_css_loader_dist_cjs_js_ref_10_oneOf_1_1_node_modules_vue_loader_v16_dist_stylePostLoader_js_node_modules_postcss_loader_src_index_js_ref_10_oneOf_1_2_node_modules_less_loader_dist_cjs_js_ref_10_oneOf_1_3_node_modules_cache_loader_dist_cjs_js_ref_0_0_node_modules_vue_loader_v16_dist_index_js_ref_0_1_item_vue_vue_type_style_index_0_id_04791d1a_scoped_true_lang_less__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__("c0b8");
 /* harmony import */ var _node_modules_mini_css_extract_plugin_dist_loader_js_ref_10_oneOf_1_0_node_modules_css_loader_dist_cjs_js_ref_10_oneOf_1_1_node_modules_vue_loader_v16_dist_stylePostLoader_js_node_modules_postcss_loader_src_index_js_ref_10_oneOf_1_2_node_modules_less_loader_dist_cjs_js_ref_10_oneOf_1_3_node_modules_cache_loader_dist_cjs_js_ref_0_0_node_modules_vue_loader_v16_dist_index_js_ref_0_1_item_vue_vue_type_style_index_0_id_04791d1a_scoped_true_lang_less__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(_node_modules_mini_css_extract_plugin_dist_loader_js_ref_10_oneOf_1_0_node_modules_css_loader_dist_cjs_js_ref_10_oneOf_1_1_node_modules_vue_loader_v16_dist_stylePostLoader_js_node_modules_postcss_loader_src_index_js_ref_10_oneOf_1_2_node_modules_less_loader_dist_cjs_js_ref_10_oneOf_1_3_node_modules_cache_loader_dist_cjs_js_ref_0_0_node_modules_vue_loader_v16_dist_index_js_ref_0_1_item_vue_vue_type_style_index_0_id_04791d1a_scoped_true_lang_less__WEBPACK_IMPORTED_MODULE_0__);
 /* unused harmony reexport * */
-
-
-/***/ }),
-
-/***/ "41fa":
-/***/ (function(module, exports, __webpack_require__) {
-
-"use strict";
-
-
-var randomFromSeed = __webpack_require__("7eac");
-
-var ORIGINAL = '0123456789abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ_-';
-var alphabet;
-var previousSeed;
-
-var shuffled;
-
-function reset() {
-    shuffled = false;
-}
-
-function setCharacters(_alphabet_) {
-    if (!_alphabet_) {
-        if (alphabet !== ORIGINAL) {
-            alphabet = ORIGINAL;
-            reset();
-        }
-        return;
-    }
-
-    if (_alphabet_ === alphabet) {
-        return;
-    }
-
-    if (_alphabet_.length !== ORIGINAL.length) {
-        throw new Error('Custom alphabet for shortid must be ' + ORIGINAL.length + ' unique characters. You submitted ' + _alphabet_.length + ' characters: ' + _alphabet_);
-    }
-
-    var unique = _alphabet_.split('').filter(function(item, ind, arr){
-       return ind !== arr.lastIndexOf(item);
-    });
-
-    if (unique.length) {
-        throw new Error('Custom alphabet for shortid must be ' + ORIGINAL.length + ' unique characters. These characters were not unique: ' + unique.join(', '));
-    }
-
-    alphabet = _alphabet_;
-    reset();
-}
-
-function characters(_alphabet_) {
-    setCharacters(_alphabet_);
-    return alphabet;
-}
-
-function setSeed(seed) {
-    randomFromSeed.seed(seed);
-    if (previousSeed !== seed) {
-        reset();
-        previousSeed = seed;
-    }
-}
-
-function shuffle() {
-    if (!alphabet) {
-        setCharacters(ORIGINAL);
-    }
-
-    var sourceArray = alphabet.split('');
-    var targetArray = [];
-    var r = randomFromSeed.nextValue();
-    var characterIndex;
-
-    while (sourceArray.length > 0) {
-        r = randomFromSeed.nextValue();
-        characterIndex = Math.floor(r * sourceArray.length);
-        targetArray.push(sourceArray.splice(characterIndex, 1)[0]);
-    }
-    return targetArray.join('');
-}
-
-function getShuffled() {
-    if (shuffled) {
-        return shuffled;
-    }
-    shuffled = shuffle();
-    return shuffled;
-}
-
-/**
- * lookup shuffled letter
- * @param index
- * @returns {string}
- */
-function lookup(index) {
-    var alphabetShuffled = getShuffled();
-    return alphabetShuffled[index];
-}
-
-function get () {
-  return alphabet || ORIGINAL;
-}
-
-module.exports = {
-    get: get,
-    characters: characters,
-    seed: setSeed,
-    lookup: lookup,
-    shuffled: getShuffled
-};
 
 
 /***/ }),
@@ -7799,39 +7531,6 @@ module.exports = function (fromModel) {
 
 /***/ }),
 
-/***/ "7eac":
-/***/ (function(module, exports, __webpack_require__) {
-
-"use strict";
-
-
-// Found this seed-based random generator somewhere
-// Based on The Central Randomizer 1.3 (C) 1997 by Paul Houle (houle@msc.cornell.edu)
-
-var seed = 1;
-
-/**
- * return a random number based on a seed
- * @param seed
- * @returns {number}
- */
-function getNextValue() {
-    seed = (seed * 9301 + 49297) % 233280;
-    return seed/(233280.0);
-}
-
-function setSeed(_seed_) {
-    seed = _seed_;
-}
-
-module.exports = {
-    nextValue: getNextValue,
-    seed: setSeed
-};
-
-
-/***/ }),
-
 /***/ "82c1":
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
@@ -9051,16 +8750,6 @@ module.exports = require("vue");
 
 /***/ }),
 
-/***/ "8dee":
-/***/ (function(module, exports, __webpack_require__) {
-
-"use strict";
-
-module.exports = __webpack_require__("069b");
-
-
-/***/ }),
-
 /***/ "9096":
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
@@ -9079,17 +8768,6 @@ module.exports = __webpack_require__("069b");
 /* harmony import */ var _node_modules_mini_css_extract_plugin_dist_loader_js_ref_10_oneOf_1_0_node_modules_css_loader_dist_cjs_js_ref_10_oneOf_1_1_node_modules_vue_loader_v16_dist_stylePostLoader_js_node_modules_postcss_loader_src_index_js_ref_10_oneOf_1_2_node_modules_less_loader_dist_cjs_js_ref_10_oneOf_1_3_node_modules_cache_loader_dist_cjs_js_ref_0_0_node_modules_vue_loader_v16_dist_index_js_ref_0_1_table_body_vue_vue_type_style_index_0_id_5f92066e_lang_less_scoped_true__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__("6abb");
 /* harmony import */ var _node_modules_mini_css_extract_plugin_dist_loader_js_ref_10_oneOf_1_0_node_modules_css_loader_dist_cjs_js_ref_10_oneOf_1_1_node_modules_vue_loader_v16_dist_stylePostLoader_js_node_modules_postcss_loader_src_index_js_ref_10_oneOf_1_2_node_modules_less_loader_dist_cjs_js_ref_10_oneOf_1_3_node_modules_cache_loader_dist_cjs_js_ref_0_0_node_modules_vue_loader_v16_dist_index_js_ref_0_1_table_body_vue_vue_type_style_index_0_id_5f92066e_lang_less_scoped_true__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(_node_modules_mini_css_extract_plugin_dist_loader_js_ref_10_oneOf_1_0_node_modules_css_loader_dist_cjs_js_ref_10_oneOf_1_1_node_modules_vue_loader_v16_dist_stylePostLoader_js_node_modules_postcss_loader_src_index_js_ref_10_oneOf_1_2_node_modules_less_loader_dist_cjs_js_ref_10_oneOf_1_3_node_modules_cache_loader_dist_cjs_js_ref_0_0_node_modules_vue_loader_v16_dist_index_js_ref_0_1_table_body_vue_vue_type_style_index_0_id_5f92066e_lang_less_scoped_true__WEBPACK_IMPORTED_MODULE_0__);
 /* unused harmony reexport * */
-
-
-/***/ }),
-
-/***/ "9fc2":
-/***/ (function(module, exports, __webpack_require__) {
-
-"use strict";
-
-
-module.exports = 0;
 
 
 /***/ }),
@@ -10915,35 +10593,6 @@ module.exports = __webpack_exports__;
 
 /***/ }),
 
-/***/ "bd92":
-/***/ (function(module, exports, __webpack_require__) {
-
-"use strict";
-
-
-var alphabet = __webpack_require__("41fa");
-var random = __webpack_require__("091d");
-var format = __webpack_require__("e51f");
-
-function generate(number) {
-    var loopCounter = 0;
-    var done;
-
-    var str = '';
-
-    while (!done) {
-        str = str + format(random, alphabet.get(), 1);
-        done = number < (Math.pow(16, loopCounter + 1 ) );
-        loopCounter++;
-    }
-    return str;
-}
-
-module.exports = generate;
-
-
-/***/ }),
-
 /***/ "c0b8":
 /***/ (function(module, exports, __webpack_require__) {
 
@@ -11064,6 +10713,17 @@ module.exports.TinyEmitter = E;
 
 /***/ }),
 
+/***/ "d814":
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+/* harmony import */ var _node_modules_mini_css_extract_plugin_dist_loader_js_ref_10_oneOf_1_0_node_modules_css_loader_dist_cjs_js_ref_10_oneOf_1_1_node_modules_vue_loader_v16_dist_stylePostLoader_js_node_modules_postcss_loader_src_index_js_ref_10_oneOf_1_2_node_modules_less_loader_dist_cjs_js_ref_10_oneOf_1_3_node_modules_cache_loader_dist_cjs_js_ref_0_0_node_modules_vue_loader_v16_dist_index_js_ref_0_1_dialog_vue_vue_type_style_index_0_id_078b0862_scoped_true_lang_less__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__("049d");
+/* harmony import */ var _node_modules_mini_css_extract_plugin_dist_loader_js_ref_10_oneOf_1_0_node_modules_css_loader_dist_cjs_js_ref_10_oneOf_1_1_node_modules_vue_loader_v16_dist_stylePostLoader_js_node_modules_postcss_loader_src_index_js_ref_10_oneOf_1_2_node_modules_less_loader_dist_cjs_js_ref_10_oneOf_1_3_node_modules_cache_loader_dist_cjs_js_ref_0_0_node_modules_vue_loader_v16_dist_index_js_ref_0_1_dialog_vue_vue_type_style_index_0_id_078b0862_scoped_true_lang_less__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(_node_modules_mini_css_extract_plugin_dist_loader_js_ref_10_oneOf_1_0_node_modules_css_loader_dist_cjs_js_ref_10_oneOf_1_1_node_modules_vue_loader_v16_dist_stylePostLoader_js_node_modules_postcss_loader_src_index_js_ref_10_oneOf_1_2_node_modules_less_loader_dist_cjs_js_ref_10_oneOf_1_3_node_modules_cache_loader_dist_cjs_js_ref_0_0_node_modules_vue_loader_v16_dist_index_js_ref_0_1_dialog_vue_vue_type_style_index_0_id_078b0862_scoped_true_lang_less__WEBPACK_IMPORTED_MODULE_0__);
+/* unused harmony reexport * */
+
+
+/***/ }),
+
 /***/ "da8e":
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
@@ -11071,29 +10731,6 @@ module.exports.TinyEmitter = E;
 /* harmony import */ var _node_modules_mini_css_extract_plugin_dist_loader_js_ref_10_oneOf_1_0_node_modules_css_loader_dist_cjs_js_ref_10_oneOf_1_1_node_modules_vue_loader_v16_dist_stylePostLoader_js_node_modules_postcss_loader_src_index_js_ref_10_oneOf_1_2_node_modules_less_loader_dist_cjs_js_ref_10_oneOf_1_3_node_modules_cache_loader_dist_cjs_js_ref_0_0_node_modules_vue_loader_v16_dist_index_js_ref_0_1_help_vue_vue_type_style_index_0_id_7dc565c2_lang_less_scoped_true__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__("c963");
 /* harmony import */ var _node_modules_mini_css_extract_plugin_dist_loader_js_ref_10_oneOf_1_0_node_modules_css_loader_dist_cjs_js_ref_10_oneOf_1_1_node_modules_vue_loader_v16_dist_stylePostLoader_js_node_modules_postcss_loader_src_index_js_ref_10_oneOf_1_2_node_modules_less_loader_dist_cjs_js_ref_10_oneOf_1_3_node_modules_cache_loader_dist_cjs_js_ref_0_0_node_modules_vue_loader_v16_dist_index_js_ref_0_1_help_vue_vue_type_style_index_0_id_7dc565c2_lang_less_scoped_true__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(_node_modules_mini_css_extract_plugin_dist_loader_js_ref_10_oneOf_1_0_node_modules_css_loader_dist_cjs_js_ref_10_oneOf_1_1_node_modules_vue_loader_v16_dist_stylePostLoader_js_node_modules_postcss_loader_src_index_js_ref_10_oneOf_1_2_node_modules_less_loader_dist_cjs_js_ref_10_oneOf_1_3_node_modules_cache_loader_dist_cjs_js_ref_0_0_node_modules_vue_loader_v16_dist_index_js_ref_0_1_help_vue_vue_type_style_index_0_id_7dc565c2_lang_less_scoped_true__WEBPACK_IMPORTED_MODULE_0__);
 /* unused harmony reexport * */
-
-
-/***/ }),
-
-/***/ "dd14":
-/***/ (function(module, exports, __webpack_require__) {
-
-"use strict";
-
-var alphabet = __webpack_require__("41fa");
-
-function isShortId(id) {
-    if (!id || typeof id !== 'string' || id.length < 6 ) {
-        return false;
-    }
-
-    var nonAlphabetic = new RegExp('[^' +
-      alphabet.get().replace(/[|\\{}()[\]^$+*?.-]/g, '\\$&') +
-    ']');
-    return !nonAlphabetic.test(id);
-}
-
-module.exports = isShortId;
 
 
 /***/ }),
@@ -11236,60 +10873,6 @@ module.exports = convert;
 /***/ (function(module, exports, __webpack_require__) {
 
 // extracted by mini-css-extract-plugin
-
-/***/ }),
-
-/***/ "e49c":
-/***/ (function(module, exports, __webpack_require__) {
-
-// extracted by mini-css-extract-plugin
-
-/***/ }),
-
-/***/ "e51f":
-/***/ (function(module, exports) {
-
-// This file replaces `format.js` in bundlers like webpack or Rollup,
-// according to `browser` config in `package.json`.
-
-module.exports = function (random, alphabet, size) {
-  // We can’t use bytes bigger than the alphabet. To make bytes values closer
-  // to the alphabet, we apply bitmask on them. We look for the closest
-  // `2 ** x - 1` number, which will be bigger than alphabet size. If we have
-  // 30 symbols in the alphabet, we will take 31 (00011111).
-  // We do not use faster Math.clz32, because it is not available in browsers.
-  var mask = (2 << Math.log(alphabet.length - 1) / Math.LN2) - 1
-  // Bitmask is not a perfect solution (in our example it will pass 31 bytes,
-  // which is bigger than the alphabet). As a result, we will need more bytes,
-  // than ID size, because we will refuse bytes bigger than the alphabet.
-
-  // Every hardware random generator call is costly,
-  // because we need to wait for entropy collection. This is why often it will
-  // be faster to ask for few extra bytes in advance, to avoid additional calls.
-
-  // Here we calculate how many random bytes should we call in advance.
-  // It depends on ID length, mask / alphabet size and magic number 1.6
-  // (which was selected according benchmarks).
-
-  // -~f => Math.ceil(f) if n is float number
-  // -~i => i + 1 if n is integer number
-  var step = -~(1.6 * mask * size / alphabet.length)
-  var id = ''
-
-  while (true) {
-    var bytes = random(step)
-    // Compact alternative for `for (var i = 0; i < step; i++)`
-    var i = step
-    while (i--) {
-      // If random byte is bigger than alphabet even after bitmask,
-      // we refuse it by `|| ''`.
-      id += alphabet[bytes[i] & mask] || ''
-      // More compact than `id.length + 1 === size`
-      if (id.length === +size) return id
-    }
-  }
-}
-
 
 /***/ }),
 
@@ -15415,8 +14998,8 @@ const textarea_exports_ = /*#__PURE__*/exportHelper_default()(textareavue_type_s
 // CONCATENATED MODULE: ./packages/cc-textarea/index.ts
 
 
-// EXTERNAL MODULE: ./node_modules/shortid/index.js
-var shortid = __webpack_require__("8dee");
+// EXTERNAL MODULE: ./node_modules/short-uuid/index.js
+var short_uuid = __webpack_require__("82fd");
 
 // CONCATENATED MODULE: ./node_modules/cache-loader/dist/cjs.js??ref--13-0!./node_modules/babel-loader/lib!./node_modules/@vue/cli-plugin-typescript/node_modules/ts-loader??ref--13-2!./node_modules/vue-loader-v16/dist/templateLoader.js??ref--7!./node_modules/cache-loader/dist/cjs.js??ref--0-0!./node_modules/vue-loader-v16/dist??ref--0-1!./packages/cc-window/window.vue?vue&type=template&id=09417354&scoped=true&ts=true
 
@@ -15560,7 +15143,7 @@ const window_exports_ = /*#__PURE__*/exportHelper_default()(windowvue_type_scrip
 
 class cc_window_UiWindowOptions {
   constructor() {
-    this.id = Object(shortid["generate"])();
+    this.id = Object(short_uuid["generate"])();
     this.width = 400;
     this.height = 400;
     this.title = '';
@@ -15571,9 +15154,9 @@ const ProvideKey = {
   ResponseCB: 'ResponseCB'
 };
 
-// CONCATENATED MODULE: ./node_modules/cache-loader/dist/cjs.js??ref--13-0!./node_modules/babel-loader/lib!./node_modules/@vue/cli-plugin-typescript/node_modules/ts-loader??ref--13-2!./node_modules/vue-loader-v16/dist/templateLoader.js??ref--7!./node_modules/cache-loader/dist/cjs.js??ref--0-0!./node_modules/vue-loader-v16/dist??ref--0-1!./packages/cc-dialog/dialog.vue?vue&type=template&id=18a1cd58&scoped=true&ts=true
+// CONCATENATED MODULE: ./node_modules/cache-loader/dist/cjs.js??ref--13-0!./node_modules/babel-loader/lib!./node_modules/@vue/cli-plugin-typescript/node_modules/ts-loader??ref--13-2!./node_modules/vue-loader-v16/dist/templateLoader.js??ref--7!./node_modules/cache-loader/dist/cjs.js??ref--0-0!./node_modules/vue-loader-v16/dist??ref--0-1!./packages/cc-dialog/dialog.vue?vue&type=template&id=078b0862&scoped=true&ts=true
 
-function dialogvue_type_template_id_18a1cd58_scoped_true_ts_true_render(_ctx, _cache, $props, $setup, $data, $options) {
+function dialogvue_type_template_id_078b0862_scoped_true_ts_true_render(_ctx, _cache, $props, $setup, $data, $options) {
   const _component_CCWindow = Object(external_commonjs_vue_commonjs2_vue_root_Vue_["resolveComponent"])("CCWindow");
   return Object(external_commonjs_vue_commonjs2_vue_root_Vue_["openBlock"])(), Object(external_commonjs_vue_commonjs2_vue_root_Vue_["createBlock"])(external_commonjs_vue_commonjs2_vue_root_Vue_["Teleport"], {
     to: "body"
@@ -15598,7 +15181,7 @@ function dialogvue_type_template_id_18a1cd58_scoped_true_ts_true_render(_ctx, _c
     }, 1032, ["data", "onClose"]);
   }), 128))])) : Object(external_commonjs_vue_commonjs2_vue_root_Vue_["createCommentVNode"])("", true)]);
 }
-// CONCATENATED MODULE: ./packages/cc-dialog/dialog.vue?vue&type=template&id=18a1cd58&scoped=true&ts=true
+// CONCATENATED MODULE: ./packages/cc-dialog/dialog.vue?vue&type=template&id=078b0862&scoped=true&ts=true
 
 // CONCATENATED MODULE: ./packages/cc-dialog/const.ts
 
@@ -15869,7 +15452,7 @@ const url_exports_ = /*#__PURE__*/exportHelper_default()(urlvue_type_script_lang
       dialogWindows,
       getWindowOption(opt) {
         return {
-          id: opt.id || Object(shortid["generate"])(),
+          id: opt.id || Object(short_uuid["generate"])(),
           width: opt.width,
           height: opt.height,
           title: opt.title,
@@ -15891,8 +15474,8 @@ const url_exports_ = /*#__PURE__*/exportHelper_default()(urlvue_type_script_lang
 }));
 // CONCATENATED MODULE: ./packages/cc-dialog/dialog.vue?vue&type=script&lang=ts
  
-// EXTERNAL MODULE: ./packages/cc-dialog/dialog.vue?vue&type=style&index=0&id=18a1cd58&scoped=true&lang=less
-var dialogvue_type_style_index_0_id_18a1cd58_scoped_true_lang_less = __webpack_require__("27c0");
+// EXTERNAL MODULE: ./packages/cc-dialog/dialog.vue?vue&type=style&index=0&id=078b0862&scoped=true&lang=less
+var dialogvue_type_style_index_0_id_078b0862_scoped_true_lang_less = __webpack_require__("d814");
 
 // CONCATENATED MODULE: ./packages/cc-dialog/dialog.vue
 
@@ -15902,7 +15485,7 @@ var dialogvue_type_style_index_0_id_18a1cd58_scoped_true_lang_less = __webpack_r
 
 
 
-const dialog_exports_ = /*#__PURE__*/exportHelper_default()(dialogvue_type_script_lang_ts, [['render',dialogvue_type_template_id_18a1cd58_scoped_true_ts_true_render],['__scopeId',"data-v-18a1cd58"]])
+const dialog_exports_ = /*#__PURE__*/exportHelper_default()(dialogvue_type_script_lang_ts, [['render',dialogvue_type_template_id_078b0862_scoped_true_ts_true_render],['__scopeId',"data-v-078b0862"]])
 
 /* harmony default export */ var dialog = (dialog_exports_);
 // CONCATENATED MODULE: ./packages/cc-dialog/index.ts
@@ -17330,9 +16913,6 @@ function tree_itemvue_type_template_id_3fda9d79_scoped_true_ts_true_render(_ctx,
   }), 128))])) : Object(external_commonjs_vue_commonjs2_vue_root_Vue_["createCommentVNode"])("", true)]);
 }
 // CONCATENATED MODULE: ./packages/cc-tree/tree-item.vue?vue&type=template&id=3fda9d79&scoped=true&ts=true
-
-// EXTERNAL MODULE: ./node_modules/short-uuid/index.js
-var short_uuid = __webpack_require__("82fd");
 
 // CONCATENATED MODULE: ./node_modules/cache-loader/dist/cjs.js??ref--13-0!./node_modules/babel-loader/lib!./node_modules/@vue/cli-plugin-typescript/node_modules/ts-loader??ref--13-2!./node_modules/cache-loader/dist/cjs.js??ref--0-0!./node_modules/vue-loader-v16/dist??ref--0-1!./packages/cc-tree/tree-item.vue?vue&type=script&lang=ts
 
