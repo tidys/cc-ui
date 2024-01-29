@@ -29,7 +29,6 @@
     "mousetrap": "1.6.5",
     "pinia": "2.0.33",
     "short-uuid": "^4.2.2",
-    "shortid": "2.2.16",
     "tiny-emitter": "2.1.0",
     "tinycolor2": "1.4.2",
     "ts-loader": "9.3.1",

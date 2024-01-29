@@ -15,7 +15,7 @@ import { UiWindowOptions } from '../cc-window/index';
 import CCWindow from '../cc-window/window.vue';
 import ccui from '../index';
 import Mousetrap, { MousetrapInstance } from 'mousetrap';
-import { generate } from 'shortid';
+import { generate } from 'short-uuid';
 import Empty from '../cc-window/empty.vue';
 import UrlTip from './url.vue';
 export default defineComponent({

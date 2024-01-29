@@ -1,4 +1,4 @@
-import { generate } from 'shortid';
+import { generate } from 'short-uuid';
 import CCWindow from './window.vue';
 
 export class UiWindowOptions {
