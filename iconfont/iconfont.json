@@ -6,6 +6,20 @@
   "description": "cc-ui组件库在使用",
   "glyphs": [
     {
+      "icon_id": "27107530",
+      "name": "link-unlink",
+      "font_class": "unlink",
+      "unicode": "e648",
+      "unicode_decimal": 58952
+    },
+    {
+      "icon_id": "27107531",
+      "name": "link",
+      "font_class": "link",
+      "unicode": "e64a",
+      "unicode_decimal": 58954
+    },
+    {
       "icon_id": "1174205",
       "name": "close",
       "font_class": "close_small",
