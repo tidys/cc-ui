@@ -118,6 +118,7 @@ export default defineComponent({
   //overflow: hidden;
 
   .name {
+    min-height: 26px;
     height: 100%;
     user-select: none;
     margin-left: 15px;
