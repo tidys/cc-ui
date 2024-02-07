@@ -7,7 +7,7 @@
       </div>
       <slot name="header"></slot>
     </div>
-    <div v-show="!fold">
+    <div v-show="!fold" style="flex: 1; display: flex; flex-direction: column">
       <slot></slot>
     </div>
   </div>
