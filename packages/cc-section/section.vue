@@ -7,7 +7,9 @@
       </div>
       <slot name="header"></slot>
     </div>
-    <slot v-if="!fold"></slot>
+    <div v-show="!fold">
+      <slot></slot>
+    </div>
   </div>
 </template>
 <script lang="ts">
