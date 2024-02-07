@@ -6,6 +6,13 @@
   "description": "cc-ui组件库在使用",
   "glyphs": [
     {
+      "icon_id": "28337693",
+      "name": "Javascript File",
+      "font_class": "js",
+      "unicode": "e706",
+      "unicode_decimal": 59142
+    },
+    {
       "icon_id": "29491832",
       "name": "link-unlink",
       "font_class": "unlink",
