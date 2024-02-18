@@ -48,7 +48,10 @@ export default defineComponent({
     watch(
       () => props.value,
       (val) => {
-        text.value = val;
+        if (text.value !== val) {
+          text.value = val;
+          emit('change', text.value);
+        }
       }
     );
     return {
