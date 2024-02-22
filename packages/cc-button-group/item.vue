@@ -130,6 +130,8 @@ export default defineComponent({
   white-space: nowrap;
   text-overflow: ellipsis;
   border: @border solid #222;
+  display: flex;
+  align-items: center;
   &:first-child {
     border-top-left-radius: @radius;
     border-bottom-left-radius: @radius;
