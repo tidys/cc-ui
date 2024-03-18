@@ -125,6 +125,9 @@ export default defineComponent({
   justify-content: center;
   margin: 0 1px;
   cursor: pointer;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
 
   .tips {
     .text {

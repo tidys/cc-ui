@@ -1,12 +1,10 @@
 <template>
   <div class="cc-select">
-    <label>
-      <select @change="onSelectChange" v-model="curValue">
-        <option v-for="(item, index) in data" :key="index" :value="item.value">
-          {{ item.label }}
-        </option>
-      </select>
-    </label>
+    <select @change="onSelectChange" v-model="curValue">
+      <option v-for="(item, index) in data" :key="index" :value="item.value">
+        {{ item.label }}
+      </option>
+    </select>
   </div>
   <slot></slot>
 </template>
@@ -25,6 +23,11 @@ export default defineComponent({
       },
     },
     value: [String, Number],
+    // TODO: placeholder，实现这个需要重构整个组件，不能使用select标签
+    placeholder: {
+      type: String,
+      default: '',
+    },
   },
   emits: ['change', 'update:data', 'update:value'],
   setup(props: any, { emit }) {

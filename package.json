@@ -1,6 +1,6 @@
 {
   "name": "@xuyanfeng/cc-ui",
-  "version": "0.2.20",
+  "version": "0.2.21",
   "main": "dist/ccui.umd.js",
   "typings": "types/index.d.ts",
   "scripts": {
@@ -11,6 +11,7 @@
     "types": "vue-tsc -p tsconfig.declaration.json",
     "lib-dev": "vue-cli-service build --mode development --target lib --name ccui --dest dist --entry packages/index.ts",
     "lib-prd": "vue-cli-service build --mode production --target lib --name ccui --dest dist --entry packages/index.ts",
+    "build": "npm run lib-prd && npm run types",
     "yalc-dev": "npm run lib-dev && npm run types && yalc push",
     "yalc-prd": "npm run lib-prd && npm run types && yalc push"
   },

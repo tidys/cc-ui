@@ -424,6 +424,10 @@ export declare const components: {
             default(): never[];
         };
         value: (StringConstructor | NumberConstructor)[];
+        placeholder: {
+            type: StringConstructor;
+            default: string;
+        };
     }, {
         curValue: any;
         onSelectChange(): void;
@@ -434,12 +438,17 @@ export declare const components: {
             default(): never[];
         };
         value: (StringConstructor | NumberConstructor)[];
+        placeholder: {
+            type: StringConstructor;
+            default: string;
+        };
     }>> & {
         onChange?: ((...args: any[]) => any) | undefined;
         "onUpdate:value"?: ((...args: any[]) => any) | undefined;
         "onUpdate:data"?: ((...args: any[]) => any) | undefined;
     }, {
         data: import("./cc-select/const").Option[];
+        placeholder: string;
     }, {}>;
     CCInput: import("vue").DefineComponent<{
         value: {

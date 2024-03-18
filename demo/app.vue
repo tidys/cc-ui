@@ -1,6 +1,7 @@
 <template>
   <div v-if="true">
     <CCTree :value="treeData" @node-click="onTreeNodeClick" @node-expand="onTreeNodeExpend" @node-collapse="onTreeNodeCollapsed"></CCTree>
+    <CCSelect value="1" :data="[]" style="flex: 1"></CCSelect>
   </div>
   <div v-if="false">
     <CCButton tooltip="tooltip test">tooltip</CCButton>

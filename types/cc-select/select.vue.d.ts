@@ -7,6 +7,10 @@ declare const _default: import("vue").DefineComponent<{
         default(): never[];
     };
     value: (StringConstructor | NumberConstructor)[];
+    placeholder: {
+        type: StringConstructor;
+        default: string;
+    };
 }, {
     curValue: any;
     onSelectChange(): void;
@@ -17,11 +21,16 @@ declare const _default: import("vue").DefineComponent<{
         default(): never[];
     };
     value: (StringConstructor | NumberConstructor)[];
+    placeholder: {
+        type: StringConstructor;
+        default: string;
+    };
 }>> & {
     onChange?: ((...args: any[]) => any) | undefined;
     "onUpdate:value"?: ((...args: any[]) => any) | undefined;
     "onUpdate:data"?: ((...args: any[]) => any) | undefined;
 }, {
     data: Option[];
+    placeholder: string;
 }, {}>;
 export default _default;
