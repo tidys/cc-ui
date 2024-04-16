@@ -1,10 +1,13 @@
 <template>
-  <div v-if="true">
+  <div v-if="false">
     <CCTree :value="treeData" @node-click="onTreeNodeClick" @node-expand="onTreeNodeExpend" @node-collapse="onTreeNodeCollapsed"></CCTree>
     <CCSelect value="1" :data="[]" style="flex: 1"></CCSelect>
   </div>
-  <div v-if="false">
-    <CCButton tooltip="tooltip test">tooltip</CCButton>
+  <div v-if="true">
+    <CCProp name="normal tooltip" tooltip="123<hr>456"></CCProp>
+    <CCProp name="br tooltip" tooltip="123<br>456" align="left">
+      <CCButton tooltip="tooltip test">tooltip</CCButton>
+    </CCProp>
     <CCInput placeholder="test placeholder" :directory="true"></CCInput>
   </div>
   <div v-if="false">

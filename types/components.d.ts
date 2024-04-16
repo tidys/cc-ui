@@ -592,6 +592,7 @@ export declare const components: {
             default: string;
         };
     }, {
+        tooltipElement: import("vue").Ref<HTMLElement | undefined>;
         tips: import("vue").Ref<HTMLElement | undefined>;
         isShowTips: import("vue").Ref<boolean>;
         arrow: import("vue").Ref<HTMLElement | undefined>;

@@ -1,7 +1,7 @@
 <template>
   <div class="cc-prop" @mouseenter="isHove = true" @mouseleave="isHove = false">
     <div v-show="isShowTips && tooltip" ref="tips" class="tips">
-      <div class="text">{{ tooltip }}</div>
+      <div ref="tooltipElement" class="text">{{ tooltip }}</div>
       <div ref="arrow" data-popper-arrow class="arrow"></div>
     </div>
     <div class="name" @mouseenter="onHover" @mouseleave="onOver">
@@ -13,7 +13,7 @@
   </div>
 </template>
 <script lang="ts">
-import { defineComponent, onMounted, ref } from 'vue';
+import { defineComponent, onMounted, ref, toRaw } from 'vue';
 import { createPopper } from '@popperjs/core';
 import { debounce, DebouncedFunc } from 'lodash';
 
@@ -42,7 +42,12 @@ export default defineComponent({
     let popperInstance: any = null;
 
     function showTipsFunc(target: any) {
-      if (props.tooltip && tips.value) {
+      const tooltip: string = toRaw(props.tooltip);
+      if (tooltip && tips.value) {
+        const el = toRaw(tooltipElement.value) as HTMLElement;
+        if (el && (tooltip.indexOf('<br>') !== -1 || tooltip.indexOf('<br/>') !== -1)) {
+          el.innerHTML = tooltip;
+        }
         isShowTips.value = true;
         popperInstance = createPopper(target, tips.value, {
           placement: 'top-start',
@@ -64,10 +69,11 @@ export default defineComponent({
         });
       }
     }
-
+    const tooltipElement = ref<HTMLElement>();
     let timer: any = null;
     const text = ref<HTMLElement>();
     return {
+      tooltipElement,
       tips,
       isShowTips,
       arrow,
