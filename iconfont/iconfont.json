@@ -6,6 +6,20 @@
   "description": "cc-ui组件库在使用",
   "glyphs": [
     {
+      "icon_id": "6151261",
+      "name": "stop circle",
+      "font_class": "stop",
+      "unicode": "e80e",
+      "unicode_decimal": 59406
+    },
+    {
+      "icon_id": "6151262",
+      "name": "play circle",
+      "font_class": "play",
+      "unicode": "e80f",
+      "unicode_decimal": 59407
+    },
+    {
       "icon_id": "28337693",
       "name": "Javascript File",
       "font_class": "js",
