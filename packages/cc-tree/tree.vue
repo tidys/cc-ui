@@ -1,6 +1,6 @@
 <template>
-  <div class="tree" ref="treeElement" tabindex="0">
-    <TreeItem v-for="(item, index) in value" :key="index" :value="item" ref="childrenElements"></TreeItem>
+  <div class="tree" :style="{ backgroundColor: bgColor }" ref="treeElement" tabindex="0">
+    <TreeItem v-for="(item, index) in value" :key="index" :color="bgColor" :value="item" ref="childrenElements"></TreeItem>
   </div>
 </template>
 
@@ -19,6 +19,10 @@ export default defineComponent({
       type: Array as PropType<Array<ITreeData>>,
       default: () => [],
     },
+    bgColor: {
+      type: String,
+      default: '#444',
+    },
   },
   setup(props, { emit }) {
     let currentSelectTreeItem: ITreeData | null = null;
@@ -31,6 +35,8 @@ export default defineComponent({
             const ret = findBrother(false);
             if (ret) {
               ret.comp.doSelect();
+              const el: HTMLDivElement = ret.comp.$el;
+              el.scrollIntoView({ behavior: 'smooth' });
             }
           }
           break;
@@ -39,6 +45,8 @@ export default defineComponent({
             const ret = findBrother(true);
             if (ret) {
               ret.comp.doSelect();
+              const el: HTMLDivElement = ret.comp.$el;
+              el.scrollIntoView({ behavior: 'smooth' });
             }
           }
           break;
