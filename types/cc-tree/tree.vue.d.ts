@@ -5,6 +5,10 @@ declare const _default: import("vue").DefineComponent<{
         type: PropType<ITreeData[]>;
         default: () => never[];
     };
+    bgColor: {
+        type: StringConstructor;
+        default: string;
+    };
 }, {
     treeData: import("vue").Ref<never[]>;
     treeElement: import("vue").Ref<HTMLDivElement | undefined>;
@@ -62,7 +66,12 @@ declare const _default: import("vue").DefineComponent<{
         type: PropType<ITreeData[]>;
         default: () => never[];
     };
+    bgColor: {
+        type: StringConstructor;
+        default: string;
+    };
 }>>, {
     value: ITreeData[];
+    bgColor: string;
 }, {}>;
 export default _default;

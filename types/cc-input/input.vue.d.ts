@@ -66,9 +66,9 @@ declare const _default: import("vue").DefineComponent<{
     "onUpdate:value"?: ((...args: any[]) => any) | undefined;
 }, {
     readonly: boolean;
+    disabled: boolean;
     value: string;
     maxlength: number;
-    disabled: boolean;
     directory: boolean;
     placeholder: string;
 }, {}>;

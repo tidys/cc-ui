@@ -25,7 +25,7 @@ declare const _default: import("vue").DefineComponent<{
     onChange?: ((...args: any[]) => any) | undefined;
     "onUpdate:color"?: ((...args: any[]) => any) | undefined;
 }, {
-    color: string;
     title: string;
+    color: string;
 }, {}>;
 export default _default;

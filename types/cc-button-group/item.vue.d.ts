@@ -36,8 +36,8 @@ declare const _default: import("vue").DefineComponent<{
         default: boolean;
     };
 }>>, {
-    color: string;
     data: ButtonGroupItem;
+    color: string;
     recover: boolean;
 }, {}>;
 export default _default;
