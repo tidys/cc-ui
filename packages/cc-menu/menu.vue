@@ -75,6 +75,6 @@ export default defineComponent({
   box-shadow: #d3d6d9;
   background-color: #eeeff1;
   min-width: 100px;
-  max-width: 100px;
+  max-width: 200px;
 }
 </style>

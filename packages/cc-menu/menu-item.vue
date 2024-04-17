@@ -1,6 +1,6 @@
 <template>
   <div class="ui-menu-item" @mousedown.capture.stop.prevent="onClick">
-    <span>{{ data.name }}</span>
+    <span style="white-space: nowrap">{{ data.name }}</span>
   </div>
 </template>
 
@@ -34,6 +34,9 @@ export default defineComponent({
 
 <style scoped lang="less">
 .ui-menu-item {
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
   cursor: pointer;
 
   span {
