@@ -1,47 +1,49 @@
 <template>
-  <div class="btn" ref="text" :style="{ background: `${theme.background}` }" @mouseup="onMouseup" @mousedown="onMousedown" @mouseenter="onMouseenter" @mouseleave="onMouseleave" :class="{ click: isClick }">
+  <div class="btn" ref="text" @click.stop.prevent="onClick" :style="{ background: `${theme.background}` }" @mouseup="onMouseup" @mousedown="onMousedown" @mouseenter="onMouseenter" @mouseleave="onMouseleave" :class="{ click: isClick }">
     <div v-show="isShowTips && tooltip" ref="tips" class="tips">
       <div class="text">{{ tooltip }}</div>
       <div ref="arrow" data-popper-arrow class="arrow"></div>
     </div>
-    <div class="text">
+    <div class="text" :class="{ gray: isDisabled }">
       <slot></slot>
     </div>
   </div>
 </template>
 <script lang="ts">
-import { defineComponent, ref, reactive } from 'vue';
-import { Transition } from './transition';
+import { defineComponent, ref, reactive, watch, toRaw } from 'vue';
 import { createPopper } from '@popperjs/core';
+import chroma from 'chroma-js';
 
 export default defineComponent({
   name: 'CCButton',
   props: {
-    transition: {
-      type: String,
-      default: 'color',
-      validator: (value) => {
-        return !!['color', 'sprite'].find((el) => el === value);
-      },
-    },
     color: {
       type: String,
-    },
-    texture: {
-      type: String,
+      default: '#4e4e4e',
     },
     tooltip: {
       type: String,
       default: '',
     },
+    disabled: {
+      type: Boolean,
+      default: false,
+    },
   },
-  emits: [],
+  emits: ['confirm'],
   setup(props: any, { emit }) {
     const isClick = ref(false);
     const isHover = ref(false);
-    const transition = new Transition(props.transition, props);
+    const isDisabled = ref(props.disabled);
     const isShowTips = ref(false);
     const tips = ref<HTMLDivElement>();
+    watch(
+      () => props.disabled,
+      () => {
+        isDisabled.value = props.disabled;
+        updateColor();
+      }
+    );
     let timer: any = null;
     let popperInstance: any = null;
     function showTipsFunc(target: any) {
@@ -67,24 +69,48 @@ export default defineComponent({
         });
       }
     }
+    function calcColor() {
+      if (isDisabled.value) {
+        return '#969696';
+      }
+      return toRaw(props.color);
+    }
+    function updateColor() {
+      theme.value.background = hexColor = calcColor();
+    }
     const arrow = ref<HTMLElement>();
     const text = ref<HTMLElement>();
-
+    const theme = ref({ background: '' });
+    let hexColor = calcColor();
+    updateColor();
     return {
+      isDisabled,
       arrow,
       text,
       tips,
       isShowTips,
-      theme: transition.theme,
+      theme,
       isClick,
       onHover(event: any) {},
       onMouseup() {
+        if (isDisabled.value) {
+          return;
+        }
         isClick.value = false;
-        transition.onMouseup();
+        theme.value.background = hexColor;
       },
       onMousedown() {
+        if (isDisabled.value) {
+          return;
+        }
         isClick.value = true;
-        transition.onMousedown();
+        theme.value.background = chroma(hexColor).darken(0.5).hex();
+      },
+      onClick() {
+        if (isDisabled.value) {
+          return;
+        }
+        emit('confirm');
       },
       onMouseenter() {
         if (props.tooltip) {
@@ -94,7 +120,7 @@ export default defineComponent({
           }, 600);
         }
         isHover.value = true;
-        transition.onMouseenter();
+        theme.value.background = chroma(hexColor).brighten(0.3).hex();
       },
       onMouseleave() {
         if (props.tooltip) {
@@ -104,7 +130,7 @@ export default defineComponent({
           popperInstance = null;
         }
         isHover.value = false;
-        transition.onMouseleave();
+        theme.value.background = hexColor;
       },
     };
   },
@@ -112,6 +138,10 @@ export default defineComponent({
 </script>
 
 <style scoped lang="less">
+.gray {
+  filter: grayscale(100%);
+  cursor: no-drop !important;
+}
 .btn {
   box-sizing: border-box;
   min-width: 10px;

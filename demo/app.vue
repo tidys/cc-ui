@@ -4,6 +4,10 @@
     <CCSelect value="1" :data="[]" style="flex: 1"></CCSelect>
   </div>
   <div v-if="true">
+    <CCProp name="test btn disabled">
+      <CCButton :disabled="btnDisabled" color="green">disabled</CCButton>
+      <CCCheckBox v-model:value="btnDisabled"></CCCheckBox>
+    </CCProp>
     <CCProp name="normal tooltip" tooltip="123<hr>456"></CCProp>
     <CCProp name="br tooltip" tooltip="123<br>456" align="left">
       <CCButton tooltip="tooltip test">tooltip</CCButton>
@@ -248,7 +252,9 @@ export default defineComponent({
         active: false,
       },
     ]);
+    const btnDisabled = ref(true);
     return {
+      btnDisabled,
       treeData,
       buttonGroup,
       tableColumns,
