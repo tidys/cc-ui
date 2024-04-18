@@ -1,5 +1,5 @@
 <template>
-  <div class="tree" :style="{ backgroundColor: bgColor }" ref="treeElement" tabindex="0">
+  <div class="tree ccui-scrollbar" :style="{ backgroundColor: bgColor }" ref="treeElement" tabindex="0">
     <TreeItem v-for="(item, index) in value" :key="index" :color="bgColor" :value="item" ref="childrenElements"></TreeItem>
   </div>
 </template>
@@ -172,5 +172,6 @@ export default defineComponent({
 .tree {
   user-select: none;
   outline: none;
+  overflow: auto;
 }
 </style>

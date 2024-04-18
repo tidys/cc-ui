@@ -1,9 +1,9 @@
 <template>
-  <div v-if="false">
-    <CCTree :value="treeData" @node-click="onTreeNodeClick" @node-expand="onTreeNodeExpend" @node-collapse="onTreeNodeCollapsed"></CCTree>
+  <div v-if="true">
+    <CCTree style="max-height: 100px" :value="treeData" @node-click="onTreeNodeClick" @node-expand="onTreeNodeExpend" @node-collapse="onTreeNodeCollapsed"></CCTree>
     <CCSelect value="1" :data="[]" style="flex: 1"></CCSelect>
   </div>
-  <div v-if="true">
+  <div v-if="false">
     <CCProp name="test btn disabled">
       <CCButton :disabled="btnDisabled" color="green">disabled</CCButton>
       <CCCheckBox v-model:value="btnDisabled"></CCCheckBox>
@@ -252,6 +252,11 @@ export default defineComponent({
         active: false,
       },
     ]);
+    for (let i = 0; i < 10; i++) {
+      treeData.value.push({
+        text: `test-${i}`,
+      });
+    }
     const btnDisabled = ref(true);
     return {
       btnDisabled,
