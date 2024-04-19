@@ -54,6 +54,10 @@ export default defineComponent({
   width: 100%;
   font-weight: normal;
   overflow: hidden;
+  display: flex;
+  align-items: center;
+  overflow: hidden;
+  text-overflow: ellipsis;
 }
 .cell-fixed {
   overflow: hidden;

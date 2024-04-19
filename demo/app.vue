@@ -14,7 +14,7 @@
     </CCProp>
     <CCInput placeholder="test placeholder" :directory="true"></CCInput>
   </div>
-  <div v-if="false">
+  <div v-if="true">
     <div style="min-height: 20px; width: 100%; height: 50px; background-color: rgb(138, 138, 138)"></div>
     <CCDivider :vertical="false" color="#444"></CCDivider>
     <div style="min-height: 20px; width: 100%; height: 50px; background-color: rgb(214, 214, 214)"></div>
