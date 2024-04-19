@@ -44,11 +44,12 @@ export default defineComponent({
     const table = ref();
     watch(
       () => {
-        return JSON.stringify(props.data);
+        return props.data;
       },
       (v) => {
         updateTableData(toRaw(props.data));
-      }
+      },
+      { deep: true }
     );
     watch(
       () => props.headColor,
