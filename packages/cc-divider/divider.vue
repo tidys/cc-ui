@@ -32,6 +32,20 @@ export default defineComponent({
     const hoverColor = COLOR(props.color).lighten(0.2).hex();
     const { vertical } = props;
     const isMove = ref(false);
+    function parseStyle(el: HTMLElement, client: 'clientWidth' | 'clientHeight', style: 'width' | 'height') {
+      // let styleSize = el.style[style];
+      // if (!styleSize) {
+      //   const dec = getComputedStyle(el);
+      //   styleSize = dec[style];
+      // }
+      // if (styleSize) {
+      //   if (styleSize.endsWith('px')) {
+      //     return parseInt(styleSize.slice(0, -2));
+      //   }
+      // }
+      // return el[client];
+      return el.getBoundingClientRect()[style];
+    }
     function onDividerMove(event: MouseEvent) {
       if (props.influence && dividerEl.value) {
         const el = dividerEl.value as HTMLElement;
@@ -42,6 +56,7 @@ export default defineComponent({
           if (el.parentElement.style.display === 'flex') {
             // flex布局算法不一样
             el.parentElement.clientWidth;
+            console.log('not support flex');
           } else {
             const opts: {
               offset: number;
@@ -56,14 +71,17 @@ export default defineComponent({
             };
             do {
               const { offset, property, minCss, targetCss } = opts;
-              let v1 = el1[property] + offset;
+              if (offset === 0) {
+                break;
+              }
+              let v1 = parseStyle(el1, property, targetCss) + offset;
               if (el1.style[minCss]) {
                 const min1 = parseInt(el1.style[minCss]);
                 if (v1 < min1) {
                   break;
                 }
               }
-              let v2 = el2[property] - offset;
+              let v2 = parseStyle(el2, property, targetCss) - offset;
               if (el2.style[minCss]) {
                 const min2 = parseInt(el2.style[minCss]);
                 if (v2 < min2) {
