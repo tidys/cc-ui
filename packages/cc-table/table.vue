@@ -43,7 +43,9 @@ export default defineComponent({
     const columnsWidth = ref<number[]>([]);
     const table = ref();
     watch(
-      () => props.data.length,
+      () => {
+        return JSON.stringify(props.data);
+      },
       (v) => {
         updateTableData(toRaw(props.data));
       }
