@@ -8,14 +8,17 @@
       'cell-column-first': data.columnIndexCurrent === 0,
     }"
     :style="calcStyle()"
+    @click.stop.prevent="onClick"
+    @contextmenu.stop.prevent="onContextMenu"
   >
     {{ placeholder ? '' : data.value }}
   </div>
 </template>
 
 <script lang="ts">
-import { defineComponent, PropType } from 'vue';
+import { defineComponent, PropType, inject, toRaw } from 'vue';
 import { CellData } from './const';
+import { ProvideMsg } from './const';
 export default defineComponent({
   name: 'cc-table-cell',
   props: {
@@ -29,8 +32,16 @@ export default defineComponent({
     },
   },
   setup(props, ctx) {
+    const cellClick = inject(ProvideMsg.CellClick, (data: CellData) => {});
+    const cellContextMenu = inject(ProvideMsg.CellContextMenu, (event: MouseEvent, data: CellData) => {});
     const { data, placeholder } = props;
     return {
+      onClick() {
+        cellClick(toRaw(props.data));
+      },
+      onContextMenu(event: MouseEvent) {
+        cellContextMenu(event, toRaw(props.data));
+      },
       calcStyle() {
         let css = '';
 

@@ -59,3 +59,7 @@ export interface LineData {
   /**行数据 */
   data: CellData[];
 }
+export const ProvideMsg = {
+  CellClick: 'CellClick',
+  CellContextMenu: 'CellContextMenu',
+};

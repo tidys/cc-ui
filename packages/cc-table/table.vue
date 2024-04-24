@@ -1,19 +1,20 @@
 <template>
   <div class="cc-table" ref="table" v-resize:throttle="onResize">
     <div :style="{ backgroundColor: `${headColor}` }" class="head">
-      <CCTableBody :data="headLineData" :columns="columns" :isHeader="true"></CCTableBody>
+      <CCTableBody :color="headColor" :data="headLineData" :columns="columns" :isHeader="true"></CCTableBody>
     </div>
-    <div class="body ccui-scrollbar">
-      <CCTableBody :data="bodyLineData" :columns="columns" :isHeader="false"></CCTableBody>
+    <div class="body ccui-scrollbar" :style="{ backgroundColor: `${bodyColor}` }">
+      <CCTableBody :color="bodyColor" :data="bodyLineData" :columns="columns" :isHeader="false"></CCTableBody>
     </div>
   </div>
 </template>
 <script lang="ts">
-import { defineComponent, PropType, toRaw, ref, onMounted, watch, watchEffect } from 'vue';
-import { LineData, TableColumn, TableData } from './const';
+import { defineComponent, PropType, toRaw, provide, ref, onMounted, watch, watchEffect } from 'vue';
+import { CellData, LineData, TableColumn, TableData } from './const';
 // @ts-ignore
 import resize from 'vue3-resize-directive';
 import CCTableBody from './table-body.vue';
+import { ProvideMsg } from './const';
 export default defineComponent({
   name: 'CCTable',
   directives: {
@@ -35,8 +36,19 @@ export default defineComponent({
       type: String,
       default: '#666',
     },
+    bodyColor: {
+      type: String,
+      default: '#444',
+    },
   },
+  emits: ['cell-click', 'cell-context-menu'],
   setup(props, ctx) {
+    provide(ProvideMsg.CellClick, (data: CellData) => {
+      ctx.emit('cell-click', toRaw(data));
+    });
+    provide(ProvideMsg.CellContextMenu, (event: PointerEvent, data: CellData) => {
+      ctx.emit('cell-context-menu', event, data);
+    });
     const { data, columns } = props;
     const columnsData = toRaw(columns);
     // columns Data
