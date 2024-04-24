@@ -1,14 +1,16 @@
 <template>
-  <div class="line" @mouseenter="onMouseEnter" @mouseleave="onMouseLeave" :style="{ 'background-color': bgColor }">
+  <div class="line" @click="onClick" @mouseenter="onMouseEnter" @mouseleave="onMouseLeave" :style="{ 'background-color': bgColor }">
     <CCTableCell :placeholder="placeholder" v-for="(cell, index) in data" :key="index" :data="cell"></CCTableCell>
   </div>
 </template>
 
 <script lang="ts">
-import { defineComponent, PropType, toRaw, ref } from 'vue';
+import { defineComponent, PropType, toRaw, ref, onMounted, onUnmounted } from 'vue';
 import { CellData, LineData } from './const';
 import CCTableCell from './cell.vue';
 import COLOR from 'color';
+import { eventBus } from './eventBus';
+import { EventMsg } from './const';
 export default defineComponent({
   name: 'CCTableLine',
   components: {
@@ -32,16 +34,35 @@ export default defineComponent({
     },
   },
   setup(props, { emit }) {
+    function onSelected(line: CellData[]) {
+      isSelected = props.data === line;
+      bgColor.value = isSelected ? selectColor : props.color;
+    }
+    onMounted(() => {
+      eventBus.on(EventMsg.SelectLine, onSelected);
+    });
+    onUnmounted(() => {
+      eventBus.off(EventMsg.SelectLine, onSelected);
+    });
     const bgColor = ref(props.color);
-    const lightColor = COLOR(props.color).lighten(0.6).hex();
+    const hoverColor = COLOR(props.color).lighten(0.2).hex();
+    const selectColor = COLOR(props.color).lighten(0.6).hex();
+    let isSelected = false;
     return {
       bgColor,
+      onClick() {
+        if (props.isHeader) {
+          eventBus.emit(EventMsg.SelectLine, []);
+        } else {
+          eventBus.emit(EventMsg.SelectLine, props.data);
+        }
+      },
       onMouseEnter() {
-        if (props.isHeader) return;
-        bgColor.value = lightColor;
+        if (props.isHeader || isSelected) return;
+        bgColor.value = hoverColor;
       },
       onMouseLeave() {
-        if (props.isHeader) return;
+        if (props.isHeader || isSelected) return;
         bgColor.value = props.color;
       },
     };

@@ -8,7 +8,7 @@
       'cell-column-first': data.columnIndexCurrent === 0,
     }"
     :style="calcStyle()"
-    @click.stop.prevent="onClick"
+    @click="onClick"
     @contextmenu.stop.prevent="onContextMenu"
   >
     {{ placeholder ? '' : data.value }}

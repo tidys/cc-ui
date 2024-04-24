@@ -63,3 +63,6 @@ export const ProvideMsg = {
   CellClick: 'CellClick',
   CellContextMenu: 'CellContextMenu',
 };
+export const EventMsg = {
+  SelectLine: 'SelectLine',
+};
