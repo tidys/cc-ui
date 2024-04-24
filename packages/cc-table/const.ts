@@ -14,6 +14,10 @@ export interface TableColumn {
   breakChar?: boolean;
 }
 export interface TableData {
+  /**
+   * 用户可以自定定义数据，这个CellData数据在table事件中会透传给回调
+   */
+  ['userData']?: any;
   /** TableColumn的key为TableData的object.key */
   [key: string]: any;
 }
@@ -51,6 +55,10 @@ export interface CellData {
    * word-break: break-all;
    */
   breakChar?: boolean;
+  /**
+   * 用户透传的数据，方便上层判断使用
+   */
+  userData?: any;
 }
 
 export interface LineData {

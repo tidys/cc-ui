@@ -34,7 +34,7 @@ export default defineComponent({
     },
     headColor: {
       type: String,
-      default: '#666',
+      default: '#888',
     },
     bodyColor: {
       type: String,
@@ -129,7 +129,7 @@ export default defineComponent({
             console.warn(`invalid column data, not exist key: ${key}`);
           }
           line.data.push({
-            breakChar,
+            breakChar: !!breakChar,
             width: width,
             columnIndexCurrent: i,
             columnIndexTotal: columnsData.length,
@@ -137,6 +137,7 @@ export default defineComponent({
             rowIndexTotal: rowTotal,
             key: key,
             value: item[key],
+            userData: item.userData || null,
           });
         }
       });
