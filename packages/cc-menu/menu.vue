@@ -34,7 +34,12 @@ export default defineComponent({
     );
     onMounted(() => {
       ccui.Emitter.on(Msg.ShowMenu, (options: MenuOptions, newMenus: IUiMenuItem[]) => {
-        menus.value = newMenus;
+        menus.value.length = 0;
+        newMenus.forEach((item) => {
+          if (item.enabled) {
+            menus.value.push(item);
+          }
+        });
         nextTick(() => {
           if (menuEl.value) {
             let x = Math.abs(options.x);
