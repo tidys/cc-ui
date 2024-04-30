@@ -36,7 +36,7 @@ export default defineComponent({
       ccui.Emitter.on(Msg.ShowMenu, (options: MenuOptions, newMenus: IUiMenuItem[]) => {
         menus.value.length = 0;
         newMenus.forEach((item) => {
-          if (item.enabled) {
+          if (!(item.enabled === false)) {
             menus.value.push(item);
           }
         });
