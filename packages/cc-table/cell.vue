@@ -34,7 +34,7 @@ export default defineComponent({
   setup(props, ctx) {
     const cellClick = inject(ProvideMsg.CellClick, (data: CellData) => {});
     const cellContextMenu = inject(ProvideMsg.CellContextMenu, (event: MouseEvent, data: CellData) => {});
-    const { data, placeholder } = props;
+    const { placeholder } = props;
     return {
       onClick() {
         cellClick(toRaw(props.data));
@@ -44,18 +44,17 @@ export default defineComponent({
       },
       calcStyle() {
         let css = '';
-
-        if (data.breakChar === true) {
+        if (props.data.breakChar === true) {
           css += 'word-break: break-all;';
         }
         if (!placeholder) {
           css += 'min-height:25px;';
         }
-        if (data.width) {
-          css += `width:${data.width}px;min-width:${data.width}px;`;
+        if (props.data.width) {
+          css += `width:${props.data.width}px;min-width:${props.data.width}px;`;
         }
-        if (data.bgColor) {
-          css += `background-color:${data.bgColor};`;
+        if (props.data.bgColor) {
+          css += `background-color:${props.data.bgColor};`;
         }
         return css;
       },

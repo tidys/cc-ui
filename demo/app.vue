@@ -25,7 +25,10 @@
     <div style="min-width: 20px; flex: 1; height: 100%; background-color: rgb(214, 214, 214)"></div>
   </div>
   <div v-if="true">
-    <CCButton @confirm="changeTableData">change table data</CCButton>
+    <div>
+      <CCButton @confirm="changeTableData">change table[0] data</CCButton>
+      <CCButton @confirm="changeTableColor">change table color</CCButton>
+    </div>
     <CCTable class="myTable" @cell-context-menu="onCellContextMenu" @cell-click="onCellClick" :columns="tableColumns" :data="tableData" :color="tableColor" headColor="#888"></CCTable>
   </div>
   <div v-if="false">
@@ -276,6 +279,10 @@ export default defineComponent({
       tableColor,
       changeTableData() {
         tableData.value[0].name = 'abc';
+      },
+      changeTableColor() {
+        const len = tableData.value.length;
+        tableData.value[len - 1].name.color = '#00ff00';
       },
       onTreeNodeClick(data: ITreeData) {
         console.log('click:', data);

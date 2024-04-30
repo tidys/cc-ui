@@ -16,7 +16,7 @@ export interface TableColumn {
 /**
  * 主要是方便设置单元格的属性
  */
-interface TableDataValue {
+export interface TableDataValue {
   /**
    * 单元格的值
    */
@@ -32,7 +32,7 @@ export interface TableData {
    */
   ['userData']?: any;
   /** TableColumn的key为TableData的object.key */
-  [key: string]: string | number | TableDataValue;
+  [key: string]: string | number | TableDataValue | any;
 }
 
 export interface CellData {
