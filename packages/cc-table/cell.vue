@@ -19,6 +19,7 @@
 import { defineComponent, PropType, inject, toRaw } from 'vue';
 import { CellData } from './const';
 import { ProvideMsg } from './const';
+import COLOR from 'color';
 export default defineComponent({
   name: 'cc-table-cell',
   props: {
