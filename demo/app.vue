@@ -1,5 +1,5 @@
 <template>
-  <div v-if="true">
+  <div v-if="false">
     <CCTree style="max-height: 100px" :value="treeData" @node-click="onTreeNodeClick" @node-expand="onTreeNodeExpend" @node-collapse="onTreeNodeCollapsed"></CCTree>
     <CCSelect value="1" :data="[]" style="flex: 1"></CCSelect>
   </div>
@@ -14,7 +14,7 @@
     </CCProp>
     <CCInput placeholder="test placeholder" :directory="true"></CCInput>
   </div>
-  <div v-if="true">
+  <div v-if="false">
     <div style="min-height: 20px; width: 100%; height: 50px; background-color: rgb(138, 138, 138)"></div>
     <CCDivider :vertical="false" color="#444"></CCDivider>
     <div style="min-height: 20px; width: 100%; height: 50px; background-color: rgb(214, 214, 214)"></div>
@@ -24,12 +24,15 @@
     <CCDivider :vertical="true" color="#444"></CCDivider>
     <div style="min-width: 20px; flex: 1; height: 100%; background-color: rgb(214, 214, 214)"></div>
   </div>
+  <div v-if="true">
+    <CCButton @confirm="changeTableData">change table data</CCButton>
+    <CCTable class="myTable" @cell-context-menu="onCellContextMenu" @cell-click="onCellClick" :columns="tableColumns" :data="tableData" :color="tableColor" headColor="#888"></CCTable>
+  </div>
   <div v-if="false">
     <div style="display: flex; flex-direction: row; align-items: center">
       <CCButtonGroup :recover="true" :items="buttonGroup"> </CCButtonGroup>
       <CCButton @click="onHideBtnGroupFirst">visible btnGroup 1</CCButton>
     </div>
-    <CCTable v-if="false" class="myTable" :columns="tableColumns" :data="tableData" :color="tableColor" headColor="#888"></CCTable>
     <div>
       <CCButton @click="onShowDialog">dialog</CCButton>
       <CCButton @click="onFootBar">footbar</CCButton>
@@ -101,9 +104,10 @@
       </CCProp>
     </div>
     <div style="flex: 1"></div>
-    <CCCommand></CCCommand>
     <CCFootBar version="1.0"></CCFootBar>
   </div>
+  <CCCommand></CCCommand>
+  <CCMenu></CCMenu>
 </template>
 <script lang="ts">
 import { defineComponent, ref, onMounted, reactive } from 'vue';
@@ -115,10 +119,11 @@ import { TableColumn, TableData } from '../packages/cc-table/const';
 import { ButtonGroupItem } from '../packages/cc-button-group/const';
 import { ITreeData } from '../packages/cc-tree/const';
 import { CmdData } from '../packages/cc-command/const';
-const { CCTree, CCDivider, CCButtonGroup, CCTable, CCCommand, CCColor, CCFootBar, CCButton, CCHelp, CCInputNumber, CCDialog, CCSection, CCSelect, CCProp, CCTextarea, CCInput, CCCheckBox } = ccui.components;
+import { CellData } from '../packages/cc-table/const';
+const { CCTree, CCDivider, CCButtonGroup, CCTable, CCCommand, CCColor, CCFootBar, CCButton, CCHelp, CCInputNumber, CCDialog, CCSection, CCSelect, CCProp, CCTextarea, CCInput, CCCheckBox, CCMenu } = ccui.components;
 export default defineComponent({
   name: 'app',
-  components: { CCTree, CCDivider, CCButtonGroup, CCTable, CCCommand, CCFootBar, CCColor, CCButton, CCHelp, CCInputNumber, CCDialog, CCSection, CCSelect, CCProp, CCTextarea, CCInput, CCCheckBox },
+  components: { CCMenu, CCTree, CCDivider, CCButtonGroup, CCTable, CCCommand, CCFootBar, CCColor, CCButton, CCHelp, CCInputNumber, CCDialog, CCSection, CCSelect, CCProp, CCTextarea, CCInput, CCCheckBox },
   setup() {
     const value = ref('123');
     const selectData = ref([
@@ -173,7 +178,11 @@ export default defineComponent({
         selectValue.value = '3';
         selectData.value.push({ label: '4', value: 4 });
         tableColor.value = '2';
-        tableData.value.push({ name: 'd', address: '1', age: 44 });
+        tableData.value.push({
+          name: { value: 'add name', color: '#ff0000' },
+          address: 'add address',
+          age: 44,
+        });
       }, 1000);
       ccui.footbar.registerCmd({
         label: 'cmd1',
@@ -265,6 +274,9 @@ export default defineComponent({
       tableColumns,
       tableData,
       tableColor,
+      changeTableData() {
+        tableData.value[0].name = 'abc';
+      },
       onTreeNodeClick(data: ITreeData) {
         console.log('click:', data);
       },
@@ -314,6 +326,20 @@ export default defineComponent({
       },
       onChangeTextarea(v: string) {
         console.log(v);
+      },
+      onCellClick(data: CellData) {
+        console.log(data);
+      },
+      onCellContextMenu(event: PointerEvent, data: CellData) {
+        console.log(event, data);
+        ccui.menu.showMenuByMouseEvent(event, [
+          {
+            name: 'test',
+            callback: () => {
+              console.log('test');
+            },
+          },
+        ]);
       },
       onCommand() {
         const cmd: CmdData[] = [];

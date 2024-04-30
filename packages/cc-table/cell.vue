@@ -54,6 +54,9 @@ export default defineComponent({
         if (data.width) {
           css += `width:${data.width}px;min-width:${data.width}px;`;
         }
+        if (data.bgColor) {
+          css += `background-color:${data.bgColor};`;
+        }
         return css;
       },
     };

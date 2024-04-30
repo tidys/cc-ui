@@ -13,13 +13,26 @@ export interface TableColumn {
    */
   breakChar?: boolean;
 }
+/**
+ * 主要是方便设置单元格的属性
+ */
+interface TableDataValue {
+  /**
+   * 单元格的值
+   */
+  value: string | number;
+  /**
+   * 单元格的背景颜色
+   */
+  color?: string;
+}
 export interface TableData {
   /**
    * 用户可以自定定义数据，这个CellData数据在table事件中会透传给回调
    */
   ['userData']?: any;
   /** TableColumn的key为TableData的object.key */
-  [key: string]: any;
+  [key: string]: string | number | TableDataValue;
 }
 
 export interface CellData {
@@ -50,7 +63,10 @@ export interface CellData {
    * 列的宽度
    */
   width?: number;
-
+  /**
+   * 单元格的背景颜色
+   */
+  bgColor?: string;
   /**
    * word-break: break-all;
    */

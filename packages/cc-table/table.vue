@@ -128,6 +128,16 @@ export default defineComponent({
             console.warn(item);
             console.warn(`invalid column data, not exist key: ${key}`);
           }
+          let value = '';
+          let bgColor = '';
+          const itemKey = item[key];
+          if (typeof itemKey === 'object') {
+            bgColor = itemKey.color || '';
+            value = itemKey.value.toString();
+          } else if (typeof itemKey === 'string' || typeof itemKey === 'number') {
+            bgColor = '';
+            value = itemKey.toString();
+          }
           line.data.push({
             breakChar: !!breakChar,
             width: width,
@@ -136,7 +146,8 @@ export default defineComponent({
             rowIndexCurrent: rowCurrent,
             rowIndexTotal: rowTotal,
             key: key,
-            value: item[key],
+            value,
+            bgColor,
             userData: item.userData || null,
           });
         }
