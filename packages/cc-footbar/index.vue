@@ -7,7 +7,7 @@
 </template>
 <script lang="ts">
 import { defineComponent, onMounted, onUnmounted, ref, watch } from 'vue';
-import { FootBarMsg, FootCmd } from './const';
+import { FootBarMsg, FootCmd, TipOptions } from './const';
 import CMD from './cmd.vue';
 import ccui from '../index';
 export default defineComponent({
@@ -23,16 +23,22 @@ export default defineComponent({
     const verString = ref(props.version || '');
     const tips = ref('');
     let timer: number | null = null;
-    const doTips = (msg: string) => {
+    const doTips = (msg: string, opts: TipOptions) => {
       if (timer !== null) {
         clearTimeout(timer);
         timer = null;
       }
-      tips.value = msg;
-      timer = setTimeout(() => {
-        timer = null;
-        tips.value = '';
-      }, 2 * 1000);
+
+      const { duration } = opts;
+      if (duration && duration <= 0) {
+        tips.value = msg;
+      } else {
+        tips.value = msg;
+        timer = setTimeout(() => {
+          timer = null;
+          tips.value = '';
+        }, duration || 2 * 1000);
+      }
     };
     const commands = ref<FootCmd[]>([]);
     function regCmd(footCmd: FootCmd) {
