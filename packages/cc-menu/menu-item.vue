@@ -23,7 +23,7 @@ export default defineComponent({
     return {
       onClick() {
         const item: IUiMenuItem = props.data;
-        if (!item.enabled) {
+        if (item.enabled === false) {
           return;
         }
         if (item && item.callback) {
