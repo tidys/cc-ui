@@ -24,7 +24,11 @@ export interface TableDataValue {
   /**
    * 单元格的背景颜色
    */
-  color?: string;
+  bgColor?: string;
+  /**
+   * 单元格文字的颜色
+   */
+  textColor?: string;
 }
 export interface TableData {
   /**
@@ -67,6 +71,10 @@ export interface CellData {
    * 单元格的背景颜色
    */
   bgColor?: string;
+  /**
+   * 单元格文字的颜色
+   */
+  textColor?: string;
   /**
    * word-break: break-all;
    */

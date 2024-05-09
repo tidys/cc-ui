@@ -10,7 +10,7 @@
 </template>
 <script lang="ts">
 import { defineComponent, PropType, toRaw, provide, ref, onMounted, watch, watchEffect } from 'vue';
-import { CellData, LineData, TableColumn, TableData } from './const';
+import { CellData, LineData, TableColumn, TableData, TableDataValue } from './const';
 // @ts-ignore
 import resize from 'vue3-resize-directive';
 import CCTableBody from './table-body.vue';
@@ -116,7 +116,7 @@ export default defineComponent({
 
       // 收集body的行数据
       let index = 0;
-      tableData.map((item) => {
+      tableData.map((item: TableData) => {
         rowCurrent++;
         const keys = Object.keys(item);
         const line: LineData = { index: ++index, data: [] };
@@ -130,12 +130,15 @@ export default defineComponent({
           }
           let value = '';
           let bgColor = '';
+          let textColor = '';
           const itemKey = item[key];
           if (typeof itemKey === 'object') {
-            bgColor = itemKey.color || '';
-            value = itemKey.value.toString();
+            const vv = itemKey as TableDataValue;
+            bgColor = vv.bgColor || '';
+            textColor = vv.textColor || '';
+            value = vv.value.toString();
           } else if (typeof itemKey === 'string' || typeof itemKey === 'number') {
-            bgColor = '';
+            textColor = bgColor = '';
             value = itemKey.toString();
           }
           line.data.push({
@@ -148,6 +151,7 @@ export default defineComponent({
             key: key,
             value,
             bgColor,
+            textColor,
             userData: item.userData || null,
           });
         }

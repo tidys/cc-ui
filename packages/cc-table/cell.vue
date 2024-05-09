@@ -57,6 +57,9 @@ export default defineComponent({
         if (props.data.bgColor) {
           css += `background-color:${props.data.bgColor};`;
         }
+        if (props.data.textColor) {
+          css += `color:${props.data.textColor};`;
+        }
         return css;
       },
     };
