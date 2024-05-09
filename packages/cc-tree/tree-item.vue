@@ -6,7 +6,7 @@
         {{ value.text }}
       </div>
     </div>
-    <div v-if="!fold">
+    <div v-if="!fold && value.children">
       <cc-tree-item ref="childrenElements" v-for="(item, index) in value.children" :key="index" :value="item" :indent="indent + 1"></cc-tree-item>
     </div>
   </div>
@@ -30,6 +30,7 @@ export default defineComponent({
       default: () => ({
         text: '',
       }),
+      required: true,
     },
     indent: {
       type: Number,
@@ -63,11 +64,14 @@ export default defineComponent({
       selected = false;
       updateBgColor();
     }
+    function handSelect(index: number) {}
     onMounted(() => {
       emitter.on(Msg.SelectReset, selectReset);
+      emitter.on(Msg.HandSelect, handSelect);
     });
     onUnmounted(() => {
       emitter.off(Msg.SelectReset, selectReset);
+      emitter.off(Msg.HandSelect, handSelect);
     });
     function updateBgColor() {
       if (selected) {

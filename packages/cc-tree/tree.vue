@@ -1,13 +1,13 @@
 <template>
   <div class="tree ccui-scrollbar" :style="{ backgroundColor: bgColor }" ref="treeElement" tabindex="0">
-    <TreeItem v-for="(item, index) in value" :key="index" :color="bgColor" :value="item" ref="childrenElements"></TreeItem>
+    <TreeItem v-for="(item, index) in value" :idx="0" :key="index" :color="bgColor" :value="item" ref="childrenElements"></TreeItem>
   </div>
 </template>
 
 <script lang="ts">
 import { ref, defineComponent, PropType, provide, onMounted, onUnmounted, watch, toRaw } from 'vue';
 import { TinyEmitter } from 'tiny-emitter';
-import { ITreeData, ProvideKeys } from './const';
+import { ITreeData, Msg, ProvideKeys } from './const';
 import TreeItem from './tree-item.vue';
 
 export default defineComponent({
@@ -18,6 +18,7 @@ export default defineComponent({
     value: {
       type: Array as PropType<Array<ITreeData>>,
       default: () => [],
+      required: true,
     },
     bgColor: {
       type: String,
@@ -164,7 +165,22 @@ export default defineComponent({
     provide(ProvideKeys.NodeCollapse, (data: ITreeData) => {
       emit('node-collapse', data);
     });
-    return { treeData, treeElement, childrenElements };
+    return {
+      treeData,
+      treeElement,
+      childrenElements,
+      handSelect(index: number) {
+        // emitter.emit(Msg.HandSelect, index);
+        const len = childrenElements.value.length;
+        if (index >= len) {
+          return;
+        }
+        const item = childrenElements.value[index];
+        if (item.doSelect) {
+          item.doSelect();
+        }
+      },
+    };
   },
 });
 </script>
