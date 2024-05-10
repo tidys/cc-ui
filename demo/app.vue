@@ -1,4 +1,7 @@
 <template>
+  <div v-if="true">
+    <CCProcess :percent="percent"> </CCProcess>
+  </div>
   <div v-if="false">
     <CCTree style="max-height: 100px" :value="treeData" @node-click="onTreeNodeClick" @node-expand="onTreeNodeExpend" @node-collapse="onTreeNodeCollapsed"></CCTree>
     <CCSelect value="1" :data="[]" style="flex: 1"></CCSelect>
@@ -24,7 +27,7 @@
     <CCDivider :vertical="true" color="#444"></CCDivider>
     <div style="min-width: 20px; flex: 1; height: 100%; background-color: rgb(214, 214, 214)"></div>
   </div>
-  <div v-if="true">
+  <div v-if="false">
     <div>
       <CCButton @confirm="changeTableData">change table[0] data</CCButton>
       <CCButton @confirm="changeTableColor">change table color</CCButton>
@@ -123,10 +126,10 @@ import { ButtonGroupItem } from '../packages/cc-button-group/const';
 import { ITreeData } from '../packages/cc-tree/const';
 import { CmdData } from '../packages/cc-command/const';
 import { CellData } from '../packages/cc-table/const';
-const { CCTree, CCDivider, CCButtonGroup, CCTable, CCCommand, CCColor, CCFootBar, CCButton, CCHelp, CCInputNumber, CCDialog, CCSection, CCSelect, CCProp, CCTextarea, CCInput, CCCheckBox, CCMenu } = ccui.components;
+const { CCTree, CCDivider, CCButtonGroup, CCTable, CCProcess, CCCommand, CCColor, CCFootBar, CCButton, CCHelp, CCInputNumber, CCDialog, CCSection, CCSelect, CCProp, CCTextarea, CCInput, CCCheckBox, CCMenu } = ccui.components;
 export default defineComponent({
   name: 'app',
-  components: { CCMenu, CCTree, CCDivider, CCButtonGroup, CCTable, CCCommand, CCFootBar, CCColor, CCButton, CCHelp, CCInputNumber, CCDialog, CCSection, CCSelect, CCProp, CCTextarea, CCInput, CCCheckBox },
+  components: { CCProcess, CCMenu, CCTree, CCDivider, CCButtonGroup, CCTable, CCCommand, CCFootBar, CCColor, CCButton, CCHelp, CCInputNumber, CCDialog, CCSection, CCSelect, CCProp, CCTextarea, CCInput, CCCheckBox },
   setup() {
     const value = ref('123');
     const selectData = ref([
@@ -270,7 +273,16 @@ export default defineComponent({
       });
     }
     const btnDisabled = ref(true);
+    const percent = ref(100);
+    setInterval(() => {
+      // return;
+      percent.value += 10;
+      if (percent.value > 100) {
+        percent.value = 0;
+      }
+    }, 2000);
     return {
+      percent,
       btnDisabled,
       treeData,
       buttonGroup,

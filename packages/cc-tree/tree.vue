@@ -169,7 +169,7 @@ export default defineComponent({
       treeData,
       treeElement,
       childrenElements,
-      handSelect(index: number) {
+      handSelect(index: number = 0) {
         // emitter.emit(Msg.HandSelect, index);
         const len = childrenElements.value.length;
         if (index >= len) {
