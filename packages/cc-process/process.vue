@@ -1,6 +1,8 @@
 <template>
   <div class="process" :style="getBgStyle()" ref="bgElement">
-    <div class="content" :style="getContentStyle()"></div>
+    <div class="content" :style="getContentStyle()">
+      <div class="tips" :style="getTipStyle()">{{ percent }}%</div>
+    </div>
   </div>
 </template>
 <script lang="ts">
@@ -53,6 +55,12 @@ export default defineComponent({
         ret.push(`border-radius:${props.size / 2}px`);
         return ret.join(';');
       },
+      getTipStyle() {
+        const ret: string[] = [];
+        ret.push(`line-height:${props.size}px`);
+        ret.push(`font-size:${props.size}px`);
+        return ret.join(';');
+      },
     };
   },
 });
@@ -63,6 +71,12 @@ export default defineComponent({
   box-sizing: border-box;
   .content {
     box-sizing: border-box;
+    display: flex;
+    align-items: center;
+    .tips {
+      margin-left: 10px;
+      line-height: 100%;
+    }
   }
 }
 </style>
