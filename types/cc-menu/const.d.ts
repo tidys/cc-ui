@@ -1,6 +1,6 @@
 export interface IUiMenuItem {
     name: string;
-    enabled?: true;
+    enabled?: boolean;
     callback: (item: IUiMenuItem) => void | null;
 }
 export declare const Msg: {

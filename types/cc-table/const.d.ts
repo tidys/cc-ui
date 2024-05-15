@@ -12,9 +12,30 @@ export interface TableColumn {
      */
     breakChar?: boolean;
 }
+/**
+ * 主要是方便设置单元格的属性
+ */
+export interface TableDataValue {
+    /**
+     * 单元格的值
+     */
+    value: string | number;
+    /**
+     * 单元格的背景颜色
+     */
+    bgColor?: string;
+    /**
+     * 单元格文字的颜色
+     */
+    textColor?: string;
+}
 export interface TableData {
+    /**
+     * 用户可以自定定义数据，这个CellData数据在table事件中会透传给回调
+     */
+    ['userData']?: any;
     /** TableColumn的key为TableData的object.key */
-    [key: string]: any;
+    [key: string]: string | number | TableDataValue | any;
 }
 export interface CellData {
     /**
@@ -44,9 +65,21 @@ export interface CellData {
      */
     width?: number;
     /**
+     * 单元格的背景颜色
+     */
+    bgColor?: string;
+    /**
+     * 单元格文字的颜色
+     */
+    textColor?: string;
+    /**
      * word-break: break-all;
      */
     breakChar?: boolean;
+    /**
+     * 用户透传的数据，方便上层判断使用
+     */
+    userData?: any;
 }
 export interface LineData {
     /**行号 */
@@ -54,3 +87,10 @@ export interface LineData {
     /**行数据 */
     data: CellData[];
 }
+export declare const ProvideMsg: {
+    CellClick: string;
+    CellContextMenu: string;
+};
+export declare const EventMsg: {
+    SelectLine: string;
+};

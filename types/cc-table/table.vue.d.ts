@@ -13,6 +13,10 @@ declare const _default: import("vue").DefineComponent<{
         type: StringConstructor;
         default: string;
     };
+    bodyColor: {
+        type: StringConstructor;
+        default: string;
+    };
 }, {
     onResize(): void;
     table: import("vue").Ref<any>;
@@ -27,7 +31,10 @@ declare const _default: import("vue").DefineComponent<{
             key: string;
             value: any;
             width?: number | undefined;
+            bgColor?: string | undefined;
+            textColor?: string | undefined;
             breakChar?: boolean | undefined;
+            userData?: any;
         }[];
     }[]>;
     headLineData: import("vue").Ref<{
@@ -40,10 +47,13 @@ declare const _default: import("vue").DefineComponent<{
             key: string;
             value: any;
             width?: number | undefined;
+            bgColor?: string | undefined;
+            textColor?: string | undefined;
             breakChar?: boolean | undefined;
+            userData?: any;
         }[];
     }[]>;
-}, unknown, {}, {}, import("vue").ComponentOptionsMixin, import("vue").ComponentOptionsMixin, {}, string, import("vue").VNodeProps & import("vue").AllowedComponentProps & import("vue").ComponentCustomProps, Readonly<import("vue").ExtractPropTypes<{
+}, unknown, {}, {}, import("vue").ComponentOptionsMixin, import("vue").ComponentOptionsMixin, ("cell-click" | "cell-context-menu")[], "cell-click" | "cell-context-menu", import("vue").VNodeProps & import("vue").AllowedComponentProps & import("vue").ComponentCustomProps, Readonly<import("vue").ExtractPropTypes<{
     columns: {
         type: PropType<TableColumn[]>;
         default: () => never[];
@@ -56,9 +66,17 @@ declare const _default: import("vue").DefineComponent<{
         type: StringConstructor;
         default: string;
     };
-}>>, {
+    bodyColor: {
+        type: StringConstructor;
+        default: string;
+    };
+}>> & {
+    "onCell-click"?: ((...args: any[]) => any) | undefined;
+    "onCell-context-menu"?: ((...args: any[]) => any) | undefined;
+}, {
     data: TableData[];
     columns: TableColumn[];
     headColor: string;
+    bodyColor: string;
 }, {}>;
 export default _default;

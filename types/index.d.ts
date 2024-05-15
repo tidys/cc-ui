@@ -27,6 +27,7 @@ declare const _default: {
             value: {
                 type: import("vue").PropType<import("./cc-tree/const").ITreeData[]>;
                 default: () => never[];
+                required: true;
             };
             bgColor: {
                 type: StringConstructor;
@@ -41,6 +42,7 @@ declare const _default: {
                     default: () => {
                         text: string;
                     };
+                    required: true;
                 };
                 indent: {
                     type: NumberConstructor;
@@ -70,6 +72,7 @@ declare const _default: {
                     default: () => {
                         text: string;
                     };
+                    required: true;
                 };
                 indent: {
                     type: NumberConstructor;
@@ -84,10 +87,12 @@ declare const _default: {
                 value: import("./cc-tree/const").ITreeData;
                 indent: number;
             }, {}>[]>;
+            handSelect(index?: number): void;
         }, unknown, {}, {}, import("vue").ComponentOptionsMixin, import("vue").ComponentOptionsMixin, {}, string, import("vue").VNodeProps & import("vue").AllowedComponentProps & import("vue").ComponentCustomProps, Readonly<import("vue").ExtractPropTypes<{
             value: {
                 type: import("vue").PropType<import("./cc-tree/const").ITreeData[]>;
                 default: () => never[];
+                required: true;
             };
             bgColor: {
                 type: StringConstructor;
@@ -96,6 +101,51 @@ declare const _default: {
         }>>, {
             value: import("./cc-tree/const").ITreeData[];
             bgColor: string;
+        }, {}>;
+        CCProcess: import("vue").DefineComponent<{
+            percent: {
+                type: NumberConstructor;
+                default: number;
+            };
+            size: {
+                type: NumberConstructor;
+                default: number;
+            };
+            color: {
+                type: StringConstructor;
+                default: string;
+            };
+            bgColor: {
+                type: StringConstructor;
+                default: string;
+            };
+        }, {
+            bgElement: import("vue").Ref<HTMLElement | undefined>;
+            getBgStyle(): string;
+            getContentStyle(): string;
+            getTipStyle(): string;
+        }, unknown, {}, {}, import("vue").ComponentOptionsMixin, import("vue").ComponentOptionsMixin, {}, string, import("vue").VNodeProps & import("vue").AllowedComponentProps & import("vue").ComponentCustomProps, Readonly<import("vue").ExtractPropTypes<{
+            percent: {
+                type: NumberConstructor;
+                default: number;
+            };
+            size: {
+                type: NumberConstructor;
+                default: number;
+            };
+            color: {
+                type: StringConstructor;
+                default: string;
+            };
+            bgColor: {
+                type: StringConstructor;
+                default: string;
+            };
+        }>>, {
+            color: string;
+            size: number;
+            bgColor: string;
+            percent: number;
         }, {}>;
         CCDivider: import("vue").DefineComponent<{
             vertical: {
@@ -191,6 +241,10 @@ declare const _default: {
                 type: StringConstructor;
                 default: string;
             };
+            bodyColor: {
+                type: StringConstructor;
+                default: string;
+            };
         }, {
             onResize(): void;
             table: import("vue").Ref<any>;
@@ -205,7 +259,10 @@ declare const _default: {
                     key: string;
                     value: any;
                     width?: number | undefined;
+                    bgColor?: string | undefined;
+                    textColor?: string | undefined;
                     breakChar?: boolean | undefined;
+                    userData?: any;
                 }[];
             }[]>;
             headLineData: import("vue").Ref<{
@@ -218,10 +275,13 @@ declare const _default: {
                     key: string;
                     value: any;
                     width?: number | undefined;
+                    bgColor?: string | undefined;
+                    textColor?: string | undefined;
                     breakChar?: boolean | undefined;
+                    userData?: any;
                 }[];
             }[]>;
-        }, unknown, {}, {}, import("vue").ComponentOptionsMixin, import("vue").ComponentOptionsMixin, {}, string, import("vue").VNodeProps & import("vue").AllowedComponentProps & import("vue").ComponentCustomProps, Readonly<import("vue").ExtractPropTypes<{
+        }, unknown, {}, {}, import("vue").ComponentOptionsMixin, import("vue").ComponentOptionsMixin, ("cell-click" | "cell-context-menu")[], "cell-click" | "cell-context-menu", import("vue").VNodeProps & import("vue").AllowedComponentProps & import("vue").ComponentCustomProps, Readonly<import("vue").ExtractPropTypes<{
             columns: {
                 type: import("vue").PropType<table.TableColumn[]>;
                 default: () => never[];
@@ -234,10 +294,18 @@ declare const _default: {
                 type: StringConstructor;
                 default: string;
             };
-        }>>, {
+            bodyColor: {
+                type: StringConstructor;
+                default: string;
+            };
+        }>> & {
+            "onCell-click"?: ((...args: any[]) => any) | undefined;
+            "onCell-context-menu"?: ((...args: any[]) => any) | undefined;
+        }, {
             data: table.TableData[];
             columns: table.TableColumn[];
             headColor: string;
+            bodyColor: string;
         }, {}>;
         CCCommand: import("vue").DefineComponent<{
             items: {
@@ -653,7 +721,7 @@ declare const _default: {
             menuEl: import("vue").Ref<HTMLDivElement | undefined>;
             menus: import("vue").Ref<{
                 name: string;
-                enabled?: true | undefined;
+                enabled?: boolean | undefined;
                 callback: (item: menu.IUiMenuItem) => void | null;
             }[]>;
             menuPositionX: import("vue").Ref<number>;

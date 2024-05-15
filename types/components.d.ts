@@ -4,6 +4,7 @@ export declare const components: {
         value: {
             type: import("vue").PropType<import("./cc-tree/const").ITreeData[]>;
             default: () => never[];
+            required: true;
         };
         bgColor: {
             type: StringConstructor;
@@ -18,6 +19,7 @@ export declare const components: {
                 default: () => {
                     text: string;
                 };
+                required: true;
             };
             indent: {
                 type: NumberConstructor;
@@ -47,6 +49,7 @@ export declare const components: {
                 default: () => {
                     text: string;
                 };
+                required: true;
             };
             indent: {
                 type: NumberConstructor;
@@ -61,10 +64,12 @@ export declare const components: {
             value: import("./cc-tree/const").ITreeData;
             indent: number;
         }, {}>[]>;
+        handSelect(index?: number): void;
     }, unknown, {}, {}, import("vue").ComponentOptionsMixin, import("vue").ComponentOptionsMixin, {}, string, import("vue").VNodeProps & import("vue").AllowedComponentProps & import("vue").ComponentCustomProps, Readonly<import("vue").ExtractPropTypes<{
         value: {
             type: import("vue").PropType<import("./cc-tree/const").ITreeData[]>;
             default: () => never[];
+            required: true;
         };
         bgColor: {
             type: StringConstructor;
@@ -73,6 +78,51 @@ export declare const components: {
     }>>, {
         value: import("./cc-tree/const").ITreeData[];
         bgColor: string;
+    }, {}>;
+    CCProcess: import("vue").DefineComponent<{
+        percent: {
+            type: NumberConstructor;
+            default: number;
+        };
+        size: {
+            type: NumberConstructor;
+            default: number;
+        };
+        color: {
+            type: StringConstructor;
+            default: string;
+        };
+        bgColor: {
+            type: StringConstructor;
+            default: string;
+        };
+    }, {
+        bgElement: import("vue").Ref<HTMLElement | undefined>;
+        getBgStyle(): string;
+        getContentStyle(): string;
+        getTipStyle(): string;
+    }, unknown, {}, {}, import("vue").ComponentOptionsMixin, import("vue").ComponentOptionsMixin, {}, string, import("vue").VNodeProps & import("vue").AllowedComponentProps & import("vue").ComponentCustomProps, Readonly<import("vue").ExtractPropTypes<{
+        percent: {
+            type: NumberConstructor;
+            default: number;
+        };
+        size: {
+            type: NumberConstructor;
+            default: number;
+        };
+        color: {
+            type: StringConstructor;
+            default: string;
+        };
+        bgColor: {
+            type: StringConstructor;
+            default: string;
+        };
+    }>>, {
+        color: string;
+        size: number;
+        bgColor: string;
+        percent: number;
     }, {}>;
     CCDivider: import("vue").DefineComponent<{
         vertical: {
@@ -168,6 +218,10 @@ export declare const components: {
             type: StringConstructor;
             default: string;
         };
+        bodyColor: {
+            type: StringConstructor;
+            default: string;
+        };
     }, {
         onResize(): void;
         table: import("vue").Ref<any>;
@@ -182,7 +236,10 @@ export declare const components: {
                 key: string;
                 value: any;
                 width?: number | undefined;
+                bgColor?: string | undefined;
+                textColor?: string | undefined;
                 breakChar?: boolean | undefined;
+                userData?: any;
             }[];
         }[]>;
         headLineData: import("vue").Ref<{
@@ -195,10 +252,13 @@ export declare const components: {
                 key: string;
                 value: any;
                 width?: number | undefined;
+                bgColor?: string | undefined;
+                textColor?: string | undefined;
                 breakChar?: boolean | undefined;
+                userData?: any;
             }[];
         }[]>;
-    }, unknown, {}, {}, import("vue").ComponentOptionsMixin, import("vue").ComponentOptionsMixin, {}, string, import("vue").VNodeProps & import("vue").AllowedComponentProps & import("vue").ComponentCustomProps, Readonly<import("vue").ExtractPropTypes<{
+    }, unknown, {}, {}, import("vue").ComponentOptionsMixin, import("vue").ComponentOptionsMixin, ("cell-click" | "cell-context-menu")[], "cell-click" | "cell-context-menu", import("vue").VNodeProps & import("vue").AllowedComponentProps & import("vue").ComponentCustomProps, Readonly<import("vue").ExtractPropTypes<{
         columns: {
             type: import("vue").PropType<import("./cc-table/const").TableColumn[]>;
             default: () => never[];
@@ -211,10 +271,18 @@ export declare const components: {
             type: StringConstructor;
             default: string;
         };
-    }>>, {
+        bodyColor: {
+            type: StringConstructor;
+            default: string;
+        };
+    }>> & {
+        "onCell-click"?: ((...args: any[]) => any) | undefined;
+        "onCell-context-menu"?: ((...args: any[]) => any) | undefined;
+    }, {
         data: import("./cc-table/const").TableData[];
         columns: import("./cc-table/const").TableColumn[];
         headColor: string;
+        bodyColor: string;
     }, {}>;
     CCCommand: import("vue").DefineComponent<{
         items: {
@@ -630,7 +698,7 @@ export declare const components: {
         menuEl: import("vue").Ref<HTMLDivElement | undefined>;
         menus: import("vue").Ref<{
             name: string;
-            enabled?: true | undefined;
+            enabled?: boolean | undefined;
             callback: (item: import("./cc-menu/const").IUiMenuItem) => void | null;
         }[]>;
         menuPositionX: import("vue").Ref<number>;

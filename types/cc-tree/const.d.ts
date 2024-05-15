@@ -6,6 +6,7 @@ export declare const ProvideKeys: {
 };
 export declare const Msg: {
     SelectReset: string;
+    HandSelect: string;
 };
 export interface ITreeData {
     /**

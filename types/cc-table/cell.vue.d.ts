@@ -10,6 +10,8 @@ declare const _default: import("vue").DefineComponent<{
         default: boolean;
     };
 }, {
+    onClick(): void;
+    onContextMenu(event: MouseEvent): void;
     calcStyle(): string;
 }, unknown, {}, {}, import("vue").ComponentOptionsMixin, import("vue").ComponentOptionsMixin, {}, string, import("vue").VNodeProps & import("vue").AllowedComponentProps & import("vue").ComponentCustomProps, Readonly<import("vue").ExtractPropTypes<{
     data: {

@@ -13,6 +13,10 @@ declare const _default: import("vue").DefineComponent<{
         type: PropType<LineData[]>;
         default: () => never[];
     };
+    color: {
+        type: StringConstructor;
+        default: string;
+    };
 }, {}, unknown, {}, {}, import("vue").ComponentOptionsMixin, import("vue").ComponentOptionsMixin, {}, string, import("vue").VNodeProps & import("vue").AllowedComponentProps & import("vue").ComponentCustomProps, Readonly<import("vue").ExtractPropTypes<{
     isHeader: {
         type: BooleanConstructor;
@@ -26,8 +30,13 @@ declare const _default: import("vue").DefineComponent<{
         type: PropType<LineData[]>;
         default: () => never[];
     };
+    color: {
+        type: StringConstructor;
+        default: string;
+    };
 }>>, {
     data: LineData[];
+    color: string;
     isHeader: boolean;
     columns: TableColumn[];
 }, {}>;

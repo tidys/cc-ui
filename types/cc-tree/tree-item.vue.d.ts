@@ -6,6 +6,7 @@ declare const _default: import("vue").DefineComponent<{
         default: () => {
             text: string;
         };
+        required: true;
     };
     indent: {
         type: NumberConstructor;
@@ -35,6 +36,7 @@ declare const _default: import("vue").DefineComponent<{
         default: () => {
             text: string;
         };
+        required: true;
     };
     indent: {
         type: NumberConstructor;

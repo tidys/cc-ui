@@ -16,3 +16,10 @@ export interface FootCmd {
     cmds: Array<CmdData>;
 }
 export declare function registerCmd(footCmd: FootCmd): void;
+export interface TipOptions {
+    /**
+     * 显示的时间，单位毫秒，如果小于等于0，则永久显示，直到下个提示
+     */
+    duration?: number;
+}
+export declare function showTips(str: string, opts?: TipOptions): void;

@@ -4,6 +4,7 @@ declare const _default: import("vue").DefineComponent<{
     value: {
         type: PropType<ITreeData[]>;
         default: () => never[];
+        required: true;
     };
     bgColor: {
         type: StringConstructor;
@@ -18,6 +19,7 @@ declare const _default: import("vue").DefineComponent<{
             default: () => {
                 text: string;
             };
+            required: true;
         };
         indent: {
             type: NumberConstructor;
@@ -47,6 +49,7 @@ declare const _default: import("vue").DefineComponent<{
             default: () => {
                 text: string;
             };
+            required: true;
         };
         indent: {
             type: NumberConstructor;
@@ -61,10 +64,12 @@ declare const _default: import("vue").DefineComponent<{
         value: ITreeData;
         indent: number;
     }, {}>[]>;
+    handSelect(index?: number): void;
 }, unknown, {}, {}, import("vue").ComponentOptionsMixin, import("vue").ComponentOptionsMixin, {}, string, import("vue").VNodeProps & import("vue").AllowedComponentProps & import("vue").ComponentCustomProps, Readonly<import("vue").ExtractPropTypes<{
     value: {
         type: PropType<ITreeData[]>;
         default: () => never[];
+        required: true;
     };
     bgColor: {
         type: StringConstructor;
