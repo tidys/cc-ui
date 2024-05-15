@@ -34,7 +34,7 @@
     </div>
     <CCTable class="myTable" @cell-context-menu="onCellContextMenu" @cell-click="onCellClick" :columns="tableColumns" :data="tableData" :color="tableColor" headColor="#888"></CCTable>
   </div>
-  <div v-if="false">
+  <div v-if="true">
     <div style="display: flex; flex-direction: row; align-items: center">
       <CCButtonGroup :recover="true" :items="buttonGroup"> </CCButtonGroup>
       <CCButton @click="onHideBtnGroupFirst">visible btnGroup 1</CCButton>
@@ -42,6 +42,7 @@
     <div>
       <CCButton @click="onShowDialog">dialog</CCButton>
       <CCButton @click="onFootBar">footbar</CCButton>
+      <CCButton @click="onMenu">test menu</CCButton>
       <CCDialog></CCDialog>
       <CCButton @click="onCommand">command</CCButton>
     </div>

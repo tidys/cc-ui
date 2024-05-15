@@ -1,6 +1,6 @@
 <template>
   <div class="ui-menu-item" @mousedown.capture.stop.prevent="onClick">
-    <span style="white-space: nowrap">{{ data.name }}</span>
+    <span class="text">{{ data.name }}</span>
   </div>
 </template>
 
@@ -40,14 +40,17 @@ export default defineComponent({
   overflow: hidden;
   text-overflow: ellipsis;
   white-space: nowrap;
+  margin: 2px 0;
   cursor: pointer;
-
-  span {
-    user-select: none;
+  &:hover {
+    background-color: #b0acac;
   }
-}
-
-.ui-menu-item:hover {
-  background-color: #b0acac;
+  .text {
+    user-select: none;
+    white-space: nowrap;
+    font-size: 15px;
+    line-height: 15px;
+    color: black;
+  }
 }
 </style>
