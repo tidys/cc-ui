@@ -47,7 +47,6 @@ export default defineComponent({
         }
         if (bgElement.value) {
           const total = bgElement.value.getBoundingClientRect().width;
-          console.log(total);
           const currentWidth = (props.percent / 100) * total;
           ret.push(`width:${currentWidth}px`);
         }
@@ -74,6 +73,7 @@ export default defineComponent({
     display: flex;
     align-items: center;
     .tips {
+      user-select: none;
       margin-left: 10px;
       line-height: 100%;
     }

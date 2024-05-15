@@ -110,7 +110,7 @@ export default defineComponent({
           rowIndexCurrent: rowCurrent,
           rowIndexTotal: rowTotal,
           key: item.title,
-          value: item.key,
+          value: item.title || item.key,
         });
       }
 
