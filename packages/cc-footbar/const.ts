@@ -5,9 +5,6 @@ export const FootBarMsg = {
   Tips: 'footbar_tips',
   RegCmd: 'footbar_reg_cmd',
 };
-export function ShowTips(text: string) {
-  ccui.Emitter.emit(FootBarMsg.Tips, text);
-}
 
 export interface FootCmd {
   /**
