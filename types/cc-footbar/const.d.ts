@@ -3,7 +3,6 @@ export declare const FootBarMsg: {
     Tips: string;
     RegCmd: string;
 };
-export declare function ShowTips(text: string): void;
 export interface FootCmd {
     /**
      * 显示的文本，label和icon至少得有一个
