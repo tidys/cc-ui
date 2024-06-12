@@ -19,4 +19,5 @@ import { CCButtonGroup } from './cc-button-group';
 import { CCDivider } from './cc-divider';
 import { CCTree } from './cc-tree';
 import { CCProcess } from './cc-process';
-export const components = { CCTree, CCProcess, CCDivider, CCButtonGroup, CCTable, CCCommand, CCFootBar, CCButton, CCCheckBox, CCColor, CCSection, CCHelp, CCSelect, CCInput, CCInputNumber, CCProp, CCMenu, CCSlider, CCTextarea, CCWindow, CCDialog };
+import { CCAd } from './cc-ad';
+export const components = { CCAd, CCTree, CCProcess, CCDivider, CCButtonGroup, CCTable, CCCommand, CCFootBar, CCButton, CCCheckBox, CCColor, CCSection, CCHelp, CCSelect, CCInput, CCInputNumber, CCProp, CCMenu, CCSlider, CCTextarea, CCWindow, CCDialog };
