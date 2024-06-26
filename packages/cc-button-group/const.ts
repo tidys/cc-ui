@@ -1,5 +1,6 @@
 export const Msg = {
   ButtonTap: 'button-tap',
+  Choose: 'choose',
 };
 export const ProvideKey = {
   Emitter: 'emitter',

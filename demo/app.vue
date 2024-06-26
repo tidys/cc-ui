@@ -1,5 +1,6 @@
 <template>
-  <div v-if="true">
+  <CCAd></CCAd>
+  <div v-if="false">
     <CCProcess :percent="percent"> </CCProcess>
   </div>
   <div v-if="false">
@@ -36,8 +37,9 @@
   </div>
   <div v-if="true">
     <div style="display: flex; flex-direction: row; align-items: center">
-      <CCButtonGroup :recover="true" :items="buttonGroup"> </CCButtonGroup>
+      <CCButtonGroup :choose-item="chooseItem" :recover="true" :items="buttonGroup"> </CCButtonGroup>
       <CCButton @click="onHideBtnGroupFirst">visible btnGroup 1</CCButton>
+      <CCButton @click="onChangeBtnGroupChoose">change choose</CCButton>
     </div>
     <div>
       <CCButton @click="onShowDialog">dialog</CCButton>
@@ -127,10 +129,10 @@ import { ButtonGroupItem } from '../packages/cc-button-group/const';
 import { ITreeData } from '../packages/cc-tree/const';
 import { CmdData } from '../packages/cc-command/const';
 import { CellData } from '../packages/cc-table/const';
-const { CCTree, CCDivider, CCButtonGroup, CCTable, CCProcess, CCCommand, CCColor, CCFootBar, CCButton, CCHelp, CCInputNumber, CCDialog, CCSection, CCSelect, CCProp, CCTextarea, CCInput, CCCheckBox, CCMenu } = ccui.components;
+const { CCTree, CCDivider, CCButtonGroup, CCTable, CCProcess, CCCommand, CCColor, CCFootBar, CCButton, CCHelp, CCInputNumber, CCDialog, CCSection, CCSelect, CCProp, CCTextarea, CCInput, CCCheckBox, CCMenu, CCAd } = ccui.components;
 export default defineComponent({
   name: 'app',
-  components: { CCProcess, CCMenu, CCTree, CCDivider, CCButtonGroup, CCTable, CCCommand, CCFootBar, CCColor, CCButton, CCHelp, CCInputNumber, CCDialog, CCSection, CCSelect, CCProp, CCTextarea, CCInput, CCCheckBox },
+  components: { CCProcess, CCMenu, CCTree, CCDivider, CCButtonGroup, CCTable, CCCommand, CCFootBar, CCColor, CCButton, CCHelp, CCInputNumber, CCDialog, CCSection, CCSelect, CCProp, CCTextarea, CCInput, CCCheckBox, CCAd },
   setup() {
     const value = ref('123');
     const selectData = ref([
@@ -225,14 +227,23 @@ export default defineComponent({
       title: '1',
       icon: 'icon_move',
       visible: true,
+      click() {
+        console.log('icon_move');
+      },
     });
     const buttonGroupData: ButtonGroupItem[] = [
       btnGroupData1,
       {
         icon: 'icon_up_right_arrow',
+        click: () => {
+          console.log('icon_up_right_arrow');
+        },
       },
       {
         icon: 'icon_resize',
+        click: () => {
+          console.log('icon_resize');
+        },
       },
       {
         icon: 'icon_magic',
@@ -282,7 +293,9 @@ export default defineComponent({
         percent.value = 0;
       }
     }, 2000);
+    const chooseItem = ref<ButtonGroupItem>(buttonGroupData[0]);
     return {
+      chooseItem,
       percent,
       btnDisabled,
       treeData,
@@ -308,6 +321,9 @@ export default defineComponent({
       },
       onHideBtnGroupFirst() {
         btnGroupData1.visible = !btnGroupData1.visible; // 无效
+      },
+      onChangeBtnGroupChoose() {
+        chooseItem.value = buttonGroupData[2];
       },
       onOrder() {
         orderTest();

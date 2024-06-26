@@ -3,7 +3,9 @@
     <div v-if="!!data.icon">
       <i class="iconfont" :class="data.icon"></i>
     </div>
-    <div v-else-if="!!data.svg"></div>
+    <div v-else-if="!!data.svg" class="center">
+      <object class="center svg" type="image/svg+xml" :data="data.svg" />
+    </div>
     <div v-else-if="data.text !== undefined">
       {{ data.text || '' }}
     </div>
@@ -47,13 +49,20 @@ export default defineComponent({
 
       updateBgColor();
     };
+    const onChoose = (data: ButtonGroupItem) => {
+      if (data === props.data) {
+        onMouseDown();
+      }
+    };
     const emitter = inject(ProvideKey.Emitter) as TinyEmitter;
     const zIndexFunc = inject(ProvideKey.ZIndex) as () => number;
     onMounted(() => {
       emitter.on(Msg.ButtonTap, onTap);
+      emitter.on(Msg.Choose, onChoose);
     });
     onUnmounted(() => {
       emitter.off(Msg.ButtonTap, onTap);
+      emitter.off(Msg.Choose, onChoose);
     });
     function updateBgColor() {
       if (el && el.value) {
@@ -80,6 +89,14 @@ export default defineComponent({
         // style.zIndex = zIndexFunc().toString();
       }
     }
+    function onMouseDown(event?: MouseEvent) {
+      emitter.emit(Msg.ButtonTap);
+      state = ButtonState.Press;
+      updateBgColor();
+      if (data && data.click) {
+        data.click();
+      }
+    }
     return {
       el,
       backgroundColor,
@@ -95,14 +112,7 @@ export default defineComponent({
         updateBgColor();
       },
       onClick(event: MouseEvent) {},
-      onMouseDown(event: MouseEvent) {
-        emitter.emit(Msg.ButtonTap);
-        state = ButtonState.Press;
-        updateBgColor();
-        if (data && data.click) {
-          data.click();
-        }
-      },
+      onMouseDown,
       onMouseUp(event: MouseEvent) {
         if (recover) {
           state = ButtonState.Normal;
@@ -139,6 +149,15 @@ export default defineComponent({
   &:last-child {
     border-top-right-radius: @radius;
     border-bottom-right-radius: @radius;
+  }
+  .center {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: center;
+  }
+  .svg {
+    pointer-events: none;
   }
 }
 </style>

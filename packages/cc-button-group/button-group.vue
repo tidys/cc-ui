@@ -4,8 +4,8 @@
   </div>
 </template>
 <script lang="ts">
-import { defineComponent, provide, PropType, ref, toRaw, watch } from 'vue';
-import { ButtonGroupItem, ProvideKey } from './const';
+import { defineComponent, provide, PropType, ref, toRaw, watch, onMounted } from 'vue';
+import { ButtonGroupItem, ProvideKey, Msg } from './const';
 import CCButtonGroupItem from './item.vue';
 import { TinyEmitter } from 'tiny-emitter';
 export default defineComponent({
@@ -27,9 +27,28 @@ export default defineComponent({
       type: Boolean,
       default: false,
     },
+    /**
+     * 选择的item，当recover为false的时候，外观才会发生变化
+     */
+    chooseItem: {
+      type: Object as PropType<ButtonGroupItem>,
+      default: () => {
+        return {};
+      },
+    },
   },
   setup(props, ctx) {
     const emitter = new TinyEmitter();
+    watch(
+      () => props.chooseItem,
+      (val: ButtonGroupItem) => {
+        emitter.emit(Msg.Choose, val);
+      }
+    );
+    onMounted(() => {
+      emitter.emit(Msg.Choose, props.chooseItem);
+    });
+
     provide(ProvideKey.Emitter, emitter);
     let zIndex = 0;
     /**
