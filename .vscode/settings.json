@@ -12,6 +12,7 @@
     "editor.tabSize": 2,
     "editor.formatOnSave": true,
     "editor.formatOnSaveMode": "file",
+    "prettier.printWidth": 800,
     "editor.defaultFormatter": "esbenp.prettier-vscode"
   },
   "editor.formatOnSaveMode": "modifications",
