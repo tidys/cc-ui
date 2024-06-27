@@ -15,7 +15,7 @@ import { DialogUrlData, DialogOptions } from '../packages/cc-dialog/const';
 import { CmdData } from '../packages/cc-command/const';
 import { IUiMenuItem } from '../packages/cc-menu/const';
 export default defineComponent({
-  name: 'case1',
+  name: 'case-others',
   components: { CCButton },
   setup(props, ctx) {
     return {

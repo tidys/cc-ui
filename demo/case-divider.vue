@@ -11,7 +11,7 @@ import { defineComponent } from 'vue';
 import ccui from '../packages/index';
 const { CCDivider } = ccui.components;
 export default defineComponent({
-  name: 'case1',
+  name: 'case-divider',
   components: { CCDivider },
   setup(props, ctx) {
     return {};

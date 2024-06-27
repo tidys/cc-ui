@@ -12,7 +12,7 @@ import { defineComponent, ref, onMounted } from 'vue';
 import ccui from '../packages/index';
 const { CCSelect } = ccui.components;
 export default defineComponent({
-  name: 'case1',
+  name: 'case-select',
   components: { CCSelect },
   setup(props, ctx) {
     const selectData = ref([

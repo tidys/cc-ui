@@ -10,10 +10,10 @@
 import { defineComponent, ref, onMounted } from 'vue';
 import { TableColumn, TableData, CellData } from '../packages/cc-table/const';
 import ccui from '../packages/index';
-const { CCTable } = ccui.components;
+const { CCTable, CCButton } = ccui.components;
 export default defineComponent({
-  name: 'case1',
-  components: { CCTable },
+  name: 'case-table',
+  components: { CCTable, CCButton },
   setup(props, ctx) {
     const tableColor = ref('1');
     const tableColumns = ref<TableColumn[]>([
@@ -97,4 +97,8 @@ export default defineComponent({
 });
 </script>
 
-<style scoped lang="less"></style>
+<style scoped lang="less">
+.myTable {
+  display: flex;
+}
+</style>

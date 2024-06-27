@@ -16,7 +16,7 @@ import { defineComponent } from 'vue';
 import ccui from '../packages/index';
 const { CCColor, CCProp, CCInputNumber } = ccui.components;
 export default defineComponent({
-  name: 'case1',
+  name: 'case-input-number',
   components: { CCColor, CCProp, CCInputNumber },
   setup(props, ctx) {
     return {};

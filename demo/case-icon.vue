@@ -11,7 +11,7 @@ import { defineComponent } from 'vue';
 import ccui from '../packages/index';
 const { CCProp } = ccui.components;
 export default defineComponent({
-  name: 'case1',
+  name: 'case-icon',
   components: { CCProp },
   setup(props, ctx) {
     return {};

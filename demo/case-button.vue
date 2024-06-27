@@ -15,7 +15,7 @@ import { defineComponent, ref } from 'vue';
 import ccui from '../packages/index';
 const { CCButton } = ccui.components;
 export default defineComponent({
-  name: 'case1',
+  name: 'case-button',
   components: { CCButton },
   setup(props, ctx) {
     const btnDisabled = ref(true);

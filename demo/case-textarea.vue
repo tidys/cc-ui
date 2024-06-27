@@ -11,7 +11,7 @@ import { defineComponent } from 'vue';
 import ccui from '../packages/index';
 const { CCTextarea, CCProp } = ccui.components;
 export default defineComponent({
-  name: 'case1',
+  name: 'case-textarea',
   components: { CCTextarea, CCProp },
   setup(props, ctx) {
     const onChangeTextarea = (e: any) => {

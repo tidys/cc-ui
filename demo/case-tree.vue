@@ -11,7 +11,7 @@ import { ITreeData } from '../packages/cc-tree/const';
 
 const { CCTree } = ccui.components;
 export default defineComponent({
-  name: 'case1',
+  name: 'case-tree',
   components: { CCTree },
   setup(props, ctx) {
     const treeData = ref<ITreeData[]>([

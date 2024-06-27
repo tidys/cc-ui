@@ -10,7 +10,7 @@ import { defineComponent } from 'vue';
 import ccui from '../packages/index';
 const { CCColor } = ccui.components;
 export default defineComponent({
-  name: 'case1',
+  name: 'case-color',
   components: { CCColor },
   setup(props, ctx) {
     return {};

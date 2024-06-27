@@ -9,10 +9,10 @@
 import { defineComponent, ref, reactive } from 'vue';
 import ccui from '../packages/index';
 import { ButtonGroupItem } from '../packages/cc-button-group/const';
-const { CCButtonGroup } = ccui.components;
+const { CCButtonGroup, CCButton } = ccui.components;
 export default defineComponent({
-  name: 'case1',
-  components: { CCButtonGroup },
+  name: 'case-button-group',
+  components: { CCButtonGroup, CCButton },
   setup(props, ctx) {
     const btnGroupData1: ButtonGroupItem = reactive({
       text: '1',

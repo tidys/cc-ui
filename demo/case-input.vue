@@ -22,7 +22,7 @@ import { defineComponent, ref, onMounted } from 'vue';
 import ccui from '../packages/index';
 const { CCProcess, CCInput } = ccui.components;
 export default defineComponent({
-  name: 'case1',
+  name: 'case-input',
   components: { CCProcess, CCInput },
   setup(props, ctx) {
     const value = ref('123');

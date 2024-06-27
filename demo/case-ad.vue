@@ -7,7 +7,7 @@ import { defineComponent } from 'vue';
 import ccui from '../packages/index';
 const { CCProcess, CCAd } = ccui.components;
 export default defineComponent({
-  name: 'case1',
+  name: 'case-ad',
   components: { CCProcess, CCAd },
   setup(props, ctx) {
     return {};
