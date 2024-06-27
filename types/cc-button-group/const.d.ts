@@ -28,6 +28,10 @@ export interface ButtonGroupItem {
      */
     title?: string;
     /**
+     * 用户自定义数据
+     */
+    userData?: any;
+    /**
      * 点击回调
      */
     click?: () => void;
