@@ -23,6 +23,21 @@ declare const _default: {
     install: (app: App<any>) => void;
     Emitter: TinyEmitter;
     components: {
+        CCAd: import("vue").DefineComponent<{
+            url: {
+                type: StringConstructor;
+                default: string;
+            };
+        }, {
+            text: import("vue").Ref<string>;
+        }, unknown, {}, {}, import("vue").ComponentOptionsMixin, import("vue").ComponentOptionsMixin, {}, string, import("vue").VNodeProps & import("vue").AllowedComponentProps & import("vue").ComponentCustomProps, Readonly<import("vue").ExtractPropTypes<{
+            url: {
+                type: StringConstructor;
+                default: string;
+            };
+        }>>, {
+            url: string;
+        }, {}>;
         CCTree: import("vue").DefineComponent<{
             value: {
                 type: import("vue").PropType<import("./cc-tree/const").ITreeData[]>;
@@ -210,6 +225,10 @@ declare const _default: {
                 type: BooleanConstructor;
                 default: boolean;
             };
+            chooseItem: {
+                type: import("vue").PropType<buttonGroup.ButtonGroupItem>;
+                default: () => {};
+            };
         }, {}, unknown, {}, {}, import("vue").ComponentOptionsMixin, import("vue").ComponentOptionsMixin, {}, string, import("vue").VNodeProps & import("vue").AllowedComponentProps & import("vue").ComponentCustomProps, Readonly<import("vue").ExtractPropTypes<{
             items: {
                 type: import("vue").PropType<buttonGroup.ButtonGroupItem[]>;
@@ -223,10 +242,15 @@ declare const _default: {
                 type: BooleanConstructor;
                 default: boolean;
             };
+            chooseItem: {
+                type: import("vue").PropType<buttonGroup.ButtonGroupItem>;
+                default: () => {};
+            };
         }>>, {
             color: string;
             recover: boolean;
             items: buttonGroup.ButtonGroupItem[];
+            chooseItem: buttonGroup.ButtonGroupItem;
         }, {}>;
         CCTable: import("vue").DefineComponent<{
             columns: {

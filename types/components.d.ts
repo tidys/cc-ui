@@ -1,5 +1,20 @@
 /// <reference types="short-uuid" />
 export declare const components: {
+    CCAd: import("vue").DefineComponent<{
+        url: {
+            type: StringConstructor;
+            default: string;
+        };
+    }, {
+        text: import("vue").Ref<string>;
+    }, unknown, {}, {}, import("vue").ComponentOptionsMixin, import("vue").ComponentOptionsMixin, {}, string, import("vue").VNodeProps & import("vue").AllowedComponentProps & import("vue").ComponentCustomProps, Readonly<import("vue").ExtractPropTypes<{
+        url: {
+            type: StringConstructor;
+            default: string;
+        };
+    }>>, {
+        url: string;
+    }, {}>;
     CCTree: import("vue").DefineComponent<{
         value: {
             type: import("vue").PropType<import("./cc-tree/const").ITreeData[]>;
@@ -187,6 +202,10 @@ export declare const components: {
             type: BooleanConstructor;
             default: boolean;
         };
+        chooseItem: {
+            type: import("vue").PropType<import("./cc-button-group/const").ButtonGroupItem>;
+            default: () => {};
+        };
     }, {}, unknown, {}, {}, import("vue").ComponentOptionsMixin, import("vue").ComponentOptionsMixin, {}, string, import("vue").VNodeProps & import("vue").AllowedComponentProps & import("vue").ComponentCustomProps, Readonly<import("vue").ExtractPropTypes<{
         items: {
             type: import("vue").PropType<import("./cc-button-group/const").ButtonGroupItem[]>;
@@ -200,10 +219,15 @@ export declare const components: {
             type: BooleanConstructor;
             default: boolean;
         };
+        chooseItem: {
+            type: import("vue").PropType<import("./cc-button-group/const").ButtonGroupItem>;
+            default: () => {};
+        };
     }>>, {
         color: string;
         recover: boolean;
         items: import("./cc-button-group/const").ButtonGroupItem[];
+        chooseItem: import("./cc-button-group/const").ButtonGroupItem;
     }, {}>;
     CCTable: import("vue").DefineComponent<{
         columns: {

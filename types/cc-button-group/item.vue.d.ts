@@ -20,7 +20,7 @@ declare const _default: import("vue").DefineComponent<{
     onMouseOver(event: MouseEvent): void;
     onMouseLeave(event: MouseEvent): void;
     onClick(event: MouseEvent): void;
-    onMouseDown(event: MouseEvent): void;
+    onMouseDown: (event?: MouseEvent | undefined) => void;
     onMouseUp(event: MouseEvent): void;
 }, unknown, {}, {}, import("vue").ComponentOptionsMixin, import("vue").ComponentOptionsMixin, {}, string, import("vue").VNodeProps & import("vue").AllowedComponentProps & import("vue").ComponentCustomProps, Readonly<import("vue").ExtractPropTypes<{
     data: {

@@ -1,5 +1,6 @@
 export declare const Msg: {
     ButtonTap: string;
+    Choose: string;
 };
 export declare const ProvideKey: {
     Emitter: string;

@@ -13,7 +13,14 @@ export interface ITreeData {
      * 唯一ID
      */
     id?: string;
+    /**
+     * 显示的文本
+     */
     text: string;
+    /**
+     * 携带的扩展数据
+     */
+    userData?: any;
     /**
      * 元素是否激活，未激活的元素文本置灰
      */
