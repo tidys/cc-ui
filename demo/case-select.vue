@@ -17,11 +17,11 @@ export default defineComponent({
   name: 'case-select',
   components: { CCSelect, CCProp },
   setup(props, ctx) {
-    const selectData = ref([
-      { label: '1', value: 1 },
-      { label: '2', value: 2 },
-      { label: '3', value: 3 },
-    ]);
+    const data: Array<{ label: string; value: number }> = [];
+    for (let i = 0; i < 50; i++) {
+      data.push({ label: i.toString(), value: i });
+    }
+    const selectData = ref(data);
     onMounted(() => {
       setTimeout(() => {
         selectValue.value = '3';
