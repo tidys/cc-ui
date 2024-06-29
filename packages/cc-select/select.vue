@@ -53,27 +53,39 @@ export default defineComponent({
 <style scoped lang="less">
 .cc-select {
   flex: 1;
-
+  padding: 0 1px;
+  // position: relative;
+  // &::after {
+  //   position: absolute;
+  //   right: 0;
+  //   top: 0;
+  //   content: 'x';
+  //   color: #bdbdbd;
+  //   font-size: 12px;
+  //   margin-left: 5px;
+  // }
   select {
-    appearance: none;
     display: flex;
     flex: 1;
     outline: 0;
     border: 1px solid #171717;
     text-overflow: ellipsis;
-    color: #bdbdbd;
-    background: 0 0;
+    color: #f3f3f3;
+    background: #444;
     width: 100%;
     height: 21px;
-    border-radius: 100px;
+    border-radius: 2px;
     padding: 0 0 0 8px;
 
     &:hover {
       border-color: #888;
     }
-
     &:focus {
       border-color: #fd942b;
+    }
+    option {
+      color: #f3f3f3;
+      background: #444;
     }
   }
 
