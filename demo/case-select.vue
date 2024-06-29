@@ -1,6 +1,8 @@
 <template>
   <div>
-    <CCSelect value="1" :data="[]" style="flex: 1"></CCSelect>
+    <CCProp name="height:30px;">
+      <CCSelect style="height: 30px" value="1" :data="[]"></CCSelect>
+    </CCProp>
     <CCProp name="test2">
       <CCSelect @change="onChangeSelect" :data="selectData" v-model:value="selectValue"> </CCSelect>
     </CCProp>
@@ -10,10 +12,10 @@
 <script lang="ts">
 import { defineComponent, ref, onMounted } from 'vue';
 import ccui from '../packages/index';
-const { CCSelect } = ccui.components;
+const { CCSelect, CCProp } = ccui.components;
 export default defineComponent({
   name: 'case-select',
-  components: { CCSelect },
+  components: { CCSelect, CCProp },
   setup(props, ctx) {
     const selectData = ref([
       { label: '1', value: 1 },

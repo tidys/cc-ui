@@ -6,7 +6,6 @@
       </option>
     </select>
   </div>
-  <slot></slot>
 </template>
 <script lang="ts">
 import { defineComponent, ref, PropType, watch } from 'vue';
@@ -65,6 +64,7 @@ export default defineComponent({
   //   margin-left: 5px;
   // }
   select {
+    height: 100%;
     display: flex;
     flex: 1;
     outline: 0;
@@ -73,9 +73,8 @@ export default defineComponent({
     color: #f3f3f3;
     background: #444;
     width: 100%;
-    height: 21px;
     border-radius: 2px;
-    padding: 0 0 0 8px;
+    padding: 0 0 0 0;
 
     &:hover {
       border-color: #888;
