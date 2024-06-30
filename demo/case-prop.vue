@@ -1,16 +1,20 @@
 <template>
   <CCProp name="html tooltip" tooltip="123<hr>456"></CCProp>
+  <CCProp name="hintColor" :hint="hint">
+    <CCCheckBox v-model:value="hint"></CCCheckBox>
+  </CCProp>
 </template>
 
 <script lang="ts">
-import { defineComponent } from 'vue';
+import { defineComponent, ref } from 'vue';
 import ccui from '../packages/index';
-const { CCProp } = ccui.components;
+const { CCProp, CCCheckBox } = ccui.components;
 export default defineComponent({
   name: 'case-prop',
-  components: { CCProp },
+  components: { CCProp, CCCheckBox },
   setup(props, ctx) {
-    return {};
+    const hint = ref(true);
+    return { hint };
   },
 });
 </script>

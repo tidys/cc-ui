@@ -5,7 +5,7 @@
       <div ref="arrow" data-popper-arrow class="arrow"></div>
     </div>
     <div class="name" @mouseenter="onHover" @mouseleave="onOver">
-      <span :class="isHove ? 'name-blue' : ''" ref="text">{{ name }}</span>
+      <span :class="{ hit: hint, 'name-blue': isHove }" ref="text">{{ name }}</span>
     </div>
     <div class="value" :style="getValueStyle()">
       <slot style="flex: 1"></slot>
@@ -30,6 +30,13 @@ export default defineComponent({
     align: {
       type: String,
       default: 'center',
+    },
+    /**
+     * 当为true时，prop.name背景将会带颜色
+     */
+    hint: {
+      type: Boolean,
+      default: false,
     },
   },
   setup(props, { emit }) {
@@ -114,6 +121,7 @@ export default defineComponent({
 </script>
 
 <style scoped lang="less">
+@hit-color: rgb(201, 9, 99);
 .cc-prop {
   display: flex;
   width: 100%;
@@ -124,18 +132,27 @@ export default defineComponent({
   //overflow: hidden;
 
   .name {
+    box-sizing: border-box;
     min-height: 26px;
     height: 100%;
     user-select: none;
-    margin-left: 15px;
+    margin-left: 10px;
     flex-direction: row;
     justify-content: left;
     display: flex;
     align-items: center;
     width: 35%;
     min-width: 35%;
-
+    .hit {
+      border: solid 2px @hit-color;
+      background-color: @hit-color;
+      border-radius: 4px;
+    }
     span {
+      border: solid 2px transparent;
+      background-color: transparent;
+      border-radius: 4px;
+      padding: 2px 4px;
       color: #bdbdbd;
       display: block;
       font-size: 12px;
