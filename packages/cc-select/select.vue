@@ -64,6 +64,7 @@ export default defineComponent({
   //   margin-left: 5px;
   // }
   select {
+    user-select: none;
     height: 100%;
     display: flex;
     flex: 1;

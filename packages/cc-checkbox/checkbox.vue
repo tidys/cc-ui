@@ -54,6 +54,8 @@ export default defineComponent({
   .text {
     white-space: nowrap;
     font-size: 13px;
+    color: aliceblue;
+    user-select: none;
   }
 }
 </style>

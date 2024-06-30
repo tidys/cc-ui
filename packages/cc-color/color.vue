@@ -134,7 +134,6 @@ export default defineComponent({
 .cc-color {
   flex: 1;
   height: 20px;
-  width: 120px;
 
   .color {
     width: 100%;
