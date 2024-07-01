@@ -691,6 +691,10 @@ export declare const components: {
             type: StringConstructor;
             default: string;
         };
+        hint: {
+            type: BooleanConstructor;
+            default: boolean;
+        };
     }, {
         tooltipElement: import("vue").Ref<HTMLElement | undefined>;
         tips: import("vue").Ref<HTMLElement | undefined>;
@@ -714,9 +718,14 @@ export declare const components: {
             type: StringConstructor;
             default: string;
         };
+        hint: {
+            type: BooleanConstructor;
+            default: boolean;
+        };
     }>>, {
         tooltip: string;
         align: string;
+        hint: boolean;
     }, {}>;
     CCMenu: import("vue").DefineComponent<{}, {
         menuEl: import("vue").Ref<HTMLDivElement | undefined>;

@@ -10,6 +10,13 @@ declare const _default: import("vue").DefineComponent<{
         type: StringConstructor;
         default: string;
     };
+    /**
+     * 当为true时，prop.name背景将会带颜色
+     */
+    hint: {
+        type: BooleanConstructor;
+        default: boolean;
+    };
 }, {
     tooltipElement: import("vue").Ref<HTMLElement | undefined>;
     tips: import("vue").Ref<HTMLElement | undefined>;
@@ -33,8 +40,16 @@ declare const _default: import("vue").DefineComponent<{
         type: StringConstructor;
         default: string;
     };
+    /**
+     * 当为true时，prop.name背景将会带颜色
+     */
+    hint: {
+        type: BooleanConstructor;
+        default: boolean;
+    };
 }>>, {
     tooltip: string;
     align: string;
+    hint: boolean;
 }, {}>;
 export default _default;
