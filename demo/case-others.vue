@@ -2,6 +2,7 @@
   <div>
     <CCButton @click="onShowDialog">dialog</CCButton>
     <CCButton @click="onFootBar">footbar</CCButton>
+    <CCButton @click="onFootBarColor">footbar-color</CCButton>
     <CCButton @click="onMenu">test menu</CCButton>
     <CCButton @click="onCommand">command</CCButton>
   </div>
@@ -19,6 +20,9 @@ export default defineComponent({
   components: { CCButton },
   setup(props, ctx) {
     return {
+      onFootBarColor() {
+        ccui.footbar.showTips('11', { duration: -1, color: 'red' });
+      },
       onFootBar() {
         ccui.footbar.showTips('11');
       },

@@ -1,7 +1,7 @@
 <template>
   <div class="version">
     <CMD v-for="(item, index) in commands" :data="item" :key="index"></CMD>
-    <div class="placeHolder">{{ tips }}</div>
+    <div class="placeHolder" :style="{ color: tipColor }">{{ tips }}</div>
     <div class="value" v-if="verString.length">version: {{ verString }}</div>
   </div>
 </template>
@@ -20,6 +20,7 @@ export default defineComponent({
     },
   },
   setup(props, ctx) {
+    const tipColor = ref<string>('');
     const verString = ref(props.version || '');
     const tips = ref('');
     let timer: number | null = null;
@@ -30,6 +31,7 @@ export default defineComponent({
       }
 
       const { duration } = opts;
+      tipColor.value = opts.color || '';
       if (duration && duration <= 0) {
         tips.value = msg;
       } else {
@@ -58,7 +60,7 @@ export default defineComponent({
         verString.value = v;
       }
     );
-    return { verString, tips, commands };
+    return { verString, tips, tipColor, commands };
   },
 });
 </script>
@@ -74,12 +76,15 @@ export default defineComponent({
   .placeHolder {
     flex: 1;
     overflow: hidden;
+    display: flex;
+    align-items: center;
     margin-left: 10px;
     word-break: break-all;
     white-space: nowrap;
     text-overflow: ellipsis;
     color: rgb(218, 218, 218);
     font-size: 14px;
+    line-height: 14px;
   }
 
   .value {

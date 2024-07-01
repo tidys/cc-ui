@@ -26,6 +26,10 @@ export interface TipOptions {
    * 显示的时间，单位毫秒，如果小于等于0，则永久显示，直到下个提示
    */
   duration?: number;
+  /**
+   * 文本显示的颜色
+   */
+  color?: string;
 }
 export function showTips(str: string, opts: TipOptions = {}) {
   ccui.Emitter.emit(FootBarMsg.Tips, str, opts);
