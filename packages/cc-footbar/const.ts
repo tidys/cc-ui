@@ -4,6 +4,7 @@ import { CmdData } from '../cc-command/const';
 export const FootBarMsg = {
   Tips: 'footbar_tips',
   RegCmd: 'footbar_reg_cmd',
+  Error: 'footbar_error',
 };
 
 export interface FootCmd {
@@ -33,4 +34,21 @@ export interface TipOptions {
 }
 export function showTips(str: string, opts: TipOptions = {}) {
   ccui.Emitter.emit(FootBarMsg.Tips, str, opts);
+}
+export interface ErrorOptions {
+  /**
+   * 标题，默认 Error
+   */
+  title?: string;
+  /**
+   * 错误内容的颜色，默认红色
+   */
+  color?: string;
+  /**
+   * 当关闭时，是否重置，默认为false
+   */
+  resetWhenClose?: boolean;
+}
+export function showError(str: string, opts: ErrorOptions = {}) {
+  ccui.Emitter.emit(FootBarMsg.Error, str, opts);
 }
