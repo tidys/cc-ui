@@ -15,7 +15,7 @@
 </template>
 <script lang="ts">
 import { defineComponent, onMounted, onUnmounted, ref, watch } from 'vue';
-import { FootBarMsg, FootCmd, TipOptions, ErrorOptions } from './const';
+import { FootBarMsg, FootCmd, TipOptions, ErrorOptions, TipsArrayOptions } from './const';
 import CMD from './cmd.vue';
 import ccui from '../index';
 export default defineComponent({
@@ -28,13 +28,15 @@ export default defineComponent({
     },
   },
   setup(props, ctx) {
-    const showErrorPanel = ref(true);
+    const showErrorPanel = ref(false);
     const tipColor = ref<string>('');
     const errorColor = ref<string>('');
     const verString = ref(props.version || '');
     const tips = ref('');
     let timer: number | null = null;
     const doTips = (msg: string, opts: TipOptions) => {
+      clearTimeout(tipsArrayTimer);
+      tipsArrayTimer = null;
       if (timer !== null) {
         clearTimeout(timer);
         timer = null;
@@ -64,12 +66,41 @@ export default defineComponent({
       errorContent.value = msg;
       errorColor.value = options.color || 'red';
     };
+    let tipsArrayTimer: any = null;
+
+    const doTipsArray = (options: TipsArrayOptions) => {
+      clearTimeout(tipsArrayTimer);
+      tipsArrayTimer = null;
+      const tips = options.tips || [];
+      const interval = options.interval || 2;
+      const offset = options.offset || 3;
+      if (tips.length === 0) {
+        return;
+      }
+      //
+      let idx = 0;
+      function loopTips() {
+        if (tips.length === 0) {
+          return;
+        }
+        if (idx >= tips.length) {
+          idx = 0;
+        }
+        const tip = tips[idx++];
+        ccui.footbar.showTips(tip, { duration: -1 });
+        const time = interval + Math.random() * offset;
+        tipsArrayTimer = setTimeout(loopTips, time * 1000);
+      }
+      loopTips();
+    };
     onMounted(() => {
+      ccui.Emitter.on(FootBarMsg.TipsArray, doTipsArray);
       ccui.Emitter.on(FootBarMsg.Tips, doTips);
       ccui.Emitter.on(FootBarMsg.RegCmd, regCmd);
       ccui.Emitter.on(FootBarMsg.Error, doError);
     });
     onUnmounted(() => {
+      ccui.Emitter.off(FootBarMsg.TipsArray, doTipsArray);
       ccui.Emitter.off(FootBarMsg.Tips, doTips);
       ccui.Emitter.off(FootBarMsg.RegCmd, regCmd);
       ccui.Emitter.off(FootBarMsg.Error, doError);
@@ -80,8 +111,8 @@ export default defineComponent({
         verString.value = v;
       }
     );
-    const errorTitle = ref('Error');
-    const errorContent = ref('Content');
+    const errorTitle = ref('');
+    const errorContent = ref('');
     return {
       errorColor,
       errorTitle,

@@ -5,6 +5,7 @@ export const FootBarMsg = {
   Tips: 'footbar_tips',
   RegCmd: 'footbar_reg_cmd',
   Error: 'footbar_error',
+  TipsArray: 'footbar_tips_array',
 };
 
 export interface FootCmd {
@@ -34,6 +35,27 @@ export interface TipOptions {
 }
 export function showTips(str: string, opts: TipOptions = {}) {
   ccui.Emitter.emit(FootBarMsg.Tips, str, opts);
+}
+
+export interface TipsArrayOptions {
+  /**
+   * 显示的提示文本
+   */
+  tips: Array<string>;
+  /**
+   * 间隔时间，单位s，默认2s
+   */
+  interval?: number;
+  /**
+   * 浮动时间，单位s，默认3s
+   */
+  offset?: number;
+}
+/**
+ * 轮播显示提示，当用户主动调用showTips后，会中断这个轮播显示
+ */
+export function showTipsArray(opts: TipsArrayOptions) {
+  ccui.Emitter.emit(FootBarMsg.TipsArray, opts);
 }
 export interface ErrorOptions {
   /**
