@@ -3,6 +3,7 @@ export declare const FootBarMsg: {
     Tips: string;
     RegCmd: string;
     Error: string;
+    TipsArray: string;
 };
 export interface FootCmd {
     /**
@@ -27,6 +28,24 @@ export interface TipOptions {
     color?: string;
 }
 export declare function showTips(str: string, opts?: TipOptions): void;
+export interface TipsArrayOptions {
+    /**
+     * 显示的提示文本
+     */
+    tips: Array<string>;
+    /**
+     * 间隔时间，单位s，默认2s
+     */
+    interval?: number;
+    /**
+     * 浮动时间，单位s，默认3s
+     */
+    offset?: number;
+}
+/**
+ * 轮播显示提示，当用户主动调用showTips后，会中断这个轮播显示
+ */
+export declare function showTipsArray(opts: TipsArrayOptions): void;
 export interface ErrorOptions {
     /**
      * 标题，默认 Error
