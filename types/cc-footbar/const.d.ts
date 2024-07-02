@@ -2,6 +2,7 @@ import { CmdData } from '../cc-command/const';
 export declare const FootBarMsg: {
     Tips: string;
     RegCmd: string;
+    Error: string;
 };
 export interface FootCmd {
     /**
@@ -20,5 +21,24 @@ export interface TipOptions {
      * 显示的时间，单位毫秒，如果小于等于0，则永久显示，直到下个提示
      */
     duration?: number;
+    /**
+     * 文本显示的颜色
+     */
+    color?: string;
 }
 export declare function showTips(str: string, opts?: TipOptions): void;
+export interface ErrorOptions {
+    /**
+     * 标题，默认 Error
+     */
+    title?: string;
+    /**
+     * 错误内容的颜色，默认红色
+     */
+    color?: string;
+    /**
+     * 当关闭时，是否重置，默认为false
+     */
+    resetWhenClose?: boolean;
+}
+export declare function showError(str: string, opts?: ErrorOptions): void;
