@@ -50,10 +50,13 @@ export default defineComponent({
   flex-direction: row;
   justify-content: center;
   align-items: center;
-
+  input {
+    margin: 3px;
+  }
   .text {
     white-space: nowrap;
     font-size: 13px;
+    line-height: 13px;
     color: aliceblue;
     user-select: none;
   }
