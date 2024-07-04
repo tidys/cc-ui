@@ -1,19 +1,19 @@
 <template>
   <div class="cc-section">
     <div class="header">
-      <div class="left" @click.stop="fold = !fold">
-        <div class="fold" :class="fold ? 'arrow-right' : 'arrow-down'"></div>
+      <div class="left" @click.stop="onExpand">
+        <div class="fold" :class="expand ? 'arrow-down' : 'arrow-right'"></div>
         <div class="title">{{ name }}</div>
       </div>
       <slot name="header"></slot>
     </div>
-    <div v-show="!fold" style="flex: 1; display: flex; flex-direction: column">
+    <div v-show="expand" style="flex: 1; display: flex; flex-direction: column">
       <slot></slot>
     </div>
   </div>
 </template>
 <script lang="ts">
-import { defineComponent, ref } from 'vue';
+import { defineComponent, ref, toRaw, watch } from 'vue';
 
 export default defineComponent({
   name: 'CCSection',
@@ -26,10 +26,30 @@ export default defineComponent({
       default: true,
     },
   },
+  emit: ['change'],
   setup(props, { emit }) {
-    const fold = ref(!props.expand || false);
+    const expand = ref(props.expand || false);
+    watch(
+      () => props.expand,
+      (v) => {
+        expand.value = !!v;
+      }
+    );
     const name = ref(props.name || '');
-    return { fold, name };
+    watch(
+      () => props.name,
+      (v) => {
+        name.value = v || '';
+      }
+    );
+    return {
+      expand,
+      name,
+      onExpand() {
+        expand.value = !expand.value;
+        emit('change', toRaw(expand.value));
+      },
+    };
   },
 });
 </script>
