@@ -14,13 +14,14 @@ declare const _default: import("vue").DefineComponent<{
     commands: import("vue").Ref<{
         label?: string | undefined;
         icon?: string | undefined;
-        cmds: {
+        cb?: (() => void) | null | undefined;
+        cmds?: {
             label: string;
             icon?: string | undefined;
             url?: string | undefined;
             visible?: boolean | undefined;
             cb: (() => void) | null;
-        }[];
+        }[] | undefined;
     }[]>;
     onClickNotify(): void;
     onCloseError(): void;

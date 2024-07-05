@@ -369,13 +369,14 @@ declare const _default: {
             commands: import("vue").Ref<{
                 label?: string | undefined;
                 icon?: string | undefined;
-                cmds: {
+                cb?: (() => void) | null | undefined;
+                cmds?: {
                     label: string;
                     icon?: string | undefined;
                     url?: string | undefined;
                     visible?: boolean | undefined;
                     cb: (() => void) | null;
-                }[];
+                }[] | undefined;
             }[]>;
             onClickNotify(): void;
             onCloseError(): void;
@@ -516,8 +517,9 @@ declare const _default: {
                 default: boolean;
             };
         }, {
-            fold: import("vue").Ref<boolean>;
+            expand: import("vue").Ref<boolean>;
             name: import("vue").Ref<string>;
+            onExpand(): void;
         }, unknown, {}, {}, import("vue").ComponentOptionsMixin, import("vue").ComponentOptionsMixin, {}, string, import("vue").VNodeProps & import("vue").AllowedComponentProps & import("vue").ComponentCustomProps, Readonly<import("vue").ExtractPropTypes<{
             name: {
                 type: StringConstructor;

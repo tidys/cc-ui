@@ -2,6 +2,7 @@ import { CmdData } from '../cc-command/const';
 export declare const FootBarMsg: {
     Tips: string;
     RegCmd: string;
+    CleanCmd: string;
     Error: string;
     TipsArray: string;
 };
@@ -14,9 +15,23 @@ export interface FootCmd {
      * 显示的icon，label和icon至少得有一个
      */
     icon?: 'cmder' | string;
-    cmds: Array<CmdData>;
+    /**
+     * 点击回调
+     */
+    cb?: (() => void) | null;
+    /**
+     * 点击显示的命令列表
+     */
+    cmds?: Array<CmdData>;
 }
+/**
+ * 注册命令，写在onMounted才有效
+ */
 export declare function registerCmd(footCmd: FootCmd): void;
+/**
+ * 清理命令，如果传递参数，则清理指定的，不传递参数则清理所有的
+ */
+export declare function cleanRegisterCmd(footCmd?: FootCmd): void;
 export interface TipOptions {
     /**
      * 显示的时间，单位毫秒，如果小于等于0，则永久显示，直到下个提示
