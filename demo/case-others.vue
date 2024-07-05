@@ -10,7 +10,7 @@
 </template>
 
 <script lang="ts">
-import { defineComponent, onMounted } from 'vue';
+import { defineComponent, onMounted, onUnmounted } from 'vue';
 import ccui from '../packages/index';
 const { CCButton } = ccui.components;
 import { DialogUrlData, DialogOptions } from '../packages/cc-dialog/const';
@@ -20,6 +20,9 @@ export default defineComponent({
   name: 'case-others',
   components: { CCButton },
   setup(props, ctx) {
+    onUnmounted(() => {
+      ccui.footbar.cleanRegisterCmd();
+    });
     onMounted(() => {
       let errorTitle = '111111111111111 222222222222222222222';
       let errorContent = '';
@@ -27,6 +30,46 @@ export default defineComponent({
         errorContent += `${i} 1111111111111112222222222222 `;
       }
       ccui.footbar.showError(errorContent, { title: errorTitle, resetWhenClose: true });
+      ccui.footbar.registerCmd({
+        icon: 'qq',
+      });
+      ccui.footbar.registerCmd({
+        icon: 'book',
+      });
+      ccui.footbar.registerCmd({
+        icon: 'github',
+      });
+      ccui.footbar.registerCmd({
+        label: 'cmd1',
+        icon: 'cmder',
+        cb: () => {
+          console.log('click cmd1');
+        },
+        cmds: [
+          {
+            label: '1111111111111111 111111111111111',
+            icon: 'cmder',
+            cb: () => {
+              console.log(1);
+            },
+          },
+          {
+            label: '2222222222222',
+            icon: 'cmder',
+            visible: false,
+            cb: () => {
+              console.log(2);
+            },
+          },
+          {
+            label: '333 333 333 333 333 333 333 333 333 333 333',
+            icon: 'cmder',
+            cb: () => {
+              console.log(1);
+            },
+          },
+        ],
+      });
     });
     return {
       onFootBarError() {

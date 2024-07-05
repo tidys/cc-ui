@@ -19,6 +19,9 @@ export default defineComponent({
   setup(props, ctx) {
     return {
       onClick() {
+        if (props.data.cb) {
+          props.data.cb();
+        }
         if (props.data && props.data.cmds && props.data.cmds.length > 0) {
           showCommand(props.data.cmds);
         }

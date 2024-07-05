@@ -4,6 +4,7 @@ import { CmdData } from '../cc-command/const';
 export const FootBarMsg = {
   Tips: 'footbar_tips',
   RegCmd: 'footbar_reg_cmd',
+  CleanCmd: 'footbar_clean_cmd',
   Error: 'footbar_error',
   TipsArray: 'footbar_tips_array',
 };
@@ -17,10 +18,26 @@ export interface FootCmd {
    * 显示的icon，label和icon至少得有一个
    */
   icon?: 'cmder' | string;
-  cmds: Array<CmdData>;
+  /**
+   * 点击回调
+   */
+  cb?: (() => void) | null;
+  /**
+   * 点击显示的命令列表
+   */
+  cmds?: Array<CmdData>;
 }
+/**
+ * 注册命令，写在onMounted才有效
+ */
 export function registerCmd(footCmd: FootCmd) {
   ccui.Emitter.emit(FootBarMsg.RegCmd, footCmd);
+}
+/**
+ * 清理命令，如果传递参数，则清理指定的，不传递参数则清理所有的
+ */
+export function cleanRegisterCmd(footCmd?: FootCmd) {
+  ccui.Emitter.emit(FootBarMsg.CleanCmd, footCmd);
 }
 
 export interface TipOptions {

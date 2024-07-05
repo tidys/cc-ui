@@ -93,17 +93,29 @@ export default defineComponent({
       }
       loopTips();
     };
+    const cleanCmd = (footCmd: FootCmd | undefined) => {
+      if (footCmd) {
+        const index = commands.value.findIndex((item) => item.label === footCmd.label);
+        if (index !== -1) {
+          commands.value.splice(index, 1);
+        }
+      } else {
+        commands.value.length = 0;
+      }
+    };
     onMounted(() => {
       ccui.Emitter.on(FootBarMsg.TipsArray, doTipsArray);
       ccui.Emitter.on(FootBarMsg.Tips, doTips);
       ccui.Emitter.on(FootBarMsg.RegCmd, regCmd);
       ccui.Emitter.on(FootBarMsg.Error, doError);
+      ccui.Emitter.on(FootBarMsg.CleanCmd, cleanCmd);
     });
     onUnmounted(() => {
       ccui.Emitter.off(FootBarMsg.TipsArray, doTipsArray);
       ccui.Emitter.off(FootBarMsg.Tips, doTips);
       ccui.Emitter.off(FootBarMsg.RegCmd, regCmd);
       ccui.Emitter.off(FootBarMsg.Error, doError);
+      ccui.Emitter.off(FootBarMsg.CleanCmd, cleanCmd);
     });
     watch(
       () => props.version,

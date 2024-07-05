@@ -9,7 +9,7 @@ export interface CmdData {
    */
   label: string;
   /**
-   * 显示的icon
+   * 显示的icon，暂未实现
    */
   icon?: 'cmder' | 'qq' | 'book' | string;
   /**

@@ -71,34 +71,6 @@ export default defineComponent({
     const treeEl = ref();
     onMounted(() => {
       treeEl.value.handSelect(data.idx || 0);
-      ccui.footbar.registerCmd({
-        label: 'cmd1',
-        icon: 'cmder',
-        cmds: [
-          {
-            label: '1111111111111111 111111111111111',
-            icon: 'cmder',
-            cb: () => {
-              console.log(1);
-            },
-          },
-          {
-            label: '2222222222222',
-            icon: 'cmder',
-            visible: false,
-            cb: () => {
-              console.log(2);
-            },
-          },
-          {
-            label: '333 333 333 333 333 333 333 333 333 333 333',
-            icon: 'cmder',
-            cb: () => {
-              console.log(1);
-            },
-          },
-        ],
-      });
     });
 
     return {
