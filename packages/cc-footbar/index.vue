@@ -2,7 +2,9 @@
   <div class="version">
     <CMD v-for="(item, index) in commands" :data="item" :key="index"></CMD>
     <div class="placeHolder" :style="{ color: tipColor }">{{ tips }}</div>
-    <div class="value" v-if="verString.length">version: {{ verString }}</div>
+    <div class="value" v-if="verString.length">
+      <div class="label">version: {{ verString }}</div>
+    </div>
     <i @click.stop.prevent="onClickNotify" @dblclick.stop.prevent="" @mousedown.stop.prevent="" class="notify iconfont icon_notify"></i>
     <div v-show="showErrorPanel" class="error-panel">
       <div class="title">
@@ -173,12 +175,18 @@ export default defineComponent({
   }
 
   .value {
+    overflow: hidden;
     margin-right: 10px;
     color: rgb(255, 255, 143);
     font-size: 14px;
     line-height: 14px;
     display: flex;
     align-items: center;
+    .label {
+      overflow: hidden;
+      text-overflow: ellipsis;
+      white-space: nowrap;
+    }
   }
   .notify {
     position: relative;
