@@ -1,7 +1,7 @@
 <template>
   <div class="btn" ref="text" @click.stop.prevent="onClick" :style="{ background: `${theme.background}` }" @mouseup="onMouseup" @mousedown="onMousedown" @mouseenter="onMouseenter" @mouseleave="onMouseleave" :class="{ click: isClick }">
     <div v-show="isShowTips && tooltip" ref="tips" class="tips">
-      <div class="text">{{ tooltip }}</div>
+      <div class="label">{{ tooltip }}</div>
       <div ref="arrow" data-popper-arrow class="arrow"></div>
     </div>
     <div class="text" :class="{ gray: isDisabled }">
@@ -160,7 +160,7 @@ export default defineComponent({
   white-space: nowrap;
 
   .tips {
-    .text {
+    .label {
       background-color: #666666;
       border-radius: 6px;
       user-select: none;
@@ -207,15 +207,17 @@ export default defineComponent({
     }
   }
   .text {
-    padding: 0 18px;
+    margin: 0 12px;
+    overflow: hidden;
+    white-space: nowrap;
+    text-overflow: ellipsis;
     user-select: none;
     color: white;
     font: 12px bold;
-    display: flex;
+    // display: flex;
     flex-direction: row;
     align-items: center;
     justify-content: center;
-    white-space: nowrap;
   }
 }
 
