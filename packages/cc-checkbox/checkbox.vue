@@ -1,6 +1,6 @@
 <template>
   <div class="checkbox">
-    <input type="checkbox" v-model="val" @change="onChange" />
+    <input type="checkbox" v-model="val" @change.stop.prevent="onChange" />
     <span class="text" v-if="label.length">{{ label }}</span>
     <slot name="label"></slot>
   </div>
