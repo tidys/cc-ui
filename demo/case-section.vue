@@ -1,6 +1,11 @@
 <template>
   <div style="display: flex; flex-direction: column">
-    <CCSection :expand="false" @change="onChange" name="测试折叠"> 默认不展开 </CCSection>
+    <CCSection :expand="false" @change="onChange" name="测试折叠">
+      <div style="display: flex; flex-direction: row">
+        默认不展开
+        <CCCheckBox @change="onChangeCheckBox"></CCCheckBox>
+      </div>
+    </CCSection>
     <CCSection :name="sectionName" :expand="sectionExpand" @change="onChange">
       <template v-slot:header>
         <div style="display: flex; flex: 1; flex-direction: row; justify-content: flex-end">
@@ -16,10 +21,10 @@
 <script lang="ts">
 import { defineComponent, ref } from 'vue';
 import ccui from '../packages/index';
-const { CCSection, CCButton } = ccui.components;
+const { CCSection, CCButton, CCCheckBox } = ccui.components;
 export default defineComponent({
   name: 'case-section',
-  components: { CCSection, CCButton },
+  components: { CCSection, CCButton, CCCheckBox },
   setup(props, ctx) {
     let i = 0;
     const sectionName = ref('TEST');
@@ -29,6 +34,9 @@ export default defineComponent({
       sectionExpand,
       onChange: (expand: boolean) => {
         console.log('expand: ', expand);
+      },
+      onChangeCheckBox(b: boolean) {
+        console.log('changeCheckBox: ', b);
       },
       changeSectionName() {
         sectionName.value = `TEST${++i}`;

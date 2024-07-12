@@ -7,7 +7,7 @@
       </div>
       <slot name="header"></slot>
     </div>
-    <div v-show="expand" style="flex: 1; display: flex; flex-direction: column">
+    <div v-show="expand" class="content">
       <slot></slot>
     </div>
   </div>
@@ -55,6 +55,14 @@ export default defineComponent({
 </script>
 <style scoped lang="less">
 .cc-section {
+  display: flex;
+  flex-direction: column;
+  overflow: hidden;
+  .content {
+    display: flex;
+    flex-direction: column;
+    overflow: hidden;
+  }
   .header {
     height: 26px;
     width: 100%;
