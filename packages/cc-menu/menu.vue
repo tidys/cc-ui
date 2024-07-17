@@ -1,6 +1,6 @@
 <template>
   <Teleport to="body">
-    <div class="ui-menu" ref="menuEl" v-show="menus.length > 0" :style="{ left: menuPositionX + 'px', top: menuPositionY + 'px' }">
+    <div class="ui-menu" @contextmenu.stop.prevent="" ref="menuEl" v-show="menus.length > 0" :style="{ left: menuPositionX + 'px', top: menuPositionY + 'px' }">
       <MenuItem v-for="(menu, index) in menus" :key="index" :data="menu"> </MenuItem>
     </div>
   </Teleport>
