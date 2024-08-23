@@ -30,8 +30,12 @@ jobs:
     runs-on: ubuntu-22.04
     strategy:
       matrix:
-        node-version: [16]
+        version: [16]
     steps:
+      - name: setup-node
+        uses: actions/setup-node@v4
+        with:
+          node-version: ${{ matrix.version }}
       - name: node-version
         run: node -v
       - name: Checkout
