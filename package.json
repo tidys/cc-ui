@@ -6,7 +6,7 @@
   "scripts": {
     "yarnInstallForce": "yarn config delete proxy  && yarn install --force --network-timeout 100000",
     "demo-serve": "vue-cli-service serve",
-    "demo-build": "vue-cli-service build --mode development",
+    "demo-build": "vue-cli-service build",
     "lint": "vue-cli-service lint",
     "dist-clean": "rimraf ./dist",
     "types-clean": "rimraf ./types",

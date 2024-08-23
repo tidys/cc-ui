@@ -3,6 +3,7 @@ module.exports = {
   lintOnSave: false,
   parallel: false,
   outputDir: path.resolve(__dirname, './dist-demo'),
+  publicPath: (process.env.NODE_ENV === 'production') ? "cc-ui" : "",
   pages: {
     index: {
       entry: path.resolve(__dirname, 'demo/main.ts'),
