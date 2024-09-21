@@ -3,6 +3,12 @@ import { UiWindowOptions } from '../cc-window/index';
 
 export const DialogMsg = {
   ShowDialog: 'show-dialog',
+  /**
+   * 组件的porps.id传递过来即可关闭component所在的dialog
+   *
+   * 组件emit("close")可以直接关闭
+   */
+  CloseDialog: 'close-dialog',
 };
 
 /**

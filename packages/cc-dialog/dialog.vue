@@ -1,8 +1,8 @@
 <template>
   <Teleport to="body">
     <div class="ui-dialog" v-if="show" @click.self="onMaskClick">
-      <CCWindow class="container" v-for="(win, index) in dialogWindows" :key="index" :data="getWindowOption(win)" @close="onWinClose(win)">
-        <component class="comp" :is="getWindowRenderComponent(win)" :data="getWindowRenderComponentData(win)"> </component>
+      <CCWindow class="container" v-for="(win, index) in dialogWindows" :key="index" :data="getWindowOption(win)" @close="onWinClose(win.id || '')">
+        <component class="comp" :is="getWindowRenderComponent(win)" @close="onWinClose(win.id || '')" :data="getWindowRenderComponentData(win)" :id="getWindowRenderComponentID(win)"> </component>
       </CCWindow>
     </div>
   </Teleport>
@@ -25,8 +25,11 @@ export default defineComponent({
     const dialogWindows = ref<DialogOptions[]>([]);
     const show = ref(false);
 
-    function onWinClose(opt: DialogOptions) {
-      const idx = dialogWindows.value.findIndex((el) => el.id === opt.id);
+    function onWinClose(id: string) {
+      if (!id) {
+        return;
+      }
+      const idx = dialogWindows.value.findIndex((el) => el.id === id);
       if (idx !== -1) {
         dialogWindows.value.splice(idx, 1);
         show.value = !!dialogWindows.value.length;
@@ -43,16 +46,20 @@ export default defineComponent({
       dialogWindows.value.push(opt);
       show.value = true;
     }
-
+    function onCloseDialog(id: string) {
+      onWinClose(id);
+    }
     let ins: MousetrapInstance | null = null;
     onMounted(() => {
       ccui.Emitter.on(DialogMsg.ShowDialog, onShowDialog);
+      ccui.Emitter.on(DialogMsg.CloseDialog, onCloseDialog);
       // 可能会干扰到其他组件的key事件
       ins = new Mousetrap(document.body);
       ins.bind(['esc'], onClick, 'keydown');
     });
     onUnmounted(() => {
       ccui.Emitter.off(DialogMsg.ShowDialog, onShowDialog);
+      ccui.Emitter.off(DialogMsg.CloseDialog, onCloseDialog);
       if (ins) {
         ins.unbind(['esc'], 'keydown');
       }
@@ -83,7 +90,7 @@ export default defineComponent({
         if (closeCB) {
           closeCB();
         }
-        onWinClose(opt);
+        onWinClose(opt.id || '');
       }
     }
 
@@ -104,6 +111,9 @@ export default defineComponent({
       },
       getWindowRenderComponentData(opt: DialogOptions) {
         return opt.data;
+      },
+      getWindowRenderComponentID(opt: DialogOptions) {
+        return opt.id;
       },
       show,
       onWinClose,

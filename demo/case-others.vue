@@ -1,6 +1,5 @@
 <template>
   <div class="others">
-    <CCButton @click="onShowDialog">dialog</CCButton>
     <CCButton @click="onFootBar">footbar</CCButton>
     <CCButton @click="onFootBarColor">footbar-color</CCButton>
     <CCButton @click="onFootBarError">footbar-error</CCButton>
@@ -104,14 +103,6 @@ export default defineComponent({
           });
         }
         ccui.command.showCommand(cmd);
-      },
-      onShowDialog() {
-        const data: DialogUrlData = new DialogUrlData();
-        data.url = 'http://www.cocos.com';
-        data.label = '访问{cocos}官网';
-        data.jump = 4;
-        const opts: DialogOptions = { data };
-        ccui.dialog.showDialog(opts);
       },
     };
   },
