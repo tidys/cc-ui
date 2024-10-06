@@ -35,6 +35,7 @@ export default defineComponent({
       () => props.value,
       (val) => {
         curValue.value = val.toString();
+        emit('update:value', val.toString());
       }
     );
     return {
