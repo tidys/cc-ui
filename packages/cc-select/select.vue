@@ -60,18 +60,16 @@ export default defineComponent({
         let index = data.findIndex((item) => item.value.toString() === cur.toString());
         const arr = [];
         const color_bg = '#444';
-        if (!props.arrow || index === -1) {
+        if (data.length <= 1 || !props.arrow || index === -1) {
           arr.push(`background: ${color_bg}`);
         } else {
           const color_percent = '#555';
           const percent = ((index + 1) / data.length) * 100;
-          const len = 100 / data.length / 2;
+          const len = 100 / data.length;
           const gradient = [];
-          gradient.push(`${color_bg} 0%`);
-          gradient.push(`${color_bg} ${Math.max(percent - len - 0.01, 0)}%`);
-          gradient.push(`${color_percent} ${percent - len}%`);
-          gradient.push(`${color_percent} ${percent + len}%`);
-          gradient.push(`${color_bg} ${Math.min(percent + len + 0.01, 100)}%`);
+          gradient.push(`${color_percent} 0%`);
+          gradient.push(`${color_percent} ${Math.max(percent, 0)}%`);
+          gradient.push(`${color_bg} ${Math.min(percent, 100)}%`);
           gradient.push(`${color_bg} 100%`);
           arr.push(`background: linear-gradient(to right, ${gradient.join(',')})`);
         }
