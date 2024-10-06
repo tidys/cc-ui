@@ -6,12 +6,16 @@
     <CCProp name="test2">
       <CCSelect @change="onChangeSelect" :data="selectData" v-model:value="selectValue"> </CCSelect>
     </CCProp>
+    <CCProp name="arrow">
+      <CCSelect :arrow="true" :data="selectData" v-model:value="selectValue"></CCSelect>
+    </CCProp>
   </div>
 </template>
 
 <script lang="ts">
 import { defineComponent, ref, onMounted } from 'vue';
 import ccui from '../packages/index';
+import { arrow } from '@popperjs/core';
 const { CCSelect, CCProp } = ccui.components;
 export default defineComponent({
   name: 'case-select',
@@ -27,7 +31,8 @@ export default defineComponent({
         selectValue.value = '3';
       }, 1000);
       setTimeout(() => {
-        selectData.value.push({ label: '4', value: 4 });
+        const len = selectData.value.length;
+        selectData.value.push({ label: len.toString(), value: len });
       }, 2000);
     });
     const selectValue = ref('1');
