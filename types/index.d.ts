@@ -556,12 +556,23 @@ declare const _default: {
                 default(): never[];
             };
             value: (StringConstructor | NumberConstructor)[];
+            arrow: {
+                type: BooleanConstructor;
+                default: boolean;
+            };
             placeholder: {
                 type: StringConstructor;
                 default: string;
             };
         }, {
+            focus: import("vue").Ref<boolean>;
+            rootEl: import("vue").Ref<any>;
             curValue: any;
+            getStyle(): string;
+            onLeftClick(): void;
+            onRightClick(): void;
+            onFocus(): void;
+            onBlur(): void;
             onSelectChange(): void;
         }, unknown, {}, {}, import("vue").ComponentOptionsMixin, import("vue").ComponentOptionsMixin, ("update:value" | "change" | "update:data")[], "update:value" | "change" | "update:data", import("vue").VNodeProps & import("vue").AllowedComponentProps & import("vue").ComponentCustomProps, Readonly<import("vue").ExtractPropTypes<{
             data: {
@@ -570,6 +581,10 @@ declare const _default: {
                 default(): never[];
             };
             value: (StringConstructor | NumberConstructor)[];
+            arrow: {
+                type: BooleanConstructor;
+                default: boolean;
+            };
             placeholder: {
                 type: StringConstructor;
                 default: string;
@@ -580,6 +595,7 @@ declare const _default: {
             "onUpdate:data"?: ((...args: any[]) => any) | undefined;
         }, {
             data: select.Option[];
+            arrow: boolean;
             placeholder: string;
         }, {}>;
         CCInput: import("vue").DefineComponent<{
@@ -820,8 +836,9 @@ declare const _default: {
             getWindowOption(opt: dialog.DialogOptions): import("./cc-window").UiWindowOptions;
             getWindowRenderComponent(opt: dialog.DialogOptions): any;
             getWindowRenderComponentData(opt: dialog.DialogOptions): any;
+            getWindowRenderComponentID(opt: dialog.DialogOptions): import("short-uuid").SUUID | undefined;
             show: import("vue").Ref<boolean>;
-            onWinClose: (opt: dialog.DialogOptions) => void;
+            onWinClose: (id: string) => void;
             onMaskClick: () => void;
         }, {}, {}, {}, import("vue").ComponentOptionsMixin, import("vue").ComponentOptionsMixin, {}, string, import("vue").VNodeProps & import("vue").AllowedComponentProps & import("vue").ComponentCustomProps, Readonly<import("vue").ExtractPropTypes<{}>>, {}, {}>;
     };

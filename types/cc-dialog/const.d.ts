@@ -1,6 +1,12 @@
 import { UiWindowOptions } from '../cc-window/index';
 export declare const DialogMsg: {
     ShowDialog: string;
+    /**
+     * 组件的porps.id传递过来即可关闭component所在的dialog
+     *
+     * 组件emit("close")可以直接关闭
+     */
+    CloseDialog: string;
 };
 /**
  * 一句带url的提示语，目前暂时只支持一个url

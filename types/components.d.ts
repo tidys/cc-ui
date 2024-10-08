@@ -533,12 +533,23 @@ export declare const components: {
             default(): never[];
         };
         value: (StringConstructor | NumberConstructor)[];
+        arrow: {
+            type: BooleanConstructor;
+            default: boolean;
+        };
         placeholder: {
             type: StringConstructor;
             default: string;
         };
     }, {
+        focus: import("vue").Ref<boolean>;
+        rootEl: import("vue").Ref<any>;
         curValue: any;
+        getStyle(): string;
+        onLeftClick(): void;
+        onRightClick(): void;
+        onFocus(): void;
+        onBlur(): void;
         onSelectChange(): void;
     }, unknown, {}, {}, import("vue").ComponentOptionsMixin, import("vue").ComponentOptionsMixin, ("update:value" | "change" | "update:data")[], "update:value" | "change" | "update:data", import("vue").VNodeProps & import("vue").AllowedComponentProps & import("vue").ComponentCustomProps, Readonly<import("vue").ExtractPropTypes<{
         data: {
@@ -547,6 +558,10 @@ export declare const components: {
             default(): never[];
         };
         value: (StringConstructor | NumberConstructor)[];
+        arrow: {
+            type: BooleanConstructor;
+            default: boolean;
+        };
         placeholder: {
             type: StringConstructor;
             default: string;
@@ -557,6 +572,7 @@ export declare const components: {
         "onUpdate:data"?: ((...args: any[]) => any) | undefined;
     }, {
         data: import("./cc-select/const").Option[];
+        arrow: boolean;
         placeholder: string;
     }, {}>;
     CCInput: import("vue").DefineComponent<{
@@ -797,8 +813,9 @@ export declare const components: {
         getWindowOption(opt: import("./cc-dialog/const").DialogOptions): import("./cc-window").UiWindowOptions;
         getWindowRenderComponent(opt: import("./cc-dialog/const").DialogOptions): any;
         getWindowRenderComponentData(opt: import("./cc-dialog/const").DialogOptions): any;
+        getWindowRenderComponentID(opt: import("./cc-dialog/const").DialogOptions): import("short-uuid").SUUID | undefined;
         show: import("vue").Ref<boolean>;
-        onWinClose: (opt: import("./cc-dialog/const").DialogOptions) => void;
+        onWinClose: (id: string) => void;
         onMaskClick: () => void;
     }, {}, {}, {}, import("vue").ComponentOptionsMixin, import("vue").ComponentOptionsMixin, {}, string, import("vue").VNodeProps & import("vue").AllowedComponentProps & import("vue").ComponentCustomProps, Readonly<import("vue").ExtractPropTypes<{}>>, {}, {}>;
 };
