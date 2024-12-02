@@ -6,6 +6,13 @@
   "description": "cc-ui组件库在使用",
   "glyphs": [
     {
+      "icon_id": "19175666",
+      "name": "cocos",
+      "font_class": "cocos",
+      "unicode": "e601",
+      "unicode_decimal": 58881
+    },
+    {
       "icon_id": "5922672",
       "name": "support",
       "font_class": "support",
