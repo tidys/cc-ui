@@ -60,6 +60,7 @@ export default defineComponent({
   overflow: hidden;
   .content {
     display: flex;
+    flex: 1;
     flex-direction: column;
     overflow: hidden;
   }

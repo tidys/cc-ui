@@ -44,8 +44,10 @@ export default defineComponent({
     watch(
       () => props.value,
       (val) => {
-        curValue.value = val.toString();
-        emit('update:value', val.toString());
+        if (val !== undefined) {
+          curValue.value = val.toString();
+          emit('update:value', val.toString());
+        }
       }
     );
     const rootEl = ref();
