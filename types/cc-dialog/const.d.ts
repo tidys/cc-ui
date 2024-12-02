@@ -33,6 +33,10 @@ declare class DialogOptions extends UiWindowOptions {
      */
     data?: any;
     /**
+     * 对话框的背景色
+     */
+    backgroundColor?: string;
+    /**
      * 点击dialog外部是否关闭，默认关闭
      */
     clickOutsideClose?: boolean;

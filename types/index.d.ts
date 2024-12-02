@@ -824,6 +824,7 @@ declare const _default: {
             dialogWindows: import("vue").Ref<{
                 comp?: any;
                 data?: any;
+                backgroundColor?: string | undefined;
                 clickOutsideClose?: boolean | undefined;
                 id?: import("short-uuid").SUUID | undefined;
                 width?: number | undefined;
