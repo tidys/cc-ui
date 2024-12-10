@@ -9,6 +9,9 @@
   <CCProp name="test slide" :slide="true">
     <CCInputNumber :value="1" @change="onChangeNumber"></CCInputNumber>
   </CCProp>
+  <CCProp name="indent indent indent indent" :indent="20">
+    <CCInputNumber></CCInputNumber>
+  </CCProp>
 </template>
 
 <script lang="ts">

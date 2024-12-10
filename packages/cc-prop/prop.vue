@@ -1,14 +1,17 @@
 <template>
   <div class="cc-prop" @mouseenter="isHove = true" @mouseleave="isHove = false">
-    <div v-show="isShowTips && tooltip" ref="tips" class="tips">
-      <div ref="tooltipElement" class="text">{{ tooltip }}</div>
-      <div ref="arrow" data-popper-arrow class="arrow"></div>
-    </div>
-    <div class="icon" :class="{ 'color-blue': isHove }">
-      <i class="arrow" :class="getArrowClass()" @click="onClickArrow"> </i>
-    </div>
-    <div class="name" :class="{ 'name-slide': slide }" @mouseenter="onHover" @mouseleave="onOver" @mousedown="onMouseDown">
-      <span :class="{ hit: hint, 'color-blue': isHove }" ref="text">{{ name }}</span>
+    <div class="header">
+      <div v-show="isShowTips && tooltip" ref="tips" class="tips">
+        <div ref="tooltipElement" class="text">{{ tooltip }}</div>
+        <div ref="arrow" data-popper-arrow class="arrow"></div>
+      </div>
+      <div class="indent" :style="{ width: indent + 'px' }"></div>
+      <div class="icon" :class="{ 'color-blue': isHove }">
+        <i class="arrow" :class="getArrowClass()" @click="onClickArrow"> </i>
+      </div>
+      <div class="name" :class="{ 'name-slide': slide }" @mouseenter="onHover" @mouseleave="onOver" @mousedown="onMouseDown">
+        <span :title="title" :class="{ hit: hint, 'color-blue': isHove }" ref="text">{{ name }}</span>
+      </div>
     </div>
     <div class="value" :style="getValueStyle()">
       <slot style="flex: 1"></slot>
@@ -19,7 +22,7 @@
 import { createPopper } from '@popperjs/core';
 import { debounce, DebouncedFunc } from 'lodash';
 import { TinyEmitter } from 'tiny-emitter';
-import { defineComponent, inject, onMounted, provide, ref, toRaw, watch } from 'vue';
+import { defineComponent, inject, nextTick, onMounted, provide, ref, toRaw, watch } from 'vue';
 
 export default defineComponent({
   name: 'CCProp',
@@ -74,6 +77,13 @@ export default defineComponent({
       default: false,
     },
     /**
+     * 缩进
+     */
+    indent: {
+      type: Number,
+      default: 0,
+    },
+    /**
      * 当为true时，prop.name背景将会带颜色
      */
     hint: {
@@ -82,7 +92,9 @@ export default defineComponent({
     },
   },
   setup(props, { emit }) {
-    onMounted(() => {});
+    onMounted(() => {
+      updateTitle();
+    });
     const name = ref(props.name || '');
     const isHove = ref(false);
     const tips = ref<HTMLElement>();
@@ -155,7 +167,25 @@ export default defineComponent({
     function _onSelect() {
       return false;
     }
+    const title = ref<string>('');
+    function updateTitle() {
+      if (text.value) {
+        const el = text.value as HTMLElement;
+        if (el.clientWidth < el.scrollWidth) {
+          title.value = props.name || '';
+        } else {
+          title.value = '';
+        }
+      }
+    }
+    watch(
+      () => props.name,
+      (val) => {
+        title.value = val || '';
+      }
+    );
     return {
+      title,
       tooltipElement,
       tips,
       isShowTips,
@@ -234,119 +264,127 @@ export default defineComponent({
   flex-direction: row;
   justify-content: center;
   margin: 2px 0;
-  //overflow: hidden;
-  .icon {
-    padding-top: 2px;
+  .header {
+    width: 200px;
+    overflow: hidden;
     display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: center;
-    align-content: center;
-    .arrow-hidden {
-      visibility: hidden;
-    }
-    .arrow-visible {
-      visibility: visible;
-    }
-    .arrow {
-      font-size: 15px;
-      line-height: 15px;
-      cursor: pointer;
-      &:hover {
-        color: rgb(121, 202, 255) !important;
-      }
-      &:active {
-        color: #fd942b !important;
-      }
-    }
-  }
-  .name-slide {
-    cursor: ew-resize;
-  }
-  .name {
-    box-sizing: border-box;
-    min-height: 26px;
-    height: 100%;
-    user-select: none;
     flex-direction: row;
-    justify-content: left;
-    display: flex;
-    align-items: center;
-    width: 35%;
-    min-width: 35%;
-    .hit {
-      border: solid 2px @hit-color;
-      background-color: @hit-color;
-      border-radius: 4px;
-    }
-    span {
-      border: solid 2px transparent;
-      background-color: transparent;
-      border-radius: 4px;
-      padding: 2px 2px;
-      color: #bdbdbd;
-      display: block;
-      font-size: 12px;
-      overflow: hidden;
-      white-space: nowrap;
-      text-overflow: ellipsis;
-    }
-  }
-
-  .tips {
-    .text {
-      background-color: #666666;
-      border-radius: 6px;
-      user-select: none;
-      padding: 3px 9px;
-      max-width: 200px;
-      word-break: break-all;
-    }
-
-    .arrow {
-      z-index: -1;
-
-      &:before {
-        display: block;
-        content: '';
-        transform: rotate(45deg);
-        background-color: #666666;
-        width: 10px;
-        height: 10px;
+    //overflow: hidden;
+    .icon {
+      padding-top: 2px;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      align-content: center;
+      .arrow-hidden {
+        visibility: hidden;
+      }
+      .arrow-visible {
+        visibility: visible;
+      }
+      .arrow {
+        font-size: 15px;
+        line-height: 15px;
+        cursor: pointer;
+        &:hover {
+          color: rgb(121, 202, 255) !important;
+        }
+        &:active {
+          color: #fd942b !important;
+        }
       }
     }
-  }
+    .name-slide {
+      cursor: ew-resize;
+    }
+    .name {
+      flex: 1;
+      box-sizing: border-box;
+      min-height: 26px;
+      height: 100%;
+      user-select: none;
+      flex-direction: row;
+      justify-content: left;
+      display: flex;
+      align-items: center;
+      width: 35%;
+      min-width: 35%;
+      .hit {
+        border: solid 2px @hit-color;
+        background-color: @hit-color;
+        border-radius: 4px;
+      }
+      span {
+        border: solid 2px transparent;
+        background-color: transparent;
+        border-radius: 4px;
+        padding: 2px 2px;
+        color: #bdbdbd;
+        display: block;
+        font-size: 12px;
+        overflow: hidden;
+        white-space: nowrap;
+        text-overflow: ellipsis;
+      }
+    }
 
-  .tips[data-popper-placement^='top'] {
-    .arrow {
-      bottom: -5px;
+    .tips {
+      .text {
+        background-color: #666666;
+        border-radius: 6px;
+        user-select: none;
+        padding: 3px 9px;
+        max-width: 200px;
+        word-break: break-all;
+      }
+
+      .arrow {
+        z-index: -1;
+
+        &:before {
+          display: block;
+          content: '';
+          transform: rotate(45deg);
+          background-color: #666666;
+          width: 10px;
+          height: 10px;
+        }
+      }
+    }
+
+    .tips[data-popper-placement^='top'] {
+      .arrow {
+        bottom: -5px;
+      }
+    }
+
+    .tips[data-popper-placement^='bottom'] {
+      .arrow {
+        top: -5px;
+      }
+    }
+
+    .tips[data-popper-placement^='left'] {
+      .arrow {
+        right: -5px;
+      }
+    }
+
+    .tips[data-popper-placement^='right'] {
+      .arrow {
+        left: -5px;
+      }
+    }
+
+    .color-blue {
+      color: #09f !important;
     }
   }
-
-  .tips[data-popper-placement^='bottom'] {
-    .arrow {
-      top: -5px;
-    }
-  }
-
-  .tips[data-popper-placement^='left'] {
-    .arrow {
-      right: -5px;
-    }
-  }
-
-  .tips[data-popper-placement^='right'] {
-    .arrow {
-      left: -5px;
-    }
-  }
-
-  .color-blue {
-    color: #09f !important;
-  }
-
   .value {
     overflow: hidden;
+    min-width: 50%;
+    width: 50%;
     display: flex;
     flex: 1;
     align-items: center;
