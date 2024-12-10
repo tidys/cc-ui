@@ -4,8 +4,11 @@
       <div ref="tooltipElement" class="text">{{ tooltip }}</div>
       <div ref="arrow" data-popper-arrow class="arrow"></div>
     </div>
+    <div class="icon" :class="{ 'color-blue': isHove }">
+      <i class="arrow" :class="getArrowClass()" @click="onClickArrow"> </i>
+    </div>
     <div class="name" @mouseenter="onHover" @mouseleave="onOver">
-      <span :class="{ hit: hint, 'name-blue': isHove }" ref="text">{{ name }}</span>
+      <span :class="{ hit: hint, 'color-blue': isHove }" ref="text">{{ name }}</span>
     </div>
     <div class="value" :style="getValueStyle()">
       <slot style="flex: 1"></slot>
@@ -13,12 +16,13 @@
   </div>
 </template>
 <script lang="ts">
-import { defineComponent, onMounted, ref, toRaw } from 'vue';
 import { createPopper } from '@popperjs/core';
 import { debounce, DebouncedFunc } from 'lodash';
+import { defineComponent, onMounted, ref, toRaw, watch } from 'vue';
 
 export default defineComponent({
   name: 'CCProp',
+  emits: ['changeExpand', 'update:expand'],
   props: {
     name: {
       type: String,
@@ -30,6 +34,20 @@ export default defineComponent({
     align: {
       type: String,
       default: 'center',
+    },
+    /**
+     * 属性是否展开，主要是针对 Object/Array 设计的
+     */
+    expand: {
+      type: Boolean,
+      default: false,
+    },
+    /**
+     * 是否显示箭头，主要是针对 Object/Array 设计的
+     */
+    arrow: {
+      type: Boolean,
+      default: false,
     },
     /**
      * 当为true时，prop.name背景将会带颜色
@@ -79,14 +97,38 @@ export default defineComponent({
     const tooltipElement = ref<HTMLElement>();
     let timer: any = null;
     const text = ref<HTMLElement>();
+    const isExpand = ref(props.expand);
+    watch(
+      () => props.expand,
+      (val) => {
+        const v = toRaw(val);
+        isExpand.value = v;
+        emit('changeExpand', v);
+      }
+    );
     return {
       tooltipElement,
       tips,
       isShowTips,
       arrow,
+      isExpand,
       text,
       name,
       isHove,
+      getArrowClass() {
+        const cls = [];
+        if (props.arrow) {
+          cls.push('arrow-visible');
+        } else {
+          cls.push('arrow-hidden');
+        }
+        if (isExpand.value) {
+          cls.push('iconfont icon_arrow_down');
+        } else {
+          cls.push('iconfont icon_arrow_right');
+        }
+        return cls.join(' ');
+      },
       onHover(event: any) {
         if (props.tooltip) {
           clearTimeout(timer);
@@ -94,6 +136,11 @@ export default defineComponent({
             showTipsFunc(text.value);
           }, 600);
         }
+      },
+      onClickArrow() {
+        const v = !toRaw(isExpand.value);
+        isExpand.value = v;
+        emit('update:expand', v);
       },
       onOver() {
         if (props.tooltip) {
@@ -130,13 +177,36 @@ export default defineComponent({
   justify-content: center;
   margin: 2px 0;
   //overflow: hidden;
-
+  .icon {
+    padding-top: 2px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    align-content: center;
+    .arrow-hidden {
+      visibility: hidden;
+    }
+    .arrow-visible {
+      visibility: visible;
+    }
+    .arrow {
+      font-size: 15px;
+      line-height: 15px;
+      cursor: pointer;
+      &:hover {
+        color: rgb(121, 202, 255) !important;
+      }
+      &:active {
+        color: #fd942b !important;
+      }
+    }
+  }
   .name {
     box-sizing: border-box;
     min-height: 26px;
     height: 100%;
     user-select: none;
-    margin-left: 10px;
     flex-direction: row;
     justify-content: left;
     display: flex;
@@ -152,7 +222,7 @@ export default defineComponent({
       border: solid 2px transparent;
       background-color: transparent;
       border-radius: 4px;
-      padding: 2px 4px;
+      padding: 2px 2px;
       color: #bdbdbd;
       display: block;
       font-size: 12px;
@@ -210,7 +280,7 @@ export default defineComponent({
     }
   }
 
-  .name-blue {
+  .color-blue {
     color: #09f !important;
   }
 
