@@ -6,6 +6,14 @@
         <CCCheckBox @change="onChangeCheckBox"></CCCheckBox>
       </div>
     </CCSection>
+    <CCSection name="test auto slot header" :expand-by-full-header="true" :auto-slot-header="true">
+      <template v-slot:header>
+        <div style="flex: 1"></div>
+        <CCButton>slot header</CCButton>
+      </template>
+      <div>empty</div>
+    </CCSection>
+
     <CCSection :name="sectionName" :expand="sectionExpand" @change="onChange">
       <template v-slot:header>
         <div style="display: flex; flex: 1; flex-direction: row; justify-content: flex-end">

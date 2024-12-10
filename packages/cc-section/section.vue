@@ -1,11 +1,11 @@
 <template>
   <div class="cc-section">
-    <div class="header">
-      <div class="left" @click.stop="onExpand">
+    <div class="header" :class="{ cursor: expandByFullHeader }" @click.stop.prevent="onClickHeader" @mouseenter="onMouseEnter" @mouseleave="onMouseLeave">
+      <div class="left" @click.stop.prevent="onExpand">
         <div class="fold" :class="expand ? 'arrow-down' : 'arrow-right'"></div>
         <div class="title">{{ name }}</div>
       </div>
-      <slot name="header"></slot>
+      <slot name="header" v-if="visibleSlotHeader"></slot>
     </div>
     <div v-show="expand" class="content">
       <slot></slot>
@@ -25,10 +25,28 @@ export default defineComponent({
       type: Boolean,
       default: true,
     },
+    /**
+     * 鼠标移动到header时，鼠标移入显示slot header，鼠标离开隐藏slot header
+     */
+    autoSlotHeader: {
+      type: Boolean,
+      default: false,
+    },
+    /**
+     * 是否点击整个header控制折叠，默认只会点击标题才会
+     */
+    expandByFullHeader: {
+      type: Boolean,
+      default: false,
+    },
   },
   emit: ['change'],
   setup(props, { emit }) {
     const expand = ref(props.expand || false);
+    const visibleSlotHeader = ref(true);
+    if (props.autoSlotHeader) {
+      visibleSlotHeader.value = false;
+    }
     watch(
       () => props.expand,
       (v) => {
@@ -42,12 +60,29 @@ export default defineComponent({
         name.value = v || '';
       }
     );
+    function onExpand() {
+      expand.value = !expand.value;
+      emit('change', toRaw(expand.value));
+    }
     return {
       expand,
+      visibleSlotHeader,
       name,
-      onExpand() {
-        expand.value = !expand.value;
-        emit('change', toRaw(expand.value));
+      onMouseEnter() {
+        if (props.autoSlotHeader) {
+          visibleSlotHeader.value = true;
+        }
+      },
+      onMouseLeave() {
+        if (props.autoSlotHeader) {
+          visibleSlotHeader.value = false;
+        }
+      },
+      onExpand,
+      onClickHeader() {
+        if (props.expandByFullHeader) {
+          onExpand();
+        }
       },
     };
   },
@@ -63,6 +98,9 @@ export default defineComponent({
     flex: 1;
     flex-direction: column;
     overflow: hidden;
+  }
+  .cursor {
+    cursor: pointer;
   }
   .header {
     height: 26px;
