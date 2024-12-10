@@ -7,7 +7,7 @@
     <div class="icon" :class="{ 'color-blue': isHove }">
       <i class="arrow" :class="getArrowClass()" @click="onClickArrow"> </i>
     </div>
-    <div class="name" @mouseenter="onHover" @mouseleave="onOver">
+    <div class="name" :class="{ 'name-slide': slide }" @mouseenter="onHover" @mouseleave="onOver" @mousedown="onMouseDown">
       <span :class="{ hit: hint, 'color-blue': isHove }" ref="text">{{ name }}</span>
     </div>
     <div class="value" :style="getValueStyle()">
@@ -18,11 +18,12 @@
 <script lang="ts">
 import { createPopper } from '@popperjs/core';
 import { debounce, DebouncedFunc } from 'lodash';
-import { defineComponent, onMounted, ref, toRaw, watch } from 'vue';
+import { TinyEmitter } from 'tiny-emitter';
+import { defineComponent, inject, onMounted, provide, ref, toRaw, watch } from 'vue';
 
 export default defineComponent({
   name: 'CCProp',
-  emits: ['changeExpand', 'update:expand'],
+  emits: ['changeExpand', 'update:expand', 'slide'],
   props: {
     name: {
       type: String,
@@ -50,6 +51,29 @@ export default defineComponent({
       default: false,
     },
     /**
+     * slide操作的步进
+     */
+    step: {
+      type: Number,
+      default: 1,
+    },
+    /**
+     * 在属性名字是否可以滑动，主要是方便用来触发value的step操作
+     *
+     * @example
+     * ```ts
+     * // 子组件需要如下对接slide行为
+     * const emitter: TinyEmitter = inject<TinyEmitter>('emitter', new TinyEmitter());
+     * emitter.on('slide', (n:number) => {
+     *    console.log(n);
+     * });
+     * ```
+     */
+    slide: {
+      type: Boolean,
+      default: false,
+    },
+    /**
      * 当为true时，prop.name背景将会带颜色
      */
     hint: {
@@ -65,7 +89,8 @@ export default defineComponent({
     const arrow = ref<HTMLElement>();
     const isShowTips = ref(false);
     let popperInstance: any = null;
-
+    const emitter = new TinyEmitter();
+    provide('emitter', emitter);
     function showTipsFunc(target: any) {
       const tooltip: string = toRaw(props.tooltip);
       if (tooltip && tips.value) {
@@ -106,6 +131,30 @@ export default defineComponent({
         emit('changeExpand', v);
       }
     );
+    let clientX: number = 0;
+    function _onMouseUp(event: MouseEvent) {
+      document.removeEventListener('mousemove', _onMouseMove);
+      document.removeEventListener('mouseup', _onMouseUp);
+      document.removeEventListener('onselectstart', _onSelect);
+    }
+    function _onMouseMove(event: MouseEvent) {
+      // 防止频繁触发
+      if (Math.abs(clientX - event.clientX) < 10) {
+        return;
+      }
+      let calcStep = Math.abs(props.step || 0);
+      if (event.clientX > clientX) {
+        calcStep = calcStep;
+      } else {
+        calcStep = -calcStep;
+      }
+      emit('slide', calcStep);
+      clientX = event.clientX;
+      emitter.emit('slide', calcStep);
+    }
+    function _onSelect() {
+      return false;
+    }
     return {
       tooltipElement,
       tips,
@@ -115,6 +164,15 @@ export default defineComponent({
       text,
       name,
       isHove,
+      onMouseDown(event: MouseEvent) {
+        if (!props.slide) {
+          return;
+        }
+        clientX = event.clientX;
+        document.addEventListener('mousemove', _onMouseMove);
+        document.addEventListener('mouseup', _onMouseUp);
+        document.addEventListener('onselectstart', _onSelect);
+      },
       getArrowClass() {
         const cls = [];
         if (props.arrow) {
@@ -201,6 +259,9 @@ export default defineComponent({
         color: #fd942b !important;
       }
     }
+  }
+  .name-slide {
+    cursor: ew-resize;
   }
   .name {
     box-sizing: border-box;

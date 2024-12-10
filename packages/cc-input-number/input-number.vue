@@ -7,7 +7,8 @@
 </template>
 
 <script lang="ts">
-import { defineComponent, onMounted, ref, watch } from 'vue';
+import { TinyEmitter } from 'tiny-emitter';
+import { defineComponent, inject, onMounted, onUnmounted, provide, ref, watch } from 'vue';
 
 export default defineComponent({
   name: 'CCInputNumber',
@@ -40,6 +41,13 @@ export default defineComponent({
   setup(props, { emit }) {
     const input = ref();
     let preVal = props.value;
+    const emitter: TinyEmitter = inject<TinyEmitter>('emitter', new TinyEmitter());
+    function doStep(n: number) {
+      const result = val.value + props.step * Math.sign(n);
+      val.value = checkVal(result);
+      emit('update:value', result);
+      emit('change', result);
+    }
 
     function checkVal(v: string | number): number {
       let result = v;
@@ -62,6 +70,7 @@ export default defineComponent({
       }
     );
     onMounted(() => {
+      emitter.on('slide', doStep);
       if (props.min !== undefined) {
         (input.value as Element).setAttribute('min', props.min.toString());
       }
@@ -72,6 +81,9 @@ export default defineComponent({
       if (props.step !== undefined) {
         (input.value as Element).setAttribute('step', props.step.toString());
       }
+    });
+    onUnmounted(() => {
+      emitter.off('slide', doStep);
     });
     return {
       val,
