@@ -1,15 +1,16 @@
+import { TinyEmitter } from 'tiny-emitter';
 import { App } from 'vue';
+import { buttonGroup } from './cc-button-group/index';
+import { command } from './cc-command/index';
+import { dialog } from './cc-dialog/index';
+import { divider } from './cc-divider/index';
+import { footbar } from './cc-footbar/index';
+import { menu } from './cc-menu/index';
+import { select } from './cc-select/index';
+import { table } from './cc-table/index';
+import { tree } from './cc-tree/index';
 import './common/scrollbar.less';
 import { components } from './components';
-import { TinyEmitter } from 'tiny-emitter';
-import { menu } from './cc-menu/index';
-import { dialog } from './cc-dialog/index';
-import { footbar } from './cc-footbar/index';
-import { command } from './cc-command/index';
-import { table } from './cc-table/index';
-import { select } from './cc-select/index';
-import { buttonGroup } from './cc-button-group/index';
-import { divider } from './cc-divider/index';
 export const install = (app: App) => {
   Object.keys(components).forEach((key) => {
     // @ts-ignore
@@ -19,5 +20,5 @@ export const install = (app: App) => {
 };
 const Emitter = new TinyEmitter();
 // 对外提供的全局方法
-const Methods = { divider, buttonGroup, menu, dialog, footbar, command, table, select };
+const Methods = { divider, buttonGroup, menu, tree, dialog, footbar, command, table, select };
 export default { install, Emitter, components, ...Methods };
