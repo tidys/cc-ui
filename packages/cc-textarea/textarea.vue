@@ -1,7 +1,7 @@
 <template>
   <div class="cc-textarea">
     <label>
-      <textarea v-model="text" placeholder="" @change="onChange"></textarea>
+      <textarea v-model="text" :readonly="readonly" placeholder="" @change="onChange"></textarea>
     </label>
   </div>
 </template>
@@ -10,24 +10,25 @@ import { defineComponent, ref, watch } from 'vue';
 
 export default defineComponent({
   name: 'CCTextarea',
-  emits: ['change', 'update:data'],
+  emits: ['change', 'update:value'],
   props: {
-    data: { type: String, default: '' },
+    value: { type: String, default: '' },
+    readonly: { type: Boolean, default: false },
   },
   setup(props, { emit }) {
-    const text = ref(props.data);
+    const text = ref(props.value);
     watch(
-      () => props.data,
+      () => props.value,
       () => {
-        text.value = props.data;
+        text.value = props.value;
       }
     );
     return {
       text,
       onChange() {
-        emit('update:data', text.value);
+        emit('update:value', text.value);
         emit('change', text.value);
-        text.value = props.data;
+        text.value = props.value;
       },
     };
   },
