@@ -9,6 +9,9 @@
     <CCProp name="arrow">
       <CCSelect :arrow="true" :data="selectData" v-model:value="selectValue"></CCSelect>
     </CCProp>
+    <CCProp name="disabled">
+      <CCSelect :disabled="true" :data="selectData" v-model:value="selectValue"></CCSelect>
+    </CCProp>
     <CCProp name="data1-test-add">
       <CCSelect :arrow="true" :data="selectData1" v-model:value="selectValue1"></CCSelect>
     </CCProp>
@@ -19,9 +22,9 @@
 </template>
 
 <script lang="ts">
-import { defineComponent, ref, onMounted } from 'vue';
-import ccui from '../packages/index';
 import { arrow } from '@popperjs/core';
+import { defineComponent, onMounted, ref } from 'vue';
+import ccui from '../packages/index';
 const { CCSelect, CCProp, CCButton } = ccui.components;
 export default defineComponent({
   name: 'case-select',
