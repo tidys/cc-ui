@@ -1,12 +1,12 @@
 <template>
   <div class="cc-prop" @mouseenter="isHove = true" @mouseleave="isHove = false">
-    <div class="header">
+    <div class="header" :style="{ width: headWidth }">
       <div v-show="isShowTips && tooltip" ref="tips" class="tips">
         <div ref="tooltipElement" class="text">{{ tooltip }}</div>
         <div ref="arrow" data-popper-arrow class="arrow"></div>
       </div>
       <div class="indent" :style="{ width: indent + 'px' }"></div>
-      <div class="icon" :class="{ 'color-blue': isHove }">
+      <div class="icon" v-if="icon" :class="{ 'color-blue': isHove }">
         <i class="arrow" :class="getArrowClass()" @click="onClickArrow"> </i>
       </div>
       <div class="name" :class="{ 'name-slide': slide }" @mouseenter="onHover" @mouseleave="onOver" @mousedown="onMouseDown">
@@ -47,7 +47,15 @@ export default defineComponent({
       default: false,
     },
     /**
-     * 是否显示箭头，主要是针对 Object/Array 设计的
+     * 是否显示icon
+     * false:不显示，并且不会占用icon的空间，主要事针对Vec2/Vec3/Vec4设计的
+     */
+    icon: {
+      type: Boolean,
+      default: true,
+    },
+    /**
+     * 是否显示箭头，无论是否显示都会占用空间，主要是针对 Object/Array 设计的
      */
     arrow: {
       type: Boolean,
@@ -89,6 +97,16 @@ export default defineComponent({
     hint: {
       type: Boolean,
       default: false,
+    },
+
+    /**
+     * 属性名字的width样式，方便控制长度
+     *
+     * 默认为固定长度200px，如果要自动长度，可以设置为auto
+     */
+    headWidth: {
+      type: String,
+      default: '200px',
     },
   },
   setup(props, { emit }) {
@@ -265,11 +283,10 @@ export default defineComponent({
   justify-content: center;
   margin: 2px 0;
   .header {
-    width: 200px;
     overflow: hidden;
     display: flex;
     flex-direction: row;
-    //overflow: hidden;
+    min-width: 40px;
     .icon {
       padding-top: 2px;
       display: flex;
@@ -383,7 +400,7 @@ export default defineComponent({
   }
   .value {
     overflow: hidden;
-    min-width: 50%;
+    min-width: 60px;
     width: 50%;
     display: flex;
     flex: 1;

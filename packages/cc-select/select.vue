@@ -1,7 +1,7 @@
 <template>
-  <div class="cc-select" :class="{ focus: focus }" :style="getStyle()" ref="rootEl">
+  <div class="cc-select" :class="{ focus: focus, disabled: disabled }" :style="getStyle()" ref="rootEl">
     <div class="left" v-if="arrow" @click="onLeftClick" @mouseup="onBlur" @mouseleave="onBlur" @mousedown="onFocus"></div>
-    <select @change="onSelectChange" v-model="curValue" @blur="onBlur" @focus="onFocus">
+    <select @change="onSelectChange" v-model="curValue" @blur="onBlur" @focus="onFocus" :disabled="disabled">
       <option v-for="(item, index) in data" :key="index" :value="item.value">
         {{ item.label }}
       </option>
@@ -10,9 +10,9 @@
   </div>
 </template>
 <script lang="ts">
-import { defineComponent, ref, toRaw, PropType, watch } from 'vue';
-import { Option } from './const';
 import { join } from 'lodash';
+import { defineComponent, PropType, ref, toRaw, watch } from 'vue';
+import { Option } from './const';
 
 export default defineComponent({
   name: 'CCSelect',
@@ -36,6 +36,10 @@ export default defineComponent({
     placeholder: {
       type: String,
       default: '',
+    },
+    disabled: {
+      type: Boolean,
+      default: false,
     },
   },
   emits: ['change', 'update:data', 'update:value'],
@@ -132,8 +136,14 @@ export default defineComponent({
 @arrow-color: rgb(179, 179, 179);
 @arrow-active-color: #fd942b;
 @arrow-hover-color: rgb(136, 136, 136);
+@disabled-border-color: rgb(200, 129, 48);
+@disabled-color: rgb(240, 95, 28);
 .focus {
   border-color: @arrow-active-color !important;
+}
+.disabled {
+  border-color: @disabled-border-color !important;
+  background-color: @disabled-color !important;
 }
 .cc-select {
   flex: 1;
@@ -144,6 +154,7 @@ export default defineComponent({
   align-items: center;
   border-radius: 2px;
   border: 1px solid #171717;
+
   &:hover {
     border-color: #888;
   }

@@ -1,6 +1,6 @@
 <template>
   <div class="checkbox">
-    <input type="checkbox" v-model="val" @change.stop.prevent="onChange" />
+    <input type="checkbox" v-model="val" :disabled="disabled" @change.stop.prevent="onChange" />
     <span class="text" v-if="label.length">{{ label }}</span>
     <slot name="label"></slot>
   </div>
@@ -14,6 +14,10 @@ export default defineComponent({
   emits: ['update:value', 'change'],
   props: {
     value: {
+      type: Boolean,
+      default: false,
+    },
+    disabled: {
       type: Boolean,
       default: false,
     },
