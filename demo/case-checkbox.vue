@@ -5,6 +5,9 @@
   <CCProp name="align-right" align="right">
     <CCCheckBox label="ok" :value="true"></CCCheckBox>
   </CCProp>
+  <CCProp name="disabled" align="left">
+    <CCCheckBox label="ok" :value="true" :disabled="true"></CCCheckBox>
+  </CCProp>
 </template>
 
 <script lang="ts">
