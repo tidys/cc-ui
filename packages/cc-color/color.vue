@@ -27,7 +27,7 @@ import ColorInput from './color-input.vue';
 import { emitter, HideOthers } from './event-bus';
 import Hue from './hue.vue';
 import ColorSaturation from './saturation.vue';
-import { getColorHex, getColorHex8, getColorHue, transformColorByHue } from './util';
+import { getColorHex, getColorHex8, getColorHSV, getColorHue, transformColorByHue } from './util';
 export default defineComponent({
   name: 'CCColor',
   emits: ['update:color', 'change'],
@@ -94,7 +94,9 @@ export default defineComponent({
       show,
       textColor() {
         // return 'black';
-        const c = colorIns(toRaw(hexColor.value));
+        const r = toRaw(hexColor.value);
+        const d = getColorHex(r);
+        const c = colorIns(d);
         if (c.isLight()) {
           return '#000000';
         } else {
@@ -122,23 +124,24 @@ export default defineComponent({
       },
       onColorChangeSaturation(color: string) {
         // 颜色饱和度发生改变
-        hexColor.value = color;
+        hexColor.value = getColorHex(color);
         updateBgColor();
       },
       onChangeColorHue(color: string) {
         // 色相发生改变
-        hexColor.value = transformColorByHue(hexColor.value, hueValue.value);
+        const a = transformColorByHue(hexColor.value, hueValue.value);
+        hexColor.value = getColorHex(a);
         saturationComp.value.updateBaseColor(hexColor.value);
         updateBgColor();
       },
       onColorChangeHex(color: string) {
-        hexColor.value = color;
+        hexColor.value = getColorHex(color);
         hueValue.value = getColorHue(color);
         saturationComp.value.updateBaseColor(hexColor.value);
         updateBgColor();
       },
       onColorListSelect(color: string) {
-        hexColor.value = color;
+        hexColor.value = getColorHex(color);
         hueValue.value = getColorHue(color);
         saturationComp.value.updateBaseColor(hexColor.value);
         updateBgColor();

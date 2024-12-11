@@ -158,7 +158,8 @@ export default defineComponent({
       (val) => {
         const v = toRaw(val);
         isExpand.value = v;
-        emit('changeExpand', v);
+        // 这种属于是外界改变导致的，外部应该自己管理好这个状态，不再触发事件，否则会导致触发2次
+        // emit('changeExpand', v);
       }
     );
     let clientX: number = 0;
@@ -247,6 +248,7 @@ export default defineComponent({
         const v = !toRaw(isExpand.value);
         isExpand.value = v;
         emit('update:expand', v);
+        emit('changeExpand', v);
       },
       onOver() {
         if (props.tooltip) {

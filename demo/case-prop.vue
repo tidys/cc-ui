@@ -6,6 +6,7 @@
   <CCProp name="arrow" :arrow="true" :slide="true" @slide="onSlide" v-model:expand="expand" @change-expand="onChangeExpand">
     <CCButton @click="expand = !expand">expand</CCButton>
   </CCProp>
+  <CCProp name="expand" :arrow="true" @change-expand="onChangeExpand"></CCProp>
   <CCProp name="test slide" :slide="true">
     <CCInputNumber :value="1" @change="onChangeNumber"></CCInputNumber>
   </CCProp>
