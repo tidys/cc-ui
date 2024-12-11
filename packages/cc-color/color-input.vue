@@ -1,7 +1,7 @@
 <template>
   <div class="root">
     <div class="title">{{ curTitle }}</div>
-    <input class="input" draggable="false" @keydown.enter="onKeyDown" @paste="onChange" v-model="curColor" @change="onChange" />
+    <input class="input" :disabled="disabled" draggable="false" @keydown.enter="onKeyDown" @paste="onChange" v-model="curColor" @change="onChange" />
   </div>
 </template>
 
@@ -20,6 +20,10 @@ export default defineComponent({
     color: {
       type: String,
       default: '#818181',
+    },
+    disabled: {
+      type: Boolean,
+      default: false,
     },
   },
   setup(props, { emit }) {
