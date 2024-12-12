@@ -114,6 +114,12 @@ export default defineComponent({
       updateTitle();
     });
     const name = ref(props.name || '');
+    watch(
+      () => props.name,
+      (v) => {
+        name.value = v || '';
+      }
+    );
     const isHove = ref(false);
     const tips = ref<HTMLElement>();
     const arrow = ref<HTMLElement>();
@@ -283,7 +289,6 @@ export default defineComponent({
   min-height: 26px;
   flex-direction: row;
   justify-content: center;
-  margin: 2px 0;
   .header {
     overflow: hidden;
     display: flex;
@@ -303,8 +308,8 @@ export default defineComponent({
         visibility: visible;
       }
       .arrow {
-        font-size: 15px;
-        line-height: 15px;
+        font-size: 12px;
+        line-height: 12px;
         cursor: pointer;
         &:hover {
           color: rgb(121, 202, 255) !important;

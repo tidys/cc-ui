@@ -13,20 +13,25 @@
   <CCProp name="indent indent indent indent" :indent="20">
     <CCInputNumber></CCInputNumber>
   </CCProp>
+  <CCProp v-model:name="name">
+    <CCInput v-model:value="name"></CCInput>
+  </CCProp>
 </template>
 
 <script lang="ts">
 import { defineComponent, ref } from 'vue';
 import ccui from '../packages/index';
-const { CCProp, CCCheckBox, CCButton, CCInputNumber } = ccui.components;
+const { CCProp, CCInput, CCCheckBox, CCButton, CCInputNumber } = ccui.components;
 export default defineComponent({
   name: 'case-prop',
-  components: { CCProp, CCCheckBox, CCButton, CCInputNumber },
+  components: { CCProp, CCInput, CCCheckBox, CCButton, CCInputNumber },
   setup(props, ctx) {
     const hint = ref(true);
     const expand = ref(false);
+    const name = ref('prop name');
     return {
       hint,
+      name,
       expand,
       onChangeExpand(v: boolean) {
         console.log(v);
