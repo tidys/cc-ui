@@ -3,6 +3,8 @@ export const ProvideKeys = {
   NodeClick: 'node-click',
   NodeExpand: 'node-expand',
   NodeCollapse: 'node-collapsed',
+  DefaultExpandAll: 'default-expand-all',
+  CheckExpand: 'check-expand',
 };
 export const Msg = {
   SelectReset: 'select-reset',

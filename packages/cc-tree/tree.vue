@@ -5,8 +5,8 @@
 </template>
 
 <script lang="ts">
-import { ref, defineComponent, PropType, provide, onMounted, onUnmounted, watch, toRaw } from 'vue';
 import { TinyEmitter } from 'tiny-emitter';
+import { defineComponent, onMounted, onUnmounted, PropType, provide, ref, toRaw, watch } from 'vue';
 import { ITreeData, Msg, ProvideKeys } from './const';
 import TreeItem from './tree-item.vue';
 
@@ -24,8 +24,27 @@ export default defineComponent({
       type: String,
       default: '#444',
     },
+    /**
+     * 默认是否都展开
+     */
+    defaultExpandAll: {
+      type: Boolean,
+      default: true,
+    },
+    /**
+     * 默认展开的keys
+     */
+    expandKeys: {
+      type: Array as PropType<Array<string>>,
+      default: () => [],
+    },
   },
   setup(props, { emit }) {
+    provide(ProvideKeys.DefaultExpandAll, toRaw(props.defaultExpandAll));
+    provide(ProvideKeys.CheckExpand, (id: string) => {
+      const keys = toRaw(props.expandKeys);
+      return keys.includes(id);
+    });
     let currentSelectTreeItem: ITreeData | null = null;
     function keydownCallback(e: KeyboardEvent) {
       e.preventDefault();

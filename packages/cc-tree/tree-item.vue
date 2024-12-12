@@ -11,13 +11,11 @@
     </div>
   </div>
   <!-- <el-tree
-          :default-expanded-keys="expandedKeys"
           :filter-node-method="filterNode"
-          node-key="uuid">
 </el-tree> -->
 </template>
 <script lang="ts">
-import { ref, toRaw, defineComponent, PropType, inject, onMounted, onUnmounted } from 'vue';
+import { ref, toRaw, defineComponent, PropType, inject, onMounted, onUnmounted, watch } from 'vue';
 import { ITreeData, ProvideKeys, Msg } from './const';
 import { TinyEmitter } from 'tiny-emitter';
 import color from 'color';
@@ -48,8 +46,22 @@ export default defineComponent({
     const NodeClick = inject(ProvideKeys.NodeClick, (data: ITreeData) => {});
     const NodeCollapse = inject(ProvideKeys.NodeCollapse, (data: ITreeData) => {});
     const NodeExpand = inject(ProvideKeys.NodeExpand, (data: ITreeData) => {});
-
-    const fold = ref(false);
+    let expandAll = inject(ProvideKeys.DefaultExpandAll, true);
+    const checkExpand = inject(ProvideKeys.CheckExpand, (id: string) => {
+      return expandAll;
+    });
+    if (checkExpand(props.value.id)) {
+      expandAll = true;
+    }
+    const fold = ref(!expandAll);
+    watch(
+      () => props.value,
+      (v) => {
+        if (v.id) {
+          fold.value = !checkExpand(v.id);
+        }
+      }
+    );
     const backgroundColor = ref(props.color);
     const bgColor = toRaw(props.color);
     const colorHover = color(bgColor).lighten(0.5).hex();
