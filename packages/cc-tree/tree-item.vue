@@ -6,7 +6,7 @@
         {{ value.text }}
       </div>
     </div>
-    <div v-if="!fold && value.children">
+    <div v-show="!fold && value.children">
       <cc-tree-item ref="childrenElements" v-for="(item, index) in value.children" :key="index" :value="item" :indent="indent + 1"></cc-tree-item>
     </div>
   </div>
@@ -43,7 +43,10 @@ export default defineComponent({
     const id = props.value?.id;
     props.value.id = id === undefined ? generate() : id;
     const emitter = inject(ProvideKeys.Emitter) as TinyEmitter;
-    const NodeClick = inject(ProvideKeys.NodeClick, (data: ITreeData) => {});
+    const NodeClick = inject(ProvideKeys.NodeClick, (data: ITreeData | null) => {});
+    const CurrentSelect = inject<() => ITreeData | null>(ProvideKeys.CurrentSelect, () => {
+      return null;
+    });
     const NodeCollapse = inject(ProvideKeys.NodeCollapse, (data: ITreeData) => {});
     const NodeExpand = inject(ProvideKeys.NodeExpand, (data: ITreeData) => {});
     let expandAll = inject(ProvideKeys.DefaultExpandAll, true);
@@ -71,21 +74,35 @@ export default defineComponent({
     const colorNameHidden = color(colorName).darken(0).hex();
     let isHover = false;
     let selected = false;
-
+    const selectedTreeItem = CurrentSelect();
+    if (selectedTreeItem && selectedTreeItem.id === props.value.id) {
+      selected = true;
+      updateBgColor();
+    }
     function selectReset() {
       selected = false;
       updateBgColor();
     }
-    function handSelect(index: number) {}
+    function updateSelect(id: string) {
+      if (id === props.value.id) {
+        doSelect(true);
+      } else {
+        if (selected) {
+          NodeClick(null);
+          selectReset();
+        }
+      }
+    }
     function handExpand(idArray: string[]) {
       const id = toRaw(props.value.id || '');
       if (idArray.includes(id)) {
         if (fold.value === true) {
           fold.value = false;
-          nextTick(() => {
-            // 能实现功能，但是会产生大量的调用，可能存在性能压力，主要就是无法调用到子组件
-            emitter.emit(Msg.HandExpand, idArray);
-          });
+          // v-if需要这种方式处理
+          // nextTick(() => {
+          //   // 能实现功能，但是会产生大量的调用，可能存在性能压力，主要就是无法调用到子组件
+          //   emitter.emit(Msg.HandExpand, idArray);
+          // });
         }
         if (id === idArray[idArray.length - 1]) {
           doSelect();
@@ -94,12 +111,12 @@ export default defineComponent({
     }
     onMounted(() => {
       emitter.on(Msg.SelectReset, selectReset);
-      emitter.on(Msg.HandSelect, handSelect);
+      emitter.on(Msg.UpdateSelect, updateSelect);
       emitter.on(Msg.HandExpand, handExpand);
     });
     onUnmounted(() => {
       emitter.off(Msg.SelectReset, selectReset);
-      emitter.off(Msg.HandSelect, handSelect);
+      emitter.off(Msg.UpdateSelect, updateSelect);
       emitter.off(Msg.HandExpand, handExpand);
     });
     function updateBgColor() {

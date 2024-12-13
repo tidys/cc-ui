@@ -5,10 +5,11 @@ export const ProvideKeys = {
   NodeCollapse: 'node-collapsed',
   DefaultExpandAll: 'default-expand-all',
   CheckExpand: 'check-expand',
+  CurrentSelect: 'current-select',
 };
 export const Msg = {
   SelectReset: 'select-reset',
-  HandSelect: 'hand-select',
+  UpdateSelect: 'update-select',
   HandExpand: 'hand-expand',
 };
 export interface ITreeData {

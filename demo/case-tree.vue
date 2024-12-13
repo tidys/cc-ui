@@ -13,7 +13,11 @@
 
     <CCSection name="handExpand">
       <CCTree ref="tree3El" style="max-height: 100px; min-height: 100px" :default-expand-all="false" :value="treeData3"></CCTree>
-      <CCButton @click="expandTreeItem">should expand/select 3</CCButton>
+      <div>
+        <CCButton @click="expandTreeItem">should expand/select 3</CCButton>
+        <CCButton @click="updateSelect('2')">select 2</CCButton>
+        <CCButton @click="updateSelect('100')">select 100</CCButton>
+      </div>
     </CCSection>
   </div>
 </template>
@@ -125,6 +129,11 @@ export default defineComponent({
       expandTreeItem() {
         if (tree3El.value) {
           (tree3El.value as typeof CCTree).handExpand('3');
+        }
+      },
+      updateSelect(id: string) {
+        if (tree3El.value) {
+          (tree3El.value as typeof CCTree).handChoose(id);
         }
       },
     };

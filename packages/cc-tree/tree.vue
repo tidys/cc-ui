@@ -179,11 +179,14 @@ export default defineComponent({
     provide(ProvideKeys.NodeCollapse, (data: ITreeData) => {
       emit('node-collapse', data);
     });
+    provide(ProvideKeys.CurrentSelect, () => {
+      return currentSelectTreeItem;
+    });
     return {
       treeElement,
       childrenElements,
       /**
-       * 手动展开某个节点
+       * 手动展开某个节点，会自动连同父节点一并展开
        */
       handExpand(id: string) {
         // 这种方式不行，因为数据有，可能界面没有v-if，依赖界面是无法展开折叠的tree-item
@@ -216,10 +219,15 @@ export default defineComponent({
         }
       },
       /**
-       * 手动选择某个节点
+       * 手动选中已经展开的节点，如果这个节点没有展开，是不会触发选中的
+       */
+      handChoose(id: string) {
+        emitter.emit(Msg.UpdateSelect, id);
+      },
+      /**
+       * 手动选择根节点下的某个节点
        */
       handSelect(index: number = 0) {
-        // emitter.emit(Msg.HandSelect, index);
         const len = childrenElements.value.length;
         if (index >= len) {
           return;
