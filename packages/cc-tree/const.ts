@@ -9,6 +9,7 @@ export const ProvideKeys = {
 export const Msg = {
   SelectReset: 'select-reset',
   HandSelect: 'hand-select',
+  HandExpand: 'hand-expand',
 };
 export interface ITreeData {
   /**

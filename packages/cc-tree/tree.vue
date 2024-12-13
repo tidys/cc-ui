@@ -54,9 +54,7 @@ export default defineComponent({
           {
             const ret = findBrother(false);
             if (ret) {
-              ret.comp.doSelect();
-              const el: HTMLDivElement = ret.comp.$el;
-              el.scrollIntoView({ behavior: 'smooth' });
+              ret.comp.doSelect(true);
             }
           }
           break;
@@ -64,9 +62,7 @@ export default defineComponent({
           {
             const ret = findBrother(true);
             if (ret) {
-              ret.comp.doSelect();
-              const el: HTMLDivElement = ret.comp.$el;
-              el.scrollIntoView({ behavior: 'smooth' });
+              ret.comp.doSelect(true);
             }
           }
           break;
@@ -171,7 +167,6 @@ export default defineComponent({
     const treeElement = ref<HTMLDivElement>();
     const childrenElements = ref<Array<typeof TreeItem>>([]);
 
-    const treeData = ref([]);
     const emitter = new TinyEmitter();
     provide(ProvideKeys.Emitter, emitter);
     provide(ProvideKeys.NodeClick, (data: ITreeData) => {
@@ -185,9 +180,44 @@ export default defineComponent({
       emit('node-collapse', data);
     });
     return {
-      treeData,
       treeElement,
       childrenElements,
+      /**
+       * 手动展开某个节点
+       */
+      handExpand(id: string) {
+        // 这种方式不行，因为数据有，可能界面没有v-if，依赖界面是无法展开折叠的tree-item
+        // emitter.emit(Msg.HandExpand, id);
+
+        // 先收集要展开的tree-item路径，然后在通过事件一层一层下发去展开
+        const data = toRaw(props.value);
+        function loop(item: ITreeData[], arr: string[]) {
+          for (let i = 0; i < item.length; i++) {
+            const child = item[i];
+            arr.push(child.id!);
+            if (child.id === id) {
+              return true;
+            } else {
+              if (child.children) {
+                const ret = loop(child.children, arr);
+                if (ret) {
+                  return true;
+                }
+              }
+            }
+            arr.pop();
+          }
+        }
+        const route: string[] = [];
+        loop(data, route);
+        console.log(route);
+        if (route) {
+          emitter.emit(Msg.HandExpand, route);
+        }
+      },
+      /**
+       * 手动选择某个节点
+       */
       handSelect(index: number = 0) {
         // emitter.emit(Msg.HandSelect, index);
         const len = childrenElements.value.length;

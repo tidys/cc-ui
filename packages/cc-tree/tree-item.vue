@@ -1,5 +1,5 @@
 <template>
-  <div class="tree-item">
+  <div class="tree-item" ref="rootEl">
     <div class="content" @contextmenu.prevent="" @click="onClick" @mouseenter="mouseEnter" @mouseleave="mouseLeave" :style="{ 'background-color': backgroundColor, 'padding-left': `${indent * 15}px` }">
       <div class="icon" :class="getIconClass()" :style="getIconStyle()" @click.stop.prevent="onFold"></div>
       <div class="name" :style="getNameStyle()">
@@ -15,7 +15,7 @@
 </el-tree> -->
 </template>
 <script lang="ts">
-import { ref, toRaw, defineComponent, PropType, inject, onMounted, onUnmounted, watch } from 'vue';
+import { ref, toRaw, defineComponent, PropType, inject, onMounted, onUnmounted, watch, nextTick } from 'vue';
 import { ITreeData, ProvideKeys, Msg } from './const';
 import { TinyEmitter } from 'tiny-emitter';
 import color from 'color';
@@ -77,13 +77,30 @@ export default defineComponent({
       updateBgColor();
     }
     function handSelect(index: number) {}
+    function handExpand(idArray: string[]) {
+      const id = toRaw(props.value.id || '');
+      if (idArray.includes(id)) {
+        if (fold.value === true) {
+          fold.value = false;
+          nextTick(() => {
+            // 能实现功能，但是会产生大量的调用，可能存在性能压力，主要就是无法调用到子组件
+            emitter.emit(Msg.HandExpand, idArray);
+          });
+        }
+        if (id === idArray[idArray.length - 1]) {
+          doSelect();
+        }
+      }
+    }
     onMounted(() => {
       emitter.on(Msg.SelectReset, selectReset);
       emitter.on(Msg.HandSelect, handSelect);
+      emitter.on(Msg.HandExpand, handExpand);
     });
     onUnmounted(() => {
       emitter.off(Msg.SelectReset, selectReset);
       emitter.off(Msg.HandSelect, handSelect);
+      emitter.off(Msg.HandExpand, handExpand);
     });
     function updateBgColor() {
       if (selected) {
@@ -113,13 +130,18 @@ export default defineComponent({
       }
       changeFold(b);
     }
-    function doSelect() {
+    function doSelect(scroll: boolean = false) {
       emitter.emit(Msg.SelectReset);
       selected = true;
       updateBgColor();
       NodeClick(toRaw(props.value));
+      if (scroll && rootEl.value) {
+        rootEl.value.scrollIntoView({ behavior: 'smooth' });
+      }
     }
+    const rootEl = ref<HTMLDivElement>();
     return {
+      rootEl,
       childrenElements,
       fold,
       backgroundColor,

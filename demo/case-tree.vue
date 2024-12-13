@@ -10,6 +10,11 @@
         <CCButton @click="freshTree2">should fold 11</CCButton>
       </div>
     </CCSection>
+
+    <CCSection name="handExpand">
+      <CCTree ref="tree3El" style="max-height: 100px; min-height: 100px" :default-expand-all="false" :value="treeData3"></CCTree>
+      <CCButton @click="expandTreeItem">should expand/select 3</CCButton>
+    </CCSection>
   </div>
 </template>
 
@@ -49,10 +54,28 @@ export default defineComponent({
     }
     const treeData2 = ref<ITreeData[]>([]);
     const expandKeys = ref<string[]>([]);
+    const tree3El = ref<typeof CCTree>();
+    const treeData3 = ref<ITreeData[]>([
+      { id: '0', text: '0', children: [{ id: '00', text: '00' }] },
+      {
+        id: '1',
+        text: '1',
+        children: [
+          {
+            id: '2',
+            text: '2',
+            children: [{ id: '3', text: '3' }],
+          },
+          { id: '4', text: '4' },
+        ],
+      },
+    ]);
     return {
+      tree3El,
       expandKeys,
       treeData1,
       treeData2,
+      treeData3,
       onTreeNodeClick(data: ITreeData) {
         console.log('click:', data);
       },
@@ -73,6 +96,12 @@ export default defineComponent({
             {
               id: '2',
               text: '2',
+              children: [
+                {
+                  id: '3',
+                  text: '3',
+                },
+              ],
             },
           ],
         });
@@ -92,6 +121,11 @@ export default defineComponent({
           ],
         });
         treeData2.value = data;
+      },
+      expandTreeItem() {
+        if (tree3El.value) {
+          (tree3El.value as typeof CCTree).handExpand('3');
+        }
       },
     };
   },
