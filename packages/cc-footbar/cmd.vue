@@ -1,13 +1,13 @@
 <template>
-  <div class="cmd" @click.prevent.stop="onClick">
+  <div class="cmd" @click.prevent.stop="onClick" :title="data.title || ''">
     <div>{{ data.label }}</div>
     <div :class="iconClass()" style="font-size: 20px; width: 20px; height: 20px"></div>
   </div>
 </template>
 <script lang="ts">
-import { FootCmd } from './const';
+import { defineComponent, PropType, ref } from 'vue';
 import { showCommand } from '../cc-command/const';
-import { ref, defineComponent, PropType } from 'vue';
+import { FootCmd } from './const';
 export default defineComponent({
   name: 'cmd',
   props: {

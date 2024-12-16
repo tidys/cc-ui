@@ -15,6 +15,10 @@ export interface FootCmd {
    */
   label?: string;
   /**
+   * 鼠标悬浮提示语
+   */
+  title?: string;
+  /**
    * 显示的icon，label和icon至少得有一个
    */
   icon?: 'cmder' | string;
