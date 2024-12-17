@@ -6,12 +6,23 @@
       <div class="label">version: {{ verString }}</div>
     </div>
     <i @click.stop.prevent="onClickNotify" @dblclick.stop.prevent="" @mousedown.stop.prevent="" class="notify iconfont icon_notify"></i>
-    <div v-show="showErrorPanel" class="error-panel">
-      <div class="title">
-        <div class="text">{{ errorTitle }}</div>
-        <i class="iconfont icon_close close" @click="onCloseError"></i>
+    <div v-show="showErrorPanel" class="error-panel" ref="elErrorPanel">
+      <div class="resize-left">
+        <div class="line">
+          <div class="top" @mousedown="onMouseDownLeftTop"></div>
+          <div class="bottom" @mousedown="onMouseDownLeft"></div>
+        </div>
       </div>
-      <div class="content ccui-scrollbar" :style="{ color: errorColor || 'red' }">{{ errorContent }}</div>
+      <div class="panel">
+        <div class="resize-top" @mousedown="onMouseDownTop">
+          <div class="line-top"></div>
+        </div>
+        <div class="title">
+          <div class="text">{{ errorTitle }}</div>
+          <i class="iconfont icon_close close" @click="onCloseError"></i>
+        </div>
+        <div class="content ccui-scrollbar" :style="{ color: errorColor || 'red' }">{{ errorContent }}</div>
+      </div>
     </div>
   </div>
 </template>
@@ -127,8 +138,10 @@ export default defineComponent({
     );
     const errorTitle = ref('');
     const errorContent = ref('');
+    const elErrorPanel = ref<HTMLDivElement>();
     return {
       errorColor,
+      elErrorPanel,
       errorTitle,
       errorContent,
       showErrorPanel,
@@ -146,11 +159,73 @@ export default defineComponent({
         }
         showErrorPanel.value = false;
       },
+      onMouseDownLeftTop(event: MouseEvent) {
+        event.stopPropagation();
+        if (!elErrorPanel.value) {
+          return;
+        }
+        const disX = event.pageX;
+        const width = elErrorPanel.value.clientWidth;
+        const disY = event.pageY;
+        const height = elErrorPanel.value.clientHeight;
+        function onMouseMove(e: MouseEvent) {
+          const newWidth = width - (e.pageX - disX);
+          elErrorPanel.value!.style.width = `${newWidth}px`;
+          const newHeight = height - (e.pageY - disY);
+          elErrorPanel.value!.style.height = `${newHeight}px`;
+        }
+        function onMouseDown() {
+          document.removeEventListener('mousemove', onMouseMove);
+          document.removeEventListener('mouseup', onMouseDown);
+        }
+        document.addEventListener('mousemove', onMouseMove);
+        document.addEventListener('mouseup', onMouseDown);
+      },
+      onMouseDownLeft(event: MouseEvent) {
+        event.stopPropagation();
+        if (!elErrorPanel.value) {
+          return;
+        }
+
+        const disX = event.pageX;
+        const width = elErrorPanel.value.clientWidth;
+        function onMouseMove(e: MouseEvent) {
+          const newWidth = width - (e.pageX - disX);
+          elErrorPanel.value!.style.width = `${newWidth}px`;
+        }
+        function onMouseDown() {
+          document.removeEventListener('mousemove', onMouseMove);
+          document.removeEventListener('mouseup', onMouseDown);
+        }
+        document.addEventListener('mousemove', onMouseMove);
+        document.addEventListener('mouseup', onMouseDown);
+      },
+      onMouseDownTop(event: MouseEvent) {
+        event.stopPropagation();
+        if (!elErrorPanel.value) {
+          return;
+        }
+        const disY = event.pageY;
+        const height = elErrorPanel.value.clientHeight;
+
+        function onMouseMove(e: MouseEvent) {
+          const newHeight = height - (e.pageY - disY);
+          elErrorPanel.value!.style.height = `${newHeight}px`;
+        }
+        function onMouseDown() {
+          document.removeEventListener('mousemove', onMouseMove);
+          document.removeEventListener('mouseup', onMouseDown);
+        }
+        document.addEventListener('mousemove', onMouseMove);
+        document.addEventListener('mouseup', onMouseDown);
+      },
     };
   },
 });
 </script>
 <style lang="less" scoped>
+@blockwidth: 5px;
+@blockcolor: transparent;
 .version {
   overflow: hidden;
   border: 1px solid #393939;
@@ -210,41 +285,92 @@ export default defineComponent({
     background: rgba(0, 0, 0, 0.5);
     color: aliceblue;
     display: flex;
-    flex-direction: column;
-    .title {
-      font-size: 15px;
-      display: flex;
-      flex-direction: row;
-      align-items: center;
-      user-select: none;
-      padding: 0 3px;
-      overflow: hidden;
-      background: rgb(43, 48, 56);
-      .text {
-        flex: 1;
-        overflow: hidden;
-        user-select: none;
-        white-space: nowrap;
-        text-overflow: ellipsis;
-        margin-right: 5px;
-      }
-      .close {
-        font-size: 12px;
-        cursor: pointer;
-        &:hover {
-          color: rgb(100, 100, 100);
+    overflow: hidden;
+    flex-direction: row;
+    .resize-left {
+      width: 0;
+      background-color: aqua;
+      cursor: ew-resize;
+      position: relative;
+      .line {
+        position: absolute;
+        top: 0;
+        bottom: 0;
+        width: @blockwidth;
+        position: absolute;
+        display: flex;
+        flex-direction: column;
+        .top {
+          cursor: nwse-resize;
+          display: flex;
+          height: @blockwidth;
+          width: @blockwidth;
+          &:hover {
+            background-color: @blockcolor;
+          }
+        }
+        .bottom {
+          flex: 1;
+          &:hover {
+            background-color: @blockcolor;
+          }
         }
       }
     }
-    .content {
-      font-size: 13px;
-      display: flex;
-      padding: 3px;
+    .panel {
       flex: 1;
-      word-break: break-all;
-      background: rgb(33, 37, 43);
-      overflow-y: scroll;
-      overflow-x: hidden;
+      overflow: hidden;
+      display: flex;
+      flex-direction: column;
+      .resize-top {
+        cursor: ns-resize;
+        height: 0;
+        position: relative;
+        .line-top {
+          position: absolute;
+          left: @blockwidth;
+          right: 20px;
+          height: @blockwidth;
+          &:hover {
+            background-color: @blockcolor;
+          }
+        }
+      }
+      .title {
+        font-size: 15px;
+        display: flex;
+        flex-direction: row;
+        align-items: center;
+        user-select: none;
+        padding: 0 3px;
+        overflow: hidden;
+        background: rgb(43, 48, 56);
+        .text {
+          flex: 1;
+          overflow: hidden;
+          user-select: none;
+          white-space: nowrap;
+          text-overflow: ellipsis;
+          margin-right: 5px;
+        }
+        .close {
+          font-size: 12px;
+          cursor: pointer;
+          &:hover {
+            color: rgb(100, 100, 100);
+          }
+        }
+      }
+      .content {
+        font-size: 13px;
+        display: flex;
+        padding: 3px;
+        flex: 1;
+        word-break: break-all;
+        background: rgb(33, 37, 43);
+        overflow-y: scroll;
+        overflow-x: hidden;
+      }
     }
   }
 }
