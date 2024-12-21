@@ -3,6 +3,10 @@ declare const _default: import("vue").DefineComponent<{
         type: BooleanConstructor;
         default: boolean;
     };
+    disabled: {
+        type: BooleanConstructor;
+        default: boolean;
+    };
     label: {
         type: StringConstructor;
         default: string;
@@ -16,6 +20,10 @@ declare const _default: import("vue").DefineComponent<{
         type: BooleanConstructor;
         default: boolean;
     };
+    disabled: {
+        type: BooleanConstructor;
+        default: boolean;
+    };
     label: {
         type: StringConstructor;
         default: string;
@@ -25,6 +33,7 @@ declare const _default: import("vue").DefineComponent<{
     "onUpdate:value"?: ((...args: any[]) => any) | undefined;
 }, {
     label: string;
+    disabled: boolean;
     value: boolean;
 }, {}>;
 export default _default;

@@ -18,6 +18,10 @@ declare const _default: import("vue").DefineComponent<{
         type: StringConstructor;
         default: string;
     };
+    disabled: {
+        type: BooleanConstructor;
+        default: boolean;
+    };
 }, {
     focus: import("vue").Ref<boolean>;
     rootEl: import("vue").Ref<any>;
@@ -46,12 +50,17 @@ declare const _default: import("vue").DefineComponent<{
         type: StringConstructor;
         default: string;
     };
+    disabled: {
+        type: BooleanConstructor;
+        default: boolean;
+    };
 }>> & {
     onChange?: ((...args: any[]) => any) | undefined;
     "onUpdate:value"?: ((...args: any[]) => any) | undefined;
     "onUpdate:data"?: ((...args: any[]) => any) | undefined;
 }, {
     data: Option[];
+    disabled: boolean;
     arrow: boolean;
     placeholder: string;
 }, {}>;

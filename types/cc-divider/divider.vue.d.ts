@@ -44,8 +44,8 @@ declare const _default: import("vue").DefineComponent<{
     onMove?: ((...args: any[]) => any) | undefined;
 }, {
     color: string;
-    width: number;
     vertical: boolean;
+    width: number;
     influence: boolean;
 }, {}>;
 export default _default;

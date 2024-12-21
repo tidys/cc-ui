@@ -3,10 +3,14 @@ export declare const ProvideKeys: {
     NodeClick: string;
     NodeExpand: string;
     NodeCollapse: string;
+    DefaultExpandAll: string;
+    CheckExpand: string;
+    CurrentSelect: string;
 };
 export declare const Msg: {
     SelectReset: string;
-    HandSelect: string;
+    UpdateSelect: string;
+    HandExpand: string;
 };
 export interface ITreeData {
     /**

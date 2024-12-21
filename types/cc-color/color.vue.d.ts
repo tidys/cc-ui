@@ -7,6 +7,17 @@ declare const _default: import("vue").DefineComponent<{
         type: BooleanConstructor;
         default: boolean;
     };
+    disabled: {
+        type: BooleanConstructor;
+        default: boolean;
+    };
+    /**
+     * 是否显示颜色值
+     */
+    showColorText: {
+        type: BooleanConstructor;
+        default: () => boolean;
+    };
 }, {
     color: import("vue").Ref<HTMLElement | undefined>;
     panel: import("vue").Ref<HTMLElement | undefined>;
@@ -18,6 +29,7 @@ declare const _default: import("vue").DefineComponent<{
         backgroundColor: string;
     }>;
     show: import("vue").Ref<boolean>;
+    textColor(): "#000000" | "#ffffff";
     onShowPanel(): void;
     onColorChangeSaturation(color: string): void;
     onChangeColorHue(color: string): void;
@@ -33,11 +45,24 @@ declare const _default: import("vue").DefineComponent<{
         type: BooleanConstructor;
         default: boolean;
     };
+    disabled: {
+        type: BooleanConstructor;
+        default: boolean;
+    };
+    /**
+     * 是否显示颜色值
+     */
+    showColorText: {
+        type: BooleanConstructor;
+        default: () => boolean;
+    };
 }>> & {
     onChange?: ((...args: any[]) => any) | undefined;
     "onUpdate:color"?: ((...args: any[]) => any) | undefined;
 }, {
     color: string;
+    disabled: boolean;
     alpha: boolean;
+    showColorText: boolean;
 }, {}>;
 export default _default;

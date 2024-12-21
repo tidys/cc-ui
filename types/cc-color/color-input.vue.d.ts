@@ -7,6 +7,10 @@ declare const _default: import("vue").DefineComponent<{
         type: StringConstructor;
         default: string;
     };
+    disabled: {
+        type: BooleanConstructor;
+        default: boolean;
+    };
 }, {
     curColor: import("vue").Ref<string>;
     curTitle: import("vue").Ref<string>;
@@ -21,11 +25,16 @@ declare const _default: import("vue").DefineComponent<{
         type: StringConstructor;
         default: string;
     };
+    disabled: {
+        type: BooleanConstructor;
+        default: boolean;
+    };
 }>> & {
     onChange?: ((...args: any[]) => any) | undefined;
     "onUpdate:color"?: ((...args: any[]) => any) | undefined;
 }, {
     title: string;
     color: string;
+    disabled: boolean;
 }, {}>;
 export default _default;

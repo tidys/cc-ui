@@ -1,2 +1,3 @@
 import CCProp from './prop.vue';
-export { CCProp };
+import * as prop from './const';
+export { CCProp, prop };

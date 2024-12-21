@@ -1,20 +1,26 @@
 /// <reference types="short-uuid" />
-import { App } from 'vue';
-import './common/scrollbar.less';
 import { TinyEmitter } from 'tiny-emitter';
-import { menu } from './cc-menu/index';
-import { dialog } from './cc-dialog/index';
-import { footbar } from './cc-footbar/index';
-import { command } from './cc-command/index';
-import { table } from './cc-table/index';
-import { select } from './cc-select/index';
+import { App } from 'vue';
 import { buttonGroup } from './cc-button-group/index';
+import { command } from './cc-command/index';
+import { dialog } from './cc-dialog/index';
 import { divider } from './cc-divider/index';
+import { footbar } from './cc-footbar/index';
+import { menu } from './cc-menu/index';
+import { select } from './cc-select/index';
+import { prop } from './cc-prop/index';
+import { color } from './cc-color/index';
+import { table } from './cc-table/index';
+import { tree } from './cc-tree/index';
+import './common/scrollbar.less';
 export declare const install: (app: App) => void;
 declare const _default: {
     divider: typeof divider;
     buttonGroup: typeof buttonGroup;
+    color: typeof color;
+    prop: typeof prop;
     menu: typeof menu;
+    tree: typeof tree;
     dialog: typeof dialog;
     footbar: typeof footbar;
     command: typeof command;
@@ -40,7 +46,7 @@ declare const _default: {
         }, {}>;
         CCTree: import("vue").DefineComponent<{
             value: {
-                type: import("vue").PropType<import("./cc-tree/const").ITreeData[]>;
+                type: import("vue").PropType<tree.ITreeData[]>;
                 default: () => never[];
                 required: true;
             };
@@ -48,12 +54,19 @@ declare const _default: {
                 type: StringConstructor;
                 default: string;
             };
+            defaultExpandAll: {
+                type: BooleanConstructor;
+                default: boolean;
+            };
+            expandKeys: {
+                type: import("vue").PropType<string[]>;
+                default: () => never[];
+            };
         }, {
-            treeData: import("vue").Ref<never[]>;
             treeElement: import("vue").Ref<HTMLDivElement | undefined>;
             childrenElements: import("vue").Ref<import("vue").DefineComponent<{
                 value: {
-                    type: import("vue").PropType<import("./cc-tree/const").ITreeData>;
+                    type: import("vue").PropType<tree.ITreeData>;
                     default: () => {
                         text: string;
                     };
@@ -68,22 +81,23 @@ declare const _default: {
                     default: string;
                 };
             }, {
+                rootEl: import("vue").Ref<HTMLDivElement | undefined>;
                 childrenElements: import("vue").Ref<never[]>;
                 fold: import("vue").Ref<boolean>;
                 backgroundColor: import("vue").Ref<string>;
                 selected: boolean;
                 doFold: (b: boolean) => void;
-                doSelect: () => void;
+                doSelect: (scroll?: boolean) => void;
                 onFold(): void;
                 mouseEnter(): void;
                 mouseLeave(): void;
                 onClick(): void;
-                getIconClass(): "iconfont icon_arrow_right" | "iconfont icon_arrow_down";
+                getIconClass(): "iconfont icon_arrow_down" | "iconfont icon_arrow_right";
                 getIconStyle(): string;
                 getNameStyle(): string;
             }, unknown, {}, {}, import("vue").ComponentOptionsMixin, import("vue").ComponentOptionsMixin, {}, string, import("vue").VNodeProps & import("vue").AllowedComponentProps & import("vue").ComponentCustomProps, Readonly<import("vue").ExtractPropTypes<{
                 value: {
-                    type: import("vue").PropType<import("./cc-tree/const").ITreeData>;
+                    type: import("vue").PropType<tree.ITreeData>;
                     default: () => {
                         text: string;
                     };
@@ -99,13 +113,15 @@ declare const _default: {
                 };
             }>>, {
                 color: string;
-                value: import("./cc-tree/const").ITreeData;
+                value: tree.ITreeData;
                 indent: number;
             }, {}>[]>;
+            handExpand(id: string): void;
+            handChoose(id: string): void;
             handSelect(index?: number): void;
         }, unknown, {}, {}, import("vue").ComponentOptionsMixin, import("vue").ComponentOptionsMixin, {}, string, import("vue").VNodeProps & import("vue").AllowedComponentProps & import("vue").ComponentCustomProps, Readonly<import("vue").ExtractPropTypes<{
             value: {
-                type: import("vue").PropType<import("./cc-tree/const").ITreeData[]>;
+                type: import("vue").PropType<tree.ITreeData[]>;
                 default: () => never[];
                 required: true;
             };
@@ -113,9 +129,19 @@ declare const _default: {
                 type: StringConstructor;
                 default: string;
             };
+            defaultExpandAll: {
+                type: BooleanConstructor;
+                default: boolean;
+            };
+            expandKeys: {
+                type: import("vue").PropType<string[]>;
+                default: () => never[];
+            };
         }>>, {
-            value: import("./cc-tree/const").ITreeData[];
+            value: tree.ITreeData[];
             bgColor: string;
+            defaultExpandAll: boolean;
+            expandKeys: string[];
         }, {}>;
         CCProcess: import("vue").DefineComponent<{
             percent: {
@@ -208,8 +234,8 @@ declare const _default: {
             onMove?: ((...args: any[]) => any) | undefined;
         }, {
             color: string;
-            width: number;
             vertical: boolean;
+            width: number;
             influence: boolean;
         }, {}>;
         CCButtonGroup: import("vue").DefineComponent<{
@@ -360,6 +386,7 @@ declare const _default: {
             };
         }, {
             errorColor: import("vue").Ref<string>;
+            elErrorPanel: import("vue").Ref<HTMLDivElement | undefined>;
             errorTitle: import("vue").Ref<string>;
             errorContent: import("vue").Ref<string>;
             showErrorPanel: import("vue").Ref<boolean>;
@@ -368,6 +395,7 @@ declare const _default: {
             tipColor: import("vue").Ref<string>;
             commands: import("vue").Ref<{
                 label?: string | undefined;
+                title?: string | undefined;
                 icon?: string | undefined;
                 cb?: (() => void) | null | undefined;
                 cmds?: {
@@ -380,6 +408,9 @@ declare const _default: {
             }[]>;
             onClickNotify(): void;
             onCloseError(): void;
+            onMouseDownLeftTop(event: MouseEvent): void;
+            onMouseDownLeft(event: MouseEvent): void;
+            onMouseDownTop(event: MouseEvent): void;
         }, unknown, {}, {}, import("vue").ComponentOptionsMixin, import("vue").ComponentOptionsMixin, {}, string, import("vue").VNodeProps & import("vue").AllowedComponentProps & import("vue").ComponentCustomProps, Readonly<import("vue").ExtractPropTypes<{
             version: {
                 type: StringConstructor;
@@ -442,6 +473,10 @@ declare const _default: {
                 type: BooleanConstructor;
                 default: boolean;
             };
+            disabled: {
+                type: BooleanConstructor;
+                default: boolean;
+            };
             label: {
                 type: StringConstructor;
                 default: string;
@@ -455,6 +490,10 @@ declare const _default: {
                 type: BooleanConstructor;
                 default: boolean;
             };
+            disabled: {
+                type: BooleanConstructor;
+                default: boolean;
+            };
             label: {
                 type: StringConstructor;
                 default: string;
@@ -464,6 +503,7 @@ declare const _default: {
             "onUpdate:value"?: ((...args: any[]) => any) | undefined;
         }, {
             label: string;
+            disabled: boolean;
             value: boolean;
         }, {}>;
         CCColor: import("vue").DefineComponent<{
@@ -474,6 +514,14 @@ declare const _default: {
             alpha: {
                 type: BooleanConstructor;
                 default: boolean;
+            };
+            disabled: {
+                type: BooleanConstructor;
+                default: boolean;
+            };
+            showColorText: {
+                type: BooleanConstructor;
+                default: () => boolean;
             };
         }, {
             color: import("vue").Ref<HTMLElement | undefined>;
@@ -486,6 +534,7 @@ declare const _default: {
                 backgroundColor: string;
             }>;
             show: import("vue").Ref<boolean>;
+            textColor(): "#000000" | "#ffffff";
             onShowPanel(): void;
             onColorChangeSaturation(color: string): void;
             onChangeColorHue(color: string): void;
@@ -501,12 +550,22 @@ declare const _default: {
                 type: BooleanConstructor;
                 default: boolean;
             };
+            disabled: {
+                type: BooleanConstructor;
+                default: boolean;
+            };
+            showColorText: {
+                type: BooleanConstructor;
+                default: () => boolean;
+            };
         }>> & {
             onChange?: ((...args: any[]) => any) | undefined;
             "onUpdate:color"?: ((...args: any[]) => any) | undefined;
         }, {
             color: string;
+            disabled: boolean;
             alpha: boolean;
+            showColorText: boolean;
         }, {}>;
         CCSection: import("vue").DefineComponent<{
             name: {
@@ -516,10 +575,22 @@ declare const _default: {
                 type: BooleanConstructor;
                 default: boolean;
             };
+            autoSlotHeader: {
+                type: BooleanConstructor;
+                default: boolean;
+            };
+            expandByFullHeader: {
+                type: BooleanConstructor;
+                default: boolean;
+            };
         }, {
             expand: import("vue").Ref<boolean>;
+            visibleSlotHeader: import("vue").Ref<boolean>;
             name: import("vue").Ref<string>;
-            onExpand(): void;
+            onMouseEnter(): void;
+            onMouseLeave(): void;
+            onExpand: () => void;
+            onClickHeader(): void;
         }, unknown, {}, {}, import("vue").ComponentOptionsMixin, import("vue").ComponentOptionsMixin, {}, string, import("vue").VNodeProps & import("vue").AllowedComponentProps & import("vue").ComponentCustomProps, Readonly<import("vue").ExtractPropTypes<{
             name: {
                 type: StringConstructor;
@@ -528,8 +599,18 @@ declare const _default: {
                 type: BooleanConstructor;
                 default: boolean;
             };
+            autoSlotHeader: {
+                type: BooleanConstructor;
+                default: boolean;
+            };
+            expandByFullHeader: {
+                type: BooleanConstructor;
+                default: boolean;
+            };
         }>>, {
             expand: boolean;
+            autoSlotHeader: boolean;
+            expandByFullHeader: boolean;
         }, {}>;
         CCHelp: import("vue").DefineComponent<{
             docUrl: {
@@ -564,6 +645,10 @@ declare const _default: {
                 type: StringConstructor;
                 default: string;
             };
+            disabled: {
+                type: BooleanConstructor;
+                default: boolean;
+            };
         }, {
             focus: import("vue").Ref<boolean>;
             rootEl: import("vue").Ref<any>;
@@ -589,12 +674,17 @@ declare const _default: {
                 type: StringConstructor;
                 default: string;
             };
+            disabled: {
+                type: BooleanConstructor;
+                default: boolean;
+            };
         }>> & {
             onChange?: ((...args: any[]) => any) | undefined;
             "onUpdate:value"?: ((...args: any[]) => any) | undefined;
             "onUpdate:data"?: ((...args: any[]) => any) | undefined;
         }, {
             data: select.Option[];
+            disabled: boolean;
             arrow: boolean;
             placeholder: string;
         }, {}>;
@@ -739,22 +829,55 @@ declare const _default: {
                 type: StringConstructor;
                 default: string;
             };
+            expand: {
+                type: BooleanConstructor;
+                default: boolean;
+            };
+            icon: {
+                type: BooleanConstructor;
+                default: boolean;
+            };
+            arrow: {
+                type: BooleanConstructor;
+                default: boolean;
+            };
+            step: {
+                type: NumberConstructor;
+                default: number;
+            };
+            slide: {
+                type: BooleanConstructor;
+                default: boolean;
+            };
+            indent: {
+                type: NumberConstructor;
+                default: number;
+            };
             hint: {
                 type: BooleanConstructor;
                 default: boolean;
             };
+            headWidth: {
+                type: StringConstructor;
+                default: () => string;
+            };
         }, {
+            title: import("vue").Ref<string>;
             tooltipElement: import("vue").Ref<HTMLElement | undefined>;
             tips: import("vue").Ref<HTMLElement | undefined>;
             isShowTips: import("vue").Ref<boolean>;
             arrow: import("vue").Ref<HTMLElement | undefined>;
+            isExpand: import("vue").Ref<boolean>;
             text: import("vue").Ref<HTMLElement | undefined>;
             name: import("vue").Ref<string>;
             isHove: import("vue").Ref<boolean>;
+            onMouseDown(event: MouseEvent): void;
+            getArrowClass(): string;
             onHover(event: any): void;
+            onClickArrow(): void;
             onOver(): void;
             getValueStyle(): string;
-        }, unknown, {}, {}, import("vue").ComponentOptionsMixin, import("vue").ComponentOptionsMixin, {}, string, import("vue").VNodeProps & import("vue").AllowedComponentProps & import("vue").ComponentCustomProps, Readonly<import("vue").ExtractPropTypes<{
+        }, unknown, {}, {}, import("vue").ComponentOptionsMixin, import("vue").ComponentOptionsMixin, ("slide" | "changeExpand" | "update:expand")[], "slide" | "changeExpand" | "update:expand", import("vue").VNodeProps & import("vue").AllowedComponentProps & import("vue").ComponentCustomProps, Readonly<import("vue").ExtractPropTypes<{
             name: {
                 type: StringConstructor;
             };
@@ -766,14 +889,53 @@ declare const _default: {
                 type: StringConstructor;
                 default: string;
             };
+            expand: {
+                type: BooleanConstructor;
+                default: boolean;
+            };
+            icon: {
+                type: BooleanConstructor;
+                default: boolean;
+            };
+            arrow: {
+                type: BooleanConstructor;
+                default: boolean;
+            };
+            step: {
+                type: NumberConstructor;
+                default: number;
+            };
+            slide: {
+                type: BooleanConstructor;
+                default: boolean;
+            };
+            indent: {
+                type: NumberConstructor;
+                default: number;
+            };
             hint: {
                 type: BooleanConstructor;
                 default: boolean;
             };
-        }>>, {
+            headWidth: {
+                type: StringConstructor;
+                default: () => string;
+            };
+        }>> & {
+            onSlide?: ((...args: any[]) => any) | undefined;
+            onChangeExpand?: ((...args: any[]) => any) | undefined;
+            "onUpdate:expand"?: ((...args: any[]) => any) | undefined;
+        }, {
             tooltip: string;
+            arrow: boolean;
+            expand: boolean;
+            step: number;
+            slide: boolean;
             align: string;
+            icon: boolean;
+            indent: number;
             hint: boolean;
+            headWidth: string;
         }, {}>;
         CCMenu: import("vue").DefineComponent<{}, {
             menuEl: import("vue").Ref<HTMLDivElement | undefined>;
@@ -787,23 +949,32 @@ declare const _default: {
         }, {}, {}, {}, import("vue").ComponentOptionsMixin, import("vue").ComponentOptionsMixin, {}, string, import("vue").VNodeProps & import("vue").AllowedComponentProps & import("vue").ComponentCustomProps, Readonly<import("vue").ExtractPropTypes<{}>>, {}, {}>;
         CCSlider: import("vue").DefineComponent<{}, {}, {}, {}, {}, import("vue").ComponentOptionsMixin, import("vue").ComponentOptionsMixin, {}, string, import("vue").VNodeProps & import("vue").AllowedComponentProps & import("vue").ComponentCustomProps, Readonly<import("vue").ExtractPropTypes<{}>>, {}, {}>;
         CCTextarea: import("vue").DefineComponent<{
-            data: {
+            value: {
                 type: StringConstructor;
                 default: string;
+            };
+            readonly: {
+                type: BooleanConstructor;
+                default: boolean;
             };
         }, {
             text: import("vue").Ref<string>;
             onChange(): void;
-        }, unknown, {}, {}, import("vue").ComponentOptionsMixin, import("vue").ComponentOptionsMixin, ("change" | "update:data")[], "change" | "update:data", import("vue").VNodeProps & import("vue").AllowedComponentProps & import("vue").ComponentCustomProps, Readonly<import("vue").ExtractPropTypes<{
-            data: {
+        }, unknown, {}, {}, import("vue").ComponentOptionsMixin, import("vue").ComponentOptionsMixin, ("update:value" | "change")[], "update:value" | "change", import("vue").VNodeProps & import("vue").AllowedComponentProps & import("vue").ComponentCustomProps, Readonly<import("vue").ExtractPropTypes<{
+            value: {
                 type: StringConstructor;
                 default: string;
             };
+            readonly: {
+                type: BooleanConstructor;
+                default: boolean;
+            };
         }>> & {
             onChange?: ((...args: any[]) => any) | undefined;
-            "onUpdate:data"?: ((...args: any[]) => any) | undefined;
+            "onUpdate:value"?: ((...args: any[]) => any) | undefined;
         }, {
-            data: string;
+            readonly: boolean;
+            value: string;
         }, {}>;
         CCWindow: import("vue").DefineComponent<{
             data: {

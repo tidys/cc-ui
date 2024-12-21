@@ -1,20 +1,29 @@
 declare const _default: import("vue").DefineComponent<{
-    data: {
+    value: {
         type: StringConstructor;
         default: string;
+    };
+    readonly: {
+        type: BooleanConstructor;
+        default: boolean;
     };
 }, {
     text: import("vue").Ref<string>;
     onChange(): void;
-}, unknown, {}, {}, import("vue").ComponentOptionsMixin, import("vue").ComponentOptionsMixin, ("change" | "update:data")[], "change" | "update:data", import("vue").VNodeProps & import("vue").AllowedComponentProps & import("vue").ComponentCustomProps, Readonly<import("vue").ExtractPropTypes<{
-    data: {
+}, unknown, {}, {}, import("vue").ComponentOptionsMixin, import("vue").ComponentOptionsMixin, ("update:value" | "change")[], "update:value" | "change", import("vue").VNodeProps & import("vue").AllowedComponentProps & import("vue").ComponentCustomProps, Readonly<import("vue").ExtractPropTypes<{
+    value: {
         type: StringConstructor;
         default: string;
     };
+    readonly: {
+        type: BooleanConstructor;
+        default: boolean;
+    };
 }>> & {
     onChange?: ((...args: any[]) => any) | undefined;
-    "onUpdate:data"?: ((...args: any[]) => any) | undefined;
+    "onUpdate:value"?: ((...args: any[]) => any) | undefined;
 }, {
-    data: string;
+    readonly: boolean;
+    value: string;
 }, {}>;
 export default _default;
