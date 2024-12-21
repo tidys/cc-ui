@@ -16,6 +16,9 @@
   <CCProp v-model:name="name">
     <CCInput v-model:value="name"></CCInput>
   </CCProp>
+  <CCProp name="head width 200px" head-width="200px">
+    <CCInput></CCInput>
+  </CCProp>
 </template>
 
 <script lang="ts">

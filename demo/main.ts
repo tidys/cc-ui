@@ -2,8 +2,8 @@ import { createApp } from 'vue';
 import App from './app.vue';
 import CCUI from '../packages';
 import '../iconfont/iconfont.css';
+CCUI.prop.config.headWidth = 100;
 const app = createApp(App);
-
 const useShadowRoot = false;
 if (useShadowRoot) {
   // 还没想好怎么适配到shadow-root上

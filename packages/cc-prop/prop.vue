@@ -23,7 +23,7 @@ import { createPopper } from '@popperjs/core';
 import { debounce, DebouncedFunc } from 'lodash';
 import { TinyEmitter } from 'tiny-emitter';
 import { defineComponent, inject, nextTick, onMounted, provide, ref, toRaw, watch } from 'vue';
-
+import { config } from './const';
 export default defineComponent({
   name: 'CCProp',
   emits: ['changeExpand', 'update:expand', 'slide'],
@@ -106,7 +106,7 @@ export default defineComponent({
      */
     headWidth: {
       type: String,
-      default: '200px',
+      default: () => `${config.headWidth}px`,
     },
   },
   setup(props, { emit }) {
