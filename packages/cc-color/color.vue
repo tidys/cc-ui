@@ -1,7 +1,7 @@
 <template>
   <div class="cc-color">
     <div ref="color" class="color" :class="{ disabled: disabled }" :style="style" @click.stop.prevent="onShowPanel">
-      <div class="text" :style="{ color: textColor() }">
+      <div class="text" :style="{ color: textColor() }" v-show="showColorText">
         {{ hexColor }}
       </div>
     </div>
@@ -28,6 +28,7 @@ import { emitter, HideOthers } from './event-bus';
 import Hue from './hue.vue';
 import ColorSaturation from './saturation.vue';
 import { getColorHex, getColorHex8, getColorHSV, getColorHue, transformColorByHue } from './util';
+import { config } from './const';
 export default defineComponent({
   name: 'CCColor',
   emits: ['update:color', 'change'],
@@ -39,7 +40,7 @@ export default defineComponent({
     /**
      * 是否显示颜色值
      */
-    showColorText: { type: Boolean, default: false },
+    showColorText: { type: Boolean, default: () => config.showColorText },
   },
   setup(props, { emit }) {
     const show = ref(false);

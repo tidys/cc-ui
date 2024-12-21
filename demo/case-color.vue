@@ -15,6 +15,9 @@
     <CCProp name="disabled">
       <CCColor :color="color" :disabled="true"></CCColor>
     </CCProp>
+    <CCProp name="config show color text" head-width="200">
+      <CCColor :show-color-text="false"> </CCColor>
+    </CCProp>
   </div>
 </template>
 

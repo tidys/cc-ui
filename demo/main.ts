@@ -3,6 +3,7 @@ import App from './app.vue';
 import CCUI from '../packages';
 import '../iconfont/iconfont.css';
 CCUI.prop.config.headWidth = 100;
+CCUI.color.config.showColorText = true;
 const app = createApp(App);
 const useShadowRoot = false;
 if (useShadowRoot) {

@@ -1,3 +1,3 @@
 import CCColor from './color.vue';
-
-export { CCColor };
+import * as color from './const';
+export { CCColor, color };
