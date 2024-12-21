@@ -354,6 +354,7 @@ export default defineComponent({
     }
 
     .tips {
+      z-index: 9999;
       .text {
         background-color: #666666;
         border-radius: 6px;
