@@ -44,6 +44,7 @@ export default defineComponent({
     props.value.id = id === undefined ? generate() : id;
     const emitter = inject(ProvideKeys.Emitter) as TinyEmitter;
     const NodeClick = inject(ProvideKeys.NodeClick, (data: ITreeData | null) => {});
+    const NodeUnclick = inject(ProvideKeys.NodeUnclick, (data: ITreeData | null) => {});
     const CurrentSelect = inject<() => ITreeData | null>(ProvideKeys.CurrentSelect, () => {
       return null;
     });
@@ -79,7 +80,22 @@ export default defineComponent({
       selected = true;
       updateBgColor();
     }
+    function doSelect(scroll: boolean = false) {
+      if (selected) {
+        return;
+      }
+      emitter.emit(Msg.SelectReset);
+      selected = true;
+      updateBgColor();
+      NodeClick(toRaw(props.value));
+      if (scroll && rootEl.value) {
+        rootEl.value.scrollIntoView({ behavior: 'smooth' });
+      }
+    }
     function selectReset() {
+      if (selected) {
+        NodeUnclick(toRaw(props.value));
+      }
       selected = false;
       updateBgColor();
     }
@@ -87,10 +103,7 @@ export default defineComponent({
       if (id === props.value.id) {
         doSelect(true);
       } else {
-        if (selected) {
-          NodeClick(null);
-          selectReset();
-        }
+        selectReset();
       }
     }
     function handExpand(idArray: string[]) {
@@ -147,15 +160,7 @@ export default defineComponent({
       }
       changeFold(b);
     }
-    function doSelect(scroll: boolean = false) {
-      emitter.emit(Msg.SelectReset);
-      selected = true;
-      updateBgColor();
-      NodeClick(toRaw(props.value));
-      if (scroll && rootEl.value) {
-        rootEl.value.scrollIntoView({ behavior: 'smooth' });
-      }
-    }
+
     const rootEl = ref<HTMLDivElement>();
     return {
       rootEl,

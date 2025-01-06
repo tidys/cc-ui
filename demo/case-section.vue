@@ -22,6 +22,11 @@
         </div>
       </template>
       <div>测试header</div>
+      <template v-slot:title>
+        <div @click.stop="">
+          <CCCheckBox></CCCheckBox>
+        </div>
+      </template>
     </CCSection>
   </div>
 </template>

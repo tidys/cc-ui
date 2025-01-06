@@ -1,6 +1,7 @@
 export const ProvideKeys = {
   Emitter: 'emitter',
   NodeClick: 'node-click',
+  NodeUnclick: 'node-unclick',
   NodeExpand: 'node-expand',
   NodeCollapse: 'node-collapsed',
   DefaultExpandAll: 'default-expand-all',

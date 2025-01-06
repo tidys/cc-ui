@@ -1,8 +1,9 @@
 <template>
   <div class="cc-section">
-    <div class="header" :class="{ cursor: expandByFullHeader }" @click.stop.prevent="onClickHeader" @mouseenter="onMouseEnter" @mouseleave="onMouseLeave">
-      <div class="left" @click.stop.prevent="onExpand">
+    <div class="header" :class="{ cursor: expandByFullHeader }" @click.stop="onClickHeader" @mouseenter="onMouseEnter" @mouseleave="onMouseLeave">
+      <div class="left" @click.stop="onExpand">
         <div class="fold" :class="expand ? 'arrow-down' : 'arrow-right'"></div>
+        <slot name="title"></slot>
         <div class="title">{{ name }}</div>
       </div>
       <slot name="header" v-if="visibleSlotHeader"></slot>

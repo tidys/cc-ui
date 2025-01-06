@@ -38,6 +38,7 @@ import CaseIcon from './case-icon.vue';
 import CaseOthers from './case-others.vue';
 import CaseTree from './case-tree.vue';
 import CaseDialog from './case-dialog.vue';
+import CaseDock from './case-dock.vue';
 const { CCTree, CCDivider, CCButtonGroup, CCTable, CCProcess, CCCommand, CCColor, CCFootBar, CCButton, CCHelp, CCInputNumber, CCDialog, CCSection, CCSelect, CCProp, CCTextarea, CCInput, CCCheckBox, CCMenu, CCAd } = ccui.components;
 export default defineComponent({
   name: 'app',
@@ -63,6 +64,7 @@ export default defineComponent({
       { text: 'cc-tree', userData: CaseTree },
       { text: 'cc-dialog', userData: CaseDialog },
       { text: 'others', userData: CaseOthers },
+      { text: 'dock', userData: CaseDock },
     ]);
     const key = 'cc-ui.json';
     const data = JSON.parse(localStorage.getItem(key) || '{}');
