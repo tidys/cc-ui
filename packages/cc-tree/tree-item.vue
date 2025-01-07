@@ -1,6 +1,6 @@
 <template>
   <div class="tree-item" ref="rootEl">
-    <div class="content" @contextmenu.prevent="" @click="onClick" @mouseenter="mouseEnter" @mouseleave="mouseLeave" :style="{ 'background-color': backgroundColor, 'padding-left': `${indent * 15}px` }">
+    <div class="content" :class="{ flash: isFlash }" @contextmenu.prevent="" @click="onClick" @mouseenter="mouseEnter" @mouseleave="mouseLeave" :style="{ 'background-color': backgroundColor, 'padding-left': `${indent * 15}px` }">
       <div class="icon" :class="getIconClass()" :style="getIconStyle()" @click.stop.prevent="onFold"></div>
       <div class="name" :style="getNameStyle()">
         {{ value.text }}
@@ -106,7 +106,7 @@ export default defineComponent({
         selectReset();
       }
     }
-    function handExpand(idArray: string[]) {
+    function handExpand(idArray: string[], options: { select?: boolean; highlight?: boolean } = {}) {
       const id = toRaw(props.value.id || '');
       if (idArray.includes(id)) {
         if (fold.value === true) {
@@ -118,7 +118,15 @@ export default defineComponent({
           // });
         }
         if (id === idArray[idArray.length - 1]) {
-          doSelect();
+          if (options.select) {
+            doSelect();
+          }
+          if (options.highlight) {
+            isFlash.value = true;
+            setTimeout(() => {
+              isFlash.value = false;
+            }, 400);
+          }
         }
       }
     }
@@ -162,7 +170,9 @@ export default defineComponent({
     }
 
     const rootEl = ref<HTMLDivElement>();
+    const isFlash = ref<boolean>(false);
     return {
+      isFlash,
       rootEl,
       childrenElements,
       fold,
@@ -216,7 +226,18 @@ export default defineComponent({
 <style lang="less" scoped>
 .tree-item {
   user-select: none;
-
+  .flash {
+    background-color: rgb(117, 117, 117) !important;
+    animation: flash 0.2s linear 2;
+  }
+  @keyframes flash {
+    0% {
+      opacity: 1;
+    }
+    100% {
+      opacity: 0.5;
+    }
+  }
   .content {
     display: flex;
     align-items: center;

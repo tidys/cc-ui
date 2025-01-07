@@ -190,8 +190,11 @@ export default defineComponent({
       childrenElements,
       /**
        * 手动展开某个节点，会自动连同父节点一并展开
+       * @param options
+       *  select 是否选中
+       *  highlight: 是否高亮
        */
-      handExpand(id: string) {
+      handExpand(id: string, options: { select?: boolean; highlight?: boolean } = {}) {
         // 这种方式不行，因为数据有，可能界面没有v-if，依赖界面是无法展开折叠的tree-item
         // emitter.emit(Msg.HandExpand, id);
 
@@ -218,7 +221,7 @@ export default defineComponent({
         loop(data, route);
         console.log(route);
         if (route) {
-          emitter.emit(Msg.HandExpand, route);
+          emitter.emit(Msg.HandExpand, route, options);
         }
       },
       /**
