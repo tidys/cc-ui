@@ -219,7 +219,6 @@ export default defineComponent({
         }
         const route: string[] = [];
         loop(data, route);
-        console.log(route);
         if (route) {
           emitter.emit(Msg.HandExpand, route, options);
         }

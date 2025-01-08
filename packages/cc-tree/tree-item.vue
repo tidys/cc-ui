@@ -10,9 +10,6 @@
       <cc-tree-item ref="childrenElements" v-for="(item, index) in value.children" :key="index" :value="item" :indent="indent + 1"></cc-tree-item>
     </div>
   </div>
-  <!-- <el-tree
-          :filter-node-method="filterNode"
-</el-tree> -->
 </template>
 <script lang="ts">
 import { ref, toRaw, defineComponent, PropType, inject, onMounted, onUnmounted, watch, nextTick } from 'vue';
@@ -62,7 +59,8 @@ export default defineComponent({
       () => props.value,
       (v) => {
         if (v.id) {
-          fold.value = !checkExpand(v.id);
+          const b = !checkExpand(v.id);
+          changeFold(b);
         }
       }
     );
@@ -110,7 +108,7 @@ export default defineComponent({
       const id = toRaw(props.value.id || '');
       if (idArray.includes(id)) {
         if (fold.value === true) {
-          fold.value = false;
+          changeFold(false);
           // v-if需要这种方式处理
           // nextTick(() => {
           //   // 能实现功能，但是会产生大量的调用，可能存在性能压力，主要就是无法调用到子组件
@@ -154,6 +152,10 @@ export default defineComponent({
     const childrenElements = ref([]);
 
     function changeFold(b: boolean) {
+      if (fold.value === b) {
+        return;
+      }
+
       fold.value = b;
       const data = toRaw(props.value);
       if (fold.value) {
