@@ -1,5 +1,18 @@
 /// <reference types="short-uuid" />
 export declare const components: {
+    CCDock: import("vue").DefineComponent<{
+        name: {
+            type: StringConstructor;
+            default: string;
+        };
+    }, {}, unknown, {}, {}, import("vue").ComponentOptionsMixin, import("vue").ComponentOptionsMixin, {}, string, import("vue").VNodeProps & import("vue").AllowedComponentProps & import("vue").ComponentCustomProps, Readonly<import("vue").ExtractPropTypes<{
+        name: {
+            type: StringConstructor;
+            default: string;
+        };
+    }>>, {
+        name: string;
+    }, {}>;
     CCAd: import("vue").DefineComponent<{
         url: {
             type: StringConstructor;
@@ -52,6 +65,7 @@ export declare const components: {
                 default: string;
             };
         }, {
+            isFlash: import("vue").Ref<boolean>;
             rootEl: import("vue").Ref<HTMLDivElement | undefined>;
             childrenElements: import("vue").Ref<never[]>;
             fold: import("vue").Ref<boolean>;
@@ -87,7 +101,10 @@ export declare const components: {
             value: import("./cc-tree/const").ITreeData;
             indent: number;
         }, {}>[]>;
-        handExpand(id: string): void;
+        handExpand(id: string, options?: {
+            select?: boolean | undefined;
+            highlight?: boolean | undefined;
+        }): void;
         handChoose(id: string): void;
         handSelect(index?: number): void;
     }, unknown, {}, {}, import("vue").ComponentOptionsMixin, import("vue").ComponentOptionsMixin, {}, string, import("vue").VNodeProps & import("vue").AllowedComponentProps & import("vue").ComponentCustomProps, Readonly<import("vue").ExtractPropTypes<{

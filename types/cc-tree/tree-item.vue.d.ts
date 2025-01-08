@@ -17,6 +17,7 @@ declare const _default: import("vue").DefineComponent<{
         default: string;
     };
 }, {
+    isFlash: import("vue").Ref<boolean>;
     rootEl: import("vue").Ref<HTMLDivElement | undefined>;
     childrenElements: import("vue").Ref<never[]>;
     fold: import("vue").Ref<boolean>;

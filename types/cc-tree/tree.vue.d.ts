@@ -39,12 +39,11 @@ declare const _default: import("vue").DefineComponent<{
             default: number;
         };
         color: {
-            type: StringConstructor; /**
-             * 默认是否都展开
-             */
+            type: StringConstructor;
             default: string;
         };
     }, {
+        isFlash: import("vue").Ref<boolean>;
         rootEl: import("vue").Ref<HTMLDivElement | undefined>;
         childrenElements: import("vue").Ref<never[]>;
         fold: import("vue").Ref<boolean>;
@@ -72,9 +71,7 @@ declare const _default: import("vue").DefineComponent<{
             default: number;
         };
         color: {
-            type: StringConstructor; /**
-             * 默认是否都展开
-             */
+            type: StringConstructor;
             default: string;
         };
     }>>, {
@@ -84,8 +81,14 @@ declare const _default: import("vue").DefineComponent<{
     }, {}>[]>;
     /**
      * 手动展开某个节点，会自动连同父节点一并展开
+     * @param options
+     *  select 是否选中
+     *  highlight: 是否高亮
      */
-    handExpand(id: string): void;
+    handExpand(id: string, options?: {
+        select?: boolean;
+        highlight?: boolean;
+    }): void;
     /**
      * 手动选中已经展开的节点，如果这个节点没有展开，是不会触发选中的
      */
