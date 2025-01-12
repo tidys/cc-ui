@@ -1,9 +1,12 @@
 <template>
   <div class="dock">
-    <div class="tab">
-      <span>
-        {{ name }}
-      </span>
+    <div class="head">
+      <div class="tab">
+        <span>
+          {{ name }}
+        </span>
+      </div>
+      <slot name="title"></slot>
     </div>
     <div class="content">
       <slot></slot>
@@ -40,34 +43,39 @@ export default defineComponent({
     color: white;
     overflow: hidden;
   }
-  .tab {
-    user-select: none;
-    max-width: 100px;
-    height: 24px;
-    color: #ccc;
-    background: #fff;
-    padding: 0 10px 0 8px;
-    box-sizing: border-box;
-    border-right: 1ps solid;
+  .head {
     display: flex;
+    flex-direction: row;
     align-items: center;
-    overflow: hidden;
-    text-overflow: ellipsis;
-    white-space: nowrap;
-    background-color: #2b2b2b;
-    &:hover {
-      color: #3a3a3a;
-      background-color: #1f1f1f;
-    }
-    &:active {
-      color: '#00f';
-      background-color: rgb(114, 114, 114);
-    }
-    span {
+    .tab {
+      user-select: none;
+      max-width: 100px;
+      height: 24px;
+      color: #ccc;
+      background: #fff;
+      padding: 0 10px 0 8px;
+      box-sizing: border-box;
+      border-right: 1ps solid;
+      display: flex;
+      align-items: center;
       overflow: hidden;
       text-overflow: ellipsis;
       white-space: nowrap;
-      color: #ccc;
+      background-color: #2b2b2b;
+      &:hover {
+        color: #3a3a3a;
+        background-color: #1f1f1f;
+      }
+      &:active {
+        color: '#00f';
+        background-color: rgb(114, 114, 114);
+      }
+      span {
+        overflow: hidden;
+        text-overflow: ellipsis;
+        white-space: nowrap;
+        color: #ccc;
+      }
     }
   }
 }
