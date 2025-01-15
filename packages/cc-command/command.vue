@@ -48,7 +48,7 @@ export default defineComponent({
       commands.value = filterCommands(cmdArray);
     }
 
-    document.addEventListener('mouseup', () => {
+    uiElement.getDoc().addEventListener('mouseup', () => {
       closeCmd();
     });
 

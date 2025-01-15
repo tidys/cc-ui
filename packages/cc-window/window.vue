@@ -15,6 +15,7 @@
 import { defineComponent, onMounted, onUnmounted, PropType, provide, ref } from 'vue';
 import { ProvideKey, UiWindowOptions } from './index';
 import { intervalValue } from '../cc-dialog/util';
+import { uiElement } from '../element';
 
 export default defineComponent({
   name: 'cc-window',
@@ -62,7 +63,7 @@ export default defineComponent({
       updateWindow();
       (windowEl.value as HTMLElement).focus();
     });
-
+    const doc = uiElement.getDoc();
     function onMousedown(event: MouseEvent) {
       const disX = event.pageX - windowEl.value.offsetLeft;
       const disY = event.pageY - windowEl.value.offsetTop;
@@ -70,8 +71,8 @@ export default defineComponent({
       function onDocMouseMove(e: MouseEvent) {
         const winWidth = windowEl.value.clientWidth;
         const winHeight = windowEl.value.clientHeight;
-        const docWidth = document.body.clientWidth;
-        const docHeight = document.body.clientHeight;
+        const docWidth = doc.body.clientWidth;
+        const docHeight = doc.body.clientHeight;
         let x = e.pageX - disX;
         x = intervalValue(x, 0, docWidth - winWidth);
 
@@ -81,11 +82,11 @@ export default defineComponent({
         windowEl.value.style.top = `${y}px`;
       }
       function onDocMouseUp() {
-        document.removeEventListener('mousemove', onDocMouseMove);
-        document.removeEventListener('mouseup', onDocMouseUp);
+        doc.removeEventListener('mousemove', onDocMouseMove);
+        doc.removeEventListener('mouseup', onDocMouseUp);
       }
-      document.addEventListener('mousemove', onDocMouseMove);
-      document.addEventListener('mouseup', onDocMouseUp);
+      doc.addEventListener('mousemove', onDocMouseMove);
+      doc.addEventListener('mouseup', onDocMouseUp);
     }
 
     return {

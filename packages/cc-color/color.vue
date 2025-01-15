@@ -29,6 +29,7 @@ import Hue from './hue.vue';
 import ColorSaturation from './saturation.vue';
 import { getColorHex, getColorHex8, getColorHSV, getColorHue, transformColorByHue } from './util';
 import { config } from './const';
+import { uiElement } from '../element';
 export default defineComponent({
   name: 'CCColor',
   emits: ['update:color', 'change'],
@@ -74,8 +75,9 @@ export default defineComponent({
     const color = ref<HTMLElement>();
     const panel = ref<HTMLElement>();
     let popperInstance: any = null;
+    const doc = uiElement.getDoc();
     const clickAnyWhereToClose = (event: MouseEvent) => {
-      document.removeEventListener('click', clickAnyWhereToClose);
+      doc.removeEventListener('click', clickAnyWhereToClose);
       show.value = false;
     };
     onMounted(() => {
@@ -111,7 +113,7 @@ export default defineComponent({
         if (show.value) {
           show.value = false;
           popperInstance?.destroy();
-          document.removeEventListener('click', clickAnyWhereToClose);
+          doc.removeEventListener('click', clickAnyWhereToClose);
         } else {
           emitter.emit(HideOthers);
           show.value = true;
@@ -120,7 +122,7 @@ export default defineComponent({
             hueValue.value = getColorHue(hexColor.value);
             saturationComp.value.updateBaseColor(hexColor.value);
           }
-          document.addEventListener('click', clickAnyWhereToClose);
+          doc.addEventListener('click', clickAnyWhereToClose);
         }
       },
       onColorChangeSaturation(color: string) {

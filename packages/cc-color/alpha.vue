@@ -15,6 +15,7 @@
 import { computed, defineComponent, ref, watch } from 'vue';
 import AlphaBoard from './alpha-board.vue';
 import { getColorHex, transformColorWithAlpha } from './util';
+import { uiElement } from '../element';
 
 export default defineComponent({
   name: 'color-alpha',
@@ -58,12 +59,13 @@ export default defineComponent({
           emit('update:color', color);
           emit('change', color);
         };
+        const doc = uiElement.getDoc();
         let mouseUp = (e: MouseEvent) => {
-          document.removeEventListener('mousemove', mouseMove);
-          document.removeEventListener('mouseup', mouseUp);
+          doc.removeEventListener('mousemove', mouseMove);
+          doc.removeEventListener('mouseup', mouseUp);
         };
-        document.addEventListener('mousemove', mouseMove);
-        document.addEventListener('mouseup', mouseUp);
+        doc.addEventListener('mousemove', mouseMove);
+        doc.addEventListener('mouseup', mouseUp);
         mouseMove(event);
       },
     };

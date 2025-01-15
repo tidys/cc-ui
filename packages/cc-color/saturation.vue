@@ -11,6 +11,7 @@
 <script lang="ts">
 import { computed, defineComponent, onMounted, ref, toRaw, watch } from 'vue';
 import { createColorByHue, getColorHex, getColorHSV, getColorHue, transformColorBySaturation } from './util';
+import { uiElement } from '../element';
 
 export default defineComponent({
   name: 'color-saturation',
@@ -75,12 +76,13 @@ export default defineComponent({
           emit('update:color', color);
           emit('change', color);
         };
+        const doc = uiElement.getDoc();
         let upCallback = (e: MouseEvent) => {
-          document.removeEventListener('mousemove', updatePointer);
-          document.removeEventListener('mouseup', upCallback);
+          doc.removeEventListener('mousemove', updatePointer);
+          doc.removeEventListener('mouseup', upCallback);
         };
-        document.addEventListener('mousemove', updatePointer);
-        document.addEventListener('mouseup', upCallback);
+        doc.addEventListener('mousemove', updatePointer);
+        doc.addEventListener('mouseup', upCallback);
         updatePointer(event);
       },
     };

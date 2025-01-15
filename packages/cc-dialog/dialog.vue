@@ -55,7 +55,7 @@ export default defineComponent({
       ccui.Emitter.on(DialogMsg.ShowDialog, onShowDialog);
       ccui.Emitter.on(DialogMsg.CloseDialog, onCloseDialog);
       // 可能会干扰到其他组件的key事件
-      ins = new Mousetrap(document.body);
+      ins = new Mousetrap(uiElement.getBobdy());
       ins.bind(['esc'], onClick, 'keydown');
     });
     onUnmounted(() => {

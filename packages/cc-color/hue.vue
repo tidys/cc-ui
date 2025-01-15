@@ -12,6 +12,7 @@
 <script lang="ts">
 import { defineComponent, onMounted, ref, watch } from 'vue';
 import { getColorHue, transformColorByHue } from './util';
+import { uiElement } from '../element';
 // 色相
 export default defineComponent({
   name: 'color-hue',
@@ -60,12 +61,13 @@ export default defineComponent({
           emit('update:hue', hue);
           emit('change', hue);
         };
+        const doc = uiElement.getDoc();
         let mouseUp = (e: MouseEvent) => {
-          document.removeEventListener('mousemove', mouseMove);
-          document.removeEventListener('mouseup', mouseUp);
+          doc.removeEventListener('mousemove', mouseMove);
+          doc.removeEventListener('mouseup', mouseUp);
         };
-        document.addEventListener('mousemove', mouseMove);
-        document.addEventListener('mouseup', mouseUp);
+        doc.addEventListener('mousemove', mouseMove);
+        doc.addEventListener('mouseup', mouseUp);
         mouseMove(event);
       },
     };

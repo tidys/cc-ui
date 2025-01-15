@@ -31,6 +31,7 @@ import { defineComponent, onMounted, onUnmounted, ref, watch } from 'vue';
 import { FootBarMsg, FootCmd, TipOptions, ErrorOptions, TipsArrayOptions } from './const';
 import CMD from './cmd.vue';
 import ccui from '../index';
+import { uiElement } from '../element';
 export default defineComponent({
   name: 'cc-footbar',
   components: { CMD },
@@ -139,6 +140,7 @@ export default defineComponent({
     const errorTitle = ref('');
     const errorContent = ref('');
     const elErrorPanel = ref<HTMLDivElement>();
+    const doc = uiElement.getDoc();
     return {
       errorColor,
       elErrorPanel,
@@ -175,11 +177,11 @@ export default defineComponent({
           elErrorPanel.value!.style.height = `${newHeight}px`;
         }
         function onMouseDown() {
-          document.removeEventListener('mousemove', onMouseMove);
-          document.removeEventListener('mouseup', onMouseDown);
+          doc.removeEventListener('mousemove', onMouseMove);
+          doc.removeEventListener('mouseup', onMouseDown);
         }
-        document.addEventListener('mousemove', onMouseMove);
-        document.addEventListener('mouseup', onMouseDown);
+        doc.addEventListener('mousemove', onMouseMove);
+        doc.addEventListener('mouseup', onMouseDown);
       },
       onMouseDownLeft(event: MouseEvent) {
         event.stopPropagation();
@@ -194,11 +196,11 @@ export default defineComponent({
           elErrorPanel.value!.style.width = `${newWidth}px`;
         }
         function onMouseDown() {
-          document.removeEventListener('mousemove', onMouseMove);
-          document.removeEventListener('mouseup', onMouseDown);
+          doc.removeEventListener('mousemove', onMouseMove);
+          doc.removeEventListener('mouseup', onMouseDown);
         }
-        document.addEventListener('mousemove', onMouseMove);
-        document.addEventListener('mouseup', onMouseDown);
+        doc.addEventListener('mousemove', onMouseMove);
+        doc.addEventListener('mouseup', onMouseDown);
       },
       onMouseDownTop(event: MouseEvent) {
         event.stopPropagation();
@@ -213,11 +215,11 @@ export default defineComponent({
           elErrorPanel.value!.style.height = `${newHeight}px`;
         }
         function onMouseDown() {
-          document.removeEventListener('mousemove', onMouseMove);
-          document.removeEventListener('mouseup', onMouseDown);
+          doc.removeEventListener('mousemove', onMouseMove);
+          doc.removeEventListener('mouseup', onMouseDown);
         }
-        document.addEventListener('mousemove', onMouseMove);
-        document.addEventListener('mouseup', onMouseDown);
+        doc.addEventListener('mousemove', onMouseMove);
+        doc.addEventListener('mouseup', onMouseDown);
       },
     };
   },

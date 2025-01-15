@@ -5,6 +5,7 @@
 <script lang="ts">
 import { defineComponent, ref } from 'vue';
 import COLOR from 'color';
+import { uiElement } from '../element';
 
 export default defineComponent({
   name: 'cc-divider',
@@ -108,6 +109,7 @@ export default defineComponent({
     }
     const dividerEl = ref<HTMLElement>();
     const isHover = ref<boolean>(false);
+    const doc = uiElement.getDoc();
     return {
       dividerEl,
       isMove,
@@ -144,13 +146,13 @@ export default defineComponent({
       },
       onDividerMouseDown(event: MouseEvent) {
         isMove.value = true;
-        document.addEventListener('mousemove', onDividerMove);
+        doc.addEventListener('mousemove', onDividerMove);
         function onMouseUp() {
           isMove.value = false;
-          document.removeEventListener('mouseup', onMouseUp);
-          document.removeEventListener('mousemove', onDividerMove);
+          doc.removeEventListener('mouseup', onMouseUp);
+          doc.removeEventListener('mousemove', onDividerMove);
         }
-        document.addEventListener('mouseup', onMouseUp);
+        doc.addEventListener('mouseup', onMouseUp);
       },
     };
   },

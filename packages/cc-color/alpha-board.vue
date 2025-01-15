@@ -2,6 +2,7 @@
   <div class="board" :style="bgStyle"></div>
 </template>
 <script lang="ts">
+import { uiElement } from '../element';
 import { ref, defineComponent, computed, defineEmits, reactive } from 'vue';
 export default defineComponent({
   name: 'alpha-board',
@@ -21,10 +22,10 @@ export default defineComponent({
   },
   setup(props, { emit }) {
     function getBoardImgData(color1: string, color2: string, size: number): string {
-      if (typeof document === 'undefined') {
+      if (typeof uiElement.getDoc() === 'undefined') {
         return '';
       }
-      const canvas = document.createElement('canvas');
+      const canvas = uiElement.getDoc().createElement('canvas');
       canvas.width = canvas.height = size * 2;
       const ctx = canvas.getContext('2d');
       if (!ctx) {

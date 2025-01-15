@@ -24,6 +24,7 @@ import { debounce, DebouncedFunc } from 'lodash';
 import { TinyEmitter } from 'tiny-emitter';
 import { defineComponent, inject, nextTick, onMounted, provide, ref, toRaw, watch } from 'vue';
 import { config } from './const';
+import { uiElement } from '../element';
 export default defineComponent({
   name: 'CCProp',
   emits: ['changeExpand', 'update:expand', 'slide'],
@@ -169,10 +170,11 @@ export default defineComponent({
       }
     );
     let clientX: number = 0;
+    const doc = uiElement.getDoc();
     function _onMouseUp(event: MouseEvent) {
-      document.removeEventListener('mousemove', _onMouseMove);
-      document.removeEventListener('mouseup', _onMouseUp);
-      document.removeEventListener('onselectstart', _onSelect);
+      doc.removeEventListener('mousemove', _onMouseMove);
+      doc.removeEventListener('mouseup', _onMouseUp);
+      doc.removeEventListener('onselectstart', _onSelect);
     }
     function _onMouseMove(event: MouseEvent) {
       // 防止频繁触发
@@ -224,9 +226,9 @@ export default defineComponent({
           return;
         }
         clientX = event.clientX;
-        document.addEventListener('mousemove', _onMouseMove);
-        document.addEventListener('mouseup', _onMouseUp);
-        document.addEventListener('onselectstart', _onSelect);
+        doc.addEventListener('mousemove', _onMouseMove);
+        doc.addEventListener('mouseup', _onMouseUp);
+        doc.addEventListener('onselectstart', _onSelect);
       },
       getArrowClass() {
         const cls = [];
