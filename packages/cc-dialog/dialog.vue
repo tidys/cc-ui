@@ -1,5 +1,5 @@
 <template>
-  <Teleport to="body">
+  <Teleport :to="getRoot()">
     <div class="ui-dialog" v-if="show" @click.self="onMaskClick">
       <CCWindow class="container" v-for="(win, index) in dialogWindows" :key="index" :data="getWindowOption(win)" @close="onWinClose(win.id || '')">
         <component class="comp" :is="getWindowRenderComponent(win)" @close="onWinClose(win.id || '')" :data="getWindowRenderComponentData(win)" :id="getWindowRenderComponentID(win)"> </component>
@@ -18,6 +18,7 @@ import Mousetrap, { MousetrapInstance } from 'mousetrap';
 import { generate } from 'short-uuid';
 import Empty from '../cc-window/empty.vue';
 import UrlTip from './url.vue';
+import { uiElement } from '../element';
 export default defineComponent({
   name: 'cc-dialog',
   components: { CCWindow },
@@ -118,6 +119,9 @@ export default defineComponent({
       show,
       onWinClose,
       onMaskClick,
+      getRoot() {
+        return uiElement.getBobdy();
+      },
     };
   },
 });

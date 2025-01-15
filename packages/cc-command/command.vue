@@ -1,5 +1,5 @@
 <template>
-  <Teleport to="body">
+  <Teleport :to="getRoot()">
     <div class="command" v-if="show">
       <div class="items ccui-scrollbar" @mouseup.prevent.stop>
         <Item v-for="(item, index) in commands" :key="index" :data="item"></Item>
@@ -12,6 +12,7 @@ import { ref, defineComponent, PropType, onMounted, onUnmounted } from 'vue';
 import Item from './item.vue';
 import { CmdData, CmdMsg } from './const';
 import ccui from '../index';
+import { uiElement } from '../element';
 export default defineComponent({
   name: 'command',
   components: { Item },
@@ -62,6 +63,9 @@ export default defineComponent({
     return {
       show,
       commands,
+      getRoot() {
+        return uiElement.getBobdy();
+      },
     };
   },
 });

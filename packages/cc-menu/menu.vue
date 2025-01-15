@@ -1,5 +1,5 @@
 <template>
-  <Teleport to="body">
+  <Teleport :to="getRoot()">
     <div class="ui-menu" @contextmenu.stop.prevent="" ref="menuEl" v-show="menus.length > 0" :style="{ left: menuPositionX + 'px', top: menuPositionY + 'px' }">
       <MenuItem v-for="(menu, index) in menus" :key="index" :data="menu"> </MenuItem>
     </div>
@@ -7,10 +7,11 @@
 </template>
 
 <script lang="ts">
-import { defineComponent, nextTick, onMounted, ref, Teleport } from 'vue';
+import { defineComponent, getCurrentInstance, nextTick, onMounted, ref, Teleport } from 'vue';
 import { IUiMenuItem, MenuOptions, Msg } from './const';
 import MenuItem from './menu-item.vue';
 import ccui from '../index';
+import { uiElement } from '../element';
 
 export default defineComponent({
   name: 'CCMenu',
@@ -21,7 +22,7 @@ export default defineComponent({
     const menuPositionX = ref(0);
     const menuPositionY = ref(0);
     const menus = ref<IUiMenuItem[]>([]);
-    document.addEventListener(
+    uiElement.getDoc().addEventListener(
       'mousedown',
       () => {
         menus.value = [];
@@ -44,8 +45,8 @@ export default defineComponent({
           if (menuEl.value) {
             let x = Math.abs(options.x);
             let y = Math.abs(options.y);
-            const width = document.body.clientWidth;
-            const height = document.body.clientHeight;
+            const width = uiElement.getDoc().body.clientWidth;
+            const height = uiElement.getDoc().body.clientHeight;
             const menuWidth = menuEl.value?.clientWidth;
             const menuHeight = menuEl.value?.clientHeight;
             const board = 3;
@@ -68,7 +69,15 @@ export default defineComponent({
         });
       });
     });
-    return { menuEl, menus, menuPositionX, menuPositionY };
+    return {
+      menuEl,
+      menus,
+      menuPositionX,
+      menuPositionY,
+      getRoot() {
+        return uiElement.getBobdy();
+      },
+    };
   },
 });
 </script>

@@ -13,6 +13,7 @@ import { table } from './cc-table/index';
 import { tree } from './cc-tree/index';
 import './common/scrollbar.less';
 import { components } from './components';
+import { uiElement } from './element';
 export const install = (app: App) => {
   Object.keys(components).forEach((key) => {
     // @ts-ignore
@@ -23,4 +24,11 @@ export const install = (app: App) => {
 const Emitter = new TinyEmitter();
 // 对外提供的全局方法
 const Methods = { divider, buttonGroup, color, prop, menu, tree, dialog, footbar, command, table, select };
-export default { install, Emitter, components, ...Methods };
+
+export default {
+  install,
+  uiElement,
+  Emitter,
+  components,
+  ...Methods,
+};
