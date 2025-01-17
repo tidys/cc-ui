@@ -2,9 +2,11 @@
   <div class="dock">
     <div class="head">
       <div class="tab">
+        <slot name="tab-name-before"></slot>
         <span>
           {{ name }}
         </span>
+        <slot name="tab-name-after"></slot>
       </div>
       <slot name="title"></slot>
     </div>
