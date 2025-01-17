@@ -3,6 +3,14 @@ import ccui from '../index';
 export interface IUiMenuItem {
   name: string;
   enabled?: boolean;
+  /**
+   * 菜单的icon
+   */
+  icon?: string;
+  /**
+   * 菜单的快捷键，注意这个仅仅是显示用，具体的快捷键逻辑需要自己实现
+   */
+  shortKey?: string;
   callback: (item: IUiMenuItem) => void | null;
 }
 

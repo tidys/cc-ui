@@ -82,6 +82,12 @@ export default defineComponent({
       },
       onMenu(event: MouseEvent) {
         const menus: IUiMenuItem[] = [];
+        menus.push({
+          name: 'icon11111111111',
+          icon: 'github',
+          shortKey: 'Space',
+          callback: () => {},
+        });
         for (let i = 0; i < 20; i++) {
           menus.push({
             name: i.toString(),
@@ -90,6 +96,7 @@ export default defineComponent({
             },
           });
         }
+
         ccui.menu.showMenuByMouseEvent(event, menus);
       },
       onCommand() {
