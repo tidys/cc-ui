@@ -71,6 +71,7 @@ export default defineComponent({
     font-size: 12px;
     color: #747474;
     padding: 0 3px 0 6px;
+    user-select: none;
   }
   .text {
     user-select: none;

@@ -13,7 +13,7 @@ import TreeItem from './tree-item.vue';
 export default defineComponent({
   name: 'cc-tree',
   components: { TreeItem },
-  emit: ['node-expand', 'node-collapse', 'node-click', 'node-unclick'],
+  emit: ['node-expand', 'node-collapse', 'node-click', 'node-unclick', 'node-enter', 'node-leave'],
   props: {
     value: {
       type: Array as PropType<Array<ITreeData>>,
@@ -175,6 +175,12 @@ export default defineComponent({
     provide(ProvideKeys.NodeClick, (data: ITreeData) => {
       currentSelectTreeItem = data;
       emit('node-click', data);
+    });
+    provide(ProvideKeys.NodeEnter, (data: ITreeData) => {
+      emit('node-enter', data);
+    });
+    provide(ProvideKeys.NodeLeave, (data: ITreeData) => {
+      emit('node-leave', data);
     });
     provide(ProvideKeys.NodeExpand, (data: ITreeData) => {
       emit('node-expand', data);

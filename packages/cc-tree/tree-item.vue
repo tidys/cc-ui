@@ -42,6 +42,8 @@ export default defineComponent({
     const emitter = inject(ProvideKeys.Emitter) as TinyEmitter;
     const NodeClick = inject(ProvideKeys.NodeClick, (data: ITreeData | null) => {});
     const NodeUnclick = inject(ProvideKeys.NodeUnclick, (data: ITreeData | null) => {});
+    const NodeEnter = inject(ProvideKeys.NodeEnter, (data: ITreeData | null) => {});
+    const NodeLeave = inject(ProvideKeys.NodeLeave, (data: ITreeData | null) => {});
     const CurrentSelect = inject<() => ITreeData | null>(ProvideKeys.CurrentSelect, () => {
       return null;
     });
@@ -188,10 +190,12 @@ export default defineComponent({
       mouseEnter() {
         isHover = true;
         updateBgColor();
+        NodeEnter(toRaw(props.value));
       },
       mouseLeave() {
         isHover = false;
         updateBgColor();
+        NodeLeave(toRaw(props.value));
       },
       onClick() {
         doSelect();
