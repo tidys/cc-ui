@@ -6,6 +6,41 @@
   "description": "cc-ui组件库在使用",
   "glyphs": [
     {
+      "icon_id": "8444332",
+      "name": "animation",
+      "font_class": "animation",
+      "unicode": "eaa1",
+      "unicode_decimal": 60065
+    },
+    {
+      "icon_id": "19675313",
+      "name": "prefab",
+      "font_class": "prefab",
+      "unicode": "e60d",
+      "unicode_decimal": 58893
+    },
+    {
+      "icon_id": "1444787",
+      "name": "json",
+      "font_class": "json",
+      "unicode": "e7bd",
+      "unicode_decimal": 59325
+    },
+    {
+      "icon_id": "462785",
+      "name": "refresh",
+      "font_class": "refresh-one",
+      "unicode": "e61d",
+      "unicode_decimal": 58909
+    },
+    {
+      "icon_id": "12578899",
+      "name": "music",
+      "font_class": "music",
+      "unicode": "e6cf",
+      "unicode_decimal": 59087
+    },
+    {
       "icon_id": "42800239",
       "name": "debug",
       "font_class": "debug",
@@ -91,7 +126,7 @@
     },
     {
       "icon_id": "1174205",
-      "name": "close",
+      "name": "close_small",
       "font_class": "close_small",
       "unicode": "e656",
       "unicode_decimal": 58966
@@ -287,7 +322,7 @@
     },
     {
       "icon_id": "8634413",
-      "name": "刷新",
+      "name": "refresh",
       "font_class": "refresh",
       "unicode": "e600",
       "unicode_decimal": 58880
