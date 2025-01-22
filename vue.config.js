@@ -14,6 +14,14 @@ module.exports = {
   chainWebpack: config => {
     config.resolve.extensions.add('.json').add('.vue').add('.js').add('.ts');
     config.module
+      .rule('fonts')
+      .test(/\.(woff|woff2|eot|ttf|otf)$/)
+      .use('url-loader')
+      .loader('url-loader')
+      .options({
+        limit: 1024 * 50,
+      })
+    config.module
       .rule('ts')
       .test(/\.ts(x?)$/)
       .exclude.add(/node_modules/).end()
