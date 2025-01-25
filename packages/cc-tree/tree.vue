@@ -7,7 +7,7 @@
 <script lang="ts">
 import { TinyEmitter } from 'tiny-emitter';
 import { defineComponent, onMounted, onUnmounted, PropType, provide, ref, toRaw, watch } from 'vue';
-import { ITreeData, Msg, ProvideKeys } from './const';
+import { HandExpandOptions, ITreeData, Msg, ProvideKeys } from './const';
 import TreeItem from './tree-item.vue';
 
 export default defineComponent({
@@ -196,11 +196,8 @@ export default defineComponent({
       childrenElements,
       /**
        * 手动展开某个节点，会自动连同父节点一并展开
-       * @param options
-       *  select 是否选中
-       *  highlight: 是否高亮
        */
-      handExpand(id: string, options: { select?: boolean; highlight?: boolean } = {}) {
+      handExpand(id: string, options: HandExpandOptions = {}) {
         // 这种方式不行，因为数据有，可能界面没有v-if，依赖界面是无法展开折叠的tree-item
         // emitter.emit(Msg.HandExpand, id);
 

@@ -13,7 +13,7 @@
 </template>
 <script lang="ts">
 import { ref, toRaw, defineComponent, PropType, inject, onMounted, onUnmounted, watch, nextTick } from 'vue';
-import { ITreeData, ProvideKeys, Msg } from './const';
+import { ITreeData, ProvideKeys, Msg, HandExpandOptions } from './const';
 import { TinyEmitter } from 'tiny-emitter';
 import color from 'color';
 import { generate } from 'short-uuid';
@@ -88,9 +88,11 @@ export default defineComponent({
       selected = true;
       updateBgColor();
       NodeClick(toRaw(props.value));
-      if (scroll && rootEl.value) {
-        rootEl.value.scrollIntoView({ behavior: 'smooth' });
-      }
+      nextTick(() => {
+        if (scroll && rootEl.value) {
+          rootEl.value.scrollIntoView({ behavior: 'smooth' });
+        }
+      });
     }
     function selectReset() {
       if (selected) {
@@ -106,7 +108,7 @@ export default defineComponent({
         selectReset();
       }
     }
-    function handExpand(idArray: string[], options: { select?: boolean; highlight?: boolean } = {}) {
+    function handExpand(idArray: string[], options: HandExpandOptions = {}) {
       const id = toRaw(props.value.id || '');
       if (idArray.includes(id)) {
         if (fold.value === true) {
@@ -119,7 +121,7 @@ export default defineComponent({
         }
         if (id === idArray[idArray.length - 1]) {
           if (options.select) {
-            doSelect();
+            doSelect(!!options.scroll);
           }
           if (options.highlight) {
             isFlash.value = true;

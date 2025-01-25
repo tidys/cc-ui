@@ -1,7 +1,7 @@
 <template>
   <div>
     <CCSection name="基础测试">
-      <CCTree style="max-height: 100px" :value="treeData1" @node-click="onTreeNodeClick" @node-expand="onTreeNodeExpend" @node-collapse="onTreeNodeCollapsed"></CCTree>
+      <CCTree style="max-height: 100px" :value="treeData1" @node-click="onTreeNodeClick" @node-expand="onTreeNodeExpend" @node-collapse="onTreeNodeCollapsed" @node-enter="onTreeNodeEnter" @node-leave="onTreeNodeLeave"></CCTree>
     </CCSection>
     <CCSection name="expand keys">
       <CCTree style="max-height: 100px; min-height: 100px" :default-expand-all="false" :expand-keys="expandKeys" :value="treeData2"></CCTree>
@@ -91,6 +91,13 @@ export default defineComponent({
       onTreeNodeCollapsed(data: ITreeData) {
         console.log('collapsed:', data);
       },
+      onTreeNodeEnter(data: ITreeData) {
+        console.log('enter:', data);
+      },
+      onTreeNodeLeave(data: ITreeData) {
+        console.log('leave:', data);
+      },
+
       freshTree1() {
         expandKeys.value = ['1'];
         const data: ITreeData[] = [];

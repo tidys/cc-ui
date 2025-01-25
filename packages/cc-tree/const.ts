@@ -41,3 +41,18 @@ export interface ITreeData {
    */
   childrenCount?: number;
 }
+
+export interface HandExpandOptions {
+  /**
+   * 触发选中
+   */
+  select?: boolean;
+  /**
+   * 当元素不可见时，主动滚动到视口
+   */
+  scroll?: boolean;
+  /**
+   * 元素高亮显示
+   */
+  highlight?: boolean;
+}
