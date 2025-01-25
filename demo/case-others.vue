@@ -3,7 +3,6 @@
     <CCButton @click="onFootBar">footbar</CCButton>
     <CCButton @click="onFootBarColor">footbar-color</CCButton>
     <CCButton @click="onFootBarError">footbar-error</CCButton>
-    <CCButton @click="onMenu">test menu</CCButton>
     <CCButton @click="onCommand">command</CCButton>
   </div>
 </template>
@@ -79,25 +78,6 @@ export default defineComponent({
       },
       onFootBar() {
         ccui.footbar.showTips('11');
-      },
-      onMenu(event: MouseEvent) {
-        const menus: IUiMenuItem[] = [];
-        menus.push({
-          name: 'icon11111111111',
-          icon: 'github',
-          shortKey: 'Space',
-          callback: () => {},
-        });
-        for (let i = 0; i < 20; i++) {
-          menus.push({
-            name: i.toString(),
-            callback: () => {
-              console.log('hello');
-            },
-          });
-        }
-
-        ccui.menu.showMenuByMouseEvent(event, menus);
       },
       onCommand() {
         const cmd: CmdData[] = [];

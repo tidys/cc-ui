@@ -39,10 +39,12 @@ import CaseOthers from './case-others.vue';
 import CaseTree from './case-tree.vue';
 import CaseDialog from './case-dialog.vue';
 import CaseDock from './case-dock.vue';
+import CaseMenu from './case-menu.vue';
+
 const { CCTree, CCDivider, CCButtonGroup, CCTable, CCProcess, CCCommand, CCColor, CCFootBar, CCButton, CCHelp, CCInputNumber, CCDialog, CCSection, CCSelect, CCProp, CCTextarea, CCInput, CCCheckBox, CCMenu, CCAd } = ccui.components;
 export default defineComponent({
   name: 'app',
-  components: { CCProcess, CCMenu, CCTree, CCDivider, CCButtonGroup, CCTable, CCCommand, CCFootBar, CCColor, CCButton, CCHelp, CCInputNumber, CCDialog, CCSection, CCSelect, CCProp, CCTextarea, CCInput, CCCheckBox, CCAd },
+  components: { CaseMenu, CCProcess, CCMenu, CCTree, CCDivider, CCButtonGroup, CCTable, CCCommand, CCFootBar, CCColor, CCButton, CCHelp, CCInputNumber, CCDialog, CCSection, CCSelect, CCProp, CCTextarea, CCInput, CCCheckBox, CCAd },
   setup() {
     const userComp = ref();
     const uiListData = ref<ITreeData[]>([
@@ -63,6 +65,7 @@ export default defineComponent({
       { text: 'cc-textarea', userData: CaseTextarea },
       { text: 'cc-tree', userData: CaseTree },
       { text: 'cc-dialog', userData: CaseDialog },
+      { text: 'cc-menu', userData: CaseMenu },
       { text: 'others', userData: CaseOthers },
       { text: 'dock', userData: CaseDock },
     ]);

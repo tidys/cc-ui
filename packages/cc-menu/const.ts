@@ -2,7 +2,18 @@ import ccui from '../index';
 
 export interface IUiMenuItem {
   name: string;
+  /**
+   * 菜单是否可用
+   */
   enabled?: boolean;
+  /**
+   * 菜单是否可见，默认可见
+   */
+  visible?: boolean;
+  /**
+   * 是否选中，默认false，如果处于选中状态，icon不会显示，尽量不要和icon混用
+   */
+  selected?: boolean;
   /**
    * 菜单的icon
    */
@@ -12,6 +23,14 @@ export interface IUiMenuItem {
    */
   shortKey?: string;
   callback: (item: IUiMenuItem) => void | null;
+  /**
+   * 鼠标划入菜单
+   */
+  enter?: ((item: IUiMenuItem) => void) | null;
+  /**
+   * 鼠标离开菜单
+   */
+  leave?: ((item: IUiMenuItem) => void) | null;
 }
 
 export const Msg = {
@@ -21,12 +40,17 @@ export const Msg = {
 export interface MenuOptions {
   x: number;
   y: number;
+  /**
+   * 菜单的透明度，取值[0-1]
+   */
+  opacity: number;
 }
 
-export function showMenuByMouseEvent(event: MouseEvent, newMenus: IUiMenuItem[]): void {
+export function showMenuByMouseEvent(event: MouseEvent, newMenus: IUiMenuItem[], opacity: number = 1): void {
   const options: MenuOptions = {
     x: event.clientX + 2,
     y: Math.abs(event.clientY),
+    opacity,
   };
   ccui.Emitter.emit(Msg.ShowMenu, options, newMenus || []);
 }

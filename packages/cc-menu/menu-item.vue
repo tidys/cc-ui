@@ -1,6 +1,6 @@
 <template>
-  <div class="ui-menu-item" @mousedown.capture.stop.prevent="onClick">
-    <i :style="getIconStyle()" :class="getIcon()" class="icon"></i>
+  <div class="ui-menu-item" :class="{ disabled: data.enabled === false }" @mousedown="onClick" @mouseenter="onMouseEnter" @mouseleave="onMouseLeave">
+    <i :style="getIconStyle()" :class="getIconClass()" class="iconfont icon"></i>
     <span class="text">{{ data.name }}</span>
     <div class="short-key" v-if="data.shortKey">{{ data.shortKey }}</div>
   </div>
@@ -25,28 +25,51 @@ export default defineComponent({
     return {
       getIconStyle() {
         const style: string[] = [];
-        const icon = toRaw(props.data.icon);
-        if (icon) {
+        if (props.data.icon || props.data.selected) {
         } else {
           style.push('visibility:hidden');
         }
         return style.join(';');
       },
-      getIcon() {
+      getIconClass() {
+        if (props.data.selected) {
+          return 'icon_yes';
+        }
         const icon = toRaw(props.data.icon);
         if (icon) {
-          return `iconfont icon_${props.data.icon}`;
+          return `icon_${props.data.icon}`;
         } else {
           return '';
         }
       },
-      onClick() {
+      onClick(event: MouseEvent) {
         const item: IUiMenuItem = props.data;
         if (item.enabled === false) {
+          event.preventDefault();
+          event.stopPropagation();
+          event.stopImmediatePropagation();
           return;
         }
         if (item && item.callback) {
           item.callback(props.data);
+        }
+      },
+      onMouseEnter() {
+        const item: IUiMenuItem = props.data;
+        if (item.enabled === false) {
+          return;
+        }
+        if (item && item.enter) {
+          item.enter(props.data);
+        }
+      },
+      onMouseLeave() {
+        const item: IUiMenuItem = props.data;
+        if (item.enabled === false) {
+          return;
+        }
+        if (item && item.leave) {
+          item.leave(props.data);
         }
       },
     };
@@ -55,6 +78,9 @@ export default defineComponent({
 </script>
 
 <style scoped lang="less">
+.disabled {
+  filter: opacity(50%) !important;
+}
 .ui-menu-item {
   overflow: hidden;
   text-overflow: ellipsis;
@@ -73,7 +99,9 @@ export default defineComponent({
     padding: 0 3px 0 6px;
     user-select: none;
   }
+
   .text {
+    text-align: left;
     user-select: none;
     white-space: nowrap;
     font-size: 15px;

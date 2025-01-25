@@ -1,7 +1,7 @@
 <template>
   <Teleport :to="getRoot()">
-    <div class="ui-menu" @contextmenu.stop.prevent="" ref="menuEl" v-show="menus.length > 0" :style="{ left: menuPositionX + 'px', top: menuPositionY + 'px' }">
-      <MenuItem v-for="(menu, index) in menus" :key="index" :data="menu"> </MenuItem>
+    <div class="ui-menu" @contextmenu.stop.prevent="" ref="menuEl" v-show="menus.length > 0" :style="{ left: menuPositionX + 'px', top: menuPositionY + 'px', opacity: opacity }">
+      <MenuItem v-for="(menu, index) in menus" :key="index" :data="menu" :style="{ opacity: opacity }"> </MenuItem>
     </div>
   </Teleport>
 </template>
@@ -31,18 +31,19 @@ export default defineComponent({
           menuEl.value.style.height = `auto`;
         }
       },
-      { capture: true }
+      { capture: false }
     );
     onMounted(() => {
       ccui.Emitter.on(Msg.ShowMenu, (options: MenuOptions, newMenus: IUiMenuItem[]) => {
         menus.value.length = 0;
         newMenus.forEach((item) => {
-          if (!(item.enabled === false)) {
+          if (!(item.visible === false)) {
             menus.value.push(item);
           }
         });
         nextTick(() => {
           if (menuEl.value) {
+            opacity.value = options.opacity;
             let x = Math.abs(options.x);
             let y = Math.abs(options.y);
             const width = uiElement.getDoc().body.clientWidth;
@@ -69,7 +70,9 @@ export default defineComponent({
         });
       });
     });
+    const opacity = ref(1);
     return {
+      opacity,
       menuEl,
       menus,
       menuPositionX,
@@ -89,6 +92,6 @@ export default defineComponent({
   box-shadow: #d3d6d9;
   background-color: #eeeff1;
   min-width: 100px;
-  max-width: 400px;
+  max-width: 1000px;
 }
 </style>
