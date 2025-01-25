@@ -6,11 +6,25 @@
   "description": "cc-ui组件库在使用",
   "glyphs": [
     {
-      "icon_id": "704796",
+      "icon_id": "9509962",
+      "name": "yes",
+      "font_class": "yes",
+      "unicode": "e60f",
+      "unicode_decimal": 58895
+    },
+    {
+      "icon_id": "13851431",
+      "name": "shop_cart",
+      "font_class": "shop_cart",
+      "unicode": "e639",
+      "unicode_decimal": 58937
+    },
+    {
+      "icon_id": "11232192",
       "name": "target",
       "font_class": "target",
-      "unicode": "eaf6",
-      "unicode_decimal": 60150
+      "unicode": "e7df",
+      "unicode_decimal": 59359
     },
     {
       "icon_id": "8444332",
@@ -35,8 +49,8 @@
     },
     {
       "icon_id": "462785",
-      "name": "refresh",
-      "font_class": "refresh-one",
+      "name": "refresh_one",
+      "font_class": "refresh_one",
       "unicode": "e61d",
       "unicode_decimal": 58909
     },
