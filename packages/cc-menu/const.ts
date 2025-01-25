@@ -1,5 +1,6 @@
 import ccui from '../index';
-
+// import { TinyEmitter } from 'tiny-emitter';
+// export const emitter = new TinyEmitter();
 export interface IUiMenuItem {
   name: string;
   /**
@@ -35,6 +36,7 @@ export interface IUiMenuItem {
 
 export const Msg = {
   ShowMenu: 'show-menu',
+  HideMenu: 'hide-menu',
 };
 
 export interface MenuOptions {

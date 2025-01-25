@@ -24,16 +24,25 @@ export default defineComponent({
     const menus = ref<IUiMenuItem[]>([]);
     uiElement.getDoc().addEventListener(
       'mousedown',
-      () => {
-        menus.value = [];
-        if (menuEl.value) {
-          menuEl.value.style.overflow = 'none';
-          menuEl.value.style.height = `auto`;
+      (event: MouseEvent) => {
+        if (event.target && menuEl.value && menuEl.value.contains(event.target as HTMLDivElement)) {
+          return;
         }
+        hideMenu();
       },
-      { capture: false }
+      { capture: true }
     );
+    function hideMenu() {
+      menus.value = [];
+      if (menuEl.value) {
+        menuEl.value.style.overflow = 'none';
+        menuEl.value.style.height = `auto`;
+      }
+    }
     onMounted(() => {
+      ccui.Emitter.on(Msg.HideMenu, () => {
+        hideMenu();
+      });
       ccui.Emitter.on(Msg.ShowMenu, (options: MenuOptions, newMenus: IUiMenuItem[]) => {
         menus.value.length = 0;
         newMenus.forEach((item) => {

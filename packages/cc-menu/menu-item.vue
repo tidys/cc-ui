@@ -8,7 +8,8 @@
 
 <script lang="ts">
 import { defineComponent, PropType, toRaw } from 'vue';
-import { IUiMenuItem } from './const';
+import { IUiMenuItem, Msg } from './const';
+import ccui from '../index';
 
 export default defineComponent({
   name: 'menu-item',
@@ -53,6 +54,7 @@ export default defineComponent({
         if (item && item.callback) {
           item.callback(props.data);
         }
+        ccui.Emitter.emit(Msg.HideMenu);
       },
       onMouseEnter() {
         const item: IUiMenuItem = props.data;
@@ -85,7 +87,7 @@ export default defineComponent({
   overflow: hidden;
   text-overflow: ellipsis;
   white-space: nowrap;
-  margin: 2px 0;
+  padding: 1px 0;
   // cursor: pointer;
   display: flex;
   flex-direction: row;
