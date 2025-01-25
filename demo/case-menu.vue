@@ -12,7 +12,7 @@
 import { defineComponent } from 'vue';
 import { CCButton } from '../packages/cc-button';
 import { CCProp } from '../packages/cc-prop';
-import { IUiMenuItem } from '../packages/cc-menu/const';
+import { IUiMenuItem, MenuType } from '../packages/cc-menu/const';
 import ccui from '../packages/index';
 
 export default defineComponent({
@@ -22,7 +22,20 @@ export default defineComponent({
     return {
       onMenu(event: MouseEvent) {
         const menus: IUiMenuItem[] = [];
-        for (let i = 0; i < 20; i++) {
+        for (let i = 0; i < 10; i++) {
+          menus.push({
+            name: i.toString(),
+            callback: () => {
+              console.log(i);
+            },
+          });
+        }
+        menus.push({
+          name: 'Separator',
+          type: MenuType.Separator,
+          callback: () => {},
+        });
+        for (let i = 10; i < 20; i++) {
           menus.push({
             name: i.toString(),
             callback: () => {
@@ -115,5 +128,6 @@ export default defineComponent({
 <style lang="less" scoped>
 .menu {
   display: flex;
+  flex-direction: column;
 }
 </style>

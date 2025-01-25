@@ -96,6 +96,7 @@ export default defineComponent({
 
 <style scoped lang="less">
 .ui-menu {
+  z-index: 9999;
   position: absolute;
   border: #2a2a2a solid 1px;
   box-shadow: #d3d6d9;

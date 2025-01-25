@@ -1,8 +1,17 @@
 import ccui from '../index';
 // import { TinyEmitter } from 'tiny-emitter';
 // export const emitter = new TinyEmitter();
+
+export enum MenuType {
+  Item = 'item',
+  Separator = 'separator',
+}
 export interface IUiMenuItem {
   name: string;
+  /**
+   * 菜单类型，默认是正常的菜单
+   */
+  type?: MenuType;
   /**
    * 菜单是否可用
    */

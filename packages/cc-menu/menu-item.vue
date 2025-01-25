@@ -1,5 +1,6 @@
 <template>
-  <div class="ui-menu-item" :class="{ disabled: data.enabled === false }" @mousedown="onClick" @mouseenter="onMouseEnter" @mouseleave="onMouseLeave">
+  <div v-if="getIsSeparator()" class="separator"></div>
+  <div v-if="getIsMenu()" class="ui-menu-item" :class="{ disabled: data.enabled === false }" @mousedown="onClick" @mouseenter="onMouseEnter" @mouseleave="onMouseLeave">
     <i :style="getIconStyle()" :class="getIconClass()" class="iconfont icon"></i>
     <span class="text">{{ data.name }}</span>
     <div class="short-key" v-if="data.shortKey">{{ data.shortKey }}</div>
@@ -8,7 +9,7 @@
 
 <script lang="ts">
 import { defineComponent, PropType, toRaw } from 'vue';
-import { IUiMenuItem, Msg } from './const';
+import { IUiMenuItem, MenuType, Msg } from './const';
 import ccui from '../index';
 
 export default defineComponent({
@@ -24,6 +25,12 @@ export default defineComponent({
   },
   setup(props) {
     return {
+      getIsSeparator() {
+        return props.data.type === MenuType.Separator;
+      },
+      getIsMenu() {
+        return props.data.type === MenuType.Item || props.data.type === undefined;
+      },
       getIconStyle() {
         const style: string[] = [];
         if (props.data.icon || props.data.selected) {
@@ -82,6 +89,11 @@ export default defineComponent({
 <style scoped lang="less">
 .disabled {
   filter: opacity(50%) !important;
+}
+.separator {
+  display: block;
+  border-top: 1px solid #d2d2d2;
+  margin: 0.2em 0;
 }
 .ui-menu-item {
   overflow: hidden;
