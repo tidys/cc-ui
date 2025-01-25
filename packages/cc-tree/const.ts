@@ -3,6 +3,7 @@ export const ProvideKeys = {
   NodeClick: 'node-click',
   NodeUnclick: 'node-unclick',
   NodeEnter: 'node-enter',
+  NodeMenu: 'node-menu',
   NodeLeave: 'node-leave',
   NodeExpand: 'node-expand',
   NodeCollapse: 'node-collapsed',

@@ -1,7 +1,7 @@
 <template>
   <div>
     <CCSection name="基础测试">
-      <CCTree style="max-height: 100px" :value="treeData1" @node-click="onTreeNodeClick" @node-expand="onTreeNodeExpend" @node-collapse="onTreeNodeCollapsed" @node-enter="onTreeNodeEnter" @node-leave="onTreeNodeLeave"></CCTree>
+      <CCTree style="max-height: 100px" :value="treeData1" @node-menu="onTreeNodeMenu" @node-click="onTreeNodeClick" @node-expand="onTreeNodeExpend" @node-collapse="onTreeNodeCollapsed" @node-enter="onTreeNodeEnter" @node-leave="onTreeNodeLeave"></CCTree>
     </CCSection>
     <CCSection name="expand keys">
       <CCTree style="max-height: 100px; min-height: 100px" :default-expand-all="false" :expand-keys="expandKeys" :value="treeData2"></CCTree>
@@ -81,6 +81,16 @@ export default defineComponent({
       treeData1,
       treeData2,
       treeData3,
+      onTreeNodeMenu(event: MouseEvent, data: ITreeData) {
+        ccui.menu.showMenuByMouseEvent(event, [
+          {
+            name: data.text,
+            callback: () => {
+              console.log(data.text);
+            },
+          },
+        ]);
+      },
       onTreeNodeClick(data: ITreeData) {
         console.log('click:', data);
       },

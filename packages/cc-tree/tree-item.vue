@@ -1,6 +1,6 @@
 <template>
   <div class="tree-item" ref="rootEl">
-    <div class="content" :class="{ flash: isFlash }" @contextmenu.prevent="" @click="onClick" @mouseenter="mouseEnter" @mouseleave="mouseLeave" :style="{ 'background-color': backgroundColor, 'padding-left': `${indent * 15}px` }">
+    <div class="content" :class="{ flash: isFlash }" @contextmenu.prevent="mouseMenu" @click="onClick" @mouseenter="mouseEnter" @mouseleave="mouseLeave" :style="{ 'background-color': backgroundColor, 'padding-left': `${indent * 15}px` }">
       <div class="icon" :class="getIconClass()" :style="getIconStyle()" @click.stop.prevent="onFold"></div>
       <div class="name" :style="getNameStyle()">
         {{ value.text }}
@@ -43,6 +43,7 @@ export default defineComponent({
     const NodeClick = inject(ProvideKeys.NodeClick, (data: ITreeData | null) => {});
     const NodeUnclick = inject(ProvideKeys.NodeUnclick, (data: ITreeData | null) => {});
     const NodeEnter = inject(ProvideKeys.NodeEnter, (data: ITreeData | null) => {});
+    const NodeMenu = inject(ProvideKeys.NodeMenu, (event: MouseEvent, data: ITreeData | null) => {});
     const NodeLeave = inject(ProvideKeys.NodeLeave, (data: ITreeData | null) => {});
     const CurrentSelect = inject<() => ITreeData | null>(ProvideKeys.CurrentSelect, () => {
       return null;
@@ -193,6 +194,9 @@ export default defineComponent({
         isHover = true;
         updateBgColor();
         NodeEnter(toRaw(props.value));
+      },
+      mouseMenu(event: MouseEvent) {
+        NodeMenu(event, toRaw(props.value));
       },
       mouseLeave() {
         isHover = false;
