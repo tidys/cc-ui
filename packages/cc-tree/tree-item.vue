@@ -1,6 +1,6 @@
 <template>
   <div class="tree-item" ref="rootEl">
-    <div class="content" :class="{ flash: isFlash }" @contextmenu.prevent="mouseMenu" @click="onClick" @mouseenter="mouseEnter" @mouseleave="mouseLeave" :style="{ 'background-color': backgroundColor, 'padding-left': `${indent * 15}px` }">
+    <div class="content" :class="{ flash: isFlash }" @contextmenu.prevent.stop="mouseMenu" @click="onClick" @mouseenter="mouseEnter" @mouseleave="mouseLeave" :style="{ 'background-color': backgroundColor, 'padding-left': `${indent * 15}px` }">
       <div class="icon" :class="getIconClass()" :style="getIconStyle()" @click.stop.prevent="onFold"></div>
       <div class="name" :style="getNameStyle()">
         {{ value.text }}
