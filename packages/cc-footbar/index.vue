@@ -2,6 +2,7 @@
   <div class="version">
     <CMD v-for="(item, index) in commands" :data="item" :key="index"></CMD>
     <div class="placeHolder" :style="{ color: tipColor }">{{ tips }}</div>
+    <div class="divider"></div>
     <div class="value" v-if="verString.length">
       <div class="label">version: {{ verString }}</div>
     </div>
@@ -240,8 +241,6 @@ export default defineComponent({
   .placeHolder {
     flex: 1;
     overflow: hidden;
-    display: flex;
-    align-items: center;
     margin-left: 10px;
     word-break: break-all;
     white-space: nowrap;
@@ -250,7 +249,12 @@ export default defineComponent({
     font-size: 14px;
     line-height: 14px;
   }
-
+  .divider {
+    width: 1px;
+    height: 100%;
+    margin: 0 5px;
+    background-color: #393939;
+  }
   .value {
     overflow: hidden;
     margin-right: 10px;
@@ -271,7 +275,10 @@ export default defineComponent({
     overflow: visible;
     padding: 0 5px;
     &:hover {
-      background-color: rgb(201, 201, 201);
+      color: rgb(201, 201, 201);
+    }
+    &:active {
+      color: rgb(255, 162, 0);
     }
   }
   .error-panel {

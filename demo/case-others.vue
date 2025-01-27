@@ -77,7 +77,9 @@ export default defineComponent({
         ccui.footbar.showTips('11', { duration: -1, color: 'red' });
       },
       onFootBar() {
-        ccui.footbar.showTips('11');
+        ccui.footbar.showTips('1111111111111111111 222333', {
+          duration: -1,
+        });
       },
       onCommand() {
         const cmd: CmdData[] = [];
