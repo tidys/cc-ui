@@ -44,7 +44,12 @@ export default defineComponent({
     const emitter: TinyEmitter = inject<TinyEmitter>('emitter', new TinyEmitter());
     function doStep(n: number) {
       const result = val.value + props.step * Math.sign(n);
-      val.value = checkVal(result);
+      changeVal(result);
+    }
+    function changeVal(v: string | number) {
+      const result = checkVal(v);
+      preVal = result;
+      val.value = result;
       emit('update:value', result);
       emit('change', result);
     }
@@ -81,6 +86,11 @@ export default defineComponent({
       if (props.step !== undefined) {
         (input.value as Element).setAttribute('step', props.step.toString());
       }
+      if (input.value) {
+        (input.value as HTMLInputElement).addEventListener('wheel', (event: WheelEvent) => {
+          doStep(-event.deltaY);
+        });
+      }
     });
     onUnmounted(() => {
       emitter.off('slide', doStep);
@@ -89,11 +99,7 @@ export default defineComponent({
       val,
       input,
       onChange() {
-        const result = checkVal(val.value);
-        preVal = result;
-        val.value = result;
-        emit('update:value', result);
-        emit('change', result);
+        changeVal(val.value);
       },
     };
   },

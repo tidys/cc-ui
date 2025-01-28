@@ -1,6 +1,6 @@
 <template>
   <CCProp name="input number">
-    <CCInputNumber :value="1" :min="0"></CCInputNumber>
+    <CCInputNumber :value="1" :min="0" @change="onChangeNumber"></CCInputNumber>
   </CCProp>
   <CCProp name="input number disabled">
     <CCInputNumber :value="2" :disabled="true"></CCInputNumber>
@@ -19,7 +19,11 @@ export default defineComponent({
   name: 'case-input-number',
   components: { CCColor, CCProp, CCInputNumber },
   setup(props, ctx) {
-    return {};
+    return {
+      onChangeNumber(v: string | number) {
+        console.log('input num: ', v);
+      },
+    };
   },
 });
 </script>
