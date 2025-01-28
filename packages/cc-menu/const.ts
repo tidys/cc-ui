@@ -7,7 +7,7 @@ export enum MenuType {
   Separator = 'separator',
 }
 export interface IUiMenuItem {
-  name: string;
+  name?: string;
   /**
    * 菜单类型，默认是正常的菜单
    */
@@ -32,7 +32,7 @@ export interface IUiMenuItem {
    * 菜单的快捷键，注意这个仅仅是显示用，具体的快捷键逻辑需要自己实现
    */
   shortKey?: string;
-  callback: (item: IUiMenuItem) => void | null;
+  callback?: (item: IUiMenuItem) => void | null;
   /**
    * 鼠标划入菜单
    */
