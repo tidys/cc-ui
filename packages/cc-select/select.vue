@@ -44,13 +44,13 @@ export default defineComponent({
   },
   emits: ['change', 'update:data', 'update:value'],
   setup(props: any, { emit }) {
-    const curValue = ref(props.value?.toString() || '');
+    const curValue = ref(props.value);
     watch(
       () => props.value,
       (val) => {
         if (val !== undefined) {
-          curValue.value = val.toString();
-          emit('update:value', val.toString());
+          curValue.value = val;
+          emit('update:value', val);
         }
       }
     );
@@ -92,7 +92,7 @@ export default defineComponent({
           }
           const val = data[index].value;
           curValue.value = val;
-          emit('update:value', val.toString());
+          emit('update:value', val);
           emit('change', val);
         }
       },
@@ -107,7 +107,7 @@ export default defineComponent({
           }
           const val = data[index].value;
           curValue.value = val;
-          emit('update:value', val.toString());
+          emit('update:value', val);
           emit('change', val);
         }
       },
@@ -122,7 +122,7 @@ export default defineComponent({
         }
       },
       onSelectChange() {
-        const val = curValue.value.toString();
+        const val = curValue.value;
         emit('update:value', val);
         emit('change', val);
       },

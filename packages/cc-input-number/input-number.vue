@@ -1,7 +1,7 @@
 <template>
   <div class="cc-input-number">
     <label>
-      <input ref="input" v-model="val" type="number" :class="{ readonly: readonly, disabled: disabled }" @change="onChange" :disabled="disabled" :readonly="readonly" />
+      <input ref="input" v-model="val" type="number" :class="{ readonly: readonly, disabled: disabled }" @change="onChange" :disabled="disabled" :readonly="readonly" :title="tip" />
     </label>
   </div>
 </template>
@@ -14,6 +14,10 @@ export default defineComponent({
   name: 'CCInputNumber',
   emits: ['change', 'update:value'],
   props: {
+    tip: {
+      type: String,
+      default: '',
+    },
     disabled: {
       type: Boolean,
       default: false,
@@ -88,6 +92,11 @@ export default defineComponent({
       }
       if (input.value) {
         (input.value as HTMLInputElement).addEventListener('wheel', (event: WheelEvent) => {
+          event.stopPropagation();
+          event.preventDefault();
+          if (props.disabled || props.readonly) {
+            return;
+          }
           doStep(-event.deltaY);
         });
       }

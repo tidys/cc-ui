@@ -2,11 +2,14 @@
   <CCProp name="input number">
     <CCInputNumber :value="1" :min="0" @change="onChangeNumber"></CCInputNumber>
   </CCProp>
-  <CCProp name="input number disabled">
+  <CCProp name="disabled">
     <CCInputNumber :value="2" :disabled="true"></CCInputNumber>
   </CCProp>
-  <CCProp name="input number readonly">
+  <CCProp name="readonly">
     <CCInputNumber :value="2" :readonly="true"></CCInputNumber>
+  </CCProp>
+  <CCProp name="readonly&disabled">
+    <CCInputNumber tip="readonly&disabled" :value="2" :disabled="true" :readonly="true"></CCInputNumber>
   </CCProp>
   <CCInputNumber :min="1" :value="-11"></CCInputNumber>
 </template>
