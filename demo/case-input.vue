@@ -1,7 +1,8 @@
 <template>
   <div>
-    <CCInput placeholder="test placeholder" :directory="true"></CCInput>
-
+    <CCProp name="directory">
+      <CCInput placeholder="test placeholder" :directory="true"></CCInput>
+    </CCProp>
     <CCProp name="input" tooltip="测试tooltip">
       <CCInput @change="onChangeText" v-model:value="value"></CCInput>
     </CCProp>
@@ -20,10 +21,10 @@
 <script lang="ts">
 import { defineComponent, ref, onMounted } from 'vue';
 import ccui from '../packages/index';
-const { CCProcess, CCInput } = ccui.components;
+const { CCProcess, CCInput, CCProp } = ccui.components;
 export default defineComponent({
   name: 'case-input',
-  components: { CCProcess, CCInput },
+  components: { CCProcess, CCInput, CCProp },
   setup(props, ctx) {
     const value = ref('123');
     onMounted(() => {
@@ -33,7 +34,7 @@ export default defineComponent({
     });
     return {
       value,
-      onChangeText() {
+      onChangeText(v: string) {
         console.log(value.value);
       },
     };

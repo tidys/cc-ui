@@ -1,7 +1,8 @@
 <template>
-  <div class="cc-input">
-    <label style="display: flex; flex: 1; position: relative">
+  <div class="cc-input" @mouseenter="hover = true" @mouseleave="hover = false">
+    <label class="content">
       <input :placeholder="placeholder" @focusout="onFocusout" :style="getCSS()" :class="{ readonly: readonly, disabled: disabled }" @focusin="onFocusin" @blur="onBlur" @input="onInput" :readonly="readonly" :maxlength="maxlength" :disabled="disabled" v-model="text" type="text" />
+      <i v-if="!readonly && !disabled && hover" @click.stop.prevent="onClean" class="iconfont icon_close close"></i>
     </label>
     <slot></slot>
   </div>
@@ -54,7 +55,9 @@ export default defineComponent({
         }
       }
     );
+    const hover = ref(false);
     return {
+      hover,
       text,
       borderColor,
       getCSS() {
@@ -71,6 +74,14 @@ export default defineComponent({
       onFocusin(event: FocusEvent) {
         borderColor.value = focusColor;
         (event.target as HTMLInputElement).select();
+      },
+      onClean() {
+        if (text.value === '') {
+          return;
+        }
+        text.value = '';
+        emit('update:value', text.value);
+        emit('change', text.value);
       },
       onFocusout() {
         borderColor.value = 'transparent';
@@ -91,7 +102,31 @@ export default defineComponent({
   display: flex;
   flex: 1;
   align-items: center;
-
+  .content {
+    display: flex;
+    flex: 1;
+    position: relative;
+    .close {
+      cursor: pointer;
+      position: absolute;
+      right: 0;
+      top: 0;
+      bottom: 0;
+      border-top-right-radius: 3px;
+      border-bottom-right-radius: 3px;
+      display: flex;
+      color: rgb(179, 179, 179);
+      align-items: center;
+      background-color: rgba(0, 44, 220, 0.551);
+      &:hover {
+        color: white;
+        background-color: rgb(22, 69, 255);
+      }
+      &:active {
+        color: #fd942b;
+      }
+    }
+  }
   .readonly {
     cursor: default;
     border-color: @readonly-border-color !important;

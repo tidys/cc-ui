@@ -3,7 +3,7 @@
     <div class="content" :class="{ flash: isFlash }" @contextmenu.prevent.stop="mouseMenu" @click="onClick" @mouseenter="mouseEnter" @mouseleave="mouseLeave" :style="{ 'background-color': backgroundColor, 'padding-left': `${indent * 15}px` }">
       <div class="icon" :class="getIconClass()" :style="getIconStyle()" @click.stop.prevent="onFold"></div>
       <div class="name" :style="getNameStyle()">
-        <span v-for="(item, index) in value.text" :key="index" :class="getClass(item, index)">{{ item }}</span>
+        <span v-for="(item, index) in value.text" :key="index" :class="getClass(item, Number(index))">{{ item }}</span>
         <!-- {{ value.text }} -->
       </div>
     </div>
