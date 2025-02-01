@@ -3,7 +3,8 @@
     <div class="content" :class="{ flash: isFlash }" @contextmenu.prevent.stop="mouseMenu" @click="onClick" @mouseenter="mouseEnter" @mouseleave="mouseLeave" :style="{ 'background-color': backgroundColor, 'padding-left': `${indent * 15}px` }">
       <div class="icon" :class="getIconClass()" :style="getIconStyle()" @click.stop.prevent="onFold"></div>
       <div class="name" :style="getNameStyle()">
-        {{ value.text }}
+        <span v-for="(item, index) in value.text" :key="index" :class="getClass(item, index)">{{ item }}</span>
+        <!-- {{ value.text }} -->
       </div>
     </div>
     <div v-show="!fold && value.children">
@@ -109,10 +110,12 @@ export default defineComponent({
         selectReset();
       }
     }
-    function doFilter(idArray: string[]) {
+    function doFilter(idMap: Record<string, number[]>) {
       const id = toRaw(props.value.id || '');
-      if (idArray.includes(id)) {
+      const item = idMap[id];
+      if (item) {
         show.value = true;
+        highlightCharIndex.value = item;
         if (fold.value === true) {
           changeFold(false);
         }
@@ -146,6 +149,7 @@ export default defineComponent({
     }
     function resetFilter() {
       show.value = true;
+      highlightCharIndex.value = [];
     }
     onMounted(() => {
       emitter.on(Msg.SelectReset, selectReset);
@@ -197,7 +201,19 @@ export default defineComponent({
     const rootEl = ref<HTMLDivElement>();
     const isFlash = ref<boolean>(false);
     const show = ref(true);
+    const highlightCharIndex = ref<number[]>([]);
     return {
+      getClass(item: string, index: number) {
+        const arr = toRaw(highlightCharIndex.value);
+        const css: string[] = [];
+        if (arr.length) {
+          if (arr.find((n) => n === index) !== undefined) {
+            css.push(`text-hint`);
+          }
+        }
+        return css.join(' ');
+      },
+      highlightCharIndex,
       show,
       isFlash,
       rootEl,
@@ -292,6 +308,10 @@ export default defineComponent({
     }
     .name {
       font-family: BlinkMacSystemFont, 'Helvetica Neue', Helvetica, 'Lucida Grande', 'Segoe UI', Ubuntu, Cantarell, SourceHanSansCN-Normal, Arial, sans-serif;
+
+      .text-hint {
+        background-color: #2667e7;
+      }
     }
   }
 }

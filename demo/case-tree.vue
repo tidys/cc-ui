@@ -20,6 +20,9 @@
         <CCButton @click="updateSelect('100')">select 100</CCButton>
       </div>
     </CCSection>
+    <CCSection name="search">
+      <CCTree :value="treeData4" style="max-height: 300px; min-height: 300px" :search="true"></CCTree>
+    </CCSection>
   </div>
 </template>
 
@@ -75,12 +78,32 @@ export default defineComponent({
         ],
       },
     ]);
+    const treeData4 = ref<ITreeData[]>([
+      { id: 'abcd', text: 'abcd', children: [{ id: 'abc', text: 'abc' }] },
+      {
+        id: 'ac',
+        text: 'ac',
+        children: [
+          {
+            id: 'ccd',
+            text: 'ccd',
+            children: [
+              {
+                id: 'd',
+                text: 'd',
+              },
+            ],
+          },
+        ],
+      },
+    ]);
     return {
       tree3El,
       expandKeys,
       treeData1,
       treeData2,
       treeData3,
+      treeData4,
       onTreeNodeMenu(event: MouseEvent, data: ITreeData) {
         ccui.menu.showMenuByMouseEvent(event, [
           {

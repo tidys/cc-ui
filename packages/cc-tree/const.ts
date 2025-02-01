@@ -59,3 +59,16 @@ export interface HandExpandOptions {
    */
   highlight?: boolean;
 }
+export class MatchRoute {
+  /**
+   * 路径的id
+   */
+  id: string = '';
+  /**
+   * 匹配到的位置信息
+   */
+  hint: number[] = [];
+  constructor(id: string) {
+    this.id = id;
+  }
+}

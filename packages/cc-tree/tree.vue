@@ -15,7 +15,7 @@
 <script lang="ts">
 import { TinyEmitter } from 'tiny-emitter';
 import { defineComponent, onMounted, onUnmounted, PropType, provide, ref, toRaw, watch } from 'vue';
-import { HandExpandOptions, ITreeData, Msg, ProvideKeys } from './const';
+import { HandExpandOptions, ITreeData, MatchRoute, Msg, ProvideKeys } from './const';
 import TreeItem from './tree-item.vue';
 import { throttle } from 'lodash';
 import CCInput from '../cc-input/input.vue';
@@ -218,9 +218,13 @@ export default defineComponent({
       }
       const data = toRaw(props.value);
 
-      function isMatch(text: string, query: string) {
+      /**
+       * @returns 返回匹配到的所有位置
+       */
+      function isMatch(text: string, query: string): number[] {
+        let pos: number[] = [];
         if (!query) {
-          return false;
+          return pos;
         }
         let index = 0;
         for (let i = 0; i < text.length; i++) {
@@ -232,12 +236,13 @@ export default defineComponent({
           }
           if (a === b) {
             index++;
+            pos.push(i);
             if (index === query.length) {
-              return true;
+              return pos;
             }
           }
         }
-        return false;
+        return pos;
       }
       let splitIndex = 0;
       let splitArray: string[] = v.split('/');
@@ -255,13 +260,15 @@ export default defineComponent({
         splitIndex--;
       }
 
-      function findMathItems(item: ITreeData[], list: Record<string, boolean>, routeID: string[] = []) {
+      function findMathItems(item: ITreeData[], list: Record<string, number[]>, routeList: MatchRoute[]) {
         for (let i = 0; i < item.length; i++) {
           const { text, id, children } = item[i];
-          routeID.push(id!);
+          const matchRoute = new MatchRoute(id!);
+          routeList.push(matchRoute);
           const matchKey = getMatchKey();
           const match = isMatch(text, matchKey);
-          if (match) {
+          if (match.length) {
+            matchRoute.hint = match;
             let push = false;
             if (pathSplit.value) {
               if (splitIndex === splitArray.length - 1) {
@@ -273,25 +280,29 @@ export default defineComponent({
               push = true;
             }
             if (push) {
-              routeID.map((item) => {
-                list[item] = true;
+              routeList.map((item) => {
+                if (!list[item.id]) {
+                  list[item.id] = [];
+                }
+                list[item.id] = list[item.id].concat(item.hint);
               });
+              list[id!] = match;
             }
             stepUpMatch();
           }
           if (children && children.length) {
-            findMathItems(children, list, routeID);
+            findMathItems(children, list, routeList);
           }
-          if (match) {
+          if (match.length) {
             stepBackMatch();
           }
-          routeID.pop();
+          routeList.pop();
         }
       }
-      const idMap: Record<string, boolean> = {};
-      findMathItems(data, idMap);
-      const idArray = Object.keys(idMap);
-      emitter.emit(Msg.DoFilter, idArray);
+      const idMap: Record<string, number[]> = {};
+      findMathItems(data, idMap, []);
+      console.log(idMap);
+      emitter.emit(Msg.DoFilter, idMap);
     }, 500);
     const matchCase = ref(false);
     const pathSplit = ref(false);

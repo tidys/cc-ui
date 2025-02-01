@@ -1,7 +1,7 @@
 <template>
   <div class="app">
     <div class="content">
-      <CCTree ref="treeEl" class="left" :value="uiListData" @node-click="onUiListClick"></CCTree>
+      <CCTree ref="treeEl" class="left" :search="true" :value="uiListData" @node-click="onUiListClick"></CCTree>
       <CCDivider :vertical="true"></CCDivider>
       <div class="right ccui-scrollbar">
         <component :is="userComp"></component>
