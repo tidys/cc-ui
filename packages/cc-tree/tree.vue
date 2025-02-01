@@ -14,7 +14,7 @@
 
 <script lang="ts">
 import { TinyEmitter } from 'tiny-emitter';
-import { defineComponent, onMounted, onUnmounted, PropType, provide, ref, toRaw, watch } from 'vue';
+import { defineComponent, nextTick, onMounted, onUnmounted, PropType, provide, ref, toRaw, watch } from 'vue';
 import { HandExpandOptions, ITreeData, MatchRoute, Msg, ProvideKeys } from './const';
 import TreeItem from './tree-item.vue';
 import { throttle } from 'lodash';
@@ -61,6 +61,14 @@ export default defineComponent({
       const keys = toRaw(props.expandKeys);
       return keys.includes(id);
     });
+    watch(
+      () => props.value,
+      (v) => {
+        nextTick(() => {
+          doSearch(searchValue.value);
+        });
+      }
+    );
     let currentSelectTreeItem: ITreeData | null = null;
     function keydownCallback(e: KeyboardEvent) {
       e.preventDefault();

@@ -21,6 +21,9 @@
       </div>
     </CCSection>
     <CCSection name="search">
+      <CCProp name="test">
+        <CCButton @click="onChangeTreeData4">change tree</CCButton>
+      </CCProp>
       <CCTree :value="treeData4" style="max-height: 300px; min-height: 300px" :search="true"></CCTree>
     </CCSection>
   </div>
@@ -31,10 +34,10 @@ import { defineComponent, nextTick, ref } from 'vue';
 import { ITreeData } from '../packages/cc-tree/const';
 import ccui from '../packages/index';
 
-const { CCTree, CCButton, CCSection } = ccui.components;
+const { CCTree, CCButton, CCSection, CCProp } = ccui.components;
 export default defineComponent({
   name: 'case-tree',
-  components: { CCTree, CCButton, CCSection },
+  components: { CCTree, CCButton, CCSection, CCProp },
   setup(props, ctx) {
     const treeData1 = ref<ITreeData[]>([
       {
@@ -104,6 +107,9 @@ export default defineComponent({
       treeData2,
       treeData3,
       treeData4,
+      onChangeTreeData4() {
+        treeData4.value = [{ id: 'eee', text: 'eee' }];
+      },
       onTreeNodeMenu(event: MouseEvent, data: ITreeData) {
         ccui.menu.showMenuByMouseEvent(event, [
           {

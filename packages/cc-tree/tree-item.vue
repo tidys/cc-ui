@@ -311,6 +311,7 @@ export default defineComponent({
 
       .text-hint {
         background-color: #2667e7;
+        color: white;
       }
     }
   }
