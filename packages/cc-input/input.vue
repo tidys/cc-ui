@@ -1,6 +1,6 @@
 <template>
   <div class="cc-input">
-    <label style="display: flex; flex: 1">
+    <label style="display: flex; flex: 1; position: relative">
       <input :placeholder="placeholder" @focusout="onFocusout" :style="getCSS()" :class="{ readonly: readonly, disabled: disabled }" @focusin="onFocusin" @blur="onBlur" @input="onInput" :readonly="readonly" :maxlength="maxlength" :disabled="disabled" v-model="text" type="text" />
     </label>
     <slot></slot>
@@ -68,8 +68,9 @@ export default defineComponent({
         emit('update:value', text.value);
         emit('input', text.value);
       },
-      onFocusin() {
+      onFocusin(event: FocusEvent) {
         borderColor.value = focusColor;
+        (event.target as HTMLInputElement).select();
       },
       onFocusout() {
         borderColor.value = 'transparent';

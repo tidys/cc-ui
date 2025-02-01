@@ -1,8 +1,9 @@
 <template>
   <div class="root">
-    <div class="search">
+    <div class="search" v-if="search">
       <CCInput v-model:value="searchValue" @input="onInput" placeholder="search">
-        <i class="iconfont icon_font_size case" :class="{ 'case-active': matchCase }" @click="onChangeMatchCase"></i>
+        <i class="iconfont icon_font_size case" :class="{ 'case-active': matchCase }" @click="onChangeMatchCase" title="match cases"></i>
+        <i class="case" :class="{ 'case-active': pathSplit }" title="split path" @click="onChangePathSplit"> /</i>
       </CCInput>
     </div>
     <div class="tree ccui-scrollbar" :style="{ backgroundColor: bgColor }" ref="treeElement" tabindex="0">
@@ -38,6 +39,13 @@ export default defineComponent({
     defaultExpandAll: {
       type: Boolean,
       default: true,
+    },
+    /**
+     * 是否开启搜索
+     */
+    search: {
+      type: Boolean,
+      default: false,
     },
     /**
      * 默认展开的keys
@@ -231,30 +239,73 @@ export default defineComponent({
         }
         return false;
       }
-
-      function loop(item: ITreeData[], arr: string[]) {
-        for (let i = 0; i < item.length; i++) {
-          const { text, id } = item[i];
-          if (isMatch(text, v)) {
-            arr.push(id!);
-          }
+      let splitIndex = 0;
+      let splitArray: string[] = v.split('/');
+      function getMatchKey() {
+        if (pathSplit.value) {
+          return splitArray[splitIndex];
+        } else {
+          return v;
         }
       }
-      const idArray: string[] = [];
-      loop(data, idArray);
-      if (idArray.length) {
+      function stepUpMatch() {
+        splitIndex++;
       }
-      console.log(idArray);
+      function stepBackMatch() {
+        splitIndex--;
+      }
+
+      function findMathItems(item: ITreeData[], list: Record<string, boolean>, routeID: string[] = []) {
+        for (let i = 0; i < item.length; i++) {
+          const { text, id, children } = item[i];
+          routeID.push(id!);
+          const matchKey = getMatchKey();
+          const match = isMatch(text, matchKey);
+          if (match) {
+            let push = false;
+            if (pathSplit.value) {
+              if (splitIndex === splitArray.length - 1) {
+                // 分割的话，只有到达了底部才收集起来
+                push = true;
+              }
+            } else {
+              // 不分割，每一层都收集起来
+              push = true;
+            }
+            if (push) {
+              routeID.map((item) => {
+                list[item] = true;
+              });
+            }
+            stepUpMatch();
+          }
+          if (children && children.length) {
+            findMathItems(children, list, routeID);
+          }
+          if (match) {
+            stepBackMatch();
+          }
+          routeID.pop();
+        }
+      }
+      const idMap: Record<string, boolean> = {};
+      findMathItems(data, idMap);
+      const idArray = Object.keys(idMap);
       emitter.emit(Msg.DoFilter, idArray);
     }, 500);
     const matchCase = ref(false);
-    function onChangeMatchCase() {
-      matchCase.value = !matchCase.value;
-      doSearch(searchValue.value);
-    }
+    const pathSplit = ref(false);
     return {
-      onChangeMatchCase,
+      onChangeMatchCase() {
+        matchCase.value = !matchCase.value;
+        doSearch(searchValue.value);
+      },
+      onChangePathSplit() {
+        pathSplit.value = !pathSplit.value;
+        doSearch(searchValue.value);
+      },
       matchCase,
+      pathSplit,
       searchValue,
       treeElement,
       childrenElements,
@@ -329,18 +380,31 @@ export default defineComponent({
     display: flex;
     flex-direction: row;
     align-items: center;
-    padding: 5px 2px;
+    padding: 3px 2px;
+    margin-bottom: 1px;
     background: rgb(68, 68, 68);
-
+    border-bottom: 1px solid rgb(100, 100, 100);
     .case {
       cursor: pointer;
       border: 1px solid @case-bg;
       background-color: @case-bg;
       border-radius: 3px;
-      margin: 0 3px;
-      padding: 3px;
+      margin: 0 1px;
+      padding: 2px;
       font-size: 13px;
+      width: 15px;
+      height: 15px;
+      display: flex;
+      flex-direction: row;
+      align-items: center;
+      justify-content: center;
       color: white;
+      &:first {
+        margin-left: 2px;
+      }
+      &:end {
+        margin-right: 2px;
+      }
       &:hover {
         border: 1px solid @case-bg-hover;
         background-color: @case-bg-hover;
