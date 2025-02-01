@@ -1,6 +1,13 @@
 <template>
-  <div class="tree ccui-scrollbar" :style="{ backgroundColor: bgColor }" ref="treeElement" tabindex="0">
-    <TreeItem v-for="(item, index) in value" :idx="0" :key="index" :color="bgColor" :value="item" ref="childrenElements"></TreeItem>
+  <div class="root">
+    <div class="search">
+      <CCInput v-model:value="searchValue" @input="onInput" placeholder="search">
+        <i class="iconfont icon_font_size case" :class="{ 'case-active': matchCase }" @click="onChangeMatchCase"></i>
+      </CCInput>
+    </div>
+    <div class="tree ccui-scrollbar" :style="{ backgroundColor: bgColor }" ref="treeElement" tabindex="0">
+      <TreeItem v-for="(item, index) in value" :idx="0" :key="index" :color="bgColor" :value="item" ref="childrenElements"></TreeItem>
+    </div>
   </div>
 </template>
 
@@ -9,10 +16,11 @@ import { TinyEmitter } from 'tiny-emitter';
 import { defineComponent, onMounted, onUnmounted, PropType, provide, ref, toRaw, watch } from 'vue';
 import { HandExpandOptions, ITreeData, Msg, ProvideKeys } from './const';
 import TreeItem from './tree-item.vue';
-
+import { throttle } from 'lodash';
+import CCInput from '../cc-input/input.vue';
 export default defineComponent({
   name: 'cc-tree',
-  components: { TreeItem },
+  components: { TreeItem, CCInput },
   emit: ['node-expand', 'node-collapse', 'node-click', 'node-unclick', 'node-enter', 'node-leave', 'node-menu'],
   props: {
     value: {
@@ -194,7 +202,60 @@ export default defineComponent({
     provide(ProvideKeys.CurrentSelect, () => {
       return currentSelectTreeItem;
     });
+    const searchValue = ref('');
+    const doSearch = throttle((v: string) => {
+      if (!v) {
+        emitter.emit(Msg.ResetFilter);
+        return;
+      }
+      const data = toRaw(props.value);
+
+      function isMatch(text: string, query: string) {
+        if (!query) {
+          return false;
+        }
+        let index = 0;
+        for (let i = 0; i < text.length; i++) {
+          let a = text[i].toString();
+          let b = query[index].toString();
+          if (!matchCase.value) {
+            a = a.toLowerCase();
+            b = b.toLowerCase();
+          }
+          if (a === b) {
+            index++;
+            if (index === query.length) {
+              return true;
+            }
+          }
+        }
+        return false;
+      }
+
+      function loop(item: ITreeData[], arr: string[]) {
+        for (let i = 0; i < item.length; i++) {
+          const { text, id } = item[i];
+          if (isMatch(text, v)) {
+            arr.push(id!);
+          }
+        }
+      }
+      const idArray: string[] = [];
+      loop(data, idArray);
+      if (idArray.length) {
+      }
+      console.log(idArray);
+      emitter.emit(Msg.DoFilter, idArray);
+    }, 500);
+    const matchCase = ref(false);
+    function onChangeMatchCase() {
+      matchCase.value = !matchCase.value;
+      doSearch(searchValue.value);
+    }
     return {
+      onChangeMatchCase,
+      matchCase,
+      searchValue,
       treeElement,
       childrenElements,
       /**
@@ -248,14 +309,53 @@ export default defineComponent({
           item.doSelect();
         }
       },
+      onInput(str: string) {
+        const v = toRaw(searchValue.value);
+        doSearch(v);
+      },
     };
   },
 });
 </script>
 <style lang="less" scoped>
-.tree {
-  user-select: none;
-  outline: none;
-  overflow: auto;
+@case-bg: rgb(68, 68, 68);
+@case-bg-hover: rgb(45, 45, 45);
+@case-bg-active: rgb(42, 94, 136);
+.root {
+  display: flex;
+  flex-direction: column;
+  overflow: hidden;
+  .search {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    padding: 5px 2px;
+    background: rgb(68, 68, 68);
+
+    .case {
+      cursor: pointer;
+      border: 1px solid @case-bg;
+      background-color: @case-bg;
+      border-radius: 3px;
+      margin: 0 3px;
+      padding: 3px;
+      font-size: 13px;
+      color: white;
+      &:hover {
+        border: 1px solid @case-bg-hover;
+        background-color: @case-bg-hover;
+      }
+    }
+    .case-active {
+      border: 1px solid @case-bg-active !important;
+      background-color: @case-bg-active !important;
+    }
+  }
+  .tree {
+    flex: 1;
+    user-select: none;
+    outline: none;
+    overflow: auto;
+  }
 }
 </style>

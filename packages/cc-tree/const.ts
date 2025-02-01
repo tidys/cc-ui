@@ -15,6 +15,8 @@ export const Msg = {
   SelectReset: 'select-reset',
   UpdateSelect: 'update-select',
   HandExpand: 'hand-expand',
+  DoFilter: 'do-filter',
+  ResetFilter: 'reset-filter',
 };
 export interface ITreeData {
   /**

@@ -3,7 +3,7 @@
     <div class="content">
       <CCTree ref="treeEl" class="left" :value="uiListData" @node-click="onUiListClick"></CCTree>
       <CCDivider :vertical="true"></CCDivider>
-      <div style="flex: 1">
+      <div class="right ccui-scrollbar">
         <component :is="userComp"></component>
       </div>
     </div>
@@ -111,10 +111,15 @@ export default defineComponent({
     width: 100%;
     display: flex;
     flex-direction: row;
+    overflow: hidden;
     .left {
       min-width: 100px;
       height: 100%;
     }
+  }
+  .right {
+    flex: 1;
+    overflow: auto;
   }
 }
 </style>

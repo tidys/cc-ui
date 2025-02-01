@@ -1,5 +1,5 @@
 <template>
-  <div class="tree-item" ref="rootEl">
+  <div class="tree-item" ref="rootEl" v-show="show">
     <div class="content" :class="{ flash: isFlash }" @contextmenu.prevent.stop="mouseMenu" @click="onClick" @mouseenter="mouseEnter" @mouseleave="mouseLeave" :style="{ 'background-color': backgroundColor, 'padding-left': `${indent * 15}px` }">
       <div class="icon" :class="getIconClass()" :style="getIconStyle()" @click.stop.prevent="onFold"></div>
       <div class="name" :style="getNameStyle()">
@@ -109,6 +109,17 @@ export default defineComponent({
         selectReset();
       }
     }
+    function doFilter(idArray: string[]) {
+      const id = toRaw(props.value.id || '');
+      if (idArray.includes(id)) {
+        show.value = true;
+        if (fold.value === true) {
+          changeFold(false);
+        }
+      } else {
+        show.value = false;
+      }
+    }
     function handExpand(idArray: string[], options: HandExpandOptions = {}) {
       const id = toRaw(props.value.id || '');
       if (idArray.includes(id)) {
@@ -133,15 +144,22 @@ export default defineComponent({
         }
       }
     }
+    function resetFilter() {
+      show.value = true;
+    }
     onMounted(() => {
       emitter.on(Msg.SelectReset, selectReset);
       emitter.on(Msg.UpdateSelect, updateSelect);
       emitter.on(Msg.HandExpand, handExpand);
+      emitter.on(Msg.DoFilter, doFilter);
+      emitter.on(Msg.ResetFilter, resetFilter);
     });
     onUnmounted(() => {
       emitter.off(Msg.SelectReset, selectReset);
       emitter.off(Msg.UpdateSelect, updateSelect);
       emitter.off(Msg.HandExpand, handExpand);
+      emitter.on(Msg.DoFilter, doFilter);
+      emitter.off(Msg.ResetFilter, resetFilter);
     });
     function updateBgColor() {
       if (selected) {
@@ -178,7 +196,9 @@ export default defineComponent({
 
     const rootEl = ref<HTMLDivElement>();
     const isFlash = ref<boolean>(false);
+    const show = ref(true);
     return {
+      show,
       isFlash,
       rootEl,
       childrenElements,
@@ -216,7 +236,17 @@ export default defineComponent({
       getIconStyle() {
         const b = props.value.children?.length || props.value.childrenCount;
         const visible = b ? 'visible' : 'hidden';
-        return `visibility: ${visible}`;
+        const ret: string[] = [`visibility: ${visible}`];
+
+        let active = toRaw(props.value.active);
+        if (active === undefined) {
+          active = true;
+        }
+        if (!active) {
+          // 暂时使用creator的配色样式
+          ret.push(`opacity:0.4`);
+        }
+        return ret.join(';');
       },
       getNameStyle() {
         let active = toRaw(props.value.active);

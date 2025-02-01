@@ -1,7 +1,7 @@
 <template>
   <div class="cc-input">
     <label style="display: flex; flex: 1">
-      <input :placeholder="placeholder" @focusout="onFocusout" :style="getCSS()" :class="{ readonly: readonly, disabled: disabled }" @focusin="onFocusin" @blur="onBlur" :readonly="readonly" :maxlength="maxlength" :disabled="disabled" v-model="text" type="text" />
+      <input :placeholder="placeholder" @focusout="onFocusout" :style="getCSS()" :class="{ readonly: readonly, disabled: disabled }" @focusin="onFocusin" @blur="onBlur" @input="onInput" :readonly="readonly" :maxlength="maxlength" :disabled="disabled" v-model="text" type="text" />
     </label>
     <slot></slot>
   </div>
@@ -40,7 +40,7 @@ export default defineComponent({
       default: '',
     },
   },
-  emits: ['update:value', 'change'],
+  emits: ['update:value', 'change', 'input'],
   setup(props, { emit }) {
     const focusColor = '#fd942b';
     const borderColor = ref('transparent');
@@ -64,6 +64,10 @@ export default defineComponent({
         }
         return css.join(';');
       },
+      onInput() {
+        emit('update:value', text.value);
+        emit('input', text.value);
+      },
       onFocusin() {
         borderColor.value = focusColor;
       },
@@ -81,9 +85,11 @@ export default defineComponent({
 
 <style scoped lang="less">
 @import '../common/ccui.less';
+
 .cc-input {
   display: flex;
   flex: 1;
+  align-items: center;
 
   .readonly {
     cursor: default;
