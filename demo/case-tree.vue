@@ -89,8 +89,8 @@ export default defineComponent({
             text: 'ccd',
             children: [
               {
-                id: 'd',
-                text: 'd',
+                id: 'de',
+                text: 'de',
               },
             ],
           },

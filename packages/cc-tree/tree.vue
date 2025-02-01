@@ -222,11 +222,14 @@ export default defineComponent({
        * @returns 返回匹配到的所有位置
        */
       function isMatch(text: string, query: string): number[] {
-        let pos: number[] = [];
         if (!query) {
-          return pos;
+          return [];
+        }
+        if (text.length < query.length) {
+          return [];
         }
         let index = 0;
+        let pos: number[] = [];
         for (let i = 0; i < text.length; i++) {
           let a = text[i].toString();
           let b = query[index].toString();
@@ -242,7 +245,7 @@ export default defineComponent({
             }
           }
         }
-        return pos;
+        return [];
       }
       let splitIndex = 0;
       let splitArray: string[] = v.split('/');
@@ -301,7 +304,6 @@ export default defineComponent({
       }
       const idMap: Record<string, number[]> = {};
       findMathItems(data, idMap, []);
-      console.log(idMap);
       emitter.emit(Msg.DoFilter, idMap);
     }, 500);
     const matchCase = ref(false);
