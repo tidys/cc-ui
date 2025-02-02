@@ -256,12 +256,13 @@ export default defineComponent({
         }
       },
       getIconStyle() {
+        const ret: string[] = [];
         let active = toRaw(props.value.active);
         if (active === undefined) {
           active = true;
         }
-        const visible = active ? 'visible' : 'hidden';
-        const ret: string[] = [`visibility: ${visible}`];
+        // const visible = active ? 'visible' : 'hidden';
+        // ret.push(`visibility: ${visible}`);
         if (!active) {
           ret.push(`opacity:0.4`);
         }
@@ -289,6 +290,9 @@ export default defineComponent({
         if (!active) {
           // 暂时使用creator的配色样式
           ret.push(`opacity:0.4`);
+        }
+        if (props.value.color) {
+          ret.push(`color:${props.value.color} !important`);
         }
         return ret.join(';');
       },

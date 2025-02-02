@@ -1,7 +1,7 @@
 <template>
   <div class="cmd" @click.prevent.stop="onClick" :title="data.title || ''">
     <div>{{ data.label }}</div>
-    <div :class="iconClass()" style="font-size: 20px; width: 20px; height: 20px"></div>
+    <div :class="iconClass()" class="icon"></div>
   </div>
 </template>
 <script lang="ts">
@@ -37,12 +37,12 @@ export default defineComponent({
   },
 });
 </script>
-<style lang="less">
+<style scoped lang="less">
 .cmd {
   user-select: none;
   color: white;
   cursor: pointer;
-  padding: 0 3px;
+  padding: 0 1px;
   display: flex;
   flex-direction: row;
   align-items: center;
@@ -54,6 +54,15 @@ export default defineComponent({
 
   .hide {
     display: none;
+  }
+  .icon {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: center;
+    font-size: 17px;
+    width: 20px;
+    height: 20px;
   }
 }
 </style>

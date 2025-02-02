@@ -6,6 +6,125 @@
   "description": "cc-ui组件库在使用",
   "glyphs": [
     {
+      "icon_id": "1120686",
+      "name": "graphics",
+      "font_class": "graphics",
+      "unicode": "e61b",
+      "unicode_decimal": 58907
+    },
+    {
+      "icon_id": "1881849",
+      "name": "progress",
+      "font_class": "progress",
+      "unicode": "e648",
+      "unicode_decimal": 58952
+    },
+    {
+      "icon_id": "4936583",
+      "name": "layout",
+      "font_class": "layout",
+      "unicode": "e853",
+      "unicode_decimal": 59475
+    },
+    {
+      "icon_id": "9251381",
+      "name": "widget",
+      "font_class": "widget",
+      "unicode": "e602",
+      "unicode_decimal": 58882
+    },
+    {
+      "icon_id": "27363714",
+      "name": "mask",
+      "font_class": "mask",
+      "unicode": "eb61",
+      "unicode_decimal": 60257
+    },
+    {
+      "icon_id": "39206558",
+      "name": "widget1",
+      "font_class": "widget1",
+      "unicode": "ec02",
+      "unicode_decimal": 60418
+    },
+    {
+      "icon_id": "2930119",
+      "name": "ScrollView",
+      "font_class": "scroll_view",
+      "unicode": "e65d",
+      "unicode_decimal": 58973
+    },
+    {
+      "icon_id": "15838440",
+      "name": "camera",
+      "font_class": "camera",
+      "unicode": "e667",
+      "unicode_decimal": 58983
+    },
+    {
+      "icon_id": "34635781",
+      "name": "canvas",
+      "font_class": "canvas",
+      "unicode": "1216b",
+      "unicode_decimal": 74091
+    },
+    {
+      "icon_id": "587946",
+      "name": "coffe",
+      "font_class": "coffe",
+      "unicode": "e673",
+      "unicode_decimal": 58995
+    },
+    {
+      "icon_id": "673804",
+      "name": "good",
+      "font_class": "good",
+      "unicode": "e6ce",
+      "unicode_decimal": 59086
+    },
+    {
+      "icon_id": "40754854",
+      "name": "inputbox",
+      "font_class": "inputbox",
+      "unicode": "e707",
+      "unicode_decimal": 59143
+    },
+    {
+      "icon_id": "8017618",
+      "name": "button",
+      "font_class": "button",
+      "unicode": "e6cc",
+      "unicode_decimal": 59084
+    },
+    {
+      "icon_id": "8430216",
+      "name": "wechat",
+      "font_class": "wechat-",
+      "unicode": "e621",
+      "unicode_decimal": 58913
+    },
+    {
+      "icon_id": "212328",
+      "name": "do_play",
+      "font_class": "do_play",
+      "unicode": "e74f",
+      "unicode_decimal": 59215
+    },
+    {
+      "icon_id": "918654",
+      "name": "do_step",
+      "font_class": "do_step",
+      "unicode": "e625",
+      "unicode_decimal": 58917
+    },
+    {
+      "icon_id": "5428477",
+      "name": "do_pause",
+      "font_class": "do_pause",
+      "unicode": "e6fd",
+      "unicode_decimal": 59133
+    },
+    {
       "icon_id": "9509962",
       "name": "yes",
       "font_class": "yes",
