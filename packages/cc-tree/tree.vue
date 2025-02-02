@@ -22,7 +22,7 @@ import CCInput from '../cc-input/input.vue';
 export default defineComponent({
   name: 'cc-tree',
   components: { TreeItem, CCInput },
-  emit: ['node-expand', 'node-collapse', 'node-click', 'node-unclick', 'node-enter', 'node-leave', 'node-menu'],
+  emit: ['node-expand', 'node-collapse', 'node-click', 'node-unclick', 'node-enter', 'node-leave', 'node-menu', 'do-search'],
   props: {
     value: {
       type: Array as PropType<Array<ITreeData>>,
@@ -313,6 +313,7 @@ export default defineComponent({
       const idMap: Record<string, number[]> = {};
       findMathItems(data, idMap, []);
       emitter.emit(Msg.DoFilter, idMap);
+      emit('do-search', toRaw(searchValue.value));
     }, 500);
     const matchCase = ref(false);
     const pathSplit = ref(false);
