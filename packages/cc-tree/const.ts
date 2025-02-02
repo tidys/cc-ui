@@ -10,6 +10,7 @@ export const ProvideKeys = {
   DefaultExpandAll: 'default-expand-all',
   CheckExpand: 'check-expand',
   CurrentSelect: 'current-select',
+  ShowIcon: 'show-icon',
 };
 export const Msg = {
   SelectReset: 'select-reset',
@@ -23,6 +24,14 @@ export interface ITreeData {
    * 唯一ID
    */
   id?: string;
+  /**
+   * 图标
+   */
+  icon?: string;
+  /**
+   * 文本的颜色
+   */
+  color?: string;
   /**
    * 显示的文本
    */

@@ -24,7 +24,7 @@
       <CCProp name="test">
         <CCButton @click="onChangeTreeData4">change tree</CCButton>
       </CCProp>
-      <CCTree :value="treeData4" style="max-height: 300px; min-height: 300px" :search="true"></CCTree>
+      <CCTree :show-icon="true" :value="treeData4" style="max-height: 300px; min-height: 300px" :search="true"></CCTree>
     </CCSection>
   </div>
 </template>
@@ -82,18 +82,31 @@ export default defineComponent({
       },
     ]);
     const treeData4 = ref<ITreeData[]>([
-      { id: 'abcd', text: 'abcd', children: [{ id: 'abc', text: 'abc' }] },
+      {
+        id: 'abcd',
+        text: 'abcd',
+        icon: 'icon_cocos',
+        children: [
+          { id: 'abc', text: 'abc', icon: 'icon_node' },
+          { id: 'bcd', text: 'bcd', icon: 'icon_button' },
+          { id: 'inputbox', text: 'inputbox', icon: 'icon_inputbox' },
+        ],
+      },
       {
         id: 'ac',
         text: 'ac',
+        icon: 'icon_picture',
         children: [
           {
             id: 'ccd',
             text: 'ccd',
+            icon: 'icon_text',
             children: [
               {
                 id: 'de',
+                icon: 'icon_prefab',
                 text: 'de',
+                color: '#00ff00',
               },
             ],
           },

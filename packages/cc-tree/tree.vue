@@ -29,6 +29,16 @@ export default defineComponent({
       default: () => [],
       required: true,
     },
+    /**
+     * 是否显示icon
+     */
+    showIcon: {
+      type: Boolean,
+      default: false,
+    },
+    /**
+     * 背景色
+     */
     bgColor: {
       type: String,
       default: '#444',
@@ -192,6 +202,9 @@ export default defineComponent({
     const childrenElements = ref<Array<typeof TreeItem>>([]);
 
     const emitter = new TinyEmitter();
+    provide(ProvideKeys.ShowIcon, () => {
+      return props.showIcon;
+    });
     provide(ProvideKeys.Emitter, emitter);
     provide(ProvideKeys.NodeUnclick, (data: ITreeData) => {
       emit('node-unclick', data);

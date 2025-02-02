@@ -1,7 +1,8 @@
 <template>
   <div class="tree-item" ref="rootEl" v-show="show">
     <div class="content" :class="{ flash: isFlash }" @contextmenu.prevent.stop="mouseMenu" @click="onClick" @mouseenter="mouseEnter" @mouseleave="mouseLeave" :style="{ 'background-color': backgroundColor, 'padding-left': `${indent * 15}px` }">
-      <div class="icon" :class="getIconClass()" :style="getIconStyle()" @click.stop.prevent="onFold"></div>
+      <div class="arrow" :class="getArrowClass()" :style="getArrowStyle()" @click.stop.prevent="onFold"></div>
+      <div class="iconfont icon" v-if="ShowIcon()" :class="getIconClass()" :style="getIconStyle()"></div>
       <div class="name" :style="getNameStyle()">
         <span v-for="(item, index) in value.text" :key="index" :class="getClass(item, Number(index))">{{ item }}</span>
         <!-- {{ value.text }} -->
@@ -32,6 +33,9 @@ export default defineComponent({
       type: Number,
       default: 0,
     },
+    /**
+     * 背景色
+     */
     color: {
       type: String,
       default: '#444',
@@ -42,6 +46,7 @@ export default defineComponent({
     props.value.id = id === undefined ? generate() : id;
     const emitter = inject(ProvideKeys.Emitter) as TinyEmitter;
     const NodeClick = inject(ProvideKeys.NodeClick, (data: ITreeData | null) => {});
+    const ShowIcon = inject(ProvideKeys.ShowIcon, () => false);
     const NodeUnclick = inject(ProvideKeys.NodeUnclick, (data: ITreeData | null) => {});
     const NodeEnter = inject(ProvideKeys.NodeEnter, (data: ITreeData | null) => {});
     const NodeMenu = inject(ProvideKeys.NodeMenu, (event: MouseEvent, data: ITreeData | null) => {});
@@ -223,6 +228,7 @@ export default defineComponent({
       selected,
       doFold,
       doSelect,
+      ShowIcon,
       onFold() {
         changeFold(!fold.value);
       },
@@ -243,13 +249,35 @@ export default defineComponent({
         doSelect();
       },
       getIconClass() {
+        if (ShowIcon()) {
+          return props.value.icon || 'icon_node';
+        } else {
+          return '';
+        }
+      },
+      getIconStyle() {
+        let active = toRaw(props.value.active);
+        if (active === undefined) {
+          active = true;
+        }
+        const visible = active ? 'visible' : 'hidden';
+        const ret: string[] = [`visibility: ${visible}`];
+        if (!active) {
+          ret.push(`opacity:0.4`);
+        }
+        if (props.value.color) {
+          ret.push(`color:${props.value.color} !important`);
+        }
+        return ret.join(';');
+      },
+      getArrowClass() {
         if (fold.value) {
           return 'iconfont icon_arrow_right';
         } else {
           return 'iconfont icon_arrow_down';
         }
       },
-      getIconStyle() {
+      getArrowStyle() {
         const b = props.value.children?.length || props.value.childrenCount;
         const visible = b ? 'visible' : 'hidden';
         const ret: string[] = [`visibility: ${visible}`];
@@ -274,6 +302,9 @@ export default defineComponent({
         if (!active) {
           // 暂时使用creator的配色样式
           ret.push(`opacity:0.4`);
+        }
+        if (props.value.color) {
+          ret.push(`color:${props.value.color} !important`);
         }
         return ret.join(';');
       },
@@ -301,10 +332,21 @@ export default defineComponent({
     align-items: center;
     flex-direction: row;
     user-select: none;
-    .icon {
+    .arrow {
       color: #ccc;
       cursor: pointer;
-      margin-right: 3px;
+      margin-right: 1px;
+    }
+    .icon {
+      display: flex;
+      flex-direction: row;
+      align-items: center;
+      justify-content: center;
+      color: #ccc;
+      font-size: 13px;
+      margin-right: 1px;
+      width: 14px;
+      height: 14px;
     }
     .name {
       font-family: BlinkMacSystemFont, 'Helvetica Neue', Helvetica, 'Lucida Grande', 'Segoe UI', Ubuntu, Cantarell, SourceHanSansCN-Normal, Arial, sans-serif;
