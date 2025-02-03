@@ -11,7 +11,13 @@ declare const _default: import("vue").DefineComponent<{
         };
     };
 }, {
-    onClick(): void;
+    getIsSeparator(): boolean;
+    getIsMenu(): boolean;
+    getIconStyle(): string;
+    getIconClass(): string;
+    onClick(event: MouseEvent): void;
+    onMouseEnter(): void;
+    onMouseLeave(): void;
 }, unknown, {}, {}, import("vue").ComponentOptionsMixin, import("vue").ComponentOptionsMixin, {}, string, import("vue").VNodeProps & import("vue").AllowedComponentProps & import("vue").ComponentCustomProps, Readonly<import("vue").ExtractPropTypes<{
     data: {
         type: PropType<IUiMenuItem>;

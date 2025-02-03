@@ -34,6 +34,10 @@ export declare const components: {
             default: () => never[];
             required: true;
         };
+        showIcon: {
+            type: BooleanConstructor;
+            default: boolean;
+        };
         bgColor: {
             type: StringConstructor;
             default: string;
@@ -42,11 +46,20 @@ export declare const components: {
             type: BooleanConstructor;
             default: boolean;
         };
+        search: {
+            type: BooleanConstructor;
+            default: boolean;
+        };
         expandKeys: {
             type: import("vue").PropType<string[]>;
             default: () => never[];
         };
     }, {
+        onChangeMatchCase(): void;
+        onChangePathSplit(): void;
+        matchCase: import("vue").Ref<boolean>;
+        pathSplit: import("vue").Ref<boolean>;
+        searchValue: import("vue").Ref<string>;
         treeElement: import("vue").Ref<HTMLDivElement | undefined>;
         childrenElements: import("vue").Ref<import("vue").DefineComponent<{
             value: {
@@ -65,6 +78,9 @@ export declare const components: {
                 default: string;
             };
         }, {
+            getClass(item: string, index: number): string;
+            highlightCharIndex: import("vue").Ref<number[]>;
+            show: import("vue").Ref<boolean>;
             isFlash: import("vue").Ref<boolean>;
             rootEl: import("vue").Ref<HTMLDivElement | undefined>;
             childrenElements: import("vue").Ref<never[]>;
@@ -73,12 +89,16 @@ export declare const components: {
             selected: boolean;
             doFold: (b: boolean) => void;
             doSelect: (scroll?: boolean) => void;
+            ShowIcon: () => false;
             onFold(): void;
             mouseEnter(): void;
+            mouseMenu(event: MouseEvent): void;
             mouseLeave(): void;
             onClick(): void;
-            getIconClass(): "iconfont icon_arrow_down" | "iconfont icon_arrow_right";
+            getIconClass(): string;
             getIconStyle(): string;
+            getArrowClass(): "iconfont icon_arrow_down" | "iconfont icon_arrow_right";
+            getArrowStyle(): string;
             getNameStyle(): string;
         }, unknown, {}, {}, import("vue").ComponentOptionsMixin, import("vue").ComponentOptionsMixin, {}, string, import("vue").VNodeProps & import("vue").AllowedComponentProps & import("vue").ComponentCustomProps, Readonly<import("vue").ExtractPropTypes<{
             value: {
@@ -101,17 +121,19 @@ export declare const components: {
             value: import("./cc-tree/const").ITreeData;
             indent: number;
         }, {}>[]>;
-        handExpand(id: string, options?: {
-            select?: boolean | undefined;
-            highlight?: boolean | undefined;
-        }): void;
+        handExpand(id: string, options?: import("./cc-tree/const").HandExpandOptions): void;
         handChoose(id: string): void;
         handSelect(index?: number): void;
+        onInput(str: string): void;
     }, unknown, {}, {}, import("vue").ComponentOptionsMixin, import("vue").ComponentOptionsMixin, {}, string, import("vue").VNodeProps & import("vue").AllowedComponentProps & import("vue").ComponentCustomProps, Readonly<import("vue").ExtractPropTypes<{
         value: {
             type: import("vue").PropType<import("./cc-tree/const").ITreeData[]>;
             default: () => never[];
             required: true;
+        };
+        showIcon: {
+            type: BooleanConstructor;
+            default: boolean;
         };
         bgColor: {
             type: StringConstructor;
@@ -121,13 +143,19 @@ export declare const components: {
             type: BooleanConstructor;
             default: boolean;
         };
+        search: {
+            type: BooleanConstructor;
+            default: boolean;
+        };
         expandKeys: {
             type: import("vue").PropType<string[]>;
             default: () => never[];
         };
     }>>, {
+        search: boolean;
         value: import("./cc-tree/const").ITreeData[];
         bgColor: string;
+        showIcon: boolean;
         defaultExpandAll: boolean;
         expandKeys: string[];
     }, {}>;
@@ -359,6 +387,7 @@ export declare const components: {
             visible?: boolean | undefined;
             cb: (() => void) | null;
         }[]>;
+        getRoot(): HTMLElement;
     }, unknown, {}, {}, import("vue").ComponentOptionsMixin, import("vue").ComponentOptionsMixin, {}, string, import("vue").VNodeProps & import("vue").AllowedComponentProps & import("vue").ComponentCustomProps, Readonly<import("vue").ExtractPropTypes<{
         items: {
             type: import("vue").PropType<import("./cc-command/const").CmdData[]>;
@@ -702,13 +731,16 @@ export declare const components: {
             default: string;
         };
     }, {
+        hover: import("vue").Ref<boolean>;
         text: import("vue").Ref<string>;
         borderColor: import("vue").Ref<string>;
         getCSS(): string;
-        onFocusin(): void;
+        onInput(): void;
+        onFocusin(event: FocusEvent): void;
+        onClean(): void;
         onFocusout(): void;
         onBlur(): void;
-    }, unknown, {}, {}, import("vue").ComponentOptionsMixin, import("vue").ComponentOptionsMixin, ("update:value" | "change")[], "update:value" | "change", import("vue").VNodeProps & import("vue").AllowedComponentProps & import("vue").ComponentCustomProps, Readonly<import("vue").ExtractPropTypes<{
+    }, unknown, {}, {}, import("vue").ComponentOptionsMixin, import("vue").ComponentOptionsMixin, ("update:value" | "change" | "input")[], "input" | "update:value" | "change", import("vue").VNodeProps & import("vue").AllowedComponentProps & import("vue").ComponentCustomProps, Readonly<import("vue").ExtractPropTypes<{
         value: {
             type: StringConstructor;
             default: string;
@@ -735,6 +767,7 @@ export declare const components: {
         };
     }>> & {
         onChange?: ((...args: any[]) => any) | undefined;
+        onInput?: ((...args: any[]) => any) | undefined;
         "onUpdate:value"?: ((...args: any[]) => any) | undefined;
     }, {
         readonly: boolean;
@@ -745,6 +778,10 @@ export declare const components: {
         placeholder: string;
     }, {}>;
     CCInputNumber: import("vue").DefineComponent<{
+        tip: {
+            type: StringConstructor;
+            default: string;
+        };
         disabled: {
             type: BooleanConstructor;
             default: boolean;
@@ -773,6 +810,10 @@ export declare const components: {
         input: import("vue").Ref<any>;
         onChange(): void;
     }, unknown, {}, {}, import("vue").ComponentOptionsMixin, import("vue").ComponentOptionsMixin, ("update:value" | "change")[], "update:value" | "change", import("vue").VNodeProps & import("vue").AllowedComponentProps & import("vue").ComponentCustomProps, Readonly<import("vue").ExtractPropTypes<{
+        tip: {
+            type: StringConstructor;
+            default: string;
+        };
         disabled: {
             type: BooleanConstructor;
             default: boolean;
@@ -803,6 +844,7 @@ export declare const components: {
         readonly: boolean;
         disabled: boolean;
         value: number;
+        tip: string;
         step: number;
     }, {}>;
     CCProp: import("vue").DefineComponent<{
@@ -926,14 +968,23 @@ export declare const components: {
         headWidth: string;
     }, {}>;
     CCMenu: import("vue").DefineComponent<{}, {
+        opacity: import("vue").Ref<number>;
         menuEl: import("vue").Ref<HTMLDivElement | undefined>;
         menus: import("vue").Ref<{
-            name: string;
+            name?: string | undefined;
+            type?: import("./cc-menu/const").MenuType | undefined;
             enabled?: boolean | undefined;
-            callback: (item: import("./cc-menu/const").IUiMenuItem) => void | null;
+            visible?: boolean | undefined;
+            selected?: boolean | undefined;
+            icon?: string | undefined;
+            shortKey?: string | undefined;
+            callback?: ((item: import("./cc-menu/const").IUiMenuItem) => void | null) | undefined;
+            enter?: ((item: import("./cc-menu/const").IUiMenuItem) => void) | null | undefined;
+            leave?: ((item: import("./cc-menu/const").IUiMenuItem) => void) | null | undefined;
         }[]>;
         menuPositionX: import("vue").Ref<number>;
         menuPositionY: import("vue").Ref<number>;
+        getRoot(): HTMLElement;
     }, {}, {}, {}, import("vue").ComponentOptionsMixin, import("vue").ComponentOptionsMixin, {}, string, import("vue").VNodeProps & import("vue").AllowedComponentProps & import("vue").ComponentCustomProps, Readonly<import("vue").ExtractPropTypes<{}>>, {}, {}>;
     CCSlider: import("vue").DefineComponent<{}, {}, {}, {}, {}, import("vue").ComponentOptionsMixin, import("vue").ComponentOptionsMixin, {}, string, import("vue").VNodeProps & import("vue").AllowedComponentProps & import("vue").ComponentCustomProps, Readonly<import("vue").ExtractPropTypes<{}>>, {}, {}>;
     CCTextarea: import("vue").DefineComponent<{
@@ -1000,5 +1051,6 @@ export declare const components: {
         show: import("vue").Ref<boolean>;
         onWinClose: (id: string) => void;
         onMaskClick: () => void;
+        getRoot(): HTMLElement;
     }, {}, {}, {}, import("vue").ComponentOptionsMixin, import("vue").ComponentOptionsMixin, {}, string, import("vue").VNodeProps & import("vue").AllowedComponentProps & import("vue").ComponentCustomProps, Readonly<import("vue").ExtractPropTypes<{}>>, {}, {}>;
 };

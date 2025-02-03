@@ -27,13 +27,16 @@ declare const _default: import("vue").DefineComponent<{
         default: string;
     };
 }, {
+    hover: import("vue").Ref<boolean>;
     text: import("vue").Ref<string>;
     borderColor: import("vue").Ref<string>;
     getCSS(): string;
-    onFocusin(): void;
+    onInput(): void;
+    onFocusin(event: FocusEvent): void;
+    onClean(): void;
     onFocusout(): void;
     onBlur(): void;
-}, unknown, {}, {}, import("vue").ComponentOptionsMixin, import("vue").ComponentOptionsMixin, ("update:value" | "change")[], "update:value" | "change", import("vue").VNodeProps & import("vue").AllowedComponentProps & import("vue").ComponentCustomProps, Readonly<import("vue").ExtractPropTypes<{
+}, unknown, {}, {}, import("vue").ComponentOptionsMixin, import("vue").ComponentOptionsMixin, ("update:value" | "change" | "input")[], "input" | "update:value" | "change", import("vue").VNodeProps & import("vue").AllowedComponentProps & import("vue").ComponentCustomProps, Readonly<import("vue").ExtractPropTypes<{
     value: {
         type: StringConstructor;
         default: string;
@@ -63,6 +66,7 @@ declare const _default: import("vue").DefineComponent<{
     };
 }>> & {
     onChange?: ((...args: any[]) => any) | undefined;
+    onInput?: ((...args: any[]) => any) | undefined;
     "onUpdate:value"?: ((...args: any[]) => any) | undefined;
 }, {
     readonly: boolean;

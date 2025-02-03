@@ -1,4 +1,8 @@
 declare const _default: import("vue").DefineComponent<{
+    tip: {
+        type: StringConstructor;
+        default: string;
+    };
     disabled: {
         type: BooleanConstructor;
         default: boolean;
@@ -27,6 +31,10 @@ declare const _default: import("vue").DefineComponent<{
     input: import("vue").Ref<any>;
     onChange(): void;
 }, unknown, {}, {}, import("vue").ComponentOptionsMixin, import("vue").ComponentOptionsMixin, ("update:value" | "change")[], "update:value" | "change", import("vue").VNodeProps & import("vue").AllowedComponentProps & import("vue").ComponentCustomProps, Readonly<import("vue").ExtractPropTypes<{
+    tip: {
+        type: StringConstructor;
+        default: string;
+    };
     disabled: {
         type: BooleanConstructor;
         default: boolean;
@@ -57,6 +65,7 @@ declare const _default: import("vue").DefineComponent<{
     readonly: boolean;
     disabled: boolean;
     value: number;
+    tip: string;
     step: number;
 }, {}>;
 export default _default;

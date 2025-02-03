@@ -14,6 +14,7 @@ declare const _default: import("vue").DefineComponent<{
         visible?: boolean | undefined;
         cb: (() => void) | null;
     }[]>;
+    getRoot(): HTMLElement;
 }, unknown, {}, {}, import("vue").ComponentOptionsMixin, import("vue").ComponentOptionsMixin, {}, string, import("vue").VNodeProps & import("vue").AllowedComponentProps & import("vue").ComponentCustomProps, Readonly<import("vue").ExtractPropTypes<{
     items: {
         type: PropType<CmdData[]>;
