@@ -1,6 +1,6 @@
 <template>
   <div v-if="getIsSeparator()" class="separator"></div>
-  <div v-if="getIsMenu()" class="ui-menu-item" :class="{ disabled: data.enabled === false }" @mousedown="onClick" @mouseenter="onMouseEnter" @mouseleave="onMouseLeave">
+  <div v-if="getIsMenu()" class="ui-menu-item" :class="{ disabled: data.enabled === false }" @mousedown="onClick" @mouseenter="onMouseEnter" @mouseleave="onMouseLeave" :title="data.tip || ''">
     <i :style="getIconStyle()" :class="getIconClass()" class="iconfont icon"></i>
     <span class="text">{{ data.name }}</span>
     <div class="short-key" v-if="data.shortKey">{{ data.shortKey }}</div>
@@ -59,7 +59,7 @@ export default defineComponent({
           return;
         }
         if (item && item.callback) {
-          item.callback(props.data);
+          item.callback(props.data, event);
         }
         ccui.Emitter.emit(Msg.HideMenu);
       },

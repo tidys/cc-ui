@@ -28,6 +28,7 @@
         </div>
       </template>
     </CCSection>
+    <CCSection color-header="red" color-title="white" name="测试颜色header"></CCSection>
   </div>
 </template>
 

@@ -33,6 +33,9 @@ export default defineComponent({
       () => props.value,
       (v) => {
         val.value = v;
+      },
+      {
+        deep: true,
       }
     );
     return {

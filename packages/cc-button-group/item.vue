@@ -1,15 +1,12 @@
 <template>
   <div ref="el" v-if="data.visible === undefined ? true : !!data.visible" class="cc-button-group-item" :style="{ 'background-color': backgroundColor }" @mouseenter="onMouseEnter" @mouseover="onMouseOver" @mouseleave="onMouseLeave" :title="data.title" @click.stop.prevent="onClick" @mousedown.stop.prevent="onMouseDown" @mouseup.stop.prevent="onMouseUp">
-    <div v-if="!!data.icon">
-      <i class="iconfont" :class="data.icon"></i>
-    </div>
+    <i v-if="!!data.icon" class="iconfont" :class="data.icon"></i>
     <div v-else-if="!!data.svg" class="center">
       <object class="center svg" type="image/svg+xml" :data="data.svg" />
     </div>
-    <div v-else-if="data.text !== undefined">
+    <div v-if="data.text !== undefined">
       {{ data.text || '' }}
     </div>
-    <div v-else></div>
   </div>
 </template>
 <script lang="ts">
@@ -24,6 +21,9 @@ export default defineComponent({
       type: Object as PropType<ButtonGroupItem>,
       default: () => {},
     },
+    /**
+     * item的背景色
+     */
     color: {
       type: String,
       default: '#444',
@@ -89,12 +89,12 @@ export default defineComponent({
         // style.zIndex = zIndexFunc().toString();
       }
     }
-    function onMouseDown(event?: MouseEvent) {
+    function onMouseDown(event: MouseEvent | null = null) {
       emitter.emit(Msg.ButtonTap);
       state = ButtonState.Press;
       updateBgColor();
       if (data && data.click) {
-        data.click();
+        data.click(event, toRaw(props.data));
       }
     }
     return {

@@ -25,6 +25,7 @@ export default defineComponent({
         for (let i = 0; i < 10; i++) {
           menus.push({
             name: i.toString(),
+            tip: i.toString(),
             callback: () => {
               console.log(i);
             },

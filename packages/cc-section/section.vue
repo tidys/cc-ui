@@ -1,10 +1,10 @@
 <template>
   <div class="cc-section">
-    <div class="header" :class="{ cursor: expandByFullHeader }" @click.stop="onClickHeader" @mouseenter="onMouseEnter" @mouseleave="onMouseLeave">
+    <div class="header" :style="getStyleHeader()" :class="{ cursor: expandByFullHeader }" @click.stop="onClickHeader" @mouseenter="onMouseEnter" @mouseleave="onMouseLeave">
       <div class="left" @click.stop="onExpand">
         <div class="fold" :class="expand ? 'arrow-down' : 'arrow-right'"></div>
         <slot name="title"></slot>
-        <div class="title">{{ name }}</div>
+        <div class="title" :style="getStyleTitle()">{{ name }}</div>
       </div>
       <slot name="header" v-if="visibleSlotHeader"></slot>
     </div>
@@ -40,6 +40,14 @@ export default defineComponent({
       type: Boolean,
       default: false,
     },
+    colorTitle: {
+      type: String,
+      default: '#11ff00',
+    },
+    colorHeader: {
+      type: String,
+      default: '#bdbdbd',
+    },
   },
   emit: ['change'],
   setup(props, { emit }) {
@@ -69,6 +77,16 @@ export default defineComponent({
       expand,
       visibleSlotHeader,
       name,
+      getStyleHeader() {
+        const css: string[] = [];
+        css.push(`color:${props.colorHeader} !important`);
+        return css.join(';');
+      },
+      getStyleTitle() {
+        const css: string[] = [];
+        css.push(`color:${props.colorTitle} !important`);
+        return css.join(';');
+      },
       onMouseEnter() {
         if (props.autoSlotHeader) {
           visibleSlotHeader.value = true;
@@ -111,7 +129,6 @@ export default defineComponent({
     align-items: center;
     justify-content: left;
     border-bottom: 1px solid #666666;
-    color: #bdbdbd;
 
     .left {
       cursor: pointer;
@@ -122,8 +139,6 @@ export default defineComponent({
     }
 
     .title {
-      //color: #bdbdbd;
-      color: #11ff00;
       user-select: none;
       font-size: 12px;
       font-weight: bold;
