@@ -1,5 +1,8 @@
 <template>
   <div class="version">
+    <div v-if="!!hintKey" class="hint" title="今日/总计">
+      <img :src="hintUrl" />
+    </div>
     <CMD v-for="(item, index) in commands" :data="item" :key="index"></CMD>
     <div class="placeHolder" :style="{ color: tipColor }">{{ tips }}</div>
     <div class="divider"></div>
@@ -41,8 +44,16 @@ export default defineComponent({
       type: String,
       default: '',
     },
+    /**
+     * 访问计数的统计服务，如果为空字符串，则不使用
+     */
+    hintKey: {
+      type: String,
+      default: '',
+    },
   },
   setup(props, ctx) {
+    const hintUrl = ref(`https://api.visitorbadge.io/api/combined?path=${props.hintKey}&countColor=%23555555&style=flat-square&labelStyle=none`);
     const showErrorPanel = ref(false);
     const tipColor = ref<string>('');
     const errorColor = ref<string>('');
@@ -143,6 +154,7 @@ export default defineComponent({
     const elErrorPanel = ref<HTMLDivElement>();
     const doc = uiElement.getDoc();
     return {
+      hintUrl,
       errorColor,
       elErrorPanel,
       errorTitle,
@@ -237,7 +249,10 @@ export default defineComponent({
   display: flex;
   flex-direction: row;
   align-items: center;
-
+  .hint {
+    width: 91px;
+    height: 20px;
+  }
   .placeHolder {
     flex: 1;
     overflow: hidden;
