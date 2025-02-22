@@ -1,8 +1,6 @@
 <template>
   <div class="version">
-    <div v-if="!!hintKey" class="hint" title="今日/总计">
-      <img :src="hintUrl" />
-    </div>
+    <img v-if="!!hintKey" class="hint" title="今日/总计" :src="hintUrl" />
     <CMD v-for="(item, index) in commands" :data="item" :key="index"></CMD>
     <div class="placeHolder" :style="{ color: tipColor }">{{ tips }}</div>
     <div class="divider"></div>
@@ -250,7 +248,7 @@ export default defineComponent({
   flex-direction: row;
   align-items: center;
   .hint {
-    width: 91px;
+    min-width: 91px;
     height: 20px;
   }
   .placeHolder {
