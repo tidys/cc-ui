@@ -11,6 +11,7 @@ export const ProvideKeys = {
   CheckExpand: 'check-expand',
   CurrentSelect: 'current-select',
   ShowIcon: 'show-icon',
+  RootElement: 'root-element',
 };
 export const Msg = {
   SelectReset: 'select-reset',

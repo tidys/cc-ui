@@ -14,8 +14,13 @@
     <CCSection name="handExpand">
       <CCTree ref="tree3El" style="max-height: 100px; min-height: 100px" :default-expand-all="false" :value="treeData3"></CCTree>
       <div>
-        <CCButton @click="expandTreeItem">should expand/select 3</CCButton>
-        <CCButton @click="expandTreeItem2">should expand/highlight 2</CCButton>
+        <div style="display: flex; flex-direction: row">
+          <CCInputNumber :value="key" @change="onChangeKey"></CCInputNumber>
+          <CCCheckBox v-model:value="isSelect" label="select"></CCCheckBox>
+          <CCCheckBox v-model:value="isScroll" label="scroll"></CCCheckBox>
+          <CCCheckBox v-model:value="isHighlight" label="highlight"></CCCheckBox>
+          <CCButton @click="expandTest">test expand</CCButton>
+        </div>
         <CCButton @click="updateSelect('2')">select 2</CCButton>
         <CCButton @click="updateSelect('100')">select 100</CCButton>
       </div>
@@ -31,13 +36,13 @@
 
 <script lang="ts">
 import { defineComponent, nextTick, ref } from 'vue';
-import { ITreeData } from '../packages/cc-tree/const';
+import { HandExpandOptions, ITreeData } from '../packages/cc-tree/const';
 import ccui from '../packages/index';
 
-const { CCTree, CCButton, CCSection, CCProp } = ccui.components;
+const { CCTree, CCButton, CCInputNumber, CCSection, CCProp, CCCheckBox } = ccui.components;
 export default defineComponent({
   name: 'case-tree',
-  components: { CCTree, CCButton, CCSection, CCProp },
+  components: { CCTree, CCButton, CCInputNumber, CCSection, CCProp, CCCheckBox },
   setup(props, ctx) {
     const treeData1 = ref<ITreeData[]>([
       {
@@ -81,6 +86,9 @@ export default defineComponent({
         ],
       },
     ]);
+    for (let i = 100; i < 110; i++) {
+      treeData3.value[0].children?.push({ id: i.toString(), text: i.toString() });
+    }
     const treeData4 = ref<ITreeData[]>([
       {
         id: 'abcd',
@@ -113,7 +121,18 @@ export default defineComponent({
         ],
       },
     ]);
+    const isSelect = ref(false);
+    const isScroll = ref(false);
+    const isHighlight = ref(false);
+    const key = ref(0);
     return {
+      onChangeKey(v: number) {
+        key.value = v;
+      },
+      key,
+      isHighlight,
+      isSelect,
+      isScroll,
       tree3El,
       expandKeys,
       treeData1,
@@ -186,14 +205,11 @@ export default defineComponent({
         });
         treeData2.value = data;
       },
-      expandTreeItem() {
+
+      expandTest() {
         if (tree3El.value) {
-          (tree3El.value as typeof CCTree).handExpand('3', { select: true });
-        }
-      },
-      expandTreeItem2() {
-        if (tree3El.value) {
-          (tree3El.value as typeof CCTree).handExpand('2', { highlight: true });
+          console.log(`key: ${key.value}, select: ${isSelect.value}, scroll: ${isScroll.value}, highlight: ${isHighlight.value}`);
+          (tree3El.value as typeof CCTree).handExpand(key.value.toString(), { highlight: isHighlight.value, select: isSelect.value, scroll: isScroll.value } as HandExpandOptions);
         }
       },
       updateSelect(id: string) {

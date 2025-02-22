@@ -206,6 +206,9 @@ export default defineComponent({
       return props.showIcon;
     });
     provide(ProvideKeys.Emitter, emitter);
+    provide(ProvideKeys.RootElement, () => {
+      return toRaw(treeElement.value) as HTMLDivElement;
+    });
     provide(ProvideKeys.NodeUnclick, (data: ITreeData) => {
       emit('node-unclick', data);
     });

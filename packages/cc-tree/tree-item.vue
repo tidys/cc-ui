@@ -19,6 +19,7 @@ import { ITreeData, ProvideKeys, Msg, HandExpandOptions } from './const';
 import { TinyEmitter } from 'tiny-emitter';
 import color from 'color';
 import { generate } from 'short-uuid';
+import { uiElement } from '../element';
 export default defineComponent({
   name: 'cc-tree-item',
   props: {
@@ -99,10 +100,15 @@ export default defineComponent({
         doScroll();
       }
     }
+
     function doScroll() {
+      if (isInView) {
+        return;
+      }
       nextTick(() => {
-        if (rootEl.value) {
-          rootEl.value.scrollIntoView({ behavior: 'smooth' });
+        const el = rootEl.value as HTMLDivElement;
+        if (el) {
+          el.scrollIntoView({ behavior: 'smooth' });
         }
       });
     }
@@ -164,7 +170,27 @@ export default defineComponent({
       show.value = true;
       highlightCharIndex.value = [];
     }
+    const RootElement = inject(ProvideKeys.RootElement, () => {
+      return null;
+    });
+    let isInView = false;
+    function watchInView() {
+      const el = rootEl.value as HTMLDivElement;
+      const root = RootElement();
+      if (root && el) {
+        const observer = new IntersectionObserver(
+          (entries) => {
+            entries.forEach((entry) => {
+              isInView = entry.isIntersecting;
+            });
+          },
+          { root: root, threshold: 0.8 }
+        );
+        observer.observe(el);
+      }
+    }
     onMounted(() => {
+      watchInView();
       emitter.on(Msg.SelectReset, selectReset);
       emitter.on(Msg.UpdateSelect, updateSelect);
       emitter.on(Msg.HandExpand, handExpand);
