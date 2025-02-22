@@ -95,8 +95,13 @@ export default defineComponent({
       selected = true;
       updateBgColor();
       NodeClick(toRaw(props.value));
+      if (scroll) {
+        doScroll();
+      }
+    }
+    function doScroll() {
       nextTick(() => {
-        if (scroll && rootEl.value) {
+        if (rootEl.value) {
           rootEl.value.scrollIntoView({ behavior: 'smooth' });
         }
       });
@@ -142,6 +147,9 @@ export default defineComponent({
         if (id === idArray[idArray.length - 1]) {
           if (options.select) {
             doSelect(!!options.scroll);
+          }
+          if (options.scroll) {
+            doScroll();
           }
           if (options.highlight) {
             isFlash.value = true;
