@@ -92,6 +92,10 @@ export interface ErrorOptions {
    */
   resetWhenClose?: boolean;
 }
+/**
+ *
+ * @param str 错误信息，支持\n换行
+ */
 export function showError(str: string, opts: ErrorOptions = {}) {
   ccui.Emitter.emit(FootBarMsg.Error, str, opts);
 }

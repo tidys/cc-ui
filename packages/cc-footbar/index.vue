@@ -23,7 +23,7 @@
           <div class="text">{{ errorTitle }}</div>
           <i class="iconfont icon_close close" @click="onCloseError"></i>
         </div>
-        <div class="content ccui-scrollbar" :style="{ color: errorColor || 'red' }">{{ errorContent }}</div>
+        <pre class="content ccui-scrollbar" :style="{ color: errorColor || 'red' }">{{ errorContent }}</pre>
       </div>
     </div>
   </div>
@@ -384,9 +384,11 @@ export default defineComponent({
         }
       }
       .content {
+        white-space: pre-wrap;
         font-size: 13px;
         display: flex;
         padding: 3px;
+        margin: 0;
         flex: 1;
         word-break: break-all;
         background: rgb(33, 37, 43);

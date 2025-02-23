@@ -3,6 +3,8 @@
     <CCButton @click="onFootBar">footbar</CCButton>
     <CCButton @click="onFootBarColor">footbar-color</CCButton>
     <CCButton @click="onFootBarError">footbar-error</CCButton>
+    <CCButton @click="onFootBarErrorBr">footbar-error-br</CCButton>
+    <CCButton @click="onFootBarErrorN">footbar-error-n</CCButton>
     <CCButton @click="onCommand">command</CCButton>
   </div>
 </template>
@@ -72,6 +74,12 @@ export default defineComponent({
     return {
       onFootBarError() {
         ccui.footbar.showError('11');
+      },
+      onFootBarErrorBr() {
+        ccui.footbar.showError('11<br>222');
+      },
+      onFootBarErrorN() {
+        ccui.footbar.showError('11\n222');
       },
       onFootBarColor() {
         ccui.footbar.showTips('11', { duration: -1, color: 'red' });
