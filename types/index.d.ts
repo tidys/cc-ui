@@ -431,7 +431,12 @@ declare const _default: {
                 type: StringConstructor;
                 default: string;
             };
+            hintKey: {
+                type: StringConstructor;
+                default: string;
+            };
         }, {
+            hintUrl: import("vue").Ref<string>;
             errorColor: import("vue").Ref<string>;
             elErrorPanel: import("vue").Ref<HTMLDivElement | undefined>;
             errorTitle: import("vue").Ref<string>;
@@ -463,8 +468,13 @@ declare const _default: {
                 type: StringConstructor;
                 default: string;
             };
+            hintKey: {
+                type: StringConstructor;
+                default: string;
+            };
         }>>, {
             version: string;
+            hintKey: string;
         }, {}>;
         CCButton: import("vue").DefineComponent<{
             color: {
@@ -630,10 +640,20 @@ declare const _default: {
                 type: BooleanConstructor;
                 default: boolean;
             };
+            colorTitle: {
+                type: StringConstructor;
+                default: string;
+            };
+            colorHeader: {
+                type: StringConstructor;
+                default: string;
+            };
         }, {
             expand: import("vue").Ref<boolean>;
             visibleSlotHeader: import("vue").Ref<boolean>;
             name: import("vue").Ref<string>;
+            getStyleHeader(): string;
+            getStyleTitle(): string;
             onMouseEnter(): void;
             onMouseLeave(): void;
             onExpand: () => void;
@@ -654,10 +674,20 @@ declare const _default: {
                 type: BooleanConstructor;
                 default: boolean;
             };
+            colorTitle: {
+                type: StringConstructor;
+                default: string;
+            };
+            colorHeader: {
+                type: StringConstructor;
+                default: string;
+            };
         }>>, {
             expand: boolean;
             autoSlotHeader: boolean;
             expandByFullHeader: boolean;
+            colorTitle: string;
+            colorHeader: string;
         }, {}>;
         CCHelp: import("vue").DefineComponent<{
             docUrl: {
@@ -1002,13 +1032,14 @@ declare const _default: {
             menuEl: import("vue").Ref<HTMLDivElement | undefined>;
             menus: import("vue").Ref<{
                 name?: string | undefined;
+                tip?: string | undefined;
                 type?: menu.MenuType | undefined;
                 enabled?: boolean | undefined;
                 visible?: boolean | undefined;
                 selected?: boolean | undefined;
                 icon?: string | undefined;
                 shortKey?: string | undefined;
-                callback?: ((item: menu.IUiMenuItem) => void | null) | undefined;
+                callback?: ((item: menu.IUiMenuItem, event: MouseEvent) => void | null) | undefined;
                 enter?: ((item: menu.IUiMenuItem) => void) | null | undefined;
                 leave?: ((item: menu.IUiMenuItem) => void) | null | undefined;
             }[]>;

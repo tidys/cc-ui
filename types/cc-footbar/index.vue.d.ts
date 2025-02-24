@@ -3,7 +3,15 @@ declare const _default: import("vue").DefineComponent<{
         type: StringConstructor;
         default: string;
     };
+    /**
+     * 访问计数的统计服务，如果为空字符串，则不使用
+     */
+    hintKey: {
+        type: StringConstructor;
+        default: string;
+    };
 }, {
+    hintUrl: import("vue").Ref<string>;
     errorColor: import("vue").Ref<string>;
     elErrorPanel: import("vue").Ref<HTMLDivElement | undefined>;
     errorTitle: import("vue").Ref<string>;
@@ -35,7 +43,15 @@ declare const _default: import("vue").DefineComponent<{
         type: StringConstructor;
         default: string;
     };
+    /**
+     * 访问计数的统计服务，如果为空字符串，则不使用
+     */
+    hintKey: {
+        type: StringConstructor;
+        default: string;
+    };
 }>>, {
     version: string;
+    hintKey: string;
 }, {}>;
 export default _default;

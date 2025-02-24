@@ -73,9 +73,7 @@ declare const _default: import("vue").DefineComponent<{
         childrenElements: import("vue").Ref<never[]>;
         fold: import("vue").Ref<boolean>;
         backgroundColor: import("vue").Ref<string>;
-        selected: boolean; /**
-         * @returns 返回匹配到的所有位置
-         */
+        selected: boolean;
         doFold: (b: boolean) => void;
         doSelect: (scroll?: boolean) => void;
         ShowIcon: () => false;

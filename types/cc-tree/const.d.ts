@@ -11,6 +11,7 @@ export declare const ProvideKeys: {
     CheckExpand: string;
     CurrentSelect: string;
     ShowIcon: string;
+    RootElement: string;
 };
 export declare const Msg: {
     SelectReset: string;

@@ -4,13 +4,14 @@ declare const _default: import("vue").DefineComponent<{}, {
     menuEl: import("vue").Ref<HTMLDivElement | undefined>;
     menus: import("vue").Ref<{
         name?: string | undefined;
+        tip?: string | undefined;
         type?: import("./const").MenuType | undefined;
         enabled?: boolean | undefined;
         visible?: boolean | undefined;
         selected?: boolean | undefined;
         icon?: string | undefined;
         shortKey?: string | undefined;
-        callback?: ((item: IUiMenuItem) => void | null) | undefined;
+        callback?: ((item: IUiMenuItem, event: MouseEvent) => void | null) | undefined;
         enter?: ((item: IUiMenuItem) => void) | null | undefined;
         leave?: ((item: IUiMenuItem) => void) | null | undefined;
     }[]>;

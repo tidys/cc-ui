@@ -1,8 +1,8 @@
 @font-face {
   font-family: "iconfont"; /* Project id 3119913 */
-  src: url('iconfont.woff2?t=1738556855460') format('woff2'),
-       url('iconfont.woff?t=1738556855460') format('woff'),
-       url('iconfont.ttf?t=1738556855460') format('truetype');
+  src: url('iconfont.woff2?t=1739845977907') format('woff2'),
+       url('iconfont.woff?t=1739845977907') format('woff'),
+       url('iconfont.ttf?t=1739845977907') format('truetype');
 }
 
 .iconfont {
@@ -11,6 +11,14 @@
   font-style: normal;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
+}
+
+.icon_download:before {
+  content: "\e69e";
+}
+
+.icon_qqpd:before {
+  content: "\e67e";
 }
 
 .icon_chrome:before {
@@ -73,7 +81,7 @@
   content: "\e6cc";
 }
 
-.icon_wechat-:before {
+.icon_wechat:before {
   content: "\e621";
 }
 

@@ -5,6 +5,9 @@ declare const _default: import("vue").DefineComponent<{
         type: PropType<ButtonGroupItem>;
         default: () => void;
     };
+    /**
+     * item的背景色
+     */
     color: {
         type: StringConstructor;
         default: string;
@@ -20,13 +23,16 @@ declare const _default: import("vue").DefineComponent<{
     onMouseOver(event: MouseEvent): void;
     onMouseLeave(event: MouseEvent): void;
     onClick(event: MouseEvent): void;
-    onMouseDown: (event?: MouseEvent | undefined) => void;
+    onMouseDown: (event?: MouseEvent | null) => void;
     onMouseUp(event: MouseEvent): void;
 }, unknown, {}, {}, import("vue").ComponentOptionsMixin, import("vue").ComponentOptionsMixin, {}, string, import("vue").VNodeProps & import("vue").AllowedComponentProps & import("vue").ComponentCustomProps, Readonly<import("vue").ExtractPropTypes<{
     data: {
         type: PropType<ButtonGroupItem>;
         default: () => void;
     };
+    /**
+     * item的背景色
+     */
     color: {
         type: StringConstructor;
         default: string;

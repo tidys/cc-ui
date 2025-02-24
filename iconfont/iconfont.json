@@ -6,6 +6,20 @@
   "description": "cc-ui组件库在使用",
   "glyphs": [
     {
+      "icon_id": "40383295",
+      "name": "download",
+      "font_class": "download",
+      "unicode": "e69e",
+      "unicode_decimal": 59038
+    },
+    {
+      "icon_id": "36566798",
+      "name": "QQ频道",
+      "font_class": "qqpd",
+      "unicode": "e67e",
+      "unicode_decimal": 59006
+    },
+    {
       "icon_id": "11983530",
       "name": "chrome",
       "font_class": "chrome",
@@ -113,7 +127,7 @@
     {
       "icon_id": "8430216",
       "name": "wechat",
-      "font_class": "wechat-",
+      "font_class": "wechat",
       "unicode": "e621",
       "unicode_decimal": 58913
     },

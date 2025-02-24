@@ -20,10 +20,20 @@ declare const _default: import("vue").DefineComponent<{
         type: BooleanConstructor;
         default: boolean;
     };
+    colorTitle: {
+        type: StringConstructor;
+        default: string;
+    };
+    colorHeader: {
+        type: StringConstructor;
+        default: string;
+    };
 }, {
     expand: import("vue").Ref<boolean>;
     visibleSlotHeader: import("vue").Ref<boolean>;
     name: import("vue").Ref<string>;
+    getStyleHeader(): string;
+    getStyleTitle(): string;
     onMouseEnter(): void;
     onMouseLeave(): void;
     onExpand: () => void;
@@ -50,9 +60,19 @@ declare const _default: import("vue").DefineComponent<{
         type: BooleanConstructor;
         default: boolean;
     };
+    colorTitle: {
+        type: StringConstructor;
+        default: string;
+    };
+    colorHeader: {
+        type: StringConstructor;
+        default: string;
+    };
 }>>, {
     expand: boolean;
     autoSlotHeader: boolean;
     expandByFullHeader: boolean;
+    colorTitle: string;
+    colorHeader: string;
 }, {}>;
 export default _default;

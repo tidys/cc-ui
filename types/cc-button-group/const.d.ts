@@ -34,7 +34,7 @@ export interface ButtonGroupItem {
     /**
      * 点击回调
      */
-    click?: () => void;
+    click?: (event: MouseEvent | null, data: ButtonGroupItem) => void;
 }
 export declare enum ButtonState {
     Normal = "normal",

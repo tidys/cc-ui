@@ -79,4 +79,8 @@ export interface ErrorOptions {
      */
     resetWhenClose?: boolean;
 }
+/**
+ *
+ * @param str 错误信息，支持\n换行
+ */
 export declare function showError(str: string, opts?: ErrorOptions): void;
