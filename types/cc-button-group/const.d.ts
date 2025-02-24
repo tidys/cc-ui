@@ -12,13 +12,13 @@ export interface ButtonGroupItem {
      */
     visible?: boolean;
     /**
-     * 显示的icon，这是暂时没有对接上
-     */
-    svg?: string;
-    /**
-     * 内置的icon
+     * 内置的icon，svg和icon二选一，优先使用icon
      */
     icon?: string;
+    /**
+     * 显示的svg，svg和icon二选一，优先使用icon
+     */
+    svg?: string;
     /**
      * 显示的文本
      */
