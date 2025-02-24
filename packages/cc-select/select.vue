@@ -62,7 +62,7 @@ export default defineComponent({
       curValue,
       getStyle() {
         const data = toRaw(props.data) as Option[];
-        const cur = toRaw(curValue.value) as string;
+        const cur = toRaw(curValue.value || '') as string;
         let index = data.findIndex((item) => item.value.toString() === cur.toString());
         const arr = [];
         const color_bg = '#444';
@@ -83,7 +83,7 @@ export default defineComponent({
       },
       onLeftClick() {
         const data = toRaw(props.data) as Option[];
-        const cur = toRaw(curValue.value) as string;
+        const cur = toRaw(curValue.value || '') as string;
         let index = data.findIndex((item) => item.value.toString() === cur.toString());
         if (index !== -1) {
           index--;
@@ -98,7 +98,7 @@ export default defineComponent({
       },
       onRightClick() {
         const data = toRaw(props.data) as Option[];
-        const cur = toRaw(curValue.value) as string;
+        const cur = toRaw(curValue.value || '') as string;
         let index = data.findIndex((item) => item.value.toString() === cur.toString());
         if (index !== -1) {
           index++;
