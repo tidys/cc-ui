@@ -28,7 +28,6 @@ export default defineComponent({
       onChange() {
         emit('update:value', text.value);
         emit('change', text.value);
-        text.value = props.value;
       },
     };
   },
