@@ -7,7 +7,7 @@
         <component :is="userComp"></component>
       </div>
     </div>
-    <CCFootBar version="1.0"></CCFootBar>
+    <CCFootBar version="1.0" hint-key="cc-ui"></CCFootBar>
     <CCMenu></CCMenu>
     <CCDialog></CCDialog>
     <CCCommand></CCCommand>

@@ -1,6 +1,6 @@
 <template>
   <div class="version">
-    <img v-if="!!hintKey" class="hint" title="今日/总计" :src="hintUrl" />
+    <img v-if="!!hintKey" class="hint" title="今日/总计" :src="hintUrl" @click="onViewHistroy" />
     <CMD v-for="(item, index) in commands" :data="item" :key="index"></CMD>
     <div class="placeHolder" :style="{ color: tipColor }">{{ tips }}</div>
     <div class="divider"></div>
@@ -29,7 +29,7 @@
   </div>
 </template>
 <script lang="ts">
-import { defineComponent, onMounted, onUnmounted, ref, watch } from 'vue';
+import { defineComponent, onMounted, onUnmounted, ref, toRaw, watch } from 'vue';
 import { FootBarMsg, FootCmd, TipOptions, ErrorOptions, TipsArrayOptions } from './const';
 import CMD from './cmd.vue';
 import ccui from '../index';
@@ -152,6 +152,12 @@ export default defineComponent({
     const elErrorPanel = ref<HTMLDivElement>();
     const doc = uiElement.getDoc();
     return {
+      onViewHistroy() {
+        const key = toRaw(props.hintKey);
+        if (key) {
+          window.open(`https://visitorbadge.io/status?path=${key}`);
+        }
+      },
       hintUrl,
       errorColor,
       elErrorPanel,
@@ -250,6 +256,7 @@ export default defineComponent({
   .hint {
     min-width: 91px;
     height: 20px;
+    cursor: pointer;
   }
   .placeHolder {
     flex: 1;
