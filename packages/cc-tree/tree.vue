@@ -1,7 +1,7 @@
 <template>
   <div class="root">
     <div class="search" v-if="search">
-      <CCInput v-model:value="searchValue" @input="onInput" ref="searchInput" placeholder="search">
+      <CCInput v-model:value="searchValue" @input="onInput" @change="onInputChange" ref="searchInput" placeholder="search">
         <i class="iconfont icon_font_size case" :class="{ 'case-active': matchCase }" @click="onChangeMatchCase" title="match cases"></i>
         <i class="case" :class="{ 'case-active': pathSplit }" title="split path" @click="onChangePathSplit"> /</i>
       </CCInput>
@@ -401,6 +401,10 @@ export default defineComponent({
         }
       },
       onInput(str: string) {
+        const v = toRaw(searchValue.value);
+        doSearch(v);
+      },
+      onInputChange(s: string) {
         const v = toRaw(searchValue.value);
         doSearch(v);
       },

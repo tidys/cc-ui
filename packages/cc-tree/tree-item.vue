@@ -412,14 +412,15 @@ export default defineComponent({
     }
     .name {
       font-family: BlinkMacSystemFont, 'Helvetica Neue', Helvetica, 'Lucida Grande', 'Segoe UI', Ubuntu, Cantarell, SourceHanSansCN-Normal, Arial, sans-serif;
-
+      display: flex;
+      flex-wrap: nowrap;
       .text-hint {
         background-color: #2667e7;
         color: white;
       }
     }
     .prefix {
-      color: #cfcfcf;
+      color: #7f7f7f;
       font-size: 12px;
       margin-left: 5px;
       overflow: hidden;
@@ -427,7 +428,7 @@ export default defineComponent({
       white-space: nowrap;
     }
     .subfix {
-      color: #cfcfcf;
+      color: #7f7f7f;
       font-size: 12px;
       margin-right: 5px;
       max-width: 200px;
