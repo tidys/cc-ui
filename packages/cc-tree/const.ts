@@ -30,6 +30,10 @@ export interface ITreeData {
    */
   icon?: string;
   /**
+   * 默认图标
+   */
+  iconDefault?: string;
+  /**
    * 文本的颜色
    */
   color?: string;
@@ -45,6 +49,10 @@ export interface ITreeData {
    * 后缀文本
    */
   subfix?: string;
+  /**
+   * 后缀的图标
+   */
+  subfixIcon?: string;
   /**
    * 携带的扩展数据
    */

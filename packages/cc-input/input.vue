@@ -1,7 +1,7 @@
 <template>
   <div class="cc-input" @mouseenter="hover = true" @mouseleave="hover = false">
     <label class="content">
-      <input :placeholder="placeholder" @focusout="onFocusout" :style="getCSS()" :class="{ readonly: readonly, disabled: disabled }" @focusin="onFocusin" @blur="onBlur" @input="onInput" :readonly="readonly" :maxlength="maxlength" :disabled="disabled" v-model="text" type="text" />
+      <input ref="elInput" :placeholder="placeholder" @focusout="onFocusout" :style="getCSS()" :class="{ readonly: readonly, disabled: disabled }" @focusin="onFocusin" @blur="onBlur" @input="onInput" :readonly="readonly" :maxlength="maxlength" :disabled="disabled" v-model="text" type="text" />
       <i v-if="!readonly && !disabled && hover" @click.stop.prevent="onClean" class="iconfont icon_close close"></i>
     </label>
     <slot></slot>
@@ -56,7 +56,9 @@ export default defineComponent({
       }
     );
     const hover = ref(false);
+    const elInput = ref<HTMLInputElement>();
     return {
+      elInput,
       hover,
       text,
       borderColor,
@@ -89,6 +91,11 @@ export default defineComponent({
       onBlur() {
         emit('update:value', text.value);
         emit('change', text.value);
+      },
+      doFocus() {
+        if (elInput.value) {
+          elInput.value.focus();
+        }
       },
     };
   },

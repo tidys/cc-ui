@@ -10,6 +10,7 @@
       <div class="prefix" v-if="value.prefix">{{ value.prefix }}</div>
       <div style="flex: 1"></div>
       <div class="subfix" v-if="value.subfix">{{ value.subfix }}</div>
+      <div class="iconfont icon" v-if="value.subfixIcon" :class="getSubfixIconClass()" :style="getSubfixIconStyle()"></div>
     </div>
     <div v-show="!fold && value.children">
       <cc-tree-item ref="childrenElements" v-for="(item, index) in value.children" :key="index" :value="item" :indent="indent + 1"></cc-tree-item>
@@ -72,6 +73,7 @@ export default defineComponent({
       () => props.value,
       (v) => {
         if (v.id) {
+          selectReset();
           const b = !checkExpand(v.id);
           changeFold(b);
         }
@@ -287,10 +289,13 @@ export default defineComponent({
       },
       getIconClass() {
         if (ShowIcon()) {
-          return props.value.icon || 'icon_node';
+          return props.value.icon || props.value.iconDefault;
         } else {
           return '';
         }
+      },
+      getSubfixIconClass() {
+        return props.value.subfixIcon || '';
       },
       getIconStyle() {
         const ret: string[] = [];
@@ -305,6 +310,22 @@ export default defineComponent({
         }
         if (props.value.color) {
           ret.push(`color:${props.value.color} !important`);
+        }
+        return ret.join(';');
+      },
+      getSubfixIconStyle() {
+        const ret: string[] = [];
+        let active = toRaw(props.value.active);
+        if (active === undefined) {
+          active = true;
+        }
+        // const visible = active ? 'visible' : 'hidden';
+        // ret.push(`visibility: ${visible}`);
+        if (!active) {
+          ret.push(`opacity:0.4`);
+        }
+        if (props.value.color) {
+          // ret.push(`color:${props.value.color} !important`);
         }
         return ret.join(';');
       },
