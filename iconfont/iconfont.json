@@ -6,6 +6,62 @@
   "description": "cc-ui组件库在使用",
   "glyphs": [
     {
+      "icon_id": "5999182",
+      "name": "fbx",
+      "font_class": "fbx",
+      "unicode": "e8c9",
+      "unicode_decimal": 59593
+    },
+    {
+      "icon_id": "35158236",
+      "name": "material",
+      "font_class": "material",
+      "unicode": "e604",
+      "unicode_decimal": 58884
+    },
+    {
+      "icon_id": "19661175",
+      "name": "pictures",
+      "font_class": "pictures",
+      "unicode": "e670",
+      "unicode_decimal": 58992
+    },
+    {
+      "icon_id": "43275218",
+      "name": "csv",
+      "font_class": "csv",
+      "unicode": "e848",
+      "unicode_decimal": 59464
+    },
+    {
+      "icon_id": "12786036",
+      "name": "TS",
+      "font_class": "ts_text",
+      "unicode": "e603",
+      "unicode_decimal": 58883
+    },
+    {
+      "icon_id": "34349342",
+      "name": "ts",
+      "font_class": "ts",
+      "unicode": "11cd8",
+      "unicode_decimal": 72920
+    },
+    {
+      "icon_id": "8040165",
+      "name": "particle",
+      "font_class": "particle",
+      "unicode": "e714",
+      "unicode_decimal": 59156
+    },
+    {
+      "icon_id": "8202025",
+      "name": "scene",
+      "font_class": "scene",
+      "unicode": "e60b",
+      "unicode_decimal": 58891
+    },
+    {
       "icon_id": "4691656",
       "name": "history",
       "font_class": "history",
