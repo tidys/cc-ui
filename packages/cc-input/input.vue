@@ -1,7 +1,7 @@
 <template>
   <div class="cc-input" @mouseenter="hover = true" @mouseleave="hover = false">
     <label class="content">
-      <input ref="elInput" :placeholder="placeholder" @focusout="onFocusout" :style="getCSS()" :class="{ readonly: readonly, disabled: disabled }" @focusin="onFocusin" @blur="onBlur" @input="onInput" :readonly="readonly" :maxlength="maxlength" :disabled="disabled" v-model="text" type="text" />
+      <input spellcheck="false" ref="elInput" :placeholder="placeholder" @focusout="onFocusout" :style="getCSS()" :class="{ readonly: readonly, disabled: disabled }" @focusin="onFocusin" @blur="onBlur" @input="onInput" :readonly="readonly" :maxlength="maxlength" :disabled="disabled" v-model="text" type="text" />
       <i v-if="!readonly && !disabled && hover" @click.stop.prevent="onClean" class="iconfont icon_close close"></i>
     </label>
     <slot></slot>

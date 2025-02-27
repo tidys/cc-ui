@@ -28,8 +28,9 @@
     <CCSection name="search">
       <CCProp name="test">
         <CCButton @click="onChangeTreeData4">change tree</CCButton>
+        <CCButton @click="onSearchFocus">search focus</CCButton>
       </CCProp>
-      <CCTree :show-icon="true" :value="treeData4" style="max-height: 300px; min-height: 300px" :search="true"></CCTree>
+      <CCTree ref="tree4" :show-icon="true" :value="treeData4" style="max-height: 300px; min-height: 300px" :search="true"></CCTree>
     </CCSection>
   </div>
 </template>
@@ -49,6 +50,7 @@ export default defineComponent({
         text: '1',
         prefix: 'prefix 11111111111111111111111111111111111',
         subfix: 'subfix 11111111111111111111111111111111111',
+        subfixIcon: 'icon_scene',
         children: [
           {
             text: '11',
@@ -58,6 +60,7 @@ export default defineComponent({
       {
         text: '2',
         active: false,
+        subfixIcon: 'icon_history',
         children: [
           {
             text: '21',
@@ -127,7 +130,9 @@ export default defineComponent({
     const isScroll = ref(false);
     const isHighlight = ref(false);
     const key = ref(0);
+    const tree4 = ref();
     return {
+      tree4,
       onChangeKey(v: number) {
         key.value = v;
       },
@@ -143,6 +148,11 @@ export default defineComponent({
       treeData4,
       onChangeTreeData4() {
         treeData4.value = [{ id: 'eee', text: 'eee' }];
+      },
+      onSearchFocus() {
+        if (tree4) {
+          tree4.value.doSearchFocus();
+        }
       },
       onTreeNodeMenu(event: MouseEvent, data: ITreeData) {
         ccui.menu.showMenuByMouseEvent(event, [
