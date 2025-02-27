@@ -4,6 +4,8 @@
   "main": "dist/ccui.umd.js",
   "typings": "types/index.d.ts",
   "scripts": {
+    "yalc-prd": "npm run lib-prd && npm run types && yalc push",
+    "iconfont": "node ./iconfont.js",
     "yarnInstallForce": "yarn config delete proxy  && yarn install --force --network-timeout 100000",
     "demo-serve": "vue-cli-service serve",
     "demo-build": "vue-cli-service build",
@@ -14,8 +16,7 @@
     "lib-dev": "npm run dist-clean && vue-cli-service build --mode development --target lib --name ccui --dest dist --entry packages/index.ts",
     "lib-prd": "npm run dist-clean && vue-cli-service build --mode production --target lib --name ccui --dest dist --entry packages/index.ts",
     "build": "npm run lib-prd && npm run types",
-    "yalc-dev": "npm run lib-dev && npm run types && yalc push",
-    "yalc-prd": "npm run lib-prd && npm run types && yalc push"
+    "yalc-dev": "npm run lib-dev && npm run types && yalc push"
   },
   "files": [
     "dist",
@@ -58,6 +59,7 @@
     "babel-eslint": "10.1.0",
     "eslint": "6.8.0",
     "eslint-plugin-vue": "8.2.0",
+    "jszip": "^3.10.1",
     "lint-staged": "9.5.0",
     "rimraf": "^5.0.7",
     "typescript": "4.1.5"
