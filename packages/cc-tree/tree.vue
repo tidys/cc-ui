@@ -1,7 +1,7 @@
 <template>
   <div class="root">
     <div class="search" v-if="search">
-      <CCInput v-model:value="searchValue" @input="onInput" @change="onInputChange" ref="searchInput" placeholder="search">
+      <CCInput v-model:value="searchValue" @key-up="onKeyUp" @key-down="onKeyDown" @key-enter="onKeyEnter" @input="onInput" @change="onInputChange" ref="searchInput" placeholder="search">
         <i class="iconfont icon_font_size case" :class="{ 'case-active': matchCase }" @click="onChangeMatchCase" title="match cases"></i>
         <i class="case" :class="{ 'case-active': pathSplit }" title="split path" @click="onChangePathSplit"> /</i>
       </CCInput>
@@ -19,6 +19,13 @@ import { HandExpandOptions, ITreeData, MatchRoute, Msg, ProvideKeys } from './co
 import TreeItem from './tree-item.vue';
 import { throttle } from 'lodash';
 import CCInput from '../cc-input/input.vue';
+/**Tree拍平后的数据 */
+interface ClapItem {
+  key: string;
+  text: string;
+  comp: typeof TreeItem;
+}
+
 export default defineComponent({
   name: 'cc-tree',
   components: { TreeItem, CCInput },
@@ -79,14 +86,18 @@ export default defineComponent({
         });
       }
     );
+    /**选中的tree-item */
     let currentSelectTreeItem: ITreeData | null = null;
+    /**上下方向键hover的tree item */
+    let curHoverItem: ClapItem | null = null;
     function keydownCallback(e: KeyboardEvent) {
       e.preventDefault();
       e.stopPropagation();
       switch (e.key) {
         case 'ArrowUp':
           {
-            const ret = findBrother(false);
+            const id = getTreeSelectedID();
+            const ret = findBrother(false, id);
             if (ret) {
               ret.comp.doSelect(true);
             }
@@ -94,7 +105,8 @@ export default defineComponent({
           break;
         case 'ArrowDown':
           {
-            const ret = findBrother(true);
+            const id = getTreeSelectedID();
+            const ret = findBrother(true, id);
             if (ret) {
               ret.comp.doSelect(true);
             }
@@ -149,36 +161,54 @@ export default defineComponent({
       if (!item.fold) {
         for (let i = 0; i < item.childrenElements.length; i++) {
           const child: typeof TreeItem = item.childrenElements[i];
-          const value: ITreeData = toRaw(child.value);
-          array.push({ key: value.id!, text: value.text, comp: child });
-          loop(child, array);
+          if (child.show) {
+            const value: ITreeData = toRaw(child.value);
+            array.push({ key: value.id!, text: value.text, comp: child });
+            loop(child, array);
+          }
         }
       }
     }
     // 将当前的tree拍平，这样更加方便查找前后节点
     // TODO: 优化性能，当数据发生变化后，重新计算tree2array，不用每次都计算
-    function tree2array() {
-      const array: Array<{ key: string; text: string; comp: typeof TreeItem }> = [];
+    function tree2array(): ClapItem[] {
+      const array: Array<ClapItem> = [];
       for (let i = 0; i < childrenElements.value.length; i++) {
         const item = childrenElements.value[i];
-        const value: ITreeData = toRaw(item.value);
-        array.push({ key: value.id!, text: value.text, comp: item });
-        loop(item, array);
+        if (item.show) {
+          const value: ITreeData = toRaw(item.value);
+          array.push({ key: value.id!, text: value.text, comp: item });
+          loop(item, array);
+        }
       }
       // array.forEach((item) => {
       //   console.log(item.text);
       // });
       return array;
     }
-    function findBrother(down: boolean) {
+    function getTreeSelectedID(): string {
+      if (currentSelectTreeItem && currentSelectTreeItem.id) {
+        return currentSelectTreeItem.id;
+      } else {
+        return '';
+      }
+    }
+    function getHoverID(): string {
+      if (curHoverItem && curHoverItem.key) {
+        return curHoverItem.key;
+      } else {
+        return '';
+      }
+    }
+    function findBrother(down: boolean, id: string) {
       const array = tree2array();
       if (!array.length) {
         return null;
       }
-      if (currentSelectTreeItem === null) {
+      if (!id) {
         return array[0];
       }
-      const idx = array.findIndex((item) => item.key === currentSelectTreeItem!.id);
+      const idx = array.findIndex((item) => item.key === id);
       if (idx === -1) {
         return null;
       }
@@ -329,6 +359,16 @@ export default defineComponent({
       const idMap: Record<string, number[]> = {};
       findMathItems(data, idMap, []);
       emitter.emit(Msg.DoFilter, idMap);
+      // 检查当前选中的item是否在过滤列表中
+      if (currentSelectTreeItem || curHoverItem) {
+        const array = tree2array();
+        if (currentSelectTreeItem && !array.find((item) => item.key === currentSelectTreeItem!.id)) {
+          currentSelectTreeItem = null;
+        }
+        if (curHoverItem && !array.find((item) => item.key === curHoverItem!.key)) {
+          curHoverItem = null;
+        }
+      }
       emit('do-search', toRaw(searchValue.value));
     }, 500);
     const matchCase = ref(false);
@@ -398,6 +438,25 @@ export default defineComponent({
         const item = childrenElements.value[index];
         if (item.doSelect) {
           item.doSelect();
+        }
+      },
+      onKeyUp() {
+        const ret = findBrother(false, getHoverID());
+        if (ret) {
+          curHoverItem = ret;
+          ret.comp.doHover();
+        }
+      },
+      onKeyDown() {
+        const ret = findBrother(true, getHoverID());
+        if (ret) {
+          curHoverItem = ret;
+          ret.comp.doHover();
+        }
+      },
+      onKeyEnter() {
+        if (curHoverItem) {
+          curHoverItem.comp.doSelect(true);
         }
       },
       onInput(str: string) {

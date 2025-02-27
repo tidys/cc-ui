@@ -1,7 +1,7 @@
 <template>
   <div class="cc-input" @mouseenter="hover = true" @mouseleave="hover = false">
     <label class="content">
-      <input spellcheck="false" ref="elInput" :placeholder="placeholder" @focusout="onFocusout" :style="getCSS()" :class="{ readonly: readonly, disabled: disabled }" @focusin="onFocusin" @blur="onBlur" @input="onInput" :readonly="readonly" :maxlength="maxlength" :disabled="disabled" v-model="text" type="text" />
+      <input @keydown="onKeyDown" spellcheck="false" ref="elInput" :placeholder="placeholder" @focusout="onFocusout" :style="getCSS()" :class="{ readonly: readonly, disabled: disabled }" @focusin="onFocusin" @blur="onBlur" @input="onInput" :readonly="readonly" :maxlength="maxlength" :disabled="disabled" v-model="text" type="text" />
       <i v-if="!readonly && !disabled && hover" @click.stop.prevent="onClean" class="iconfont icon_close close"></i>
     </label>
     <slot></slot>
@@ -41,7 +41,7 @@ export default defineComponent({
       default: '',
     },
   },
-  emits: ['update:value', 'change', 'input'],
+  emits: ['update:value', 'change', 'input', 'key-up', 'key-down', 'key-enter'],
   setup(props, { emit }) {
     const focusColor = '#fd942b';
     const borderColor = ref('transparent');
@@ -69,7 +69,19 @@ export default defineComponent({
         }
         return css.join(';');
       },
-      onInput() {
+      onKeyDown(event: KeyboardEvent) {
+        if (event.key === 'ArrowUp') {
+          event.preventDefault();
+          emit('key-up');
+        } else if (event.key === 'ArrowDown') {
+          event.preventDefault();
+          emit('key-down');
+        } else if (event.key === 'Enter') {
+          event.preventDefault();
+          emit('key-enter');
+        }
+      },
+      onInput(event: InputEvent) {
         emit('update:value', text.value);
         emit('input', text.value);
       },

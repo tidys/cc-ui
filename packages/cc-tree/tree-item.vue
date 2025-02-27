@@ -196,6 +196,7 @@ export default defineComponent({
     }
     onMounted(() => {
       watchInView();
+      emitter.on(Msg.HoverReset, mouseLeave);
       emitter.on(Msg.SelectReset, selectReset);
       emitter.on(Msg.UpdateSelect, updateSelect);
       emitter.on(Msg.HandExpand, handExpand);
@@ -203,6 +204,7 @@ export default defineComponent({
       emitter.on(Msg.ResetFilter, resetFilter);
     });
     onUnmounted(() => {
+      emitter.off(Msg.HoverReset, mouseLeave);
       emitter.off(Msg.SelectReset, selectReset);
       emitter.off(Msg.UpdateSelect, updateSelect);
       emitter.off(Msg.HandExpand, handExpand);
@@ -243,9 +245,21 @@ export default defineComponent({
     }
 
     const rootEl = ref<HTMLDivElement>();
+    /**是否闪烁 */
     const isFlash = ref<boolean>(false);
+    /**是否显示item，受过滤影响 */
     const show = ref(true);
     const highlightCharIndex = ref<number[]>([]);
+    function mouseEnter() {
+      isHover = true;
+      updateBgColor();
+      NodeEnter(toRaw(props.value));
+    }
+    function mouseLeave() {
+      isHover = false;
+      updateBgColor();
+      NodeLeave(toRaw(props.value));
+    }
     return {
       getClass(item: string, index: number) {
         const arr = toRaw(highlightCharIndex.value);
@@ -267,22 +281,19 @@ export default defineComponent({
       selected,
       doFold,
       doSelect,
+      doHover() {
+        emitter.emit(Msg.HoverReset);
+        mouseEnter();
+        doScroll();
+      },
+      mouseEnter,
+      mouseLeave,
       ShowIcon,
       onFold() {
         changeFold(!fold.value);
       },
-      mouseEnter() {
-        isHover = true;
-        updateBgColor();
-        NodeEnter(toRaw(props.value));
-      },
       mouseMenu(event: MouseEvent) {
         NodeMenu(event, toRaw(props.value));
-      },
-      mouseLeave() {
-        isHover = false;
-        updateBgColor();
-        NodeLeave(toRaw(props.value));
       },
       onClick() {
         doSelect();
@@ -376,6 +387,7 @@ export default defineComponent({
 </script>
 <style lang="less" scoped>
 .tree-item {
+  height: 20px;
   user-select: none;
   .flash {
     background-color: rgb(117, 117, 117) !important;
@@ -415,7 +427,7 @@ export default defineComponent({
       display: flex;
       flex-wrap: nowrap;
       .text-hint {
-        background-color: #2667e7;
+        background-color: #2667e7d9;
         color: white;
       }
     }

@@ -16,6 +16,7 @@ export const ProvideKeys = {
 export const Msg = {
   SelectReset: 'select-reset',
   UpdateSelect: 'update-select',
+  HoverReset: 'hover-reset',
   HandExpand: 'hand-expand',
   DoFilter: 'do-filter',
   ResetFilter: 'reset-filter',
