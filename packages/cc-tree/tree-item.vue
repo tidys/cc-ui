@@ -7,6 +7,9 @@
         <span v-for="(item, index) in value.text" :key="index" :class="getClass(item, Number(index))">{{ item }}</span>
         <!-- {{ value.text }} -->
       </div>
+      <div class="prefix" v-if="value.prefix">{{ value.prefix }}</div>
+      <div style="flex: 1"></div>
+      <div class="subfix" v-if="value.subfix">{{ value.subfix }}</div>
     </div>
     <div v-show="!fold && value.children">
       <cc-tree-item ref="childrenElements" v-for="(item, index) in value.children" :key="index" :value="item" :indent="indent + 1"></cc-tree-item>
@@ -393,6 +396,23 @@ export default defineComponent({
         background-color: #2667e7;
         color: white;
       }
+    }
+    .prefix {
+      color: #cfcfcf;
+      font-size: 12px;
+      margin-left: 5px;
+      overflow: hidden;
+      text-overflow: ellipsis;
+      white-space: nowrap;
+    }
+    .subfix {
+      color: #cfcfcf;
+      font-size: 12px;
+      margin-right: 5px;
+      max-width: 200px;
+      overflow: hidden;
+      text-overflow: ellipsis;
+      white-space: nowrap;
     }
   }
 }

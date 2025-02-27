@@ -47,6 +47,8 @@ export default defineComponent({
     const treeData1 = ref<ITreeData[]>([
       {
         text: '1',
+        prefix: 'prefix 11111111111111111111111111111111111',
+        subfix: 'subfix 11111111111111111111111111111111111',
         children: [
           {
             text: '11',

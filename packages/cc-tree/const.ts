@@ -38,6 +38,14 @@ export interface ITreeData {
    */
   text: string;
   /**
+   * 前缀文本
+   */
+  prefix?: string;
+  /**
+   * 后缀文本
+   */
+  subfix?: string;
+  /**
    * 携带的扩展数据
    */
   userData?: any;
