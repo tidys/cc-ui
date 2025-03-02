@@ -23,6 +23,10 @@ export const Msg = {
 };
 export interface ITreeData {
   /**
+   * 鼠标悬浮提示信息
+   */
+  tip?: string;
+  /**
    * 唯一ID
    */
   id?: string;

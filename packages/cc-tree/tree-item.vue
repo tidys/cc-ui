@@ -1,6 +1,6 @@
 <template>
   <div class="tree-item" v-show="show">
-    <div class="content" ref="rootEl" :class="{ flash: isFlash }" @contextmenu.prevent.stop="mouseMenu" @click="onClick" @mouseenter="mouseEnter" @mouseleave="mouseLeave" :style="{ 'background-color': backgroundColor, 'padding-left': `${indent * 15}px` }">
+    <div class="content" ref="rootEl" :title="value.tip" :class="{ flash: isFlash }" @contextmenu.prevent.stop="mouseMenu" @click="onClick" @mouseenter="mouseEnter" @mouseleave="mouseLeave" :style="{ 'background-color': backgroundColor, 'padding-left': `${indent * 15}px` }">
       <div class="arrow" :class="getArrowClass()" :style="getArrowStyle()" @click.stop.prevent="onFold"></div>
       <div class="iconfont icon" v-if="ShowIcon()" :class="getIconClass()" :style="getIconStyle()"></div>
       <div class="name" :style="getNameStyle()">
@@ -387,7 +387,6 @@ export default defineComponent({
 </script>
 <style lang="less" scoped>
 .tree-item {
-  height: 20px;
   user-select: none;
   .flash {
     background-color: rgb(117, 117, 117) !important;
@@ -402,6 +401,7 @@ export default defineComponent({
     }
   }
   .content {
+    height: 20px;
     display: flex;
     align-items: center;
     flex-direction: row;
