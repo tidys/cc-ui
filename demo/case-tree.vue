@@ -51,6 +51,7 @@ export default defineComponent({
         prefix: 'prefix 11111111111111111111111111111111111',
         subfix: 'subfix 11111111111111111111111111111111111',
         subfixIcon: 'icon_scene',
+        tip: 'tip',
         children: [
           {
             text: '11',

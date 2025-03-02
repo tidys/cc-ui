@@ -4,6 +4,8 @@
       <CCInput v-model:value="searchValue" @key-up="onKeyUp" @key-down="onKeyDown" @key-enter="onKeyEnter" @input="onInput" @change="onInputChange" ref="searchInput" placeholder="search">
         <i class="iconfont icon_font_size case" :class="{ 'case-active': matchCase }" @click="onChangeMatchCase" title="match cases"></i>
         <i class="case" :class="{ 'case-active': pathSplit }" title="split path" @click="onChangePathSplit"> /</i>
+        <i v-if="expandAll" class="iconfont icon_expand_all case" title="expand" @click="onRootExpandAll"></i>
+        <i v-else class="iconfont icon_collapse_all case" title="collapse" @click="onRootCollapseAll"></i>
       </CCInput>
     </div>
     <div class="tree ccui-scrollbar" :style="{ backgroundColor: bgColor }" ref="treeElement" tabindex="0">
@@ -374,8 +376,25 @@ export default defineComponent({
     const matchCase = ref(false);
     const pathSplit = ref(false);
     const searchInput = ref(null);
+    const expandAll = ref(false);
+    function updateRoot() {
+      childrenElements.value.forEach((item) => {
+        if (item.show) {
+          item.doFold(expandAll.value);
+        }
+      });
+    }
     return {
+      expandAll,
       searchInput,
+      onRootExpandAll() {
+        expandAll.value = !expandAll.value;
+        updateRoot();
+      },
+      onRootCollapseAll() {
+        expandAll.value = !expandAll.value;
+        updateRoot();
+      },
       onChangeMatchCase() {
         matchCase.value = !matchCase.value;
         doSearch(searchValue.value);
