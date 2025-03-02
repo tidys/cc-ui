@@ -476,6 +476,12 @@ export default defineComponent({
       onKeyEnter() {
         if (curHoverItem) {
           curHoverItem.comp.doSelect(true);
+        } else {
+          // 结果中只有一个的话，就使用这个
+          const array = tree2array();
+          if (array.length) {
+            array[0].comp.doSelect(true);
+          }
         }
       },
       onInput(str: string) {
@@ -513,6 +519,7 @@ export default defineComponent({
     background: rgb(68, 68, 68);
     border-bottom: 1px solid rgb(100, 100, 100);
     .case {
+      user-select: none;
       cursor: pointer;
       border: 1px solid @case-bg;
       background-color: @case-bg;
