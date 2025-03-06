@@ -42,6 +42,10 @@ declare const _default: import("vue").DefineComponent<{
         default: () => never[];
     };
 }, {
+    expandAll: import("vue").Ref<boolean>;
+    searchInput: import("vue").Ref<null>;
+    onRootExpandAll(): void;
+    onRootCollapseAll(): void;
     onChangeMatchCase(): void;
     onChangePathSplit(): void;
     matchCase: import("vue").Ref<boolean>;
@@ -76,14 +80,17 @@ declare const _default: import("vue").DefineComponent<{
         selected: boolean;
         doFold: (b: boolean) => void;
         doSelect: (scroll?: boolean) => void;
+        doHover(): void;
+        mouseEnter: () => void;
+        mouseLeave: () => void;
         ShowIcon: () => false;
         onFold(): void;
-        mouseEnter(): void;
         mouseMenu(event: MouseEvent): void;
-        mouseLeave(): void;
         onClick(): void;
-        getIconClass(): string;
+        getIconClass(): string | undefined;
+        getSubfixIconClass(): string;
         getIconStyle(): string;
+        getSubfixIconStyle(): string;
         getArrowClass(): "iconfont icon_arrow_down" | "iconfont icon_arrow_right";
         getArrowStyle(): string;
         getNameStyle(): string;
@@ -120,7 +127,12 @@ declare const _default: import("vue").DefineComponent<{
      * 手动选择根节点下的某个节点
      */
     handSelect(index?: number): void;
+    onKeyUp(): void;
+    onKeyDown(): void;
+    onKeyEnter(): void;
     onInput(str: string): void;
+    onInputChange(s: string): void;
+    doSearchFocus(): void;
 }, unknown, {}, {}, import("vue").ComponentOptionsMixin, import("vue").ComponentOptionsMixin, {}, string, import("vue").VNodeProps & import("vue").AllowedComponentProps & import("vue").ComponentCustomProps, Readonly<import("vue").ExtractPropTypes<{
     value: {
         type: PropType<ITreeData[]>;

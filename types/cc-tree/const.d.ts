@@ -16,11 +16,16 @@ export declare const ProvideKeys: {
 export declare const Msg: {
     SelectReset: string;
     UpdateSelect: string;
+    HoverReset: string;
     HandExpand: string;
     DoFilter: string;
     ResetFilter: string;
 };
 export interface ITreeData {
+    /**
+     * 鼠标悬浮提示信息
+     */
+    tip?: string;
     /**
      * 唯一ID
      */
@@ -30,6 +35,10 @@ export interface ITreeData {
      */
     icon?: string;
     /**
+     * 默认图标
+     */
+    iconDefault?: string;
+    /**
      * 文本的颜色
      */
     color?: string;
@@ -37,6 +46,18 @@ export interface ITreeData {
      * 显示的文本
      */
     text: string;
+    /**
+     * 前缀文本
+     */
+    prefix?: string;
+    /**
+     * 后缀文本
+     */
+    subfix?: string;
+    /**
+     * 后缀的图标
+     */
+    subfixIcon?: string;
     /**
      * 携带的扩展数据
      */

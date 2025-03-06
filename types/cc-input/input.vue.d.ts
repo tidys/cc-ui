@@ -27,16 +27,19 @@ declare const _default: import("vue").DefineComponent<{
         default: string;
     };
 }, {
+    elInput: import("vue").Ref<HTMLInputElement | undefined>;
     hover: import("vue").Ref<boolean>;
     text: import("vue").Ref<string>;
     borderColor: import("vue").Ref<string>;
     getCSS(): string;
-    onInput(): void;
+    onKeyDown(event: KeyboardEvent): void;
+    onInput(event: InputEvent): void;
     onFocusin(event: FocusEvent): void;
     onClean(): void;
     onFocusout(): void;
     onBlur(): void;
-}, unknown, {}, {}, import("vue").ComponentOptionsMixin, import("vue").ComponentOptionsMixin, ("update:value" | "change" | "input")[], "input" | "update:value" | "change", import("vue").VNodeProps & import("vue").AllowedComponentProps & import("vue").ComponentCustomProps, Readonly<import("vue").ExtractPropTypes<{
+    doFocus(): void;
+}, unknown, {}, {}, import("vue").ComponentOptionsMixin, import("vue").ComponentOptionsMixin, ("update:value" | "change" | "input" | "key-up" | "key-down" | "key-enter")[], "input" | "update:value" | "change" | "key-up" | "key-down" | "key-enter", import("vue").VNodeProps & import("vue").AllowedComponentProps & import("vue").ComponentCustomProps, Readonly<import("vue").ExtractPropTypes<{
     value: {
         type: StringConstructor;
         default: string;
@@ -68,6 +71,9 @@ declare const _default: import("vue").DefineComponent<{
     onChange?: ((...args: any[]) => any) | undefined;
     onInput?: ((...args: any[]) => any) | undefined;
     "onUpdate:value"?: ((...args: any[]) => any) | undefined;
+    "onKey-up"?: ((...args: any[]) => any) | undefined;
+    "onKey-down"?: ((...args: any[]) => any) | undefined;
+    "onKey-enter"?: ((...args: any[]) => any) | undefined;
 }, {
     readonly: boolean;
     disabled: boolean;

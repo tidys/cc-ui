@@ -55,6 +55,10 @@ export declare const components: {
             default: () => never[];
         };
     }, {
+        expandAll: import("vue").Ref<boolean>;
+        searchInput: import("vue").Ref<null>;
+        onRootExpandAll(): void;
+        onRootCollapseAll(): void;
         onChangeMatchCase(): void;
         onChangePathSplit(): void;
         matchCase: import("vue").Ref<boolean>;
@@ -89,14 +93,17 @@ export declare const components: {
             selected: boolean;
             doFold: (b: boolean) => void;
             doSelect: (scroll?: boolean) => void;
+            doHover(): void;
+            mouseEnter: () => void;
+            mouseLeave: () => void;
             ShowIcon: () => false;
             onFold(): void;
-            mouseEnter(): void;
             mouseMenu(event: MouseEvent): void;
-            mouseLeave(): void;
             onClick(): void;
-            getIconClass(): string;
+            getIconClass(): string | undefined;
+            getSubfixIconClass(): string;
             getIconStyle(): string;
+            getSubfixIconStyle(): string;
             getArrowClass(): "iconfont icon_arrow_down" | "iconfont icon_arrow_right";
             getArrowStyle(): string;
             getNameStyle(): string;
@@ -124,7 +131,12 @@ export declare const components: {
         handExpand(id: string, options?: import("./cc-tree/const").HandExpandOptions): void;
         handChoose(id: string): void;
         handSelect(index?: number): void;
+        onKeyUp(): void;
+        onKeyDown(): void;
+        onKeyEnter(): void;
         onInput(str: string): void;
+        onInputChange(s: string): void;
+        doSearchFocus(): void;
     }, unknown, {}, {}, import("vue").ComponentOptionsMixin, import("vue").ComponentOptionsMixin, {}, string, import("vue").VNodeProps & import("vue").AllowedComponentProps & import("vue").ComponentCustomProps, Readonly<import("vue").ExtractPropTypes<{
         value: {
             type: import("vue").PropType<import("./cc-tree/const").ITreeData[]>;
@@ -406,6 +418,7 @@ export declare const components: {
             default: string;
         };
     }, {
+        onViewHistroy(): void;
         hintUrl: import("vue").Ref<string>;
         errorColor: import("vue").Ref<string>;
         elErrorPanel: import("vue").Ref<HTMLDivElement | undefined>;
@@ -761,16 +774,19 @@ export declare const components: {
             default: string;
         };
     }, {
+        elInput: import("vue").Ref<HTMLInputElement | undefined>;
         hover: import("vue").Ref<boolean>;
         text: import("vue").Ref<string>;
         borderColor: import("vue").Ref<string>;
         getCSS(): string;
-        onInput(): void;
+        onKeyDown(event: KeyboardEvent): void;
+        onInput(event: InputEvent): void;
         onFocusin(event: FocusEvent): void;
         onClean(): void;
         onFocusout(): void;
         onBlur(): void;
-    }, unknown, {}, {}, import("vue").ComponentOptionsMixin, import("vue").ComponentOptionsMixin, ("update:value" | "change" | "input")[], "input" | "update:value" | "change", import("vue").VNodeProps & import("vue").AllowedComponentProps & import("vue").ComponentCustomProps, Readonly<import("vue").ExtractPropTypes<{
+        doFocus(): void;
+    }, unknown, {}, {}, import("vue").ComponentOptionsMixin, import("vue").ComponentOptionsMixin, ("update:value" | "change" | "input" | "key-up" | "key-down" | "key-enter")[], "input" | "update:value" | "change" | "key-up" | "key-down" | "key-enter", import("vue").VNodeProps & import("vue").AllowedComponentProps & import("vue").ComponentCustomProps, Readonly<import("vue").ExtractPropTypes<{
         value: {
             type: StringConstructor;
             default: string;
@@ -799,6 +815,9 @@ export declare const components: {
         onChange?: ((...args: any[]) => any) | undefined;
         onInput?: ((...args: any[]) => any) | undefined;
         "onUpdate:value"?: ((...args: any[]) => any) | undefined;
+        "onKey-up"?: ((...args: any[]) => any) | undefined;
+        "onKey-down"?: ((...args: any[]) => any) | undefined;
+        "onKey-enter"?: ((...args: any[]) => any) | undefined;
     }, {
         readonly: boolean;
         disabled: boolean;

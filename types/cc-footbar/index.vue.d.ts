@@ -11,6 +11,7 @@ declare const _default: import("vue").DefineComponent<{
         default: string;
     };
 }, {
+    onViewHistroy(): void;
     hintUrl: import("vue").Ref<string>;
     errorColor: import("vue").Ref<string>;
     elErrorPanel: import("vue").Ref<HTMLDivElement | undefined>;
