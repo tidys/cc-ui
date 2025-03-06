@@ -6,6 +6,20 @@
   "description": "cc-ui组件库在使用",
   "glyphs": [
     {
+      "icon_id": "42800210",
+      "name": "collapse_all",
+      "font_class": "collapse_all",
+      "unicode": "e7ef",
+      "unicode_decimal": 59375
+    },
+    {
+      "icon_id": "42800288",
+      "name": "expand_all",
+      "font_class": "expand_all",
+      "unicode": "e803",
+      "unicode_decimal": 59395
+    },
+    {
       "icon_id": "5999182",
       "name": "fbx",
       "font_class": "fbx",
