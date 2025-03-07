@@ -148,7 +148,7 @@ export default defineComponent({
       treeData3,
       treeData4,
       onChangeTreeData4() {
-        treeData4.value = [{ id: 'eee', text: 'eee' }];
+        treeData4.value = [{ id: 'abcdeee', text: 'abcdeee' }];
       },
       onSearchFocus() {
         if (tree4) {

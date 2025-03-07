@@ -73,7 +73,7 @@ export default defineComponent({
       () => props.value,
       (v) => {
         if (v.id) {
-          selectReset();
+          // selectReset();
           const b = !checkExpand(v.id);
           changeFold(b);
         }
