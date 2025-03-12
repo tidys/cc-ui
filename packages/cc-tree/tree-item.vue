@@ -7,13 +7,13 @@
         <span v-for="(item, index) in value.text" :key="index" :class="getClass(item, Number(index))">{{ item }}</span>
         <!-- {{ value.text }} -->
       </div>
-      <div class="prefix" v-if="value.prefix">{{ value.prefix }}</div>
+      <div class="prefix" :style="getPrefixStyle()" v-if="value.prefix">{{ value.prefix }}</div>
       <div style="flex: 1"></div>
-      <div class="subfix" v-if="value.subfix">{{ value.subfix }}</div>
+      <div class="subfix" :style="getSubfixStyle()" v-if="value.subfix">{{ value.subfix }}</div>
       <div class="iconfont icon" v-if="value.subfixIcon" :class="getSubfixIconClass()" :style="getSubfixIconStyle()"></div>
     </div>
     <div v-show="!fold && value.children">
-      <cc-tree-item ref="childrenElements" v-for="(item, index) in value.children" :key="index" :value="item" :indent="indent + 1"></cc-tree-item>
+      <cc-tree-item ref="childrenElements" :color="color" :alway-response-click="alwayResponseClick" v-for="(item, index) in value.children" :key="index" :value="item" :indent="indent + 1"></cc-tree-item>
     </div>
   </div>
 </template>
@@ -44,6 +44,13 @@ export default defineComponent({
     color: {
       type: String,
       default: '#444',
+    },
+    /**
+     * 选中后，再点击是否响应点击事件
+     */
+    alwayResponseClick: {
+      type: Boolean,
+      default: false,
     },
   },
   setup(props, { emit }) {
@@ -94,7 +101,13 @@ export default defineComponent({
       updateBgColor();
     }
     function doSelect(scroll: boolean = false) {
-      if (selected) {
+      let emitClickEvent = true;
+      if (props.alwayResponseClick) {
+        emitClickEvent = true;
+      } else {
+        emitClickEvent = !selected;
+      }
+      if (!emitClickEvent) {
         return;
       }
       emitter.emit(Msg.SelectReset);
@@ -307,6 +320,20 @@ export default defineComponent({
       },
       getSubfixIconClass() {
         return props.value.subfixIcon || '';
+      },
+      getSubfixStyle() {
+        const ret: string[] = [];
+        if (selected) {
+          ret.push(`color:black !important`);
+        }
+        return ret.join(';');
+      },
+      getPrefixStyle() {
+        const ret: string[] = [];
+        if (selected) {
+          ret.push(`color:black !important`);
+        }
+        return ret.join(';');
       },
       getIconStyle() {
         const ret: string[] = [];
