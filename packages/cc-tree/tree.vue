@@ -9,7 +9,7 @@
       </CCInput>
     </div>
     <div class="tree ccui-scrollbar" :style="{ backgroundColor: bgColor }" ref="treeElement" tabindex="0">
-      <TreeItem v-for="(item, index) in value" :idx="0" :key="index" :color="bgColor" :value="item" ref="childrenElements"></TreeItem>
+      <TreeItem v-for="(item, index) in value" :idx="0" :key="index" :alway-response-click="alwayResponseClick" :color="bgColor" :value="item" ref="childrenElements"></TreeItem>
     </div>
   </div>
 </template>
@@ -72,6 +72,13 @@ export default defineComponent({
     expandKeys: {
       type: Array as PropType<Array<string>>,
       default: () => [],
+    },
+    /**
+     * 选中后，再点击是否响应点击事件
+     */
+    alwayResponseClick: {
+      type: Boolean,
+      default: false,
     },
   },
   setup(props, { emit }) {

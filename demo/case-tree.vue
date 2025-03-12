@@ -1,7 +1,7 @@
 <template>
   <div>
     <CCSection name="基础测试">
-      <CCTree style="max-height: 100px" :value="treeData1" @node-menu="onTreeNodeMenu" @node-click="onTreeNodeClick" @node-expand="onTreeNodeExpend" @node-collapse="onTreeNodeCollapsed" @node-enter="onTreeNodeEnter" @node-leave="onTreeNodeLeave"></CCTree>
+      <CCTree style="max-height: 100px" :value="treeData1" @node-menu="onTreeNodeMenu" :alway-response-click="true" @node-click="onTreeNodeClick" @node-expand="onTreeNodeExpend" @node-collapse="onTreeNodeCollapsed" @node-enter="onTreeNodeEnter" @node-leave="onTreeNodeLeave"></CCTree>
     </CCSection>
     <CCSection name="expand keys">
       <CCTree style="max-height: 100px; min-height: 100px" :default-expand-all="false" :expand-keys="expandKeys" :value="treeData2"></CCTree>
