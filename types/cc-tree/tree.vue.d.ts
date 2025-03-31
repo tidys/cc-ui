@@ -41,6 +41,13 @@ declare const _default: import("vue").DefineComponent<{
         type: PropType<string[]>;
         default: () => never[];
     };
+    /**
+     * 选中后，再点击是否响应点击事件
+     */
+    alwayResponseClick: {
+        type: BooleanConstructor;
+        default: boolean;
+    };
 }, {
     expandAll: import("vue").Ref<boolean>;
     searchInput: import("vue").Ref<null>;
@@ -68,6 +75,12 @@ declare const _default: import("vue").DefineComponent<{
             type: StringConstructor;
             default: string;
         };
+        alwayResponseClick: {
+            type: BooleanConstructor;
+            default: boolean; /**
+             * 是否显示icon
+             */
+        };
     }, {
         getClass(item: string, index: number): string;
         highlightCharIndex: import("vue").Ref<number[]>;
@@ -89,6 +102,8 @@ declare const _default: import("vue").DefineComponent<{
         onClick(): void;
         getIconClass(): string | undefined;
         getSubfixIconClass(): string;
+        getSubfixStyle(): string;
+        getPrefixStyle(): string;
         getIconStyle(): string;
         getSubfixIconStyle(): string;
         getArrowClass(): "iconfont icon_arrow_down" | "iconfont icon_arrow_right";
@@ -110,10 +125,17 @@ declare const _default: import("vue").DefineComponent<{
             type: StringConstructor;
             default: string;
         };
+        alwayResponseClick: {
+            type: BooleanConstructor;
+            default: boolean; /**
+             * 是否显示icon
+             */
+        };
     }>>, {
         color: string;
         value: ITreeData;
         indent: number;
+        alwayResponseClick: boolean;
     }, {}>[]>;
     /**
      * 手动展开某个节点，会自动连同父节点一并展开
@@ -174,10 +196,18 @@ declare const _default: import("vue").DefineComponent<{
         type: PropType<string[]>;
         default: () => never[];
     };
+    /**
+     * 选中后，再点击是否响应点击事件
+     */
+    alwayResponseClick: {
+        type: BooleanConstructor;
+        default: boolean;
+    };
 }>>, {
     search: boolean;
     value: ITreeData[];
     bgColor: string;
+    alwayResponseClick: boolean;
     showIcon: boolean;
     defaultExpandAll: boolean;
     expandKeys: string[];

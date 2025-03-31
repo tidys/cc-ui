@@ -19,6 +19,13 @@ declare const _default: import("vue").DefineComponent<{
         type: StringConstructor;
         default: string;
     };
+    /**
+     * 选中后，再点击是否响应点击事件
+     */
+    alwayResponseClick: {
+        type: BooleanConstructor;
+        default: boolean;
+    };
 }, {
     getClass(item: string, index: number): string;
     highlightCharIndex: import("vue").Ref<number[]>;
@@ -40,6 +47,8 @@ declare const _default: import("vue").DefineComponent<{
     onClick(): void;
     getIconClass(): string | undefined;
     getSubfixIconClass(): string;
+    getSubfixStyle(): string;
+    getPrefixStyle(): string;
     getIconStyle(): string;
     getSubfixIconStyle(): string;
     getArrowClass(): "iconfont icon_arrow_down" | "iconfont icon_arrow_right";
@@ -64,9 +73,17 @@ declare const _default: import("vue").DefineComponent<{
         type: StringConstructor;
         default: string;
     };
+    /**
+     * 选中后，再点击是否响应点击事件
+     */
+    alwayResponseClick: {
+        type: BooleanConstructor;
+        default: boolean;
+    };
 }>>, {
     color: string;
     value: ITreeData;
     indent: number;
+    alwayResponseClick: boolean;
 }, {}>;
 export default _default;

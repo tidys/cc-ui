@@ -84,6 +84,10 @@ declare const _default: {
                 type: import("vue").PropType<string[]>;
                 default: () => never[];
             };
+            alwayResponseClick: {
+                type: BooleanConstructor;
+                default: boolean;
+            };
         }, {
             expandAll: import("vue").Ref<boolean>;
             searchInput: import("vue").Ref<null>;
@@ -111,6 +115,10 @@ declare const _default: {
                     type: StringConstructor;
                     default: string;
                 };
+                alwayResponseClick: {
+                    type: BooleanConstructor;
+                    default: boolean;
+                };
             }, {
                 getClass(item: string, index: number): string;
                 highlightCharIndex: import("vue").Ref<number[]>;
@@ -132,6 +140,8 @@ declare const _default: {
                 onClick(): void;
                 getIconClass(): string | undefined;
                 getSubfixIconClass(): string;
+                getSubfixStyle(): string;
+                getPrefixStyle(): string;
                 getIconStyle(): string;
                 getSubfixIconStyle(): string;
                 getArrowClass(): "iconfont icon_arrow_down" | "iconfont icon_arrow_right";
@@ -153,10 +163,15 @@ declare const _default: {
                     type: StringConstructor;
                     default: string;
                 };
+                alwayResponseClick: {
+                    type: BooleanConstructor;
+                    default: boolean;
+                };
             }>>, {
                 color: string;
                 value: tree.ITreeData;
                 indent: number;
+                alwayResponseClick: boolean;
             }, {}>[]>;
             handExpand(id: string, options?: tree.HandExpandOptions): void;
             handChoose(id: string): void;
@@ -193,10 +208,15 @@ declare const _default: {
                 type: import("vue").PropType<string[]>;
                 default: () => never[];
             };
+            alwayResponseClick: {
+                type: BooleanConstructor;
+                default: boolean;
+            };
         }>>, {
             search: boolean;
             value: tree.ITreeData[];
             bgColor: string;
+            alwayResponseClick: boolean;
             showIcon: boolean;
             defaultExpandAll: boolean;
             expandKeys: string[];
