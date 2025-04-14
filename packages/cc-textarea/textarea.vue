@@ -1,7 +1,7 @@
 <template>
   <div class="cc-textarea">
     <label>
-      <textarea v-model="text" :readonly="readonly" placeholder="" @change="onChange"></textarea>
+      <textarea class="ccui-scrollbar" ref="el" v-model="text" :readonly="readonly" placeholder="" @change="onChange"></textarea>
     </label>
   </div>
 </template>
@@ -14,6 +14,8 @@ export default defineComponent({
   props: {
     value: { type: String, default: '' },
     readonly: { type: Boolean, default: false },
+    /**自动滚动到底部 */
+    autoScroll: { type: Boolean, default: false },
   },
   setup(props, { emit }) {
     const text = ref(props.value);
@@ -21,10 +23,18 @@ export default defineComponent({
       () => props.value,
       () => {
         text.value = props.value;
+        if (props.autoScroll) {
+          const textarea = el.value as HTMLTextAreaElement;
+          if (textarea) {
+            textarea.scrollTop = textarea.scrollHeight;
+          }
+        }
       }
     );
+    const el = ref<HTMLTextAreaElement>();
     return {
       text,
+      el,
       onChange() {
         emit('update:value', text.value);
         emit('change', text.value);
