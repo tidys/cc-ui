@@ -30,7 +30,7 @@
         <CCButton @click="onChangeTreeData4">change tree</CCButton>
         <CCButton @click="onSearchFocus">search focus</CCButton>
       </CCProp>
-      <CCTree ref="tree4" :show-icon="true" :value="treeData4" style="max-height: 300px; min-height: 300px" :search="true"></CCTree>
+      <CCTree ref="tree4" :search-key-process-function="processKey" :show-icon="true" :value="treeData4" style="max-height: 300px; min-height: 300px" :search="true"></CCTree>
     </CCSection>
   </div>
 </template>
@@ -132,7 +132,16 @@ export default defineComponent({
     const isHighlight = ref(false);
     const key = ref(0);
     const tree4 = ref();
+    const processKey = (key: string) => {
+      const arr = key.split(':');
+      if (arr.length === 2) {
+        return arr[1];
+      } else {
+        return key;
+      }
+    };
     return {
+      processKey,
       tree4,
       onChangeKey(v: number) {
         key.value = v;

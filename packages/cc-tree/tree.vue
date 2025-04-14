@@ -67,6 +67,15 @@ export default defineComponent({
       default: false,
     },
     /**
+     * 对searchkey进行加工处理，比如想要将输入的uuid置换为fspath
+     */
+    searchKeyProcessFunction: {
+      type: Function,
+      default: (key: string) => {
+        return key;
+      },
+    },
+    /**
      * 默认展开的keys
      */
     expandKeys: {
@@ -279,6 +288,7 @@ export default defineComponent({
         emitter.emit(Msg.ResetFilter);
         return;
       }
+      v = props.searchKeyProcessFunction(v);
       const data = toRaw(props.value);
 
       /**
