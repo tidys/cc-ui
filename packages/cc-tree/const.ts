@@ -55,6 +55,10 @@ export interface ITreeData {
    */
   subfix?: string;
   /**
+   * 后缀文本的最大显示宽度，超出将省略
+   */
+  subfixMaxWidth?: number;
+  /**
    * 后缀的图标
    */
   subfixIcon?: string;

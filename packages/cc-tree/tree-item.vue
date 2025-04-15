@@ -326,6 +326,7 @@ export default defineComponent({
         if (selected) {
           ret.push(`color:black !important`);
         }
+        ret.push(`max-width:${props.value.subfixMaxWidth || 200}px !important`);
         return ret.join(';');
       },
       getPrefixStyle() {
