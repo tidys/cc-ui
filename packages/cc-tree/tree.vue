@@ -511,8 +511,16 @@ export default defineComponent({
       },
       doSearchFocus() {
         if (searchInput.value) {
+          let range1 = -1;
+          let range2 = -1;
+          const v = toRaw(searchValue.value);
+          const arr = v.split(':');
+          if (arr.length === 2) {
+            range1 = arr[0].length + 1;
+            range2 = v.length;
+          }
           // @ts-ignore
-          searchInput.value.doFocus();
+          searchInput.value.doFocus(range1, range2);
         }
       },
     };

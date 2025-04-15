@@ -104,9 +104,14 @@ export default defineComponent({
         emit('update:value', text.value);
         emit('change', text.value);
       },
-      doFocus() {
+      /**获得焦点，并选中指定区域的文本，区间无效则选中全部 */
+      doFocus(range1: number = -1, range2: number = -1) {
         if (elInput.value) {
           elInput.value.focus();
+          const len = elInput.value.value.length;
+          if (range1 >= 0 && range2 <= len && range1 < range2) {
+            elInput.value.setSelectionRange(range1, range2);
+          }
         }
       },
     };
