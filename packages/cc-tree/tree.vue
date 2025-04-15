@@ -284,11 +284,11 @@ export default defineComponent({
     });
     const searchValue = ref('');
     const doSearch = throttle((v: string) => {
+      v = props.searchKeyProcessFunction(v);
       if (!v) {
         emitter.emit(Msg.ResetFilter);
         return;
       }
-      v = props.searchKeyProcessFunction(v);
       const data = toRaw(props.value);
 
       /**
