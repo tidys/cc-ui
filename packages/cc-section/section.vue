@@ -42,7 +42,7 @@ export default defineComponent({
     },
     colorTitle: {
       type: String,
-      default: '#11ff00',
+      default: '#01ff01',
     },
     colorHeader: {
       type: String,
