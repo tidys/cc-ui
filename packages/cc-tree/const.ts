@@ -63,6 +63,10 @@ export interface ITreeData {
    */
   subfixIcon?: string;
   /**
+   * 后缀图标的提示信息
+   */
+  subfixIconTip?: string;
+  /**
    * 携带的扩展数据
    */
   userData?: any;

@@ -10,7 +10,7 @@
       <div class="prefix" :style="getPrefixStyle()" v-if="value.prefix">{{ value.prefix }}</div>
       <div style="flex: 1"></div>
       <div class="subfix" :style="getSubfixStyle()" v-if="value.subfix">{{ value.subfix }}</div>
-      <div class="iconfont icon" v-if="value.subfixIcon" :class="getSubfixIconClass()" :style="getSubfixIconStyle()"></div>
+      <div class="iconfont icon" v-if="value.subfixIcon" :title="value.subfixIconTip" :class="getSubfixIconClass()" :style="getSubfixIconStyle()"></div>
     </div>
     <div v-show="!fold && value.children">
       <cc-tree-item ref="childrenElements" :color="color" :alway-response-click="alwayResponseClick" v-for="(item, index) in value.children" :key="index" :value="item" :indent="indent + 1"></cc-tree-item>
