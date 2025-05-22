@@ -10,7 +10,7 @@
       <div class="prefix" :style="getPrefixStyle()" v-if="value.prefix">{{ value.prefix }}</div>
       <div style="flex: 1"></div>
       <div class="subfix" :style="getSubfixStyle()" v-if="value.subfix">{{ value.subfix }}</div>
-      <div class="iconfont icon" v-if="value.subfixIcon" :title="value.subfixIconTip" :class="getSubfixIconClass()" :style="getSubfixIconStyle()"></div>
+      <div class="iconfont icon subfix" v-if="value.subfixIcon" :title="value.subfixIconTip" :class="getSubfixIconClass()" :style="getSubfixIconStyle()" @click.prevent.stop="onClickSubfix"></div>
     </div>
     <div v-show="!fold && value.children">
       <cc-tree-item ref="childrenElements" :color="color" :alway-response-click="alwayResponseClick" v-for="(item, index) in value.children" :key="index" :value="item" :indent="indent + 1"></cc-tree-item>
@@ -57,6 +57,7 @@ export default defineComponent({
     const id = props.value?.id;
     props.value.id = id === undefined ? generate() : id;
     const emitter = inject(ProvideKeys.Emitter) as TinyEmitter;
+    const ClickSubfix = inject(ProvideKeys.ClickSubfix, (event: MouseEvent, data: ITreeData | null) => {});
     const NodeClick = inject(ProvideKeys.NodeClick, (data: ITreeData | null) => {});
     const ShowIcon = inject(ProvideKeys.ShowIcon, () => false);
     const NodeUnclick = inject(ProvideKeys.NodeUnclick, (data: ITreeData | null) => {});
@@ -336,6 +337,9 @@ export default defineComponent({
         }
         return ret.join(';');
       },
+      onClickSubfix(event: MouseEvent) {
+        ClickSubfix(event, toRaw(props.value));
+      },
       getIconStyle() {
         const ret: string[] = [];
         let active = toRaw(props.value.active);
@@ -438,6 +442,9 @@ export default defineComponent({
       color: #ccc;
       cursor: pointer;
       margin-right: 1px;
+    }
+    .subfix {
+      cursor: pointer;
     }
     .icon {
       display: flex;

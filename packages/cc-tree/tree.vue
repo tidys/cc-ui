@@ -31,7 +31,7 @@ interface ClapItem {
 export default defineComponent({
   name: 'cc-tree',
   components: { TreeItem, CCInput },
-  emit: ['node-expand', 'node-collapse', 'node-click', 'node-unclick', 'node-enter', 'node-leave', 'node-menu', 'do-search'],
+  emit: ['node-expand', 'node-collapse', 'node-click', 'click-subfix', 'node-unclick', 'node-enter', 'node-leave', 'node-menu', 'do-search'],
   props: {
     value: {
       type: Array as PropType<Array<ITreeData>>,
@@ -263,6 +263,9 @@ export default defineComponent({
     provide(ProvideKeys.NodeClick, (data: ITreeData) => {
       currentSelectTreeItem = data;
       emit('node-click', data);
+    });
+    provide(ProvideKeys.ClickSubfix, (event: MouseEvent, data: ITreeData) => {
+      emit('click-subfix', event, data);
     });
     provide(ProvideKeys.NodeEnter, (data: ITreeData) => {
       emit('node-enter', data);

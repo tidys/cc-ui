@@ -12,6 +12,7 @@ export const ProvideKeys = {
   CurrentSelect: 'current-select',
   ShowIcon: 'show-icon',
   RootElement: 'root-element',
+  ClickSubfix: 'click-subfix',
 };
 export const Msg = {
   SelectReset: 'select-reset',
