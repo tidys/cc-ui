@@ -6,6 +6,48 @@
   "description": "cc-ui组件库在使用",
   "glyphs": [
     {
+      "icon_id": "11444954",
+      "name": "order",
+      "font_class": "order",
+      "unicode": "e6a5",
+      "unicode_decimal": 59045
+    },
+    {
+      "icon_id": "22264580",
+      "name": "component",
+      "font_class": "component",
+      "unicode": "e606",
+      "unicode_decimal": 58886
+    },
+    {
+      "icon_id": "39250089",
+      "name": "parent",
+      "font_class": "parent",
+      "unicode": "ece7",
+      "unicode_decimal": 60647
+    },
+    {
+      "icon_id": "11249689",
+      "name": "color",
+      "font_class": "color",
+      "unicode": "e838",
+      "unicode_decimal": 59448
+    },
+    {
+      "icon_id": "17710563",
+      "name": "layer",
+      "font_class": "layer",
+      "unicode": "e805",
+      "unicode_decimal": 59397
+    },
+    {
+      "icon_id": "10564355",
+      "name": "size",
+      "font_class": "size",
+      "unicode": "e718",
+      "unicode_decimal": 59160
+    },
+    {
       "icon_id": "59344",
       "name": "arrow_down_line",
       "font_class": "arrow_down_line",
