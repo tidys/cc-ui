@@ -1,6 +1,6 @@
 <template>
   <div v-if="getIsSeparator()" class="separator"></div>
-  <div v-if="getIsMenu()" ref="menuEl" class="ui-menu-item" :class="{ disabled: data.enabled === false }" @mousedown="onClick" @mouseenter="onMouseEnter" @mouseleave="onMouseLeave" :title="data.tip || ''">
+  <div v-if="getIsMenu()" ref="menuEl" class="ui-menu-item" :class="{ disabled: data.enabled === false, 'ui-menu-item-select': isSelect }" @mousedown="onClick" @mouseenter="onMouseEnter" @mouseleave="onMouseLeave" :title="data.tip || ''">
     <i :style="getIconStyle()" :class="getIconClass()" class="iconfont icon"></i>
     <span class="text">{{ data.name }}</span>
     <div class="short-key" v-if="data.shortKey">{{ data.shortKey }}</div>
@@ -36,11 +36,16 @@ export default defineComponent({
         subMenuListID = '';
       }
     }
+    function onResetSelect() {
+      isSelect.value = false;
+    }
     onMounted(() => {
       emitter.on(Msg.ResetSubMenuListID, onResetSubMenuListID);
+      emitter.on(Msg.ResetSelect, onResetSelect);
     });
     onUnmounted(() => {
       emitter.off(Msg.ResetSubMenuListID, onResetSubMenuListID);
+      emitter.off(Msg.ResetSelect, onResetSelect);
     });
     function showSubMenus(event: MouseEvent, item: IUiMenuItem) {
       emitter.emit(Msg.ResetSubMenuListID, subMenuListID);
@@ -62,7 +67,9 @@ export default defineComponent({
       ccui.Emitter.emit(Msg.CleanMenu, subMenuListID || '');
       subMenuListID = '';
     }
+    const isSelect = ref(false);
     return {
+      isSelect,
       menuEl,
       getIsSeparator() {
         return props.data.type === MenuType.Separator;
@@ -105,9 +112,11 @@ export default defineComponent({
           event.preventDefault();
           event.stopPropagation();
           event.stopImmediatePropagation();
-          return;
+          emitter.emit(Msg.ResetSelect);
+          isSelect.value = true;
+        } else {
+          ccui.Emitter.emit(Msg.ResetMenu);
         }
-        ccui.Emitter.emit(Msg.ResetMenu);
       },
       onMouseEnter(event: MouseEvent) {
         const item: IUiMenuItem = props.data;
@@ -144,6 +153,9 @@ export default defineComponent({
   display: block;
   border-top: 1px solid #d2d2d2;
   margin: 0.2em 0;
+}
+.ui-menu-item-select {
+  background-color: #848484 !important;
 }
 .ui-menu-item {
   overflow: hidden;

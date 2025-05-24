@@ -59,6 +59,7 @@ export const Msg = {
   ShowMenu: 'show-menu',
   CleanMenu: 'clean-menu',
   ResetMenu: 'reset-menu',
+  ResetSelect: 'reset-select',
   ResetSubMenuListID: 'reset-submenulist-id',
 };
 
