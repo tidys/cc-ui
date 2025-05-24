@@ -10,6 +10,7 @@ import { IUiMenuItem, MenuListData, MenuOptions, Msg, ProvideKeys } from './cons
 import MenuItem from './menu-item.vue';
 import ccui from '../index';
 import { uiElement } from '../element';
+import { TinyEmitter } from 'tiny-emitter';
 
 export default defineComponent({
   name: 'CCMenuList',
@@ -24,8 +25,10 @@ export default defineComponent({
     const menuEl = ref<HTMLDivElement>();
     const menuPositionX = ref(0);
     const menuPositionY = ref(0);
+    const emitter = new TinyEmitter();
     /**子菜单的UUID */
     let subMenuListID: string = '';
+    provide(ProvideKeys.Emitter, emitter);
     provide(ProvideKeys.SetSubMenuListID, (id: string) => {
       if (subMenuListID) {
         ccui.Emitter.emit(Msg.CleanMenu, subMenuListID);

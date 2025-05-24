@@ -59,6 +59,7 @@ export const Msg = {
   ShowMenu: 'show-menu',
   CleanMenu: 'clean-menu',
   ResetMenu: 'reset-menu',
+  ResetSubMenuListID: 'reset-submenulist-id',
 };
 
 export interface MenuOptions {
@@ -83,4 +84,5 @@ export function showMenuByMouseEvent(event: MouseEvent, newMenus: IUiMenuItem[],
 }
 export const ProvideKeys = {
   SetSubMenuListID: 'SetSubMenuListID',
+  Emitter: 'Emitter',
 };

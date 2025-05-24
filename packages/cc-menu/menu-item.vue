@@ -9,10 +9,11 @@
 </template>
 
 <script lang="ts">
-import { defineComponent, inject, PropType, ref, toRaw } from 'vue';
+import { defineComponent, inject, onMounted, onUnmounted, PropType, ref, toRaw } from 'vue';
 import { IUiMenuItem, MenuType, Msg, ProvideKeys, showMenuByMouseEvent } from './const';
 import ccui from '../index';
 import { createPopper } from '@popperjs/core';
+import { TinyEmitter } from 'tiny-emitter';
 
 export default defineComponent({
   name: 'menu-item',
@@ -29,7 +30,20 @@ export default defineComponent({
     let subMenuListID: string = '';
     const menuEl = ref<HTMLElement>();
     const setSubMenuListID = inject(ProvideKeys.SetSubMenuListID, (id: string) => {});
+    const emitter = inject<TinyEmitter>(ProvideKeys.Emitter) as TinyEmitter;
+    function onResetSubMenuListID(id: string) {
+      if (subMenuListID !== id) {
+        subMenuListID = '';
+      }
+    }
+    onMounted(() => {
+      emitter.on(Msg.ResetSubMenuListID, onResetSubMenuListID);
+    });
+    onUnmounted(() => {
+      emitter.off(Msg.ResetSubMenuListID, onResetSubMenuListID);
+    });
     function showSubMenus(event: MouseEvent, item: IUiMenuItem) {
+      emitter.emit(Msg.ResetSubMenuListID, subMenuListID);
       if (subMenuListID) {
         return;
       }
@@ -155,12 +169,14 @@ export default defineComponent({
   }
 
   .text {
+    flex: 1;
     text-align: left;
     user-select: none;
     white-space: nowrap;
     font-size: 15px;
     line-height: 15px;
     min-width: 100px;
+    padding-right: 4px;
     color: black;
   }
   .icon {
