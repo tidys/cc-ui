@@ -45,8 +45,15 @@ export interface IUiMenuItem {
    * 鼠标离开菜单
    */
   leave?: ((item: IUiMenuItem) => void) | null;
+  /**
+   * 子菜单
+   */
+  items?: IUiMenuItem[];
 }
-
+export interface MenuListData {
+  id: string;
+  menus: IUiMenuItem[];
+}
 export const Msg = {
   ShowMenu: 'show-menu',
   HideMenu: 'hide-menu',

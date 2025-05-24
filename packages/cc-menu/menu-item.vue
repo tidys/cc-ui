@@ -1,16 +1,19 @@
 <template>
   <div v-if="getIsSeparator()" class="separator"></div>
-  <div v-if="getIsMenu()" class="ui-menu-item" :class="{ disabled: data.enabled === false }" @mousedown="onClick" @mouseenter="onMouseEnter" @mouseleave="onMouseLeave" :title="data.tip || ''">
+  <div v-if="getIsMenu()" ref="menuEl" class="ui-menu-item" :class="{ disabled: data.enabled === false }" @mousedown="onClick" @mouseenter="onMouseEnter" @mouseleave="onMouseLeave" :title="data.tip || ''">
     <i :style="getIconStyle()" :class="getIconClass()" class="iconfont icon"></i>
     <span class="text">{{ data.name }}</span>
     <div class="short-key" v-if="data.shortKey">{{ data.shortKey }}</div>
+    <i v-if="data.items && data.items.length" class="iconfont icon_arrow_right_line"></i>
   </div>
+  <div v-if="data.items && data.items.length">sub</div>
 </template>
 
 <script lang="ts">
-import { defineComponent, PropType, toRaw } from 'vue';
-import { IUiMenuItem, MenuType, Msg } from './const';
+import { defineComponent, PropType, ref, toRaw } from 'vue';
+import { IUiMenuItem, MenuType, Msg, showMenuByMouseEvent } from './const';
 import ccui from '../index';
+import { createPopper } from '@popperjs/core';
 
 export default defineComponent({
   name: 'menu-item',
@@ -24,7 +27,14 @@ export default defineComponent({
     },
   },
   setup(props) {
+    const menuEl = ref<HTMLElement>();
+    function showSubMenus(event: MouseEvent, item: IUiMenuItem) {
+      if (item.items) {
+        showMenuByMouseEvent(event, item.items);
+      }
+    }
     return {
+      menuEl,
       getIsSeparator() {
         return props.data.type === MenuType.Separator;
       },
@@ -61,15 +71,25 @@ export default defineComponent({
         if (item && item.callback) {
           item.callback(props.data, event);
         }
+        if (item.items && item.items.length) {
+          showSubMenus(event, item);
+          event.preventDefault();
+          event.stopPropagation();
+          event.stopImmediatePropagation();
+          return;
+        }
         ccui.Emitter.emit(Msg.HideMenu);
       },
-      onMouseEnter() {
+      onMouseEnter(event: MouseEvent) {
         const item: IUiMenuItem = props.data;
         if (item.enabled === false) {
           return;
         }
         if (item && item.enter) {
           item.enter(props.data);
+        }
+        if (item.items && item.items.length) {
+          // showSubMenus(event, item);
         }
       },
       onMouseLeave() {
@@ -112,6 +132,10 @@ export default defineComponent({
     color: #747474;
     padding: 0 3px 0 6px;
     user-select: none;
+    min-width: 50px;
+    max-width: 50px;
+    overflow: hidden;
+    text-overflow: ellipsis;
   }
 
   .text {
