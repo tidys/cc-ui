@@ -1,5 +1,5 @@
 <template>
-  <div class="ui-menu" @contextmenu.stop.prevent="" ref="menuEl" v-show="list.menus.length > 0" :style="{ left: menuPositionX + 'px', top: menuPositionY + 'px', opacity: opacity }">
+  <div class="ui-menu ccui-scrollbar-light" @contextmenu.stop.prevent="" ref="menuEl" v-show="list.menus.length > 0" :style="{ left: menuPositionX + 'px', top: menuPositionY + 'px', opacity: opacity }">
     <MenuItem v-for="(menu, index) in list.menus" :key="index" :data="menu" :style="{ opacity: opacity }"> </MenuItem>
   </div>
 </template>
@@ -58,13 +58,13 @@ export default defineComponent({
           return;
         }
 
+        const board = 3;
         function updatePosByPoint() {
           if (!menuEl.value) {
             return;
           }
           let x = Math.abs(options.x === undefined ? 0 : options.x) + 2;
           let y = Math.abs(options.y === undefined ? 0 : options.y);
-          const board = 3;
           if (menuHeight >= height) {
             menuEl.value.style.overflowX = 'hidden';
             menuEl.value.style.overflowY = 'scroll';
@@ -81,6 +81,24 @@ export default defineComponent({
             menuPositionY.value = y;
           }
         }
+        function updateY(rect: DOMRect) {
+          if (!menuEl.value) {
+            return;
+          }
+          if (rect.top + menuHeight <= height) {
+            // 从基准元素到底部，有足够的剩余空间
+            menuPositionY.value = rect.top;
+          } else if (menuHeight <= height) {
+            // 从基准元素到底部，没有足够的剩余空间，但是整个dom可以容纳
+            menuPositionY.value = height - menuHeight;
+          } else {
+            // 整个dom都无法容纳
+            menuEl.value.style.overflowX = 'hidden';
+            menuEl.value.style.overflowY = 'scroll';
+            menuEl.value.style.height = `${height - board * 2}px`;
+            menuPositionY.value = board;
+          }
+        }
         const width = uiElement.getDoc().body.clientWidth;
         const height = uiElement.getDoc().body.clientHeight;
         const menuWidth = menuEl.value?.clientWidth;
@@ -92,11 +110,11 @@ export default defineComponent({
           if (rect.right + menuWidth <= width) {
             // 可以往右边放
             menuPositionX.value = rect.right;
-            menuPositionY.value = rect.top;
+            updateY(rect);
           } else if (rect.left - menuWidth >= 0) {
             // 可以往左边放
             menuPositionX.value = rect.left - menuWidth;
-            menuPositionY.value = rect.top;
+            updateY(rect);
           } else {
             // 左右都放不下，就放在鼠标位置
             updatePosByPoint();
