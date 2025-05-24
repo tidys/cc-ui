@@ -35,6 +35,9 @@ export default defineComponent({
     ccui.Emitter.on(Msg.CleanMenu, (id: string) => {
       cleanMenu(id);
     });
+    ccui.Emitter.on(Msg.ResetMenu, () => {
+      menuList.value = [];
+    });
     ccui.Emitter.on(Msg.ShowMenu, (options: MenuOptions, newMenus: IUiMenuItem[]) => {
       if (options.clean === false) {
       } else {

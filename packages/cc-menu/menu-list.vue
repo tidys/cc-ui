@@ -50,14 +50,17 @@ export default defineComponent({
         return false;
       },
       rePosition(options: MenuOptions) {
-        if (menuEl.value) {
-          opacity.value = options.opacity === undefined ? 1 : options.opacity;
-          let x = Math.abs(options.x === undefined ? 0 : options.x);
+        opacity.value = options.opacity === undefined ? 1 : options.opacity;
+        if (!menuEl.value) {
+          return;
+        }
+
+        function updatePosByPoint() {
+          if (!menuEl.value) {
+            return;
+          }
+          let x = Math.abs(options.x === undefined ? 0 : options.x) + 2;
           let y = Math.abs(options.y === undefined ? 0 : options.y);
-          const width = uiElement.getDoc().body.clientWidth;
-          const height = uiElement.getDoc().body.clientHeight;
-          const menuWidth = menuEl.value?.clientWidth;
-          const menuHeight = menuEl.value?.clientHeight;
           const board = 3;
           if (menuHeight >= height) {
             menuEl.value.style.overflowX = 'hidden';
@@ -75,6 +78,30 @@ export default defineComponent({
             menuPositionY.value = y;
           }
         }
+        const width = uiElement.getDoc().body.clientWidth;
+        const height = uiElement.getDoc().body.clientHeight;
+        const menuWidth = menuEl.value?.clientWidth;
+        const menuHeight = menuEl.value?.clientHeight;
+        const baseEl = options.element || null;
+        if (baseEl) {
+          // 根据父级元素定位
+          const rect = baseEl.getBoundingClientRect();
+          if (rect.right + menuWidth <= width) {
+            // 可以往右边放
+            menuPositionX.value = rect.right;
+            menuPositionY.value = rect.top;
+          } else if (rect.left - menuWidth >= 0) {
+            // 可以往左边放
+            menuPositionX.value = rect.left - menuWidth;
+            menuPositionY.value = rect.top;
+          } else {
+            // 左右都放不下，就放在鼠标位置
+            updatePosByPoint();
+          }
+        } else {
+          // 根据鼠标位置定位
+          updatePosByPoint();
+        }
       },
     };
   },
@@ -90,5 +117,6 @@ export default defineComponent({
   background-color: #eeeff1;
   min-width: 100px;
   max-width: 1000px;
+  box-sizing: border-box;
 }
 </style>

@@ -58,6 +58,7 @@ export interface MenuListData {
 export const Msg = {
   ShowMenu: 'show-menu',
   CleanMenu: 'clean-menu',
+  ResetMenu: 'reset-menu',
 };
 
 export interface MenuOptions {
@@ -70,11 +71,13 @@ export interface MenuOptions {
   /**是否清理已经存在的菜单，这个是为子菜单设计的 */
   clean?: boolean;
   cb?: (id: string) => void;
+  /**定位基准元素 */
+  element?: HTMLElement;
 }
 
 export function showMenuByMouseEvent(event: MouseEvent, newMenus: IUiMenuItem[], options?: MenuOptions): void {
   options = options || {};
-  options.x = event.clientX + 2;
+  options.x = event.clientX;
   options.y = Math.abs(event.clientY);
   ccui.Emitter.emit(Msg.ShowMenu, options, newMenus || []);
 }

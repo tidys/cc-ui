@@ -26,17 +26,27 @@ export default defineComponent({
     },
   },
   setup(props) {
+    let subMenuListID: string = '';
     const menuEl = ref<HTMLElement>();
     const setSubMenuListID = inject(ProvideKeys.SetSubMenuListID, (id: string) => {});
     function showSubMenus(event: MouseEvent, item: IUiMenuItem) {
+      if (subMenuListID) {
+        return;
+      }
       if (item.items) {
         showMenuByMouseEvent(event, item.items, {
           clean: false,
+          element: menuEl.value,
           cb: (id: string) => {
+            subMenuListID = id;
             setSubMenuListID(id);
           },
         });
       }
+    }
+    function cleanSubMenus() {
+      ccui.Emitter.emit(Msg.CleanMenu, subMenuListID || '');
+      subMenuListID = '';
     }
     return {
       menuEl,
@@ -83,7 +93,7 @@ export default defineComponent({
           event.stopImmediatePropagation();
           return;
         }
-        ccui.Emitter.emit(Msg.CleanMenu);
+        ccui.Emitter.emit(Msg.ResetMenu);
       },
       onMouseEnter(event: MouseEvent) {
         const item: IUiMenuItem = props.data;
@@ -105,6 +115,7 @@ export default defineComponent({
         if (item && item.leave) {
           item.leave(props.data);
         }
+        // cleanSubMenus();
       },
     };
   },
