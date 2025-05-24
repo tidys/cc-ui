@@ -4,7 +4,7 @@
   </Teleport>
 </template>
 <script lang="ts">
-import { defineComponent, nextTick, PropType, ref, toRaw } from 'vue';
+import { defineComponent, nextTick, onMounted, PropType, ref, toRaw } from 'vue';
 import { IUiMenuItem, MenuListData, MenuOptions, MenuType, Msg, showMenuByMouseEvent } from './const';
 import ccui from '../index';
 import { uiElement } from '../element';
@@ -19,41 +19,59 @@ export default defineComponent({
     uiElement.getDoc().addEventListener(
       'mousedown',
       (event: MouseEvent) => {
-        return;
-        for (let i = 0; i < elList.value.length; i++) {
-          const list = elList.value[i];
-          debugger;
-          const b = list.hitTest(event);
-          if (b) {
-            return;
+        if (elList.value.length) {
+          for (let i = 0; i < elList.value.length; i++) {
+            const list = elList.value[i];
+            const b = list.hitTest(event);
+            if (b) {
+              return;
+            }
           }
+          menuList.value = [];
         }
-        hideMenu();
       },
       { capture: true }
     );
-    ccui.Emitter.on(Msg.HideMenu, () => {
-      hideMenu();
+    ccui.Emitter.on(Msg.CleanMenu, (id: string) => {
+      cleanMenu(id);
     });
     ccui.Emitter.on(Msg.ShowMenu, (options: MenuOptions, newMenus: IUiMenuItem[]) => {
-      menuList.value.push({
-        id: uuid(),
-        menus: newMenus.filter((item) => {
-          if (item.visible === false) {
-            return false;
-          } else {
-            return true;
-          }
-        }),
-      });
+      if (options.clean === false) {
+      } else {
+        menuList.value = [];
+      }
       nextTick(() => {
-        const len = elList.value.length;
-        const e = elList.value[len - 1];
-        e.rePosition(options);
+        const item: MenuListData = {
+          id: uuid(),
+          menus: newMenus.filter((item) => {
+            if (item.visible === false) {
+              return false;
+            } else {
+              return true;
+            }
+          }),
+        };
+        options.cb && options.cb(item.id);
+        menuList.value.push(item);
+        nextTick(() => {
+          const len = elList.value.length;
+          const e = elList.value[len - 1];
+          e.rePosition(options);
+        });
       });
     });
-    function hideMenu() {
-      menuList.value = [];
+    function cleanMenu(id: string = '') {
+      if (!id) {
+        return;
+      }
+      let arr = toRaw(menuList.value);
+      arr = arr.filter((item) => {
+        if (item.id === id) {
+          return false;
+        }
+        return true;
+      });
+      menuList.value = arr;
     }
     const elList = ref<Array<typeof MenuList>>([]);
     return {

@@ -51,28 +51,33 @@ export interface IUiMenuItem {
   items?: IUiMenuItem[];
 }
 export interface MenuListData {
+  /**菜单的唯一ID，用来销毁用 */
   id: string;
   menus: IUiMenuItem[];
 }
 export const Msg = {
   ShowMenu: 'show-menu',
-  HideMenu: 'hide-menu',
+  CleanMenu: 'clean-menu',
 };
 
 export interface MenuOptions {
-  x: number;
-  y: number;
+  x?: number;
+  y?: number;
   /**
    * 菜单的透明度，取值[0-1]
    */
-  opacity: number;
+  opacity?: number;
+  /**是否清理已经存在的菜单，这个是为子菜单设计的 */
+  clean?: boolean;
+  cb?: (id: string) => void;
 }
 
-export function showMenuByMouseEvent(event: MouseEvent, newMenus: IUiMenuItem[], opacity: number = 1): void {
-  const options: MenuOptions = {
-    x: event.clientX + 2,
-    y: Math.abs(event.clientY),
-    opacity,
-  };
+export function showMenuByMouseEvent(event: MouseEvent, newMenus: IUiMenuItem[], options?: MenuOptions): void {
+  options = options || {};
+  options.x = event.clientX + 2;
+  options.y = Math.abs(event.clientY);
   ccui.Emitter.emit(Msg.ShowMenu, options, newMenus || []);
 }
+export const ProvideKeys = {
+  SetSubMenuListID: 'SetSubMenuListID',
+};

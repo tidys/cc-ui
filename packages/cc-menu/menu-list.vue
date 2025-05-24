@@ -5,8 +5,8 @@
 </template>
 
 <script lang="ts">
-import { defineComponent, getCurrentInstance, nextTick, onMounted, PropType, ref, Teleport } from 'vue';
-import { IUiMenuItem, MenuListData, MenuOptions, Msg } from './const';
+import { defineComponent, getCurrentInstance, nextTick, onMounted, onUnmounted, PropType, provide, ref, Teleport } from 'vue';
+import { IUiMenuItem, MenuListData, MenuOptions, Msg, ProvideKeys } from './const';
 import MenuItem from './menu-item.vue';
 import ccui from '../index';
 import { uiElement } from '../element';
@@ -24,8 +24,19 @@ export default defineComponent({
     const menuEl = ref<HTMLDivElement>();
     const menuPositionX = ref(0);
     const menuPositionY = ref(0);
-
+    /**子菜单的UUID */
+    let subMenuListID: string = '';
+    provide(ProvideKeys.SetSubMenuListID, (id: string) => {
+      if (subMenuListID) {
+        ccui.Emitter.emit(Msg.CleanMenu, subMenuListID);
+        subMenuListID = '';
+      }
+      subMenuListID = id;
+    });
     onMounted(() => {});
+    onUnmounted(() => {
+      ccui.Emitter.emit(Msg.CleanMenu, subMenuListID || '');
+    });
     const opacity = ref(1);
     return {
       opacity,
@@ -40,9 +51,9 @@ export default defineComponent({
       },
       rePosition(options: MenuOptions) {
         if (menuEl.value) {
-          opacity.value = options.opacity;
-          let x = Math.abs(options.x);
-          let y = Math.abs(options.y);
+          opacity.value = options.opacity === undefined ? 1 : options.opacity;
+          let x = Math.abs(options.x === undefined ? 0 : options.x);
+          let y = Math.abs(options.y === undefined ? 0 : options.y);
           const width = uiElement.getDoc().body.clientWidth;
           const height = uiElement.getDoc().body.clientHeight;
           const menuWidth = menuEl.value?.clientWidth;

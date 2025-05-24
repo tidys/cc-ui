@@ -6,12 +6,11 @@
     <div class="short-key" v-if="data.shortKey">{{ data.shortKey }}</div>
     <i v-if="data.items && data.items.length" class="iconfont icon_arrow_right_line"></i>
   </div>
-  <div v-if="data.items && data.items.length">sub</div>
 </template>
 
 <script lang="ts">
-import { defineComponent, PropType, ref, toRaw } from 'vue';
-import { IUiMenuItem, MenuType, Msg, showMenuByMouseEvent } from './const';
+import { defineComponent, inject, PropType, ref, toRaw } from 'vue';
+import { IUiMenuItem, MenuType, Msg, ProvideKeys, showMenuByMouseEvent } from './const';
 import ccui from '../index';
 import { createPopper } from '@popperjs/core';
 
@@ -28,9 +27,15 @@ export default defineComponent({
   },
   setup(props) {
     const menuEl = ref<HTMLElement>();
+    const setSubMenuListID = inject(ProvideKeys.SetSubMenuListID, (id: string) => {});
     function showSubMenus(event: MouseEvent, item: IUiMenuItem) {
       if (item.items) {
-        showMenuByMouseEvent(event, item.items);
+        showMenuByMouseEvent(event, item.items, {
+          clean: false,
+          cb: (id: string) => {
+            setSubMenuListID(id);
+          },
+        });
       }
     }
     return {
@@ -78,7 +83,7 @@ export default defineComponent({
           event.stopImmediatePropagation();
           return;
         }
-        ccui.Emitter.emit(Msg.HideMenu);
+        ccui.Emitter.emit(Msg.CleanMenu);
       },
       onMouseEnter(event: MouseEvent) {
         const item: IUiMenuItem = props.data;

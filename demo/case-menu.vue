@@ -22,6 +22,17 @@ export default defineComponent({
     return {
       onMenu(event: MouseEvent) {
         const menus: IUiMenuItem[] = [];
+        menus.push({
+          name: 'test-sub',
+          items: [
+            {
+              name: 'test-sub-item1',
+              callback: () => {
+                console.log('test-sub-item1');
+              },
+            },
+          ],
+        });
         for (let i = 0; i < 10; i++) {
           menus.push({
             name: i.toString(),
@@ -51,8 +62,22 @@ export default defineComponent({
           {
             name: 'icon11111111111',
             icon: 'github',
-            shortKey: 'Space',
+            shortKey: 'Space111111',
             callback: () => {},
+          },
+          {
+            name: 'icon11111111111',
+            icon: 'ts',
+            shortKey: 'A',
+            callback: () => {},
+            items: [
+              {
+                name: 'icon11111111111',
+                icon: 'ts',
+                shortKey: 'Space',
+                callback: () => {},
+              },
+            ],
           },
         ];
         ccui.menu.showMenuByMouseEvent(event, menus);
@@ -99,7 +124,7 @@ export default defineComponent({
             },
           });
         }
-        ccui.menu.showMenuByMouseEvent(event, menus, 0.5);
+        ccui.menu.showMenuByMouseEvent(event, menus, { opacity: 0.5 });
       },
       onMenuEnabled(event: MouseEvent) {
         const menus: IUiMenuItem[] = [];
