@@ -6,6 +6,34 @@
   "description": "cc-ui组件库在使用",
   "glyphs": [
     {
+      "icon_id": "12409503",
+      "name": "collider_box",
+      "font_class": "collider_box",
+      "unicode": "e645",
+      "unicode_decimal": 58949
+    },
+    {
+      "icon_id": "36571796",
+      "name": "collider_polygon",
+      "font_class": "collider_polygon",
+      "unicode": "e605",
+      "unicode_decimal": 58885
+    },
+    {
+      "icon_id": "41911629",
+      "name": "collider_circle",
+      "font_class": "collider_circle",
+      "unicode": "e6e3",
+      "unicode_decimal": 59107
+    },
+    {
+      "icon_id": "1309816",
+      "name": "rigid",
+      "font_class": "rigid",
+      "unicode": "e623",
+      "unicode_decimal": 58915
+    },
+    {
       "icon_id": "19635731",
       "name": "many",
       "font_class": "many",
